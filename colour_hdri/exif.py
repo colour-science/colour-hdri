@@ -8,7 +8,7 @@ EXIF
 Exif data manipulation routines based on **exiftool**.
 """
 
-from __future__ import unicode_literals
+from __future__ import division, unicode_literals
 
 import os
 import re
@@ -33,8 +33,10 @@ __all__ = ['EXIF_TOOL',
 
 EXIF_TOOL = '/usr/local/bin/exiftool'
 
+
 def vivication():
     return defaultdict(vivication)
+
 
 def parse_exif_data(data):
     """
@@ -67,8 +69,9 @@ def get_exif_data(file):
     """
 
     exif_data = vivication()
-    lines = subprocess.check_output(
-        [EXIF_TOOL, '-D', '-G', '-a', '-u', '-n', file]).split('\n')
+    lines = unicode(subprocess.check_output(
+        [EXIF_TOOL, '-D', '-G', '-a', '-u', '-n', file]),
+        'utf-8', 'ignore').split('\n')
 
     for line in lines:
         if not line.strip():
@@ -92,8 +95,9 @@ def get_value(file, tag):
     :rtype: unicode
     """
 
-    value = subprocess.check_output(
-        [EXIF_TOOL, '-{0}'.format(tag), file]).split(':').pop().strip()
+    value = unicode(subprocess.check_output(
+        [EXIF_TOOL, '-{0}'.format(tag), file]),
+        'utf-8', 'ignore').split(':').pop().strip()
     return value
 
 
