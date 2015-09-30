@@ -134,7 +134,11 @@ def copy_tags(source, target):
     """
 
     subprocess.check_output(
-        [EXIF_TOOL, '-overwrite_original', '-TagsFromFile', source, target])
+        [EXIF_TOOL,
+         '-overwrite_original',
+         '-TagsFromFile',
+         '{0}'.format(source),
+         '{0}'.format(target)])
     return True
 
 
