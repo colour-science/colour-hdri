@@ -15,6 +15,8 @@ import re
 import subprocess
 from collections import defaultdict
 
+from colour_hdri.constants import EXIF_TOOL
+
 __author__ = 'Thomas Mansencal'
 __copyright__ = 'Copyright (C) 2013 - 2014 - Thomas Mansencal'
 __license__ = 'GPL V3.0 - http://www.gnu.org/licenses/'
@@ -22,16 +24,13 @@ __maintainer__ = 'Thomas Mansencal'
 __email__ = 'thomas.mansencal@gmail.com'
 __status__ = 'Production'
 
-__all__ = ['EXIF_TOOL',
-           'parse_exif_data',
+__all__ = ['parse_exif_data',
            'get_exif_data',
            'get_value',
            'set_value',
            'copy_tags',
            'delete_all_tags',
            'delete_backup_files']
-
-EXIF_TOOL = '/usr/local/bin/exiftool'
 
 
 def vivication():
