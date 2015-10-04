@@ -5,6 +5,7 @@ EXIF_TOOL = '/usr/local/bin/exiftool'
 
 RAW_CONVERTER = '/usr/local/bin/dcraw'
 RAW_CONVERSION_ARGUMENTS = '-t 0 -E -W -4 -T "{0}"'
+RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
 
 DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/'
                  'Contents/MacOS/Adobe DNG Converter')

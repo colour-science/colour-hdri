@@ -10,9 +10,16 @@ import re
 import shlex
 import subprocess
 
-from colour_hdri.constants import DEFAUT_SOURCE_RAW_IMAGE_FORMATS, \
-    DEFAULT_RAW_IMAGE_FORMAT, DEFAULT_INTERMEDIATE_IMAGE_FORMAT, RAW_CONVERTER, \
-    RAW_CONVERSION_ARGUMENTS, DNG_CONVERTER, DNG_CONVERSION_ARGUMENTS
+from colour_hdri.constants import (
+    DEFAULT_INTERMEDIATE_IMAGE_FORMAT,
+    DEFAULT_RAW_IMAGE_FORMAT,
+    DEFAUT_SOURCE_RAW_IMAGE_FORMATS,
+    DNG_CONVERSION_ARGUMENTS,
+    DNG_CONVERTER,
+    RAW_CONVERSION_ARGUMENTS,
+    RAW_D_CONVERSION_ARGUMENTS,
+    RAW_CONVERTER)
+
 from colour_hdri.exif import copy_tags
 
 LOGGER = logging.getLogger(__name__)
@@ -103,7 +110,9 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
     return dng_files
 
 
-def convert_dng_files_to_intermediate_files(dng_files, output_directory):
+def convert_dng_files_to_intermediate_files(dng_files,
+                                            output_directory,
+                                            demosaicing=False):
     """
     Converts given dng files to intermediate files using given output
     directory.
@@ -111,6 +120,8 @@ def convert_dng_files_to_intermediate_files(dng_files, output_directory):
     :type dng_files: list
     :param output_directory: Output directory.
     :type output_directory: str
+    :param demosaicing: Perform demosaicing.
+    :type demosaicing: bool
     :return: Intermediate files.
     :rtype: list
     """
@@ -127,8 +138,11 @@ def convert_dng_files_to_intermediate_files(dng_files, output_directory):
         LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
             dng_file, interim_tiff_file))
 
+        raw_conversion_arguments = (RAW_D_CONVERSION_ARGUMENTS
+                                    if demosaicing else
+                                    RAW_CONVERSION_ARGUMENTS)
         command = [RAW_CONVERTER] + shlex.split(
-            RAW_CONVERSION_ARGUMENTS.format(dng_file),
+            raw_conversion_arguments.format(dng_file),
             posix=(False
                    if platform.system() in ("Windows", "Microsoft") else
                    True))
