@@ -13,8 +13,9 @@ from __future__ import division, unicode_literals
 import os
 import re
 import subprocess
-from collections import defaultdict
+from collections import namedtuple
 
+from colour_hdri.common import vivication
 from colour_hdri.constants import EXIF_TOOL
 
 __author__ = 'Thomas Mansencal'
@@ -24,7 +25,9 @@ __maintainer__ = 'Thomas Mansencal'
 __email__ = 'thomas.mansencal@gmail.com'
 __status__ = 'Production'
 
-__all__ = ['parse_exif_data',
+__all__ = ['ExposureData',
+           'vivication',
+           'parse_exif_data',
            'get_exif_data',
            'get_value',
            'set_value',
@@ -32,9 +35,7 @@ __all__ = ['parse_exif_data',
            'delete_all_tags',
            'delete_backup_files']
 
-
-def vivication():
-    return defaultdict(vivication)
+ExposureData = namedtuple('ExposureData', ('aperture', 'shutter_speed', 'iso'))
 
 
 def parse_exif_data(data):

@@ -13,13 +13,15 @@ def merge_to_hdri(images,
                   weighting_function=weighting_function_Debevec1997):
     image_c = None
     weight_c = None
-    for _path, image, exif_data in images:
+    for _path, image, exposure_data in images:
         if image_c is None:
             image_c = np.zeros(image.shape)
             weight_c = np.zeros(image.shape)
 
         L = average_luminance(
-            exif_data.aperture, exif_data.shutter_speed, exif_data.iso)
+            exposure_data.aperture,
+            exposure_data.shutter_speed,
+            exposure_data.iso)
 
         weight = weighting_function(image)
 
