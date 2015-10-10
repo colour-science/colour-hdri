@@ -4,8 +4,14 @@
 from __future__ import division, unicode_literals
 
 import numpy as np
+from collections import namedtuple
 
-from colour_hdri.exif import ExposureData
+ExposureData = namedtuple('ExposureData',
+                          ('aperture',
+                           'shutter_speed',
+                           'iso',
+                           'black_level',
+                           'white_level'))
 
 
 class Image(object):
