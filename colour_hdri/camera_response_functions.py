@@ -10,16 +10,17 @@ from colour import tstack
 from colour_hdri.weighting_functions import weighting_function_Debevec1997
 
 
-def samples_Grossberg(images, samples=1000, n=256):
+def samples_Grossberg(image_stack, samples=1000, n=256):
     channels_c = None
 
     cdf_i = []
-    for _path, image, exposure_data in images:
+    for image in image_stack:
         if channels_c is None:
-            channels_c = image.shape[-1]
+            channels_c = image.pixel_data.shape[-1]
 
-        histograms = tstack([np.histogram(image[..., c], n, range=(0, 1))[0]
-                             for c in np.arange(channels_c)])
+        histograms = tstack(
+            [np.histogram(image.pixel_data[..., c], n, range=(0, 1))[0]
+             for c in np.arange(channels_c)])
         cdf = np.cumsum(histograms, axis=0)
         cdf_i.append(cdf.astype(float) / np.max(cdf))
 
