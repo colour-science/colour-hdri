@@ -7,6 +7,7 @@ import numpy as np
 
 from colour import tsplit, tstack
 
+from colour_hdri.exposure import average_luminance
 from colour_hdri.weighting_functions import weighting_function_Debevec1997
 
 
@@ -28,8 +29,8 @@ def samples_Grossberg(image_stack, samples=1000, n=256):
     for i in np.arange(samples):
         for j in np.arange(channels_c):
             for k, cdf in enumerate(cdf_i):
-                samples_cdf_i[i, j, k] = (np.argmin(np.abs(cdf[:, j] -
-                                                           samples_u[i])) - 1)
+                samples_cdf_i[i, k, j] = np.argmin(np.abs(cdf[:, j] -
+                                                          samples_u[i]))
 
     return samples_cdf_i
 
@@ -64,9 +65,28 @@ def g_solve(Z, B, l, w=weighting_function_Debevec1997, n=256):
         A[k, i + 2] = l * w[i + 1]
         k += 1
 
-    x = np.linalg.lstsq(A, b)[0]
+    x = np.squeeze(np.linalg.lstsq(A, b)[0])
 
     g = x[0:n]
-    lE = x[n:x.shape[0]]
+    l_E = x[n:x.shape[0]]
 
-    return g, lE
+    return g, l_E
+
+
+def camera_response_function_Debevec1997(image_stack,
+                                         samples=1000,
+                                         l=30,
+                                         n=256):
+    samples = samples_Grossberg(image_stack.data, samples, n=n)
+    L_l = np.log(average_luminance(image_stack.f_number,
+                                   image_stack.exposure_time,
+                                   image_stack.iso))
+
+    R_s, G_s, B_s = tsplit(samples)
+    g_R, _l_E_R = g_solve(R_s, L_l, l, n=n)
+    g_G, _l_E_G = g_solve(G_s, L_l, l, n=n)
+    g_B, _l_E_B = g_solve(B_s, L_l, l, n=n)
+
+    RGB_f = np.exp(tstack((g_R, g_G, g_B)))
+
+    return RGB_f
