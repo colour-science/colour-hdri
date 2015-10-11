@@ -15,17 +15,17 @@ def merge_to_hdri(image_stack,
     weight_c = None
     for image in image_stack:
         if image_c is None:
-            image_c = np.zeros(image.pixel_data.shape)
-            weight_c = np.zeros(image.pixel_data.shape)
+            image_c = np.zeros(image.data.shape)
+            weight_c = np.zeros(image.data.shape)
 
         L = average_luminance(
-            image.exposure_data.aperture,
-            image.exposure_data.shutter_speed,
-            image.exposure_data.iso)
+            image.metadata.f_number,
+            image.metadata.exposure_time,
+            image.metadata.iso)
 
-        weight = weighting_function(image.pixel_data)
+        weight = weighting_function(image.data)
 
-        image_c += weight * image.pixel_data / L
+        image_c += weight * image.data / L
         weight_c += weight
 
     if image_c is not None:

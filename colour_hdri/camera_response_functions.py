@@ -5,34 +5,33 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tstack
+from colour import tsplit, tstack
 
 from colour_hdri.weighting_functions import weighting_function_Debevec1997
 
 
 def samples_Grossberg(image_stack, samples=1000, n=256):
-    channels_c = None
+    image_stack = np.asarray(image_stack)
+
+    channels_c = image_stack.shape[-2]
 
     cdf_i = []
-    for image in image_stack:
-        if channels_c is None:
-            channels_c = image.pixel_data.shape[-1]
-
+    for image in tsplit(image_stack):
         histograms = tstack(
-            [np.histogram(image.pixel_data[..., c], n, range=(0, 1))[0]
+            [np.histogram(image[..., c], n, range=(0, 1))[0]
              for c in np.arange(channels_c)])
         cdf = np.cumsum(histograms, axis=0)
         cdf_i.append(cdf.astype(float) / np.max(cdf))
 
-    samples_o = np.zeros((samples, channels_c, len(cdf_i)))
+    samples_cdf_i = np.zeros((samples, channels_c, len(cdf_i)))
     samples_u = np.linspace(0, 1, samples)
     for i in np.arange(samples):
         for j in np.arange(channels_c):
-            for k in np.arange(len(cdf_i)):
-                samples_o[i, j, k] = (np.argmin(np.abs(cdf_i[k][:, j] -
-                                                       samples_u[i])) - 1)
+            for k, cdf in enumerate(cdf_i):
+                samples_cdf_i[i, j, k] = (np.argmin(np.abs(cdf[:, j] -
+                                                           samples_u[i])) - 1)
 
-    return samples_o
+    return samples_cdf_i
 
 
 def g_solve(Z, B, l, w=weighting_function_Debevec1997, n=256):
