@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+__all__ = ['EXIF_TOOL',
+           'RAW_CONVERTER',
+           'RAW_CONVERSION_ARGUMENTS',
+           'RAW_D_CONVERSION_ARGUMENTS',
+           'DNG_CONVERTER',
+           'DNG_CONVERSION_ARGUMENTS',
+           'DEFAULT_SOURCE_RAW_IMAGE_FORMATS',
+           'DEFAULT_RAW_IMAGE_FORMAT',
+           'DEFAULT_INTERMEDIATE_IMAGE_FORMAT',
+           'DEFAULT_HDRI_IMAGE_FORMAT',
+           'DEFAULT_LDRI_IMAGE_FORMAT']
+
 EXIF_TOOL = '/usr/local/bin/exiftool'
 
 RAW_CONVERTER = '/usr/local/bin/dcraw'
@@ -11,10 +23,10 @@ DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/'
                  'Contents/MacOS/Adobe DNG Converter')
 DNG_CONVERSION_ARGUMENTS = '-e -d "{0}" "{1}"'
 
-DEFAUT_SOURCE_RAW_IMAGE_FORMATS = ('CR2', 'NEF', 'dng')
+DEFAULT_SOURCE_RAW_IMAGE_FORMATS = ('CR2', 'NEF', 'dng')
 """
-:param DEFAUT_SOURCE_RAW_IMAGE_FORMATS: Default source raw image formats.
-:type DEFAUT_SOURCE_RAW_IMAGE_FORMATS: tuple
+:param DEFAULT_SOURCE_RAW_IMAGE_FORMATS: Default source raw image formats.
+:type DEFAULT_SOURCE_RAW_IMAGE_FORMATS: tuple
 """
 
 DEFAULT_RAW_IMAGE_FORMAT = 'dng'

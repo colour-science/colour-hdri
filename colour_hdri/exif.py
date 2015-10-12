@@ -14,7 +14,7 @@ import os
 import re
 import subprocess
 
-from colour_hdri.common import vivication
+from colour_hdri.utilities import vivication
 from colour_hdri.constants import EXIF_TOOL
 
 __author__ = 'Thomas Mansencal'
@@ -24,8 +24,7 @@ __maintainer__ = 'Thomas Mansencal'
 __email__ = 'thomas.mansencal@gmail.com'
 __status__ = 'Production'
 
-__all__ = ['vivication',
-           'parse_exif_data',
+__all__ = ['parse_exif_data',
            'get_exif_data',
            'get_value',
            'set_value',

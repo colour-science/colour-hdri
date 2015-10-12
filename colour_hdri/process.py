@@ -13,31 +13,15 @@ import subprocess
 from colour_hdri.constants import (
     DEFAULT_INTERMEDIATE_IMAGE_FORMAT,
     DEFAULT_RAW_IMAGE_FORMAT,
-    DEFAUT_SOURCE_RAW_IMAGE_FORMATS,
     DNG_CONVERSION_ARGUMENTS,
     DNG_CONVERTER,
     RAW_CONVERSION_ARGUMENTS,
     RAW_D_CONVERSION_ARGUMENTS,
     RAW_CONVERTER)
-
 from colour_hdri.exif import copy_tags
+from colour_hdri.utilities import path_exists
 
 LOGGER = logging.getLogger(__name__)
-
-
-def path_exists(path):
-    """
-    Returns if given path exists.
-    :param path: Path.
-    :type path: unicode
-    :return: Path existence.
-    :rtype: bool
-    """
-
-    if not path:
-        return False
-    else:
-        return os.path.exists(path)
 
 
 def update_exif_data(files):
@@ -56,22 +40,6 @@ def update_exif_data(files):
         success *= copy_tags(source, target)
 
     return success
-
-
-def filter_files(directory, extensions=DEFAUT_SOURCE_RAW_IMAGE_FORMATS):
-    """
-    Filters given directory for raw files matching given extensions.
-    :param directory: Directory to filter.
-    :type directory: unicode
-    :param extensions: Extensions to filter.
-    :type extensions: tuple or list
-    :return: Raw files.
-    :rtype: list
-    """
-
-    return map(lambda x: os.path.join(directory, x),
-               filter(lambda x: re.search('\.({0})$'.format(
-                   '|'.join(extensions)), x), sorted(os.listdir(directory))))
 
 
 def convert_raw_files_to_dng_files(raw_files, output_directory):
