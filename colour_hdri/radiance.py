@@ -8,9 +8,18 @@ import numpy as np
 from colour_hdri.exposure import average_luminance
 from colour_hdri.weighting_functions import weighting_function_Debevec1997
 
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
 
-def merge_to_hdri(image_stack,
-                  weighting_function=weighting_function_Debevec1997):
+__all__ = ['radiance_image']
+
+
+def radiance_image(image_stack,
+                   weighting_function=weighting_function_Debevec1997):
     image_c = None
     weight_c = None
     for image in image_stack:

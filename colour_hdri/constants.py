@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division, unicode_literals
+
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
+
 __all__ = ['EXIF_TOOL',
            'RAW_CONVERTER',
            'RAW_CONVERSION_ARGUMENTS',
@@ -16,7 +25,7 @@ __all__ = ['EXIF_TOOL',
 EXIF_TOOL = '/usr/local/bin/exiftool'
 
 RAW_CONVERTER = '/usr/local/bin/dcraw'
-RAW_CONVERSION_ARGUMENTS = '-t 0 -E -W -4 -T "{0}"'
+RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
 RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
 
 DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/'

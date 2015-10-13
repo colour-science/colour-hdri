@@ -10,8 +10,19 @@ from colour import tsplit, tstack
 from colour_hdri.exposure import average_luminance
 from colour_hdri.weighting_functions import weighting_function_Debevec1997
 
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
 
-def samples_Grossberg(image_stack, samples=1000, n=256):
+__all__ = ['samples_Grossberg2009',
+           'g_solve',
+           'camera_response_function_Debevec1997']
+
+
+def samples_Grossberg2009(image_stack, samples=1000, n=256):
     image_stack = np.asarray(image_stack)
 
     channels_c = image_stack.shape[-2]
@@ -77,7 +88,7 @@ def camera_response_function_Debevec1997(image_stack,
                                          samples=1000,
                                          l=30,
                                          n=256):
-    samples = samples_Grossberg(image_stack.data, samples, n=n)
+    samples = samples_Grossberg2009(image_stack.data, samples, n=n)
     L_l = np.log(average_luminance(image_stack.f_number,
                                    image_stack.exposure_time,
                                    image_stack.iso))

@@ -5,6 +5,17 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
+
+__all__ = ['normal_distribution_function',
+           'hat_function',
+           'weighting_function_Debevec1997']
+
 
 def normal_distribution_function(a, mu=0.5, sigma=0.15):
     a = np.asarray(a)

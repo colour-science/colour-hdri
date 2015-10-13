@@ -3,11 +3,28 @@
 
 from __future__ import division, unicode_literals
 
+import logging
 import numpy as np
 from collections import MutableSequence
+from fractions import Fraction
 from recordclass import recordclass
 
-from colour import tsplit, tstack
+from colour import read_image, tsplit, tstack, warning
+
+from colour_hdri.exif import get_exif_data
+
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
+
+__all__ = ['Metadata',
+           'Image',
+           'ImageStack']
+
+LOGGER = logging.getLogger(__name__)
 
 
 class Metadata(
@@ -128,6 +145,41 @@ class Image(object):
                     'metadata', value))
 
         self.__metadata = value
+
+    def read_data(self):
+        LOGGER.info('Reading "{0}" image.'.format(self.__path))
+        self.data = read_image(str(self.__path))
+
+    def read_metadata(self):
+        LOGGER.info('Reading "{0}" image metadata.'.format(self.__path))
+        exif_data = get_exif_data(self.__path)
+        if not exif_data.get('EXIF'):
+            raise RuntimeError(
+                '"{0}" file has no "Exif" data!'.format(self.__path))
+
+        f_number = exif_data['EXIF'].get('F Number')
+        if f_number is not None:
+            f_number = float(f_number[0])
+
+        exposure_time = exif_data['EXIF'].get('Exposure Time')
+        if exposure_time is not None:
+            exposure_time = float(Fraction(exposure_time[0]))
+
+        iso = exif_data['EXIF'].get('ISO')
+        if iso is not None:
+            iso = float(iso[0])
+
+        black_level = exif_data['EXIF'].get('Black Level')
+        if black_level is not None:
+            black_level = black_level[0].split()
+            black_level = float(black_level[0]) / 65535
+
+        white_level = exif_data['EXIF'].get('White Level')
+        if white_level is not None:
+            white_level = float(white_level[0]) / 65535
+
+        self.metadata = Metadata(
+            f_number, exposure_time, iso, black_level, white_level)
 
 
 class ImageStack(MutableSequence):

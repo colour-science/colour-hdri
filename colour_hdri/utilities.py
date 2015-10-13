@@ -6,7 +6,19 @@ from __future__ import division, unicode_literals
 from collections import defaultdict
 import os
 import re
+
 from colour_hdri.constants import DEFAULT_SOURCE_RAW_IMAGE_FORMATS
+
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
+
+__all__ = ['vivication',
+           'path_exists',
+           'filter_files']
 
 
 def vivication():

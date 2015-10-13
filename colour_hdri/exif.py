@@ -17,11 +17,11 @@ import subprocess
 from colour_hdri.utilities import vivication
 from colour_hdri.constants import EXIF_TOOL
 
-__author__ = 'Thomas Mansencal'
-__copyright__ = 'Copyright (C) 2013 - 2014 - Thomas Mansencal'
-__license__ = 'GPL V3.0 - http://www.gnu.org/licenses/'
-__maintainer__ = 'Thomas Mansencal'
-__email__ = 'thomas.mansencal@gmail.com'
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['parse_exif_data',

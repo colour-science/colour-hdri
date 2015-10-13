@@ -21,6 +21,18 @@ from colour_hdri.constants import (
 from colour_hdri.exif import copy_tags
 from colour_hdri.utilities import path_exists
 
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
+
+__all__ = ['LOGGER',
+           'update_exif_data',
+           'convert_raw_files_to_dng_files',
+           'convert_dng_files_to_intermediate_files']
+
 LOGGER = logging.getLogger(__name__)
 
 
