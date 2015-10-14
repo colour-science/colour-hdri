@@ -10,6 +10,7 @@ Exif data manipulation routines based on **exiftool**.
 
 from __future__ import division, unicode_literals
 
+import logging
 import os
 import re
 import subprocess
@@ -30,7 +31,10 @@ __all__ = ['parse_exif_data',
            'set_value',
            'copy_tags',
            'delete_all_tags',
-           'delete_backup_files']
+           'delete_backup_files',
+           'update_exif_data']
+
+LOGGER = logging.getLogger(__name__)
 
 
 def parse_exif_data(data):
@@ -46,6 +50,7 @@ def parse_exif_data(data):
     search = re.search(
         r'\[(?P<group>\w+)\]\s*(?P<id>(\d+|-))?(?P<tag>.*?):(?P<value>.*$)',
         data)
+
     return map(lambda x: x.strip() if x is not None else x,
                (search.group('group'),
                 search.group('id'),
@@ -62,6 +67,8 @@ def get_exif_data(file):
     :return: Exif data.
     :rtype: dict
     """
+
+    LOGGER.info("Reading '{0}' file exif data.".format(file))
 
     exif_data = vivication()
     lines = unicode(subprocess.check_output(
@@ -93,6 +100,10 @@ def get_value(file, tag):
     value = unicode(subprocess.check_output(
         [EXIF_TOOL, '-{0}'.format(tag), file]),
         'utf-8', 'ignore').split(':').pop().strip()
+
+    LOGGER.info("Reading '{0}' file '{1}' exif tag value: '{2}'".format(
+        file, tag, value))
+
     return value
 
 
@@ -110,9 +121,13 @@ def set_value(file, tag, value):
     :rtype: bool
     """
 
+    LOGGER.info("Writing '{0}' file '{1}' exif tag with '{2}' value.".format(
+        file, tag, value))
+
     subprocess.check_output(
         [EXIF_TOOL, '-overwrite_original', '-{0}={1}'.format(tag, value),
          file])
+
     return True
 
 
@@ -128,12 +143,16 @@ def copy_tags(source, target):
     :rtype: bool
     """
 
+    LOGGER.info("Copying '{0}' file exif data to '{1}' file.".format(
+        target, source))
+
     subprocess.check_output(
         [EXIF_TOOL,
          '-overwrite_original',
          '-TagsFromFile',
          '{0}'.format(source),
          '{0}'.format(target)])
+
     return True
 
 
@@ -147,7 +166,10 @@ def delete_all_tags(file):
     :rtype: bool
     """
 
+    LOGGER.info("Deleting '{0}' file exif tags.".format(file))
+
     subprocess.check_output([EXIF_TOOL, '-overwrite_original', '-all=', file])
+
     return True
 
 
@@ -164,6 +186,26 @@ def delete_backup_files(directory):
     backup_files = map(lambda x: os.path.join(directory, x),
                        filter(lambda x: re.search('_original', x),
                               sorted(os.listdir(directory))))
+
     for backup_file in backup_files:
+        LOGGER.info("Deleting '{0}' backup file.".format(backup_file))
+
         os.remove(backup_file)
+
     return True
+
+
+def update_exif_data(files):
+    """
+    Updates given files siblings exif data.
+    :param files: Files to update.
+    :type files: list
+    :return: Definition success.
+    :rtype: bool
+    """
+
+    success = True
+    for (source, target) in files:
+        success *= copy_tags(source, target)
+
+    return success

@@ -171,8 +171,8 @@ class Image(object):
 
         black_level = exif_data['EXIF'].get('Black Level')
         if black_level is not None:
-            black_level = black_level[0].split()
-            black_level = float(black_level[0]) / 65535
+            black_level = map(float, black_level[0].split())
+            black_level = np.asarray(black_level) / 65535
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:

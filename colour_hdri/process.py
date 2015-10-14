@@ -29,29 +29,10 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['LOGGER',
-           'update_exif_data',
            'convert_raw_files_to_dng_files',
            'convert_dng_files_to_intermediate_files']
 
 LOGGER = logging.getLogger(__name__)
-
-
-def update_exif_data(files):
-    """
-    Updates given files siblings exif data.
-    :param files: Files to update.
-    :type files: list
-    :return: Definition success.
-    :rtype: bool
-    """
-
-    success = True
-    for (source, target) in files:
-        LOGGER.info("Updating '{0}' file exif data with '{1}' file.".format(
-            target, source))
-        success *= copy_tags(source, target)
-
-    return success
 
 
 def convert_raw_files_to_dng_files(raw_files, output_directory):
