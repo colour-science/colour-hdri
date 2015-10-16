@@ -3,9 +3,10 @@
 
 from __future__ import division, unicode_literals
 
-from collections import defaultdict
+import numpy as np
 import os
 import re
+from collections import defaultdict
 
 from colour_hdri.constants import DEFAULT_SOURCE_RAW_IMAGE_FORMATS
 
@@ -16,9 +17,20 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['vivication',
+__all__ = ['linear_conversion',
+           'vivication',
            'path_exists',
            'filter_files']
+
+
+def linear_conversion(a, in_range, out_range):
+    a = np.asarray(a)
+
+    in_min, in_max = in_range
+    out_min, out_max = out_range
+
+    return (((a - in_min) / (in_max - in_min)) *
+            (out_max - out_min) + out_min)
 
 
 def vivication():
