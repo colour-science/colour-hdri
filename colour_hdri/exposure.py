@@ -13,6 +13,7 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['exposure_value',
+           'adjust_exposure',
            'average_luminance']
 
 
@@ -24,6 +25,12 @@ def exposure_value(f_number, exposure_time, iso):
     EV = np.log2(N ** 2) + np.log2(1 / t) - np.log2(100 / S)
 
     return EV
+
+
+def adjust_exposure(a, ev):
+    a = np.asarray(a)
+
+    return a * pow(2, ev)
 
 
 def average_luminance(f_number, exposure_time, iso, k=12.5):

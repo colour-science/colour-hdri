@@ -5,6 +5,8 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
+from colour import dot_vector
+
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
@@ -32,9 +34,9 @@ def highlights_recovery_blend(RGB, white_level, threshold=0.95):
 
     clipping_level = white_level * threshold
 
-    Lab = colour.dot_vector(M, RGB)
+    Lab = dot_vector(M, RGB)
 
-    Lab_c = colour.dot_vector(M, np.minimum(RGB, clipping_level))
+    Lab_c = dot_vector(M, np.minimum(RGB, clipping_level))
 
     s = np.sum((Lab * Lab)[..., 1:3], axis=2)
     s_c = np.sum((Lab_c * Lab_c)[..., 1:3], axis=2)
@@ -44,6 +46,6 @@ def highlights_recovery_blend(RGB, white_level, threshold=0.95):
 
     Lab[:, :, 1:3] *= np.rollaxis(ratio[np.newaxis], 0, 3)
 
-    RGB_o = colour.dot_vector(np.linalg.inv(M), Lab)
+    RGB_o = dot_vector(np.linalg.inv(M), Lab)
 
     return RGB_o
