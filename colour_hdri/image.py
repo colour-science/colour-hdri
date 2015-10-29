@@ -9,7 +9,7 @@ from collections import MutableSequence
 from fractions import Fraction
 from recordclass import recordclass
 
-from colour import read_image, tsplit, tstack, warning
+from colour import read_image, tsplit, tstack
 
 from colour_hdri.exif import get_exif_data
 
@@ -33,15 +33,23 @@ class Metadata(
                  'exposure_time',
                  'iso',
                  'black_level',
-                 'white_level'))):
+                 'white_level',
+                 'white_balance_multipliers'))):
     def __new__(cls,
                 f_number,
                 exposure_time,
                 iso,
                 black_level=None,
-                white_level=None):
+                white_level=None,
+                white_balance_multipliers=None):
         return super(Metadata, cls).__new__(
-            cls, f_number, exposure_time, iso, black_level, white_level)
+            cls,
+            f_number,
+            exposure_time,
+            iso,
+            black_level,
+            white_level,
+            white_balance_multipliers)
 
 
 class Image(object):
@@ -178,8 +186,20 @@ class Image(object):
         if white_level is not None:
             white_level = float(white_level[0]) / 65535
 
+        white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
+        if white_balance_multipliers is not None:
+            white_balance_multipliers = map(
+                float, white_balance_multipliers[0].split())
+            white_balance_multipliers = np.asarray(
+                white_balance_multipliers) / white_balance_multipliers[1]
+
         self.metadata = Metadata(
-            f_number, exposure_time, iso, black_level, white_level)
+            f_number,
+            exposure_time,
+            iso,
+            black_level,
+            white_level,
+            white_balance_multipliers)
 
 
 class ImageStack(MutableSequence):

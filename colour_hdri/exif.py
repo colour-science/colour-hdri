@@ -15,7 +15,7 @@ import os
 import re
 import subprocess
 
-from colour_hdri.utilities import vivication
+from colour_hdri.utilities import vivification
 from colour_hdri.constants import EXIF_TOOL
 
 __author__ = 'Colour Developers'
@@ -70,7 +70,7 @@ def get_exif_data(file):
 
     LOGGER.info("Reading '{0}' file exif data.".format(file))
 
-    exif_data = vivication()
+    exif_data = vivification()
     lines = unicode(subprocess.check_output(
         [EXIF_TOOL, '-D', '-G', '-a', '-u', '-n', file]),
         'utf-8', 'ignore').split('\n')

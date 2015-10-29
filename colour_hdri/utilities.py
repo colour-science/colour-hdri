@@ -18,7 +18,8 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['linear_conversion',
-           'vivication',
+           'vivification',
+           'vivified_to_dict',
            'path_exists',
            'filter_files']
 
@@ -33,8 +34,15 @@ def linear_conversion(a, in_range, out_range):
             (out_max - out_min) + out_min)
 
 
-def vivication():
-    return defaultdict(vivication)
+def vivification():
+    return defaultdict(vivification)
+
+
+def vivified_to_dict(vivified):
+    if isinstance(vivified, defaultdict):
+        vivified = {key: vivified_to_dict(value)
+                    for key, value in vivified.iteritems()}
+    return vivified
 
 
 def path_exists(path):

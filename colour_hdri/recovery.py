@@ -18,7 +18,7 @@ __all__ = ['highlights_recovery_clip',
            'highlights_recovery_blend']
 
 
-def highlights_recovery_clip(RGB, whitepoint, threshold=0.95):
+def highlights_recovery_clip(RGB, whitepoint, threshold=0.99):
     RGB = np.copy(RGB)
     whitepoint = np.asarray(whitepoint)
 
@@ -27,7 +27,7 @@ def highlights_recovery_clip(RGB, whitepoint, threshold=0.95):
     return RGB
 
 
-def highlights_recovery_blend(RGB, white_level, threshold=0.95):
+def highlights_recovery_blend(RGB, white_level, threshold=0.99):
     M = np.array([[1, 1, 1],
                   [1.7320508, -1.7320508, 0],
                   [-1, -1, 2]])

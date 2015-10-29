@@ -27,10 +27,10 @@ def exposure_value(f_number, exposure_time, iso):
     return EV
 
 
-def adjust_exposure(a, ev):
+def adjust_exposure(a, EV):
     a = np.asarray(a)
 
-    return a * pow(2, ev)
+    return a * pow(2, EV)
 
 
 def average_luminance(f_number, exposure_time, iso, k=12.5):
