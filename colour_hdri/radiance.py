@@ -19,7 +19,8 @@ __all__ = ['radiance_image']
 
 
 def radiance_image(image_stack,
-                   weighting_function=weighting_function_Debevec1997):
+                   weighting_function=weighting_function_Debevec1997,
+                   weighting_average=False):
     image_c = None
     weight_c = None
     for image in image_stack:
@@ -32,7 +33,11 @@ def radiance_image(image_stack,
             image.metadata.exposure_time,
             image.metadata.iso)
 
-        weight = weighting_function(image.data)
+        if weighting_average and image.data.ndim == 3:
+            weight = weighting_function(np.average(image.data, axis=-1))
+            weight = np.rollaxis(weight[np.newaxis], 0, 3)
+        else:
+            weight = weighting_function(image.data)
 
         image_c += weight * image.data / L
         weight_c += weight
