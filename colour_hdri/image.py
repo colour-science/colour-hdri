@@ -149,7 +149,7 @@ class Image(object):
 
         if value is not None:
             assert type(value) is Metadata, (
-                ('"{0}" attribute: "{1}" type is not "Metadata"!').format(
+                '"{0}" attribute: "{1}" type is not "Metadata"!'.format(
                     'metadata', value))
 
         self.__metadata = value

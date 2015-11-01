@@ -25,7 +25,10 @@ __all__ = ['samples_Grossberg2009',
 def samples_Grossberg2009(image_stack, samples=1000, n=256):
     image_stack = np.asarray(image_stack)
 
-    channels_c = image_stack.shape[-2]
+    if image_stack.ndim == 3:
+        channels_c = 1
+    else:
+        channels_c = image_stack.shape[-2]
 
     cdf_i = []
     for image in tsplit(image_stack):
@@ -35,7 +38,7 @@ def samples_Grossberg2009(image_stack, samples=1000, n=256):
         cdf = np.cumsum(histograms, axis=0)
         cdf_i.append(cdf.astype(float) / np.max(cdf))
 
-    samples_cdf_i = np.zeros((samples, channels_c, len(cdf_i)))
+    samples_cdf_i = np.zeros((samples, len(cdf_i), channels_c))
     samples_u = np.linspace(0, 1, samples)
     for i in np.arange(samples):
         for j in np.arange(channels_c):
@@ -93,11 +96,5 @@ def camera_response_function_Debevec1997(image_stack,
                                    image_stack.exposure_time,
                                    image_stack.iso))
 
-    R_s, G_s, B_s = tsplit(samples)
-    g_R, _l_E_R = g_solve(R_s, L_l, l, n=n)
-    g_G, _l_E_G = g_solve(G_s, L_l, l, n=n)
-    g_B, _l_E_B = g_solve(B_s, L_l, l, n=n)
-
-    RGB_f = np.exp(tstack((g_R, g_G, g_B)))
-
-    return RGB_f
+    return np.exp(tstack(np.array([g_solve(samples[..., x], L_l, l, n=n)[0]
+                                   for x in range(samples.shape[-1])])))
