@@ -36,7 +36,7 @@ def samples_Grossberg2009(image_stack, samples=1000, n=256):
             [np.histogram(image[..., c], n, range=(0, 1))[0]
              for c in np.arange(channels_c)])
         cdf = np.cumsum(histograms, axis=0)
-        cdf_i.append(cdf.astype(float) / np.max(cdf))
+        cdf_i.append(cdf.astype(float) / np.max(cdf, axis=0))
 
     samples_cdf_i = np.zeros((samples, len(cdf_i), channels_c))
     samples_u = np.linspace(0, 1, samples)
@@ -50,22 +50,22 @@ def samples_Grossberg2009(image_stack, samples=1000, n=256):
 
 
 def g_solve(Z, B, l, w=weighting_function_Debevec1997, n=256):
-    # Domain: [0, 255]
     Z = np.asarray(Z).astype(int)
     B = np.asarray(B)
     l = np.asarray(l)
 
     Z_x, Z_y = Z.shape
 
-    A = np.zeros((Z_x * Z_y + n + 1, n + Z_x))
+    A = np.zeros((Z_x * Z_y + n - 1, n + Z_x))
     b = np.zeros((A.shape[0], 1))
     w = w(np.linspace(0, 1, n))
 
     k = 0
     for i in np.arange(Z_x):
         for j in np.arange(Z_y):
-            w_ij = w[Z[i, j]]
-            A[k, Z[i, j]] = w_ij
+            Z_c = Z[i, j]
+            w_ij = w[Z_c]
+            A[k, Z_c] = w_ij
             A[k, n + i] = -w_ij
             b[k] = w_ij * B[j]
             k += 1
@@ -73,10 +73,10 @@ def g_solve(Z, B, l, w=weighting_function_Debevec1997, n=256):
     A[k, n / 2] = 1
     k += 1
 
-    for i in np.arange(n - 2):
-        A[k, i] = l * w[i + 1]
-        A[k, i + 1] = -2 * l * w[i + 1]
-        A[k, i + 2] = l * w[i + 1]
+    for i in np.arange(1, n - 1, 1):
+        A[k, i - 1] = l * w[i]
+        A[k, i + 0] = l * w[i] * -2
+        A[k, i + 1] = l * w[i]
         k += 1
 
     x = np.squeeze(np.linalg.lstsq(A, b)[0])
@@ -92,6 +92,7 @@ def camera_response_function_Debevec1997(image_stack,
                                          l=30,
                                          n=256):
     samples = samples_Grossberg2009(image_stack.data, samples, n=n)
+
     L_l = np.log(average_luminance(image_stack.f_number,
                                    image_stack.exposure_time,
                                    image_stack.iso))
