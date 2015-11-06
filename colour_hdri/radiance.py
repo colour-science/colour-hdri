@@ -5,6 +5,8 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
+from colour import tsplit, tstack
+
 from colour_hdri.exposure import average_luminance
 from colour_hdri.weighting_functions import weighting_function_Debevec1997
 
@@ -20,7 +22,8 @@ __all__ = ['radiance_image']
 
 def radiance_image(image_stack,
                    weighting_function=weighting_function_Debevec1997,
-                   weighting_average=False):
+                   weighting_average=False,
+                   camera_response_functions=None):
     image_c = None
     weight_c = None
     for image in image_stack:
@@ -39,7 +42,17 @@ def radiance_image(image_stack,
         else:
             weight = weighting_function(image.data)
 
-        image_c += weight * image.data / L
+        image_data = image.data
+        if camera_response_functions is not None:
+            samples = np.linspace(0, 1, camera_response_functions.shape[0])
+
+            R, G, B = tsplit(image.data)
+            R = np.interp(R, samples, camera_response_functions[..., 0])
+            G = np.interp(G, samples, camera_response_functions[..., 1])
+            B = np.interp(B, samples, camera_response_functions[..., 2])
+            image_data = tstack((R, G, B))
+
+        image_c += weight * image_data / L
         weight_c += weight
 
     if image_c is not None:

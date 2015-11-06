@@ -90,12 +90,20 @@ def g_solve(Z, B, l, w=weighting_function_Debevec1997, n=256):
 def camera_response_function_Debevec1997(image_stack,
                                          samples=1000,
                                          l=30,
-                                         n=256):
-    samples = samples_Grossberg2009(image_stack.data, samples, n=n)
+                                         n=256,
+                                         w=weighting_function_Debevec1997,
+                                         normalise=True):
+    samples = samples_Grossberg2009(image_stack.data, samples, n)
 
     L_l = np.log(average_luminance(image_stack.f_number,
                                    image_stack.exposure_time,
                                    image_stack.iso))
 
-    return np.exp(tstack(np.array([g_solve(samples[..., x], L_l, l, n=n)[0]
+    crfs = np.exp(tstack(np.array([g_solve(samples[..., x], L_l, l, w, n)[0]
                                    for x in range(samples.shape[-1])])))
+
+    if normalise:
+        crfs[w(np.linspace(0, 1, crfs.shape[0])) == 0] = 0
+        crfs /= np.max(crfs, axis=0)
+
+    return crfs
