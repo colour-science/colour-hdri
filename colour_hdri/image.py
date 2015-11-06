@@ -253,3 +253,14 @@ class ImageStack(MutableSequence):
                 setattr(image.metadata, key, value[i])
         else:
             super(ImageStack, self).__setattr__(key, value)
+
+    @staticmethod
+    def from_files(files):
+        image_stack = ImageStack()
+        for file in files:
+            image = Image(file)
+            image.read_data()
+            image.read_metadata()
+            image_stack.append(image)
+
+        return image_stack
