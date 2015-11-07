@@ -15,7 +15,7 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['camera_space_to_RGB',
-           'camera_space_to_RGB']
+           'camera_space_to_sRGB']
 
 
 def camera_space_to_RGB(RGB, XYZ_to_camera_matrix, RGB_to_XYZ_matrix):

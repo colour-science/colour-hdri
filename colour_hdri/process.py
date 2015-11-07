@@ -18,7 +18,6 @@ from colour_hdri.constants import (
     RAW_CONVERSION_ARGUMENTS,
     RAW_D_CONVERSION_ARGUMENTS,
     RAW_CONVERTER)
-from colour_hdri.exif import copy_tags
 from colour_hdri.utilities import path_exists
 
 __author__ = 'Colour Developers'

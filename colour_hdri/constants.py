@@ -22,9 +22,9 @@ __all__ = ['EXIF_TOOL',
            'DEFAULT_HDRI_IMAGE_FORMAT',
            'DEFAULT_LDRI_IMAGE_FORMAT']
 
-EXIF_TOOL = '/usr/local/bin/exiftool'
+EXIF_TOOL = 'exiftool'
 
-RAW_CONVERTER = '/usr/local/bin/dcraw'
+RAW_CONVERTER = 'dcraw'
 RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
 RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
 
