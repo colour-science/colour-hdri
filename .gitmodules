@@ -1,0 +1,3 @@
+[submodule "colour_hdri/examples/resources/colour-hdri-dataset"]
+	path = colour_hdri/examples/resources/colour-hdri-dataset
+	url = https://github.com/colour-science/colour-hdri-dataset.git
