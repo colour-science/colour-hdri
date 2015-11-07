@@ -3,6 +3,6 @@
 
 from __future__ import absolute_import
 
-from .radiance import radiance_image_strip_plot
+from .grossberg2009 import samples_Grossberg2009
 
-__all__ = ['radiance_image_strip_plot']
+__all__ = ['samples_Grossberg2009']

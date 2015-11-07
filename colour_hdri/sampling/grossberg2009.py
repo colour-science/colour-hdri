@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import division, unicode_literals
+
+import numpy as np
+
+from colour import tsplit, tstack
+
+__author__ = 'Colour Developers'
+__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__maintainer__ = 'Colour Developers'
+__email__ = 'colour-science@googlegroups.com'
+__status__ = 'Production'
+
+__all__ = ['samples_Grossberg2009']
+
+
+def samples_Grossberg2009(image_stack, samples=1000, n=256):
+    image_stack = np.asarray(image_stack)
+
+    if image_stack.ndim == 3:
+        channels_c = 1
+    else:
+        channels_c = image_stack.shape[-2]
+
+    cdf_i = []
+    for image in tsplit(image_stack):
+        histograms = tstack(
+            [np.histogram(image[..., c], n, range=(0, 1))[0]
+             for c in np.arange(channels_c)])
+        cdf = np.cumsum(histograms, axis=0)
+        cdf_i.append(cdf.astype(float) / np.max(cdf, axis=0))
+
+    samples_cdf_i = np.zeros((samples, len(cdf_i), channels_c))
+    samples_u = np.linspace(0, 1, samples)
+    for i in np.arange(samples):
+        for j in np.arange(channels_c):
+            for k, cdf in enumerate(cdf_i):
+                samples_cdf_i[i, k, j] = np.argmin(np.abs(cdf[:, j] -
+                                                          samples_u[i]))
+
+    return samples_cdf_i

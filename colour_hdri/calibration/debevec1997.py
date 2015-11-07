@@ -5,9 +5,10 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tsplit, tstack
+from colour import tstack
 
 from colour_hdri.generation import weighting_function_Debevec1997
+from colour_hdri.sampling import samples_Grossberg2009
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
@@ -17,36 +18,8 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['samples_Grossberg2009',
-           'g_solve',
+__all__ = ['g_solve',
            'camera_response_function_Debevec1997']
-
-
-def samples_Grossberg2009(image_stack, samples=1000, n=256):
-    image_stack = np.asarray(image_stack)
-
-    if image_stack.ndim == 3:
-        channels_c = 1
-    else:
-        channels_c = image_stack.shape[-2]
-
-    cdf_i = []
-    for image in tsplit(image_stack):
-        histograms = tstack(
-            [np.histogram(image[..., c], n, range=(0, 1))[0]
-             for c in np.arange(channels_c)])
-        cdf = np.cumsum(histograms, axis=0)
-        cdf_i.append(cdf.astype(float) / np.max(cdf, axis=0))
-
-    samples_cdf_i = np.zeros((samples, len(cdf_i), channels_c))
-    samples_u = np.linspace(0, 1, samples)
-    for i in np.arange(samples):
-        for j in np.arange(channels_c):
-            for k, cdf in enumerate(cdf_i):
-                samples_cdf_i[i, k, j] = np.argmin(np.abs(cdf[:, j] -
-                                                          samples_u[i]))
-
-    return samples_cdf_i
 
 
 def g_solve(Z, B, l, w=weighting_function_Debevec1997, n=256):

@@ -22,6 +22,8 @@ from __future__ import absolute_import
 
 from .utilities import *  # noqa
 from . import utilities
+from .sampling import *  # noqa
+from . import sampling
 from .generation import *  # noqa
 from . import generation
 from .calibration import *  # noqa
@@ -44,6 +46,7 @@ __status__ = 'Production'
 
 __all__ = []
 __all__ += utilities.__all__
+__all__ += sampling.__all__
 __all__ += generation.__all__
 __all__ += calibration.__all__
 __all__ += models.__all__
