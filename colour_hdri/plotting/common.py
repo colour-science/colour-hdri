@@ -5,10 +5,9 @@ from __future__ import division, unicode_literals
 
 import matplotlib.pyplot
 import numpy as np
-
 from colour.plotting import DEFAULT_PLOTTING_OECF
 
-from colour_hdri.exposure import adjust_exposure
+from colour_hdri.utilities.exposure import adjust_exposure
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'

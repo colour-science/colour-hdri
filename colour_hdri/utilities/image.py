@@ -4,14 +4,14 @@
 from __future__ import division, unicode_literals
 
 import logging
-import numpy as np
 from collections import MutableSequence
 from fractions import Fraction
+
+import numpy as np
+from colour import read_image, tsplit, tstack
 from recordclass import recordclass
 
-from colour import read_image, tsplit, tstack
-
-from colour_hdri.exif import get_exif_data
+from colour_hdri.utilities.exif import get_exif_data
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'

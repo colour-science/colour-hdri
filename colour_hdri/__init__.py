@@ -1,32 +1,39 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Colour - HDRI
+=============
+
+HDRI processing algorithms for *Python*.
+
+Subpackages
+-----------
+-   calibration
+-   generation
+-   models
+-   plotting
+-   process
+-   recovery
+-   utilities
+"""
+
 from __future__ import absolute_import
 
-from .constants import *  # noqa
-from . import constants
-from .camera_response_functions import *  # noqa
-from . import camera_response_functions
-from .exif import *  # noqa
-from . import exif
-from .exposure import *  # noqa
-from . import exposure
-from .image import *  # noqa
-from . import image
+from .utilities import *  # noqa
+from . import utilities
+from .generation import *  # noqa
+from . import generation
+from .calibration import *  # noqa
+from . import calibration
+from .models import *  # noqa
+from . import models
 from .plotting import *  # noqa
 from . import plotting
 from .process import *  # noqa
 from . import process
-from .radiance import *  # noqa
-from . import radiance
 from .recovery import *  # noqa
 from . import recovery
-from .rgb import *  # noqa
-from . import rgb
-from .utilities import *  # noqa
-from . import utilities
-from .weighting_functions import *  # noqa
-from . import weighting_functions
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'
@@ -36,18 +43,13 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = []
-__all__ += constants.__all__
-__all__ += camera_response_functions.__all__
-__all__ += exif.__all__
-__all__ += exposure.__all__
-__all__ += image.__all__
+__all__ += utilities.__all__
+__all__ += generation.__all__
+__all__ += calibration.__all__
+__all__ += models.__all__
 __all__ += plotting.__all__
 __all__ += process.__all__
-__all__ += radiance.__all__
 __all__ += recovery.__all__
-__all__ += rgb.__all__
-__all__ += utilities.__all__
-__all__ += weighting_functions.__all__
 
 __application_name__ = 'Colour - HDRI'
 

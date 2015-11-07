@@ -7,8 +7,8 @@ import numpy as np
 
 from colour import tsplit, tstack
 
-from colour_hdri.exposure import average_luminance
-from colour_hdri.weighting_functions import weighting_function_Debevec1997
+from colour_hdri.generation import weighting_function_Debevec1997
+from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'

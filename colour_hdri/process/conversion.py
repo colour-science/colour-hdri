@@ -10,14 +10,6 @@ import re
 import shlex
 import subprocess
 
-from colour_hdri.constants import (
-    DEFAULT_INTERMEDIATE_IMAGE_FORMAT,
-    DEFAULT_RAW_IMAGE_FORMAT,
-    DNG_CONVERSION_ARGUMENTS,
-    DNG_CONVERTER,
-    RAW_CONVERSION_ARGUMENTS,
-    RAW_D_CONVERSION_ARGUMENTS,
-    RAW_CONVERTER)
 from colour_hdri.utilities import path_exists
 
 __author__ = 'Colour Developers'
@@ -28,10 +20,47 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['LOGGER',
+           'RAW_CONVERTER',
+           'RAW_CONVERSION_ARGUMENTS',
+           'RAW_D_CONVERSION_ARGUMENTS',
+           'DNG_CONVERTER',
+           'DNG_CONVERSION_ARGUMENTS',
+           'DEFAULT_SOURCE_RAW_IMAGE_FORMATS',
+           'DEFAULT_RAW_IMAGE_FORMAT',
+           'DEFAULT_INTERMEDIATE_IMAGE_FORMAT'
            'convert_raw_files_to_dng_files',
            'convert_dng_files_to_intermediate_files']
 
 LOGGER = logging.getLogger(__name__)
+
+RAW_CONVERTER = 'dcraw'
+RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
+RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
+
+if platform.system() in ('Windows', 'Microsoft'):
+    DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
+elif platform.system() == 'Darwin':
+    DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
+                     'MacOS/Adobe DNG Converter')
+
+DNG_CONVERSION_ARGUMENTS = '-e -d "{0}" "{1}"'
+
+DEFAULT_SOURCE_RAW_IMAGE_FORMATS = ('CR2', 'NEF', 'dng')
+"""
+:param DEFAULT_SOURCE_RAW_IMAGE_FORMATS: Default source raw image formats.
+:type DEFAULT_SOURCE_RAW_IMAGE_FORMATS: tuple
+"""
+
+DEFAULT_RAW_IMAGE_FORMAT = 'dng'
+"""
+:param DEFAULT_RAW_IMAGE_FORMAT: Default raw image format.
+:type DEFAULT_RAW_IMAGE_FORMAT: unicode
+"""
+DEFAULT_INTERMEDIATE_IMAGE_FORMAT = 'tiff'
+"""
+:param DEFAULT_INTERMEDIATE_IMAGE_FORMAT: Default intermediate image format.
+:type DEFAULT_INTERMEDIATE_IMAGE_FORMAT: unicode
+"""
 
 
 def convert_raw_files_to_dng_files(raw_files, output_directory):

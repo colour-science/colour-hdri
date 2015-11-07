@@ -16,7 +16,6 @@ import re
 import subprocess
 
 from colour_hdri.utilities import vivification
-from colour_hdri.constants import EXIF_TOOL
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'
@@ -25,7 +24,9 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['parse_exif_data',
+__all__ = ['LOGGER'
+           'EXIF_EXECUTABLE',
+           'parse_exif_data',
            'get_exif_data',
            'get_value',
            'set_value',
@@ -35,6 +36,8 @@ __all__ = ['parse_exif_data',
            'update_exif_data']
 
 LOGGER = logging.getLogger(__name__)
+
+EXIF_EXECUTABLE = 'exiftool'
 
 
 def parse_exif_data(data):
@@ -72,7 +75,7 @@ def get_exif_data(file):
 
     exif_data = vivification()
     lines = unicode(subprocess.check_output(
-        [EXIF_TOOL, '-D', '-G', '-a', '-u', '-n', file]),
+        [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', file]),
         'utf-8', 'ignore').split('\n')
 
     for line in lines:
@@ -98,7 +101,7 @@ def get_value(file, tag):
     """
 
     value = unicode(subprocess.check_output(
-        [EXIF_TOOL, '-{0}'.format(tag), file]),
+        [EXIF_EXECUTABLE, '-{0}'.format(tag), file]),
         'utf-8', 'ignore').split(':').pop().strip()
 
     LOGGER.info("Reading '{0}' file '{1}' exif tag value: '{2}'".format(
@@ -125,7 +128,7 @@ def set_value(file, tag, value):
         file, tag, value))
 
     subprocess.check_output(
-        [EXIF_TOOL, '-overwrite_original', '-{0}={1}'.format(tag, value),
+        [EXIF_EXECUTABLE, '-overwrite_original', '-{0}={1}'.format(tag, value),
          file])
 
     return True
@@ -147,7 +150,7 @@ def copy_tags(source, target):
         target, source))
 
     subprocess.check_output(
-        [EXIF_TOOL,
+        [EXIF_EXECUTABLE,
          '-overwrite_original',
          '-TagsFromFile',
          '{0}'.format(source),
@@ -168,7 +171,7 @@ def delete_all_tags(file):
 
     LOGGER.info("Deleting '{0}' file exif tags.".format(file))
 
-    subprocess.check_output([EXIF_TOOL, '-overwrite_original', '-all=', file])
+    subprocess.check_output([EXIF_EXECUTABLE, '-overwrite_original', '-all=', file])
 
     return True
 

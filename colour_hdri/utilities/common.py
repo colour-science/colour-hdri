@@ -6,9 +6,8 @@ from __future__ import division, unicode_literals
 import numpy as np
 import os
 import re
-from collections import defaultdict
 
-from colour_hdri.constants import DEFAULT_SOURCE_RAW_IMAGE_FORMATS
+from collections import defaultdict
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'
@@ -60,7 +59,7 @@ def path_exists(path):
         return os.path.exists(path)
 
 
-def filter_files(directory, extensions=DEFAULT_SOURCE_RAW_IMAGE_FORMATS):
+def filter_files(directory, extensions):
     """
     Filters given directory for raw files matching given extensions.
     :param directory: Directory to filter.
