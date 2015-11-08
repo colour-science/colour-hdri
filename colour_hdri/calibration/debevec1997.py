@@ -8,7 +8,7 @@ Debevec (1997) Camera Response Function Computation
 Defines Debevec (1997) camera responses computation objects:
 
 -   :func:`g_solve`
--   :func:`camera_response_function_Debevec1997`
+-   :func:`camera_response_functions_Debevec1997`
 
 See Also
 --------
@@ -39,7 +39,7 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['g_solve',
-           'camera_response_function_Debevec1997']
+           'camera_response_functions_Debevec1997']
 
 
 def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
@@ -106,7 +106,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
     return g, lE
 
 
-def camera_response_function_Debevec1997(image_stack,
+def camera_response_functions_Debevec1997(image_stack,
                                          s=samples_Grossberg2009,
                                          samples=1000,
                                          l=30,
@@ -123,7 +123,7 @@ def camera_response_function_Debevec1997(image_stack,
     Parameters
     ----------
     image_stack : array_like
-        Stack of single channel or multi-channel images.
+        Stack of single channel or multi-channel floating point images.
     s : callable, optional
         Sampling function :math:`s`.
     samples : int, optional

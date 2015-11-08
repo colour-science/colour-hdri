@@ -19,7 +19,7 @@ else:
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.calibration import (
     g_solve,
-    camera_response_function_Debevec1997)
+    camera_response_functions_Debevec1997)
 from colour_hdri.sampling import samples_Grossberg2009
 from colour_hdri.utilities import ImageStack, average_luminance, filter_files
 
@@ -30,7 +30,8 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['TestGSolve']
+__all__ = ['TestGSolve',
+           'TestCameraResponseFunctionsDebevec1997']
 
 FROBISHER_001_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
@@ -76,20 +77,20 @@ class TestGSolve(unittest.TestCase):
                 decimal=7)
 
 
-class TestCameraResponseFunctionDebevec1997(unittest.TestCase):
+class TestCameraResponseFunctionsDebevec1997(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.calibration.debevec1997.camera_response_function_Debevec1997`  # noqa
+    Defines :func:`colour_hdri.calibration.debevec1997.camera_response_functions_Debevec1997`  # noqa
     definition unit tests methods.
     """
 
     def test_camera_response_function_Debevec1997(self):
         """
-        Tests :func:`colour_hdri.calibration.debevec1997.camera_response_function_Debevec1997`  # noqa
+        Tests :func:`colour_hdri.calibration.debevec1997.camera_response_functions_Debevec1997`  # noqa
         definition.
         """
 
         np.testing.assert_almost_equal(
-            camera_response_function_Debevec1997(
+            camera_response_functions_Debevec1997(
                 ImageStack.from_files(JPG_IMAGES)),
             np.load(os.path.join(
                 CALIBRATION_DIRECTORY,

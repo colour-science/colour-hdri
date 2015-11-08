@@ -5,7 +5,7 @@
 Colour - HDRI
 =============
 
-HDRI processing algorithms for *Python*.
+HDRI - Radiance image processing algorithms for *Python*.
 
 Subpackages
 -----------
