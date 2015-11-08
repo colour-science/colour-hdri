@@ -20,6 +20,8 @@ Subpackages
 
 from __future__ import absolute_import
 
+import os
+
 from .utilities import *  # noqa
 from . import utilities
 from .sampling import *  # noqa
@@ -53,6 +55,13 @@ __all__ += models.__all__
 __all__ += plotting.__all__
 __all__ += process.__all__
 __all__ += recovery.__all__
+
+RESOURCES_DIRECTORY = os.path.join(
+    os.path.dirname(__file__), 'resources')
+EXAMPLES_RESOURCES_DIRECTORY = os.path.join(
+    RESOURCES_DIRECTORY, 'colour-hdri-examples-dataset')
+TESTS_RESOURCES_DIRECTORY = os.path.join(
+    RESOURCES_DIRECTORY, 'colour-hdri-tests-dataset')
 
 __application_name__ = 'Colour - HDRI'
 
