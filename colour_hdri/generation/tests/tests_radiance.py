@@ -17,6 +17,7 @@ else:
     import unittest
 
 from colour import RGB_COLOURSPACES
+
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.generation import radiance_image
 from colour_hdri.calibration import camera_response_functions_Debevec1997
