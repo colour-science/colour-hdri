@@ -1,6 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Conversion Process
+==================
+
+Defines the conversion process objects:
+
+-   :func:`convert_raw_files_to_dng_files`
+-   :func:`convert_dng_files_to_intermediate_files`
+"""
+
 from __future__ import division, unicode_literals
 
 import logging
