@@ -1,10 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+HDRI / Radiance Image Plotting
+==============================
+
+Defines the HDRI / radiance plotting objects:
+
+-   :func:`radiance_image_strip_plot`
+"""
+
 from __future__ import division, unicode_literals
 
 import matplotlib.pyplot
 import numpy as np
+
 from colour.plotting import DEFAULT_PLOTTING_OECF
 
 from colour_hdri.utilities.exposure import adjust_exposure

@@ -30,7 +30,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['TestGSolve',
+__all__ = ['FROBISHER_001_DIRECTORY',
+           'CALIBRATION_DIRECTORY',
+           'JPG_IMAGES',
+           'TestGSolve',
            'TestCameraResponseFunctionsDebevec1997']
 
 FROBISHER_001_DIRECTORY = os.path.join(

@@ -50,9 +50,6 @@ class TestCameraSpaceToRGB(unittest.TestCase):
             np.array([0.7564181, 0.8683192, 0.604459]),
             decimal=7)
 
-        if __name__ == '__main__':
-            unittest.main()
-
 
 class TestCameraSpaceTosRGB(unittest.TestCase):
     """
@@ -74,5 +71,6 @@ class TestCameraSpaceTosRGB(unittest.TestCase):
             np.array([0.7564181, 0.8683192, 0.604459]),
             decimal=7)
 
-        if __name__ == '__main__':
-            unittest.main()
+
+if __name__ == '__main__':
+    unittest.main()

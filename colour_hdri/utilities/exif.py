@@ -24,8 +24,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['LOGGER'
-           'EXIF_EXECUTABLE',
+__all__ = ['EXIF_EXECUTABLE',
            'parse_exif_data',
            'get_exif_data',
            'get_value',

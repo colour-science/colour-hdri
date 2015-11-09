@@ -19,67 +19,86 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['LOGGER',
-           'RAW_CONVERTER',
+__all__ = ['RAW_CONVERTER',
            'RAW_CONVERSION_ARGUMENTS',
            'RAW_D_CONVERSION_ARGUMENTS',
            'DNG_CONVERTER',
            'DNG_CONVERSION_ARGUMENTS',
            'DEFAULT_SOURCE_RAW_IMAGE_FORMATS',
-           'DEFAULT_RAW_IMAGE_FORMAT',
-           'DEFAULT_INTERMEDIATE_IMAGE_FORMAT'
            'convert_raw_files_to_dng_files',
            'convert_dng_files_to_intermediate_files']
 
 LOGGER = logging.getLogger(__name__)
 
 RAW_CONVERTER = 'dcraw'
+"""
+Command line raw conversion application, usually Dave Coffin's *dcraw*.
+
+RAW_CONVERTER : unicode
+"""
+
 RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
+"""
+Arguments for the command line raw conversion application for non demosaiced
+linear *tiff* file format output.
+
+RAW_CONVERSION_ARGUMENTS : unicode
+"""
+
 RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
+"""
+Arguments for the command line raw conversion application for demosaiced
+linear *tiff* file format output.
+
+RAW_D_CONVERSION_ARGUMENTS : unicode
+"""
 
 if platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
+    """
+    Command line *DNG* conversion application, usually *Adobe DNG Converter*.
+
+    DNG_CONVERTER : unicode
+    """
 elif platform.system() == 'Darwin':
     DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
                      'MacOS/Adobe DNG Converter')
+    """
+    Command line *dng* conversion application, usually *Adobe DNG Converter*.
+
+    DNG_CONVERTER : unicode
+    """
 
 DNG_CONVERSION_ARGUMENTS = '-e -d "{0}" "{1}"'
+"""
+Arguments for the command line *dng* conversion application.
 
-DEFAULT_SOURCE_RAW_IMAGE_FORMATS = ('CR2', 'NEF', 'dng')
-"""
-:param DEFAULT_SOURCE_RAW_IMAGE_FORMATS: Default source raw image formats.
-:type DEFAULT_SOURCE_RAW_IMAGE_FORMATS: tuple
-"""
-
-DEFAULT_RAW_IMAGE_FORMAT = 'dng'
-"""
-:param DEFAULT_RAW_IMAGE_FORMAT: Default raw image format.
-:type DEFAULT_RAW_IMAGE_FORMAT: unicode
-"""
-DEFAULT_INTERMEDIATE_IMAGE_FORMAT = 'tiff'
-"""
-:param DEFAULT_INTERMEDIATE_IMAGE_FORMAT: Default intermediate image format.
-:type DEFAULT_INTERMEDIATE_IMAGE_FORMAT: unicode
+DNG_CONVERSION_ARGUMENTS : unicode
 """
 
 
 def convert_raw_files_to_dng_files(raw_files, output_directory):
     """
-    Converts given raw files to dng files using given output directory.
-    :param raw_files: Raw files to convert.
-    :type raw_files: list
-    :param output_directory: Output directory.
-    :type output_directory: unicode
-    :return: Intermediate files.
-    :rtype: list
+    Converts given raw files to *dng* files using given output directory.
+
+    Parameters
+    ----------
+    raw_files : array_like
+        Raw files to convert to *dng* files.
+    output_directory : unicode
+        Output directory.
+
+    Returns
+    -------
+    list
+        *dng* files.
     """
 
     dng_files = []
     for raw_file in raw_files:
+        raw_file_extension = os.path.splitext(raw_file)[1]
         dng_file = os.path.join(output_directory, os.path.basename(
-            re.sub('{0}$'.format(os.path.splitext(raw_file)[1]),
-                   '.{0}'.format(DEFAULT_RAW_IMAGE_FORMAT),
-                   raw_file)))
+            re.sub('{0}$'.format(raw_file_extension), '.dng', raw_file)))
 
         path_exists(dng_file) and os.remove(dng_file)
 
@@ -103,29 +122,32 @@ def convert_dng_files_to_intermediate_files(dng_files,
                                             output_directory,
                                             demosaicing=False):
     """
-    Converts given dng files to intermediate files using given output
+    Converts given *dng* files to intermediate *tiff* files using given output
     directory.
-    :param dng_files: Dng files to convert.
-    :type dng_files: list
-    :param output_directory: Output directory.
-    :type output_directory: str
-    :param demosaicing: Perform demosaicing.
-    :type demosaicing: bool
-    :return: Intermediate files.
-    :rtype: list
+
+    Parameters
+    ----------
+    dng_files : array_like
+        *dng* files to convert to intermediate *tiff* files.
+    output_directory : str
+        Output directory.
+    demosaicing : bool
+        Perform demosaicing on conversion.
+
+    Returns
+    -------
+    list
+        Intermediate files.
     """
 
     intermediate_files = []
     for dng_file in dng_files:
-        interim_tiff_file = re.sub(
-            '\.{0}$'.format(DEFAULT_RAW_IMAGE_FORMAT),
-            '.{0}'.format(DEFAULT_INTERMEDIATE_IMAGE_FORMAT),
-            dng_file)
+        intermediate_file = re.sub('\.dng$', '.tiff', dng_file)
 
-        path_exists(interim_tiff_file) and os.remove(interim_tiff_file)
+        path_exists(intermediate_file) and os.remove(intermediate_file)
 
         LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
-            dng_file, interim_tiff_file))
+            dng_file, intermediate_file))
 
         raw_conversion_arguments = (RAW_D_CONVERSION_ARGUMENTS
                                     if demosaicing else
@@ -138,11 +160,11 @@ def convert_dng_files_to_intermediate_files(dng_files,
 
         subprocess.call(command)
 
-        tiff_file = os.path.join(output_directory,
-                                 os.path.basename(interim_tiff_file))
-        if tiff_file != interim_tiff_file:
+        tiff_file = os.path.join(
+            output_directory, os.path.basename(intermediate_file))
+        if tiff_file != intermediate_file:
             path_exists(tiff_file) and os.remove(tiff_file)
-            os.rename(interim_tiff_file, tiff_file)
+            os.rename(intermediate_file, tiff_file)
 
         intermediate_files.append(tiff_file)
 
