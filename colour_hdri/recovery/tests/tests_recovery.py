@@ -22,7 +22,8 @@ if sys.version_info[:2] <= (2, 6):
 else:
     import unittest
 
-from colour import RGB_COLOURSPACES, read_image
+from colour import read_image
+
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.process import RAW_CONVERTER, RAW_D_CONVERSION_ARGUMENTS
 from colour_hdri.recovery import highlights_recovery_blend
@@ -76,7 +77,9 @@ class TestHighlightsRecoveryBlend(unittest.TestCase):
         definition.
         """
 
-        white_level = np.array([2.42089718, 1.00000000, 1.54687415])
+        multipliers = np.array([2.42089718, 1.00000000, 1.54687415])
+        multipliers /= np.max(multipliers)
+
         XYZ_to_camera_matrix = np.array([
             [0.47160000, 0.06030000, -0.08300000],
             [-0.77980000, 1.54740000, 0.24800000],
@@ -97,18 +100,20 @@ class TestHighlightsRecoveryBlend(unittest.TestCase):
         test_tiff_file = read_image(
             str(re.sub('\.CR2$', '.tiff', test_raw_file)))
 
-        test_tiff_file *= white_level
+        test_tiff_file *= multipliers
+        test_tiff_file = highlights_recovery_blend(
+            test_tiff_file, multipliers)
         test_tiff_file = camera_space_to_sRGB(
             test_tiff_file, XYZ_to_camera_matrix)
-        test_tiff_file = highlights_recovery_blend(
-            test_tiff_file, white_level)
 
-        import colour
-        colour.write_image(
+        reference_tiff_file = read_image(str(os.path.join(
+            RECOVERY_DIRECTORY,
+            os.path.basename(re.sub('\.CR2$', '.exr', test_raw_file)))))
+
+        np.testing.assert_almost_equal(
             test_tiff_file,
-            str(os.path.join(
-                RECOVERY_DIRECTORY,
-                os.path.basename(re.sub('\.CR2$', '.exr', test_raw_file)))))
+            reference_tiff_file,
+            decimal=7)
 
 
 if __name__ == '__main__':

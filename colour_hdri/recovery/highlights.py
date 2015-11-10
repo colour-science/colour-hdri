@@ -40,9 +40,9 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     RGB : array_like
         *RGB* colourspace array.
     multipliers : array_like
-        Camera white level or white balance multipliers.
+        Normalised camera white level or white balance multipliers.
     threshold : numeric, optional
-        Threshold multiplier for the highlights selection.
+        Threshold for the highlights selection.
 
     Returns
     -------
@@ -59,7 +59,7 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
                   [1.7320508, -1.7320508, 0.0000000],
                   [-1.0000000, -1.0000000, 2.0000000]])
 
-    clipping_level = multipliers * threshold
+    clipping_level = np.min(multipliers) * threshold
 
     Lab = dot_vector(M, RGB)
 
