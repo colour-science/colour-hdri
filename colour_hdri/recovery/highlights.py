@@ -1,6 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Highlights Recovery
+===================
+
+Defines the highlights recovery objects:
+
+-   :func:`highlights_recovery_blend`
+
+See Also
+--------
+`Colour - HDRI - Example: Merge from Raw Files IPython Notebook
+<https://github.com/colour-science/colour-hdri/blob/master/colour_hdri/examples/example_merge_from_raw_files.ipynb>`_  # noqa
+"""
+
 from __future__ import division, unicode_literals
 
 import numpy as np
@@ -14,25 +28,38 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['highlights_recovery_clip',
-           'highlights_recovery_blend']
+__all__ = ['highlights_recovery_blend']
 
 
-def highlights_recovery_clip(RGB, whitepoint, threshold=0.99):
-    RGB = np.copy(RGB)
-    whitepoint = np.asarray(whitepoint)
+def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
+    """
+    Performs highlights recovery using Coffin (1997) method from *dcraw*.
 
-    RGB[np.any(RGB >= threshold, axis=2)] = whitepoint
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* colourspace array.
+    multipliers : array_like
+        Camera white level or white balance multipliers.
+    threshold : numeric, optional
+        Threshold multiplier for the highlights selection.
 
-    return RGB
+    Returns
+    -------
+    ndarray
+         Highlights recovered *RGB* colourspace array.
 
+    References
+    ----------
+    .. [1]  Coffin, D. (2015). dcraw. Retrieved from
+            https://www.cybercom.net/~dcoffin/dcraw/
+    """
 
-def highlights_recovery_blend(RGB, white_level, threshold=0.99):
-    M = np.array([[1, 1, 1],
-                  [1.7320508, -1.7320508, 0],
-                  [-1, -1, 2]])
+    M = np.array([[1.0000000, 1.0000000, 1.0000000],
+                  [1.7320508, -1.7320508, 0.0000000],
+                  [-1.0000000, -1.0000000, 2.0000000]])
 
-    clipping_level = white_level * threshold
+    clipping_level = multipliers * threshold
 
     Lab = dot_vector(M, RGB)
 

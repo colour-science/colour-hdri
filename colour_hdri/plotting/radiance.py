@@ -5,7 +5,7 @@
 HDRI / Radiance Image Plotting
 ==============================
 
-Defines the HDRI / radiance plotting objects:
+Defines the HDRI / radiance image plotting objects:
 
 -   :func:`radiance_image_strip_plot`
 """
@@ -33,6 +33,26 @@ def radiance_image_strip_plot(image,
                               count=5,
                               ev_steps=-2,
                               transfer_function=DEFAULT_PLOTTING_OECF):
+    """
+    Plots given HDRI / radiance image as strip of images of varying exposure.
+
+    Parameters
+    ----------
+    image : array_like
+         HDRI / radiance image to plot.
+    count : int, optional
+        Strip images count.
+    ev_steps : numeric, optional
+        Exposure variation for each image of the strip.
+    transfer_function : callable, optional
+        OECF / transfer function used for plotting.
+
+    Returns
+    -------
+    bool
+        Definition success.
+    """
+
     image = np.asarray(image)
 
     grid = matplotlib.gridspec.GridSpec(1, count)
@@ -53,3 +73,5 @@ def radiance_image_strip_plot(image,
         axis.set_aspect('equal')
 
     matplotlib.pyplot.show()
+
+    return True

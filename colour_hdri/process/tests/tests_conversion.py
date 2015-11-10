@@ -33,7 +33,11 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['TestConvertDngFilesToIntermediateFiles']
+__all__ = ['FROBISHER_001_DIRECTORY',
+           'PROCESS_DIRECTORY',
+           'RAW_IMAGES',
+           'TestConvertRawFilesToDngFiles',
+           'TestConvertDngFilesToIntermediateFiles']
 
 FROBISHER_001_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'frobisher_001')

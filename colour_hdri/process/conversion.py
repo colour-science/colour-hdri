@@ -147,7 +147,7 @@ def convert_dng_files_to_intermediate_files(dng_files,
     Returns
     -------
     list
-        Intermediate files.
+        Intermediate *tiff* files.
     """
 
     intermediate_files = []
