@@ -28,7 +28,7 @@ import numpy as np
 from colour import tstack
 
 from colour_hdri.generation import weighting_function_Debevec1997
-from colour_hdri.sampling import samples_Grossberg2009
+from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
@@ -107,7 +107,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
 
 
 def camera_response_functions_Debevec1997(image_stack,
-                                         s=samples_Grossberg2009,
+                                         s=samples_Grossberg2003,
                                          samples=1000,
                                          l=30,
                                          w=weighting_function_Debevec1997,
@@ -122,7 +122,7 @@ def camera_response_functions_Debevec1997(image_stack,
 
     Parameters
     ----------
-    image_stack : array_like
+    image_stack : ImageStack
         Stack of single channel or multi-channel floating point images.
     s : callable, optional
         Sampling function :math:`s`.

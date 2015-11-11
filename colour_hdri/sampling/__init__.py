@@ -3,6 +3,6 @@
 
 from __future__ import absolute_import
 
-from .grossberg2009 import samples_Grossberg2009
+from .grossberg2003 import samples_Grossberg2003
 
-__all__ = ['samples_Grossberg2009']
+__all__ = ['samples_Grossberg2003']

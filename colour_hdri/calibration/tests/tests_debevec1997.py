@@ -20,7 +20,7 @@ from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.calibration import (
     g_solve,
     camera_response_functions_Debevec1997)
-from colour_hdri.sampling import samples_Grossberg2009
+from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import ImageStack, average_luminance, filter_files
 
 __author__ = 'Colour Developers'
@@ -60,7 +60,7 @@ class TestGSolve(unittest.TestCase):
         L_l = np.log(average_luminance(image_stack.f_number,
                                        image_stack.exposure_time,
                                        image_stack.iso))
-        samples = samples_Grossberg2009(image_stack.data)
+        samples = samples_Grossberg2003(image_stack.data)
 
         for i in range(3):
             g, lE = g_solve(samples[..., i], L_l)

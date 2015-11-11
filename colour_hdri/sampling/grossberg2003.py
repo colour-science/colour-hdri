@@ -1,6 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Grossberg (2003) Histogram Based Image Sampling
+===============================================
+
+Defines the Grossberg (2003) histogram based image sampling objects:
+
+-   :func:`samples_Grossberg2003`
+
+References
+----------
+.. [1]  Grossberg, M. D., & Nayar, S. K. (2003). Determining the camera
+        response from images: What is knowable? IEEE Transactions on Pattern
+        Analysis and Machine Intelligence, 25(11), 1455–1467.
+        doi:10.1109/TPAMI.2003.1240119
+.. [2]  Banterle, F., & Benedetti, L. (2014). PICCANTE: An Open and Portable
+        Library for HDR Imaging.
+"""
+
 from __future__ import division, unicode_literals
 
 import numpy as np
@@ -14,10 +32,29 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['samples_Grossberg2009']
+__all__ = ['samples_Grossberg2003']
 
 
-def samples_Grossberg2009(image_stack, samples=1000, n=256):
+def samples_Grossberg2003(image_stack, samples=1000, n=256):
+    """
+    Returns the samples for given image stack intensity histograms using
+    Grossberg (2003) method.
+
+    Parameters
+    ----------
+    image_stack : array_like
+        Stack of single channel or multi-channel floating point images.
+    samples : int, optional
+        Samples count.
+    n : int, optional
+        Histograms bins count.
+
+    Returns
+    -------
+    ndarray
+        Intensity histograms samples.
+    """
+
     image_stack = np.asarray(image_stack)
 
     if image_stack.ndim == 3:
