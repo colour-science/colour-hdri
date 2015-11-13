@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Common Utilities
+================
+
+Defines common utilities objects that don't fall in any specific category.
+"""
+
 from __future__ import division, unicode_literals
 
 import numpy as np
@@ -23,21 +30,83 @@ __all__ = ['linear_conversion',
            'filter_files']
 
 
-def linear_conversion(a, in_range, out_range):
+def linear_conversion(a, old_range, new_range):
+    """
+    Performs a simple linear conversion of given array between the old and new
+    ranges.
+
+    Parameters
+    ----------
+    a : array_like
+        Array to perform the linear conversion onto.
+    old_range : array_like
+        Old range.
+    new_range : array_like
+        New range.
+
+    Returns
+    -------
+    ndarray
+
+    Examples
+    --------
+    >>> a = np.linspace(0, 1, 10)
+    >>> linear_conversion(a, (0, 1), (1, 10))
+    array([  1.,   2.,   3.,   4.,   5.,   6.,   7.,   8.,   9.,  10.])
+    """
+
     a = np.asarray(a)
 
-    in_min, in_max = in_range
-    out_min, out_max = out_range
+    in_min, in_max = old_range
+    out_min, out_max = new_range
 
     return (((a - in_min) / (in_max - in_min)) *
             (out_max - out_min) + out_min)
 
 
 def vivification():
+    """
+    Implements supports for vivification of the underlying dict like
+    data-structure, magical!
+
+    Returns
+    -------
+    defaultdict
+
+    Examples
+    --------
+    >>> vivified = vivification()
+    >>> vivified['my']['attribute'] = 1
+    >>> vivified['my']  # doctest: +ELLIPSIS
+    defaultdict(<function vivification at 0x...>, {u'attribute': 1})
+    >>> vivified['my']['attribute']
+    1
+    """
+
     return defaultdict(vivification)
 
 
 def vivified_to_dict(vivified):
+    """
+    Converts given vivified data-structure to dictionary.
+
+    Parameters
+    ----------
+    vivified : defaultdict
+        Vivified data-structure.
+
+    Returns
+    -------
+    dict
+
+    Examples
+    --------
+    >>> vivified = vivification()
+    >>> vivified['my']['attribute'] = 1
+    >>> vivified_to_dict(vivified)
+    {u'my': {u'attribute': 1}}
+    """
+
     if isinstance(vivified, defaultdict):
         vivified = {key: vivified_to_dict(value)
                     for key, value in vivified.iteritems()}
@@ -47,10 +116,22 @@ def vivified_to_dict(vivified):
 def path_exists(path):
     """
     Returns if given path exists.
-    :param path: Path.
-    :type path: unicode
-    :return: Path existence.
-    :rtype: bool
+
+    Parameters
+    ----------
+    path : unicode
+        Path to check the existence.
+
+    Returns
+    -------
+    bool
+
+    Examples
+    --------
+    >>> path_exists(__file__)
+    True
+    >>> path_exists('')
+    False
     """
 
     if not path:
@@ -61,13 +142,19 @@ def path_exists(path):
 
 def filter_files(directory, extensions):
     """
-    Filters given directory for raw files matching given extensions.
-    :param directory: Directory to filter.
-    :type directory: unicode
-    :param extensions: Extensions to filter.
-    :type extensions: tuple or list
-    :return: Raw files.
-    :rtype: list
+    Filters given directory for files matching given extensions.
+
+    Parameters
+    ----------
+    directory : unicode
+        Directory to filter.
+    extensions : tuple or list
+        Extensions to filter on.
+
+    Returns
+    -------
+    list
+        Filtered files.
     """
 
     return map(lambda x: os.path.join(directory, x),

@@ -11,7 +11,7 @@ import numpy as np
 from colour import read_image, tsplit, tstack
 from recordclass import recordclass
 
-from colour_hdri.utilities.exif import get_exif_data
+from colour_hdri.utilities.exif import read_exif_data
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'
@@ -160,7 +160,7 @@ class Image(object):
 
     def read_metadata(self):
         LOGGER.info('Reading "{0}" image metadata.'.format(self.__path))
-        exif_data = get_exif_data(self.__path)
+        exif_data = read_exif_data(self.__path)
         if not exif_data.get('EXIF'):
             raise RuntimeError(
                 '"{0}" file has no "Exif" data!'.format(self.__path))

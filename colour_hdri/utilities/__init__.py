@@ -12,7 +12,7 @@ from .common import (
 from .exif import (
     EXIF_EXECUTABLE,
     parse_exif_data,
-    get_exif_data,
+    read_exif_data,
     get_value,
     set_value,
     copy_tags,
@@ -38,7 +38,7 @@ __all__ += [
 __all__ += [
     'EXIF_EXECUTABLE',
     'parse_exif_data',
-    'get_exif_data',
+    'read_exif_data',
     'get_value',
     'set_value',
     'copy_tags',

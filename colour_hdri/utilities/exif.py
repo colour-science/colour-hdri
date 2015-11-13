@@ -5,7 +5,7 @@
 EXIF
 ====
 
-Exif data manipulation routines based on **exiftool**.
+Exif data manipulation routines based on *exiftool*.
 """
 
 from __future__ import division, unicode_literals
@@ -26,7 +26,7 @@ __status__ = 'Production'
 
 __all__ = ['EXIF_EXECUTABLE',
            'parse_exif_data',
-           'get_exif_data',
+           'read_exif_data',
            'get_value',
            'set_value',
            'copy_tags',
@@ -41,12 +41,17 @@ EXIF_EXECUTABLE = 'exiftool'
 
 def parse_exif_data(data):
     """
-    Parses given exif data.
+    Parses given exif data output from *exiftool*.
 
-    :param data: Exif data.
-    :type data: unicode
-    :return: Parsed exif data.
-    :rtype: tuple
+    Parameters
+    ----------
+    data : unicode
+        Exif data.
+
+    Returns
+    -------
+    list
+        Parsed exif data.
     """
 
     search = re.search(
@@ -60,21 +65,26 @@ def parse_exif_data(data):
                 search.group('value')))
 
 
-def get_exif_data(file):
+def read_exif_data(image):
     """
-    Returns given file exif file data.
+    Returns given image exif image data.
 
-    :param file: File.
-    :type file: unicode
-    :return: Exif data.
-    :rtype: dict
+    Parameters
+    ----------
+    image : unicode
+        Image file.
+
+    Returns
+    -------
+    defaultdict
+        Exif data.
     """
 
-    LOGGER.info("Reading '{0}' file exif data.".format(file))
+    LOGGER.info("Reading '{0}' image exif data.".format(image))
 
     exif_data = vivification()
     lines = unicode(subprocess.check_output(
-        [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', file]),
+        [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
         'utf-8', 'ignore').split('\n')
 
     for line in lines:
@@ -87,62 +97,77 @@ def get_exif_data(file):
     return exif_data
 
 
-def get_value(file, tag):
+def get_value(image, tag):
     """
-    Returns given file exif tag value.
+    Returns given image exif tag value.
 
-    :param file: File.
-    :type file: unicode
-    :param tag: Tag.
-    :type tag: unicode
-    :return: Tag value.
-    :rtype: unicode
+    Parameters
+    ----------
+    image : unicode
+        Image file.
+    tag : unicode
+        Tag.
+
+    Returns
+    -------
+    unicode
+        Tag value.
     """
 
     value = unicode(subprocess.check_output(
-        [EXIF_EXECUTABLE, '-{0}'.format(tag), file]),
+        [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
         'utf-8', 'ignore').split(':').pop().strip()
 
-    LOGGER.info("Reading '{0}' file '{1}' exif tag value: '{2}'".format(
-        file, tag, value))
+    LOGGER.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
+        image, tag, value))
 
     return value
 
 
-def set_value(file, tag, value):
+def set_value(image, tag, value):
     """
-    Sets given file exif tag value.
+    Sets given image exif tag value.
 
-    :param file: File.
-    :type file: unicode
-    :param tag: Tag.
-    :type tag: unicode
-    :param value: Value.
-    :type value: unicode
-    :return: Definition success.
-    :rtype: bool
+    Parameters
+    ----------
+    image : unicode
+        Image file.
+    tag : unicode
+        Tag.
+    value : unicode
+        Value.
+
+    Returns
+    -------
+    bool
+        Definition success.
     """
 
-    LOGGER.info("Writing '{0}' file '{1}' exif tag with '{2}' value.".format(
-        file, tag, value))
+    LOGGER.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
+        image, tag, value))
 
     subprocess.check_output(
         [EXIF_EXECUTABLE, '-overwrite_original', '-{0}={1}'.format(tag, value),
-         file])
+         image])
 
     return True
 
 
 def copy_tags(source, target):
     """
-    Copies given source file exif tag to given target.
+    Copies given source image file exif tag to given image target.
 
-    :param source: Source file.
-    :type source: unicode
-    :param target: Target file.
-    :type target: unicode
-    :return: Definition success.
-    :rtype: bool
+    Parameters
+    ----------
+    source : unicode
+        Source image file.
+    target : unicode
+        Target image file.
+
+    Returns
+    -------
+    bool
+        Definition success.
     """
 
     LOGGER.info("Copying '{0}' file exif data to '{1}' file.".format(
@@ -158,56 +183,74 @@ def copy_tags(source, target):
     return True
 
 
-def delete_all_tags(file):
+def delete_all_tags(image):
     """
-    Deletes all given file exif tags.
+    Deletes all given image exif tags.
 
-    :param file: File.
-    :type file: unicode
-    :return: Definition success.
-    :rtype: bool
+    Parameters
+    ----------
+    image : unicode
+        Image file.
+
+    Returns
+    -------
+    bool
+        Definition success.
     """
 
-    LOGGER.info("Deleting '{0}' file exif tags.".format(file))
+    LOGGER.info("Deleting '{0}' image exif tags.".format(image))
 
-    subprocess.check_output([EXIF_EXECUTABLE, '-overwrite_original', '-all=', file])
+    subprocess.check_output(
+        [EXIF_EXECUTABLE, '-overwrite_original', '-all=', image])
 
     return True
 
 
 def delete_backup_files(directory):
     """
-    Deletes 'exiftool' backup files in given directory.
+    Deletes *exiftool* backup image files in given directory.
 
-    :param directory: Directory.
-    :type directory: unicode
-    :return: Definition success.
-    :rtype: bool
+    Parameters
+    ----------
+    directory : unicode
+        Directory.
+
+    Returns
+    -------
+    bool
+        Definition success.
     """
 
-    backup_files = map(lambda x: os.path.join(directory, x),
-                       filter(lambda x: re.search('_original', x),
-                              sorted(os.listdir(directory))))
+    backup_image_files = map(lambda x: os.path.join(directory, x),
+                             filter(lambda x: re.search('_original', x),
+                                    sorted(os.listdir(directory))))
 
-    for backup_file in backup_files:
-        LOGGER.info("Deleting '{0}' backup file.".format(backup_file))
+    for backup_image_file in backup_image_files:
+        LOGGER.info(
+            "Deleting '{0}' backup image file.".format(backup_image_file))
 
-        os.remove(backup_file)
+        os.remove(backup_image_file)
 
     return True
 
 
-def update_exif_data(files):
+def update_exif_data(images):
     """
-    Updates given files siblings exif data.
-    :param files: Files to update.
-    :type files: list
-    :return: Definition success.
-    :rtype: bool
+    Updates given images siblings exif data.
+
+    Parameters
+    ----------
+    images : list
+        Image files to update.
+
+    Returns
+    -------
+    bool
+        Definition success.
     """
 
     success = True
-    for (source, target) in files:
+    for (source, target) in images:
         success *= copy_tags(source, target)
 
     return success
