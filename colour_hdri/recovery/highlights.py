@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """
-Highlights Recovery
-===================
+Clipped Highlights Recovery
+===========================
 
-Defines the highlights recovery objects:
+Defines the clipped highlights recovery objects:
 
 -   :func:`highlights_recovery_blend`
 

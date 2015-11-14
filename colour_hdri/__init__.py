@@ -9,13 +9,16 @@ HDRI - Radiance image processing algorithms for *Python*.
 
 Subpackages
 -----------
--   calibration
--   generation
--   models
--   plotting
--   process
--   recovery
--   utilities
+-   calibration: Camera calibration computations.
+-   examples: Examples for the sub-packages.
+-   generation: HDRI / radiance image generation.
+-   models: Colour models conversion.
+-   plotting: Diagrams, figures, etc...
+-   process: Image conversion helpers.
+-   recovery: Clipped highlights recovery.
+-   resources: Resources sub-modules.
+-   sampling: Image sampling routines.
+-   utilities: Various utilities and data structures.
 """
 
 from __future__ import absolute_import
