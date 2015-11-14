@@ -47,7 +47,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
     Given a set of pixel values observed for several pixels in several images
     with different exposure times, this function returns the imaging system’s
     response function :math:`g` as well as the log film irradiance values
-    :math:`lE`for the observed pixels.
+    :math:`lE` for the observed pixels.
 
     Parameters
     ----------
