@@ -2,16 +2,23 @@
 # -*- coding: utf-8 -*-
 
 """
-EXIF
-====
+EXIF Manipulation
+=================
 
-Exif data manipulation routines based on *exiftool*.
+Exif data manipulation routines based on *exiftool*:
+
+-   :func:`parse_exif_data`
+-   :func:`read_exif_tags`
+-   :func:`copy_exif_tags`
+-   :func:`update_exif_tags`
+-   :func:`delete_exif_tags`
+-   :func:`read_exif_tag`
+-   :func:`write_exif_tag`
 """
 
 from __future__ import division, unicode_literals
 
 import logging
-import os
 import re
 import subprocess
 
@@ -26,13 +33,12 @@ __status__ = 'Production'
 
 __all__ = ['EXIF_EXECUTABLE',
            'parse_exif_data',
-           'read_exif_data',
-           'get_value',
-           'set_value',
-           'copy_tags',
-           'delete_all_tags',
-           'delete_backup_files',
-           'update_exif_data']
+           'read_exif_tags',
+           'copy_exif_tags',
+           'update_exif_tags',
+           'delete_exif_tags',
+           'read_exif_tag',
+           'write_exif_tag']
 
 LOGGER = logging.getLogger(__name__)
 
@@ -65,9 +71,9 @@ def parse_exif_data(data):
                 search.group('value')))
 
 
-def read_exif_data(image):
+def read_exif_tags(image):
     """
-    Returns given image exif image data.
+    Returns given image exif image tags.
 
     Parameters
     ----------
@@ -77,12 +83,12 @@ def read_exif_data(image):
     Returns
     -------
     defaultdict
-        Exif data.
+        Exif tags.
     """
 
     LOGGER.info("Reading '{0}' image exif data.".format(image))
 
-    exif_data = vivification()
+    exif_tags = vivification()
     lines = unicode(subprocess.check_output(
         [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
         'utf-8', 'ignore').split('\n')
@@ -92,68 +98,12 @@ def read_exif_data(image):
             continue
 
         group, id, tag, value = parse_exif_data(line)
-        exif_data[group][tag] = (value, id)
+        exif_tags[group][tag] = (value, id)
 
-    return exif_data
-
-
-def get_value(image, tag):
-    """
-    Returns given image exif tag value.
-
-    Parameters
-    ----------
-    image : unicode
-        Image file.
-    tag : unicode
-        Tag.
-
-    Returns
-    -------
-    unicode
-        Tag value.
-    """
-
-    value = unicode(subprocess.check_output(
-        [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
-        'utf-8', 'ignore').split(':').pop().strip()
-
-    LOGGER.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
-        image, tag, value))
-
-    return value
+    return exif_tags
 
 
-def set_value(image, tag, value):
-    """
-    Sets given image exif tag value.
-
-    Parameters
-    ----------
-    image : unicode
-        Image file.
-    tag : unicode
-        Tag.
-    value : unicode
-        Value.
-
-    Returns
-    -------
-    bool
-        Definition success.
-    """
-
-    LOGGER.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
-        image, tag, value))
-
-    subprocess.check_output(
-        [EXIF_EXECUTABLE, '-overwrite_original', '-{0}={1}'.format(tag, value),
-         image])
-
-    return True
-
-
-def copy_tags(source, target):
+def copy_exif_tags(source, target):
     """
     Copies given source image file exif tag to given image target.
 
@@ -183,7 +133,29 @@ def copy_tags(source, target):
     return True
 
 
-def delete_all_tags(image):
+def update_exif_tags(images):
+    """
+    Updates given images siblings images pairs exif tags.
+
+    Parameters
+    ----------
+    images : list
+        Image files to update.
+
+    Returns
+    -------
+    bool
+        Definition success.
+    """
+
+    success = True
+    for (source, target) in images:
+        success *= copy_exif_tags(source, target)
+
+    return success
+
+
+def delete_exif_tags(image):
     """
     Deletes all given image exif tags.
 
@@ -206,14 +178,45 @@ def delete_all_tags(image):
     return True
 
 
-def delete_backup_files(directory):
+def read_exif_tag(image, tag):
     """
-    Deletes *exiftool* backup image files in given directory.
+    Returns given image exif tag value.
 
     Parameters
     ----------
-    directory : unicode
-        Directory.
+    image : unicode
+        Image file.
+    tag : unicode
+        Tag.
+
+    Returns
+    -------
+    unicode
+        Tag value.
+    """
+
+    value = unicode(subprocess.check_output(
+        [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
+        'utf-8', 'ignore').split(':').pop().strip()
+
+    LOGGER.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
+        image, tag, value))
+
+    return value
+
+
+def write_exif_tag(image, tag, value):
+    """
+    Sets given image exif tag value.
+
+    Parameters
+    ----------
+    image : unicode
+        Image file.
+    tag : unicode
+        Tag.
+    value : unicode
+        Value.
 
     Returns
     -------
@@ -221,36 +224,11 @@ def delete_backup_files(directory):
         Definition success.
     """
 
-    backup_image_files = map(lambda x: os.path.join(directory, x),
-                             filter(lambda x: re.search('_original', x),
-                                    sorted(os.listdir(directory))))
+    LOGGER.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
+        image, tag, value))
 
-    for backup_image_file in backup_image_files:
-        LOGGER.info(
-            "Deleting '{0}' backup image file.".format(backup_image_file))
-
-        os.remove(backup_image_file)
+    subprocess.check_output(
+        [EXIF_EXECUTABLE, '-overwrite_original', '-{0}={1}'.format(tag, value),
+         image])
 
     return True
-
-
-def update_exif_data(images):
-    """
-    Updates given images siblings exif data.
-
-    Parameters
-    ----------
-    images : list
-        Image files to update.
-
-    Returns
-    -------
-    bool
-        Definition success.
-    """
-
-    success = True
-    for (source, target) in images:
-        success *= copy_tags(source, target)
-
-    return success

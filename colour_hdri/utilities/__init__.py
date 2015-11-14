@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-
 from .common import (
     linear_conversion,
     vivification,
@@ -12,13 +11,12 @@ from .common import (
 from .exif import (
     EXIF_EXECUTABLE,
     parse_exif_data,
-    read_exif_data,
-    get_value,
-    set_value,
-    copy_tags,
-    delete_all_tags,
-    delete_backup_files,
-    update_exif_data)
+    read_exif_tags,
+    copy_exif_tags,
+    update_exif_tags,
+    delete_exif_tags,
+    read_exif_tag,
+    write_exif_tag)
 from .exposure import (
     exposure_value,
     adjust_exposure,
@@ -38,13 +36,12 @@ __all__ += [
 __all__ += [
     'EXIF_EXECUTABLE',
     'parse_exif_data',
-    'read_exif_data',
-    'get_value',
-    'set_value',
-    'copy_tags',
-    'delete_all_tags',
-    'delete_backup_files',
-    'update_exif_data']
+    'read_exif_tags',
+    'copy_exif_tags',
+    'update_exif_tags',
+    'delete_exif_tags',
+    'read_exif_tag',
+    'write_exif_tag']
 __all__ += [
     'exposure_value',
     'adjust_exposure',

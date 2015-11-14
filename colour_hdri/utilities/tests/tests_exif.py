@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-Defines unit tests for :mod:`colour_hdri.utilities.exif. module.
+Defines unit tests for :mod:`colour_hdri.utilities.exif` module.
 """
 
 from __future__ import division, unicode_literals
-
 import os
+import shutil
 import sys
+import tempfile
 
 if sys.version_info[:2] <= (2, 6):
     import unittest2 as unittest
@@ -16,17 +17,15 @@ else:
     import unittest
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri.utilities import filter_files, vivified_to_dict
 from colour_hdri.utilities import (
-    filter_files,
-    vivified_to_dict,
     parse_exif_data,
-    read_exif_data,
-    get_value,
-    set_value,
-    copy_tags,
-    delete_all_tags,
-    delete_backup_files,
-    update_exif_data)
+    read_exif_tags,
+    copy_exif_tags,
+    update_exif_tags,
+    delete_exif_tags,
+    read_exif_tag,
+    write_exif_tag)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'
@@ -37,7 +36,12 @@ __status__ = 'Production'
 
 __all__ = ['FROBISHER_001_DIRECTORY',
            'TestParseExifData',
-           'TestReadExifData']
+           'TestReadExifTags',
+           'TestCopyExifTags',
+           'TestUpdateExifTags',
+           'TestDeleteExifTags',
+           'TestReadExifTag',
+           'TestWriteExifTag']
 
 FROBISHER_001_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
@@ -70,19 +74,19 @@ class TestParseExifData(unittest.TestCase):
             ['ICC_Profile', '8', 'Profile Version', '528'])
 
 
-class TestReadExifData(unittest.TestCase):
+class TestReadExifTags(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.read_exif_data` definition
-    unit tests methods.
+    Defines :func:`colour_hdri.utilities.exif.read_exif_tags` definition unit
+    tests methods.
     """
 
-    def test_read_exif_data(self):
+    def test_read_exif_tags(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.read_exif_data` definition.
+        Tests :func:`colour_hdri.utilities.exif.read_exif_tags` definition.
         """
 
-        jpg_image = filter_files(FROBISHER_001_DIRECTORY, ('jpg',))[0]
-        exif_data = vivified_to_dict(read_exif_data(jpg_image))
+        test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ('jpg',))[0]
+        exif_data = vivified_to_dict(read_exif_tags(test_jpg_image))
 
         self.assertIsInstance(exif_data, type(dict()))
 
@@ -101,6 +105,176 @@ class TestReadExifData(unittest.TestCase):
              ('640', '40962'), ('72', '282'), ('72', '283'),
              ('8', '33437'), ('Canon', '271'), ('EOS 5D Mark II', '272'),
              ('Photos 1.0.1', '305')])
+
+
+class TestCopyExifTags(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.copy_exif_tags` definition unit
+    tests methods.
+    """
+
+    def setUp(self):
+        """
+        Initialises common tests attributes.
+        """
+
+        self.__temporary_directory = tempfile.mkdtemp()
+
+    def tearDown(self):
+        """
+        After tests actions.
+        """
+
+        shutil.rmtree(self.__temporary_directory)
+
+    def test_copy_exif_tags(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.copy_exif_tags` definition.
+        """
+
+        reference_jpg_image = filter_files(
+            FROBISHER_001_DIRECTORY, ('jpg',))[0]
+        test_jpg_image = os.path.join(
+            self.__temporary_directory, os.path.basename(reference_jpg_image))
+
+        shutil.copyfile(reference_jpg_image, test_jpg_image)
+        self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '8.0')
+        delete_exif_tags(test_jpg_image)
+        self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '')
+        copy_exif_tags(reference_jpg_image, test_jpg_image)
+        self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '8.0')
+
+
+class TestUpdateExifTags(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.update_exif_tags` definition unit
+    tests methods.
+    """
+
+    def setUp(self):
+        """
+        Initialises common tests attributes.
+        """
+
+        self.__temporary_directory = tempfile.mkdtemp()
+
+    def tearDown(self):
+        """
+        After tests actions.
+        """
+
+        shutil.rmtree(self.__temporary_directory)
+
+    def test_update_exif_tags(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.update_exif_tags` definition.
+        """
+
+        reference_jpg_images = filter_files(FROBISHER_001_DIRECTORY, ('jpg',))
+        test_jpg_images = []
+        for reference_jpg_image in reference_jpg_images:
+            test_jpg_image = os.path.join(
+                self.__temporary_directory,
+                os.path.basename(reference_jpg_image))
+            shutil.copyfile(reference_jpg_image, test_jpg_image)
+            delete_exif_tags(test_jpg_image)
+            self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '')
+            test_jpg_images.append(test_jpg_image)
+
+        update_exif_tags(zip(reference_jpg_images, test_jpg_images))
+        for test_jpg_image in test_jpg_images:
+            self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '8.0')
+
+
+class TestDeleteExifTags(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.delete_exif_tags` definition unit
+    tests methods.
+    """
+
+    def setUp(self):
+        """
+        Initialises common tests attributes.
+        """
+
+        self.__temporary_directory = tempfile.mkdtemp()
+
+    def tearDown(self):
+        """
+        After tests actions.
+        """
+
+        shutil.rmtree(self.__temporary_directory)
+
+    def test_delete_exif_tags(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.delete_exif_tags` definition.
+        """
+
+        reference_jpg_image = filter_files(
+            FROBISHER_001_DIRECTORY, ('jpg',))[0]
+        test_jpg_image = os.path.join(
+            self.__temporary_directory, os.path.basename(reference_jpg_image))
+
+        shutil.copyfile(reference_jpg_image, test_jpg_image)
+        self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '8.0')
+        delete_exif_tags(test_jpg_image)
+        self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '')
+
+
+class TestReadExifTag(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.read_exif_tag` definition unit
+    tests methods.
+    """
+
+    def test_read_exif_tag(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.read_exif_tag` definition.
+        """
+
+        test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ('jpg',))[0]
+
+        self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '8.0')
+        self.assertEqual(read_exif_tag(test_jpg_image, 'ExposureTime'), '1/8')
+        self.assertEqual(read_exif_tag(test_jpg_image, 'ISO'), '100')
+
+
+class TestWriteExifTag(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.write_exif_tag` definition unit
+    tests methods.
+    """
+
+    def setUp(self):
+        """
+        Initialises common tests attributes.
+        """
+
+        self.__temporary_directory = tempfile.mkdtemp()
+
+    def tearDown(self):
+        """
+        After tests actions.
+        """
+
+        shutil.rmtree(self.__temporary_directory)
+
+    def test_write_exif_tag(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.write_exif_tag` definition.
+        """
+
+        reference_jpg_image = filter_files(
+            FROBISHER_001_DIRECTORY, ('jpg',))[0]
+        test_jpg_image = os.path.join(
+            self.__temporary_directory, os.path.basename(reference_jpg_image))
+
+        shutil.copyfile(reference_jpg_image, test_jpg_image)
+        # *Aperture* exif tag is not writeable, changing for *FNumber*.
+        self.assertEqual(read_exif_tag(test_jpg_image, 'FNumber'), '8.0')
+        write_exif_tag(test_jpg_image, 'FNumber', '16.0')
+        self.assertEqual(read_exif_tag(test_jpg_image, 'FNumber'), '16.0')
 
 
 if __name__ == '__main__':

@@ -51,7 +51,7 @@ def linear_conversion(a, old_range, new_range):
     Examples
     --------
     >>> a = np.linspace(0, 1, 10)
-    >>> linear_conversion(a, (0, 1), (1, 10))
+    >>> linear_conversion(a, np.array([0, 1]), np.array([1, 10]))
     array([  1.,   2.,   3.,   4.,   5.,   6.,   7.,   8.,   9.,  10.])
     """
 

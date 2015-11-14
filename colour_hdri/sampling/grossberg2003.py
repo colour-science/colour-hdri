@@ -5,7 +5,7 @@
 Grossberg (2003) Histogram Based Image Sampling
 ===============================================
 
-Defines the Grossberg (2003) histogram based image sampling objects:
+Defines Grossberg (2003) histogram based image sampling objects:
 
 -   :func:`samples_Grossberg2003`
 

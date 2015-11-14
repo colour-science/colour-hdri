@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Defines unit tests for :mod:`colour_hdri.utilities.common. module.
+Defines unit tests for :mod:`colour_hdri.utilities.common` module.
 """
 
 from __future__ import division, unicode_literals
@@ -54,7 +54,9 @@ class TestLinearConversion(unittest.TestCase):
         """
 
         np.testing.assert_almost_equal(
-            linear_conversion(np.linspace(0, 1, 10), (0, 1), (1, np.pi)),
+            linear_conversion(np.linspace(0, 1, 10),
+                              np.array([0, 1]),
+                              np.array([1, np.pi])),
             np.array([1., 1.2379547, 1.4759095, 1.7138642, 1.951819,
                       2.1897737, 2.4277284, 2.6656832, 2.9036379, 3.1415927]),
             decimal=7)
