@@ -19,7 +19,7 @@ else:
 from colour import RGB_COLOURSPACES
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
-from colour_hdri.generation import radiance_image
+from colour_hdri.generation import image_stack_to_radiance_image
 from colour_hdri.calibration import camera_response_functions_Debevec1997
 from colour_hdri.utilities import ImageStack, filter_files
 
@@ -46,13 +46,13 @@ JPG_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('jpg',))
 
 class TestRadianceImage(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.generation.radiance.radiance_image` definition
+    Defines :func:`colour_hdri.generation.radiance.image_stack_to_radiance_image` definition
     unit tests methods.
     """
 
     def test_radiance_image(self):
         """
-        Tests :func:`colour_hdri.generation.radiance.radiance_image`
+        Tests :func:`colour_hdri.generation.radiance.image_stack_to_radiance_image`
         definition.
         """
 
@@ -60,7 +60,7 @@ class TestRadianceImage(unittest.TestCase):
         image_stack.data = RGB_COLOURSPACES['sRGB'].inverse_transfer_function(
             image_stack.data)
         np.testing.assert_almost_equal(
-            radiance_image(image_stack),
+            image_stack_to_radiance_image(image_stack),
             np.load(os.path.join(
                 GENERATION_DIRECTORY,
                 'test_radiance_image_linear.npy')),
@@ -68,7 +68,7 @@ class TestRadianceImage(unittest.TestCase):
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
         np.testing.assert_almost_equal(
-            radiance_image(
+            image_stack_to_radiance_image(
                 image_stack,
                 camera_response_functions=(
                     camera_response_functions_Debevec1997(image_stack))),

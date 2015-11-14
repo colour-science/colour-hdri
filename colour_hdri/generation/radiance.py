@@ -7,7 +7,7 @@ HDRI / Radiance Image Generation
 
 Defines HDRI / radiance image generation objects:
 
--   :func:`radiance_image`
+-   :func:`image_stack_to_radiance_image`
 
 See Also
 --------
@@ -24,6 +24,7 @@ References
 from __future__ import division, unicode_literals
 
 import numpy as np
+
 from colour import tsplit, tstack
 
 from colour_hdri.generation import weighting_function_Debevec1997
@@ -36,13 +37,13 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['radiance_image']
+__all__ = ['image_stack_to_radiance_image']
 
 
-def radiance_image(image_stack,
-                   weighting_function=weighting_function_Debevec1997,
-                   weighting_average=False,
-                   camera_response_functions=None):
+def image_stack_to_radiance_image(image_stack,
+                                  weighting_function=weighting_function_Debevec1997,
+                                  weighting_average=False,
+                                  camera_response_functions=None):
     """
     Generates a HDRI / radiance image from given image stack.
 
