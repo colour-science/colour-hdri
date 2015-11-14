@@ -50,7 +50,8 @@ class TestLinearConversion(unittest.TestCase):
 
     def test_linear_conversion(self):
         """
-        Tests :func:`colour_hdri.utilities.common.linear_conversion` definition.
+        Tests :func:`colour_hdri.utilities.common.linear_conversion`
+        definition.
         """
 
         np.testing.assert_almost_equal(
@@ -60,23 +61,6 @@ class TestLinearConversion(unittest.TestCase):
             np.array([1., 1.2379547, 1.4759095, 1.7138642, 1.951819,
                       2.1897737, 2.4277284, 2.6656832, 2.9036379, 3.1415927]),
             decimal=7)
-
-
-class TestVivification(unittest.TestCase):
-    """
-    Defines :func:`colour_hdri.utilities.common.vivification` definition unit
-    tests methods.
-    """
-
-    def test_vivification(self):
-        """
-        Tests :func:`colour_hdri.utilities.common.vivification` definition.
-        """
-
-        vivified = vivification()
-        vivified['my']['attribute'] = 1
-        self.assertIn('attribute', vivified['my'].keys())
-        self.assertEqual(vivified['my']['attribute'], 1)
 
 
 class TestVivification(unittest.TestCase):

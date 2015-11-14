@@ -107,12 +107,12 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
 
 
 def camera_response_functions_Debevec1997(image_stack,
-                                         s=samples_Grossberg2003,
-                                         samples=1000,
-                                         l=30,
-                                         w=weighting_function_Debevec1997,
-                                         n=256,
-                                         normalise=True):
+                                          s=samples_Grossberg2003,
+                                          samples=1000,
+                                          l=30,
+                                          w=weighting_function_Debevec1997,
+                                          n=256,
+                                          normalise=True):
     """
     Returns the camera response functions for given image stack using Debevec
     (1997) method.

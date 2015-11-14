@@ -97,8 +97,8 @@ def read_exif_tags(image):
         if not line.strip():
             continue
 
-        group, id, tag, value = parse_exif_data(line)
-        exif_tags[group][tag] = (value, id)
+        group, identifier, tag, value = parse_exif_data(line)
+        exif_tags[group][tag] = (value, identifier)
 
     return exif_tags
 

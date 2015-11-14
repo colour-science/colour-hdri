@@ -59,7 +59,8 @@ class TestAdjustExposure(unittest.TestCase):
 
     def test_adjust_exposure(self):
         """
-        Tests :func:`colour_hdri.utilities.exposure.adjust_exposure` definition.
+        Tests :func:`colour_hdri.utilities.exposure.adjust_exposure`
+        definition.
         """
 
         np.testing.assert_almost_equal(

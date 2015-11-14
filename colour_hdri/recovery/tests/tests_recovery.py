@@ -111,7 +111,7 @@ class TestHighlightsRecoveryBlend(unittest.TestCase):
             os.path.basename(re.sub('\.CR2$', '.exr', test_raw_file)))))
 
         np.testing.assert_almost_equal(
-            test_tiff_file[::10,::10,:],
+            test_tiff_file[::10, ::10, :],
             reference_tiff_file,
             decimal=7)
 
