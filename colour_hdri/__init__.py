@@ -18,6 +18,7 @@ Subpackages
 -   recovery: Clipped highlights recovery.
 -   resources: Resources sub-modules.
 -   sampling: Image sampling routines.
+-   tonemapping: Tonemapping operators.
 -   utilities: Various utilities and data structures.
 """
 
@@ -41,6 +42,8 @@ from .process import *  # noqa
 from . import process
 from .recovery import *  # noqa
 from . import recovery
+from .tonemapping import *  # noqa
+from . import tonemapping
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015 - Colour Developers'
@@ -58,6 +61,7 @@ __all__ += models.__all__
 __all__ += plotting.__all__
 __all__ += process.__all__
 __all__ += recovery.__all__
+__all__ += tonemapping.__all__
 
 RESOURCES_DIRECTORY = os.path.join(
     os.path.dirname(__file__), 'resources')

@@ -5,6 +5,19 @@
 Global Tonemapping Operators
 ============================
 
+Defines global tonemapping operators objects:
+
+-   :func:`tonemapping_operator_simple`
+-   :func:`tonemapping_operator_normalisation`
+-   :func:`tonemapping_operator_gamma`
+-   :func:`tonemapping_operator_logarithmic`
+-   :func:`tonemapping_operator_exponential`
+-   :func:`tonemapping_operator_logarithmic_mapping`
+-   :func:`tonemapping_operator_exponentiation_mapping`
+-   :func:`tonemapping_operator_Schlick1994`
+-   :func:`tonemapping_operator_Tumblin1999`
+-   :func:`tonemapping_operator_Reinhard2004`
+-   :func:`tonemapping_operator_filmic`
 """
 
 from __future__ import division, unicode_literals
@@ -18,14 +31,42 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = []
-
-
-def conform(a):
-    return np.clip(np.nan_to_num(a), 0, 1)
+__all__ = ['log_average',
+           'tonemapping_operator_simple',
+           'tonemapping_operator_normalisation',
+           'tonemapping_operator_gamma',
+           'tonemapping_operator_logarithmic',
+           'tonemapping_operator_exponential',
+           'tonemapping_operator_logarithmic_mapping',
+           'tonemapping_operator_exponentiation_mapping',
+           'tonemapping_operator_Schlick1994',
+           'tonemapping_operator_Tumblin1999',
+           'tonemapping_operator_Reinhard2004',
+           'tonemapping_operator_filmic']
 
 
 def log_average(a, epsilon=EPSILON):
+    """
+    Computes the log average of given array.
+
+    Parameters
+    ----------
+    a : array_like
+        Array to compute the log average.
+    epsilon : numeric, optional
+        Constant to avoid singularities in computations.
+
+    Returns
+    -------
+    numeric
+        Array log average.
+
+    Examples
+    --------
+    >>> log_average(np.linspace(0, 10, 10))  # doctest: +ELLIPSIS
+    0.125071409675722
+    """
+
     a = np.asarray(a)
 
     average = np.exp(np.average(np.log(a + epsilon)))
@@ -34,7 +75,39 @@ def log_average(a, epsilon=EPSILON):
 
 
 def tonemapping_operator_simple(RGB):
-    # Wikipedia. (n.d.). Tonemapping - Purpose and methods. Retrieved March 15, 2015, from http://en.wikipedia.org/wiki/Tone_mapping#Purpose_and_methods
+    """
+    Performs given *RGB* array tonemapping using the simple method:
+    :math:`\cfrac{RGB}{RGB + 1}`.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    References
+    ----------
+    .. [1]  Wikipedia. (n.d.). Tonemapping - Purpose and methods. Retrieved
+            March 15, 2015, from
+            http://en.wikipedia.org/wiki/Tone_mapping#Purpose_and_methods
+
+    Examples
+    --------
+    >>> tonemapping_operator_simple(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    array([[[ 0.3245382...,  0.2601156...,  0.1911532...],
+            [ 0.5830618...,  0.3567839...,  0.2808993...]],
+    <BLANKLINE>
+           [[ 0.8150290...,  0.6831692...,  0.5733340...],
+            [ 0.8683127...,  0.7746486...,  0.6893211...]]])
+    """
 
     RGB = np.asarray(RGB)
 
@@ -44,26 +117,88 @@ def tonemapping_operator_simple(RGB):
 def tonemapping_operator_normalisation(
         RGB,
         colourspace=RGB_COLOURSPACES['sRGB']):
-    # Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011). 3.2.1 Simple Mapping Methods. In Advanced High Dynamic Range Imaging (pp. 38–41). A K Peters/CRC Press. ISBN:978-1568817194
+    """
+    Performs given *RGB* array tonemapping using the normalisation method.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    References
+    ----------
+    .. [2]  Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011).
+            3.2.1 Simple Mapping Methods. In Advanced High Dynamic Range
+            Imaging (pp. 38–41). A K Peters/CRC Press. ISBN:978-1568817194
+
+    Examples
+    --------
+    >>> tonemapping_operator_normalisation(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    array([[[ 0.1194995...,  0.0874386...,  0.0587782...],
+            [ 0.3478115...,  0.1379587...,  0.0971542...]],
+    <BLANKLINE>
+           [[ 1.0958987...,  0.5362926...,  0.3342109...],
+            [ 1.6399606...,  0.8549592...,  0.5518371...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
-    RGB = RGB / L_max
-
-    RGB = conform(RGB)
+    RGB /= L_max
 
     return RGB
 
 
-def tonemapping_operator_gamma(RGB, gamma=1, f_stop=0):
-    # Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011). 3.2.1 Simple Mapping Methods. In Advanced High Dynamic Range Imaging (pp. 38–41). A K Peters/CRC Press. ISBN:978-1568817194
+def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
+    """
+    Performs given *RGB* array tonemapping using the gamma and exposure
+    correction method [2]_.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    gamma : numeric, optional
+        :math:`\gamma` correction value.
+    EV : numeric, optional
+        Exposure adjustment value.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    Examples
+    --------
+    >>> tonemapping_operator_gamma(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]),
+    ...      1.0, -3.0)  # doctest: +ELLIPSIS
+    array([[[ 0.0600585...,  0.0439453...,  0.0295410...],
+            [ 0.1748046...,  0.0693359...,  0.0488282...]],
+    <BLANKLINE>
+           [[ 0.5507817...,  0.2695323...,  0.1679692...],
+            [ 0.8242187...,  0.4296892...,  0.2773447...]]])
+    """
+
     RGB = np.asarray(RGB)
 
-    exposure = 2 ** f_stop
+    exposure = 2 ** EV
     RGB = (exposure * RGB) ** (1 / gamma)
-
-    RGB = conform(RGB)
 
     return RGB
 
@@ -73,7 +208,40 @@ def tonemapping_operator_logarithmic(
         q=1,
         k=1,
         colourspace=RGB_COLOURSPACES['sRGB']):
-    # Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011). 3.2.1 Simple Mapping Methods. In Advanced High Dynamic Range Imaging (pp. 38–41). A K Peters/CRC Press. ISBN:978-1568817194
+    """
+    Performs given *RGB* array tonemapping using the logarithmic method [2]_.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    q : numeric, optional
+        :math:`q`.
+    k : numeric, optional
+        :math:`k`.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    Examples
+    --------
+    >>> tonemapping_operator_logarithmic(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]),
+    ...       1.0, 25)  # doctest: +ELLIPSIS
+    array([[[ 0.0884587...,  0.0647258...,  0.0435101...],
+            [ 0.2278221...,  0.0903652...,  0.0636376...]],
+    <BLANKLINE>
+           [[ 0.4717481...,  0.2308562...,  0.1438667...],
+            [ 0.5727388...,  0.2985854...,  0.1927232...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     q = 1 if q < 1 else q
@@ -85,8 +253,6 @@ def tonemapping_operator_logarithmic(
 
     RGB = RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
 
-    RGB = conform(RGB)
-
     return RGB
 
 
@@ -95,7 +261,40 @@ def tonemapping_operator_exponential(
         q=1,
         k=1,
         colourspace=RGB_COLOURSPACES['sRGB']):
-    # Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011). 3.2.1 Simple Mapping Methods. In Advanced High Dynamic Range Imaging (pp. 38–41). A K Peters/CRC Press. ISBN:978-1568817194
+    """
+    Performs given *RGB* array tonemapping using the exponential method [2]_.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    q : numeric, optional
+        :math:`q`.
+    k : numeric, optional
+        :math:`k`.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    Examples
+    --------
+    >>> tonemapping_operator_exponential(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]),
+    ...       1.0, 25)  # doctest: +ELLIPSIS
+    array([[[ 0.0148082...,  0.0108353...,  0.0072837...],
+            [ 0.0428668...,  0.0170030...,  0.0119740...]],
+    <BLANKLINE>
+           [[ 0.1312733...,  0.0642403...,  0.0400338...],
+            [ 0.1921681...,  0.1001828...,  0.0646634...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     q = 1 if q < 1 else q
@@ -103,11 +302,9 @@ def tonemapping_operator_exponential(
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_a = log_average(L)
-    L_d = 1 - np.exp(-(L * q) / (L_a * k));
+    L_d = 1 - np.exp(-(L * q) / (L_a * k))
 
     RGB = RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
-
-    RGB = conform(RGB)
 
     return RGB
 
@@ -117,7 +314,46 @@ def tonemapping_operator_logarithmic_mapping(
         p=1,
         q=1,
         colourspace=RGB_COLOURSPACES['sRGB']):
-    # Schlick, C. (1994). Quantization Techniques for Visualization of High Dynamic Range Pictures. Proceedings of the Fifth Eurographics Workshop on Rendering, (Section 5), 7–18.
+    """
+    Performs given *RGB* array tonemapping using the logarithmic mapping
+    method.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    p : numeric, optional
+        :math:`p`.
+    q : numeric, optional
+        :math:`q`.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    References
+    ----------
+    .. [3]  Schlick, C. (1994). Quantization Techniques for Visualization of
+            High Dynamic Range Pictures. Proceedings of the Fifth Eurographics
+            Workshop on Rendering, (Section 5), 7–18.
+
+    Examples
+    --------
+    >>> tonemapping_operator_logarithmic_mapping(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    array([[[ 0.2532896...,  0.1853338...,  0.1245855...],
+            [ 0.6523381...,  0.2587486...,  0.1822177...]],
+    <BLANKLINE>
+           [[ 1.3507873...,  0.6610257...,  0.4119430...],
+            [ 1.6399606...,  0.8549592...,  0.5518371...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
@@ -127,8 +363,6 @@ def tonemapping_operator_logarithmic_mapping(
 
     RGB = RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
 
-    RGB = conform(RGB)
-
     return RGB
 
 
@@ -137,7 +371,40 @@ def tonemapping_operator_exponentiation_mapping(
         p=1,
         q=1,
         colourspace=RGB_COLOURSPACES['sRGB']):
-    # Schlick, C. (1994). Quantization Techniques for Visualization of High Dynamic Range Pictures. Proceedings of the Fifth Eurographics Workshop on Rendering, (Section 5), 7–18.
+    """
+    Performs given *RGB* array tonemapping using the exponentiation mapping
+    method [3]_.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    p : numeric, optional
+        :math:`p`.
+    q : numeric, optional
+        :math:`q`.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    Examples
+    --------
+    >>> tonemapping_operator_exponentiation_mapping(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    array([[[ 0.1194995...,  0.0874386...,  0.0587782...],
+            [ 0.3478115...,  0.1379587...,  0.0971542...]],
+    <BLANKLINE>
+           [[ 1.0958987...,  0.5362926...,  0.3342109...],
+            [ 1.6399606...,  0.8549592...,  0.5518371...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
@@ -146,18 +413,46 @@ def tonemapping_operator_exponentiation_mapping(
 
     RGB = RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
 
-    RGB = conform(RGB)
-
     return RGB
 
 
-def tonemapping_operator_Schlick94(
+def tonemapping_operator_Schlick1994(
         RGB,
         p=1,
         colourspace=RGB_COLOURSPACES['sRGB']):
-    # Schlick, C. (1994). Quantization Techniques for Visualization of High Dynamic Range Pictures. Proceedings of the Fifth Eurographics Workshop on Rendering, (Section 5), 7–18.
-    # Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011). 3.2.3 Quantization Techniques. Advanced High Dynamic Range Imaging. A K Peters/CRC Press. ISBN:978-1568817194
-    # Implement automatic *p* and *non-uniform* computations support.
+    """
+    Performs given *RGB* array tonemapping using Schlick (1994)
+    method [2]_[3]_.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    p : numeric, optional
+        :math:`p`.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    Examples
+    --------
+    >>> tonemapping_operator_Schlick1994(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    array([[[ 0.1194995...,  0.0874386...,  0.0587782...],
+            [ 0.3478115...,  0.1379587...,  0.0971542...]],
+    <BLANKLINE>
+           [[ 1.0958987...,  0.5362926...,  0.3342109...],
+            [ 1.6399606...,  0.8549592...,  0.5518371...]]])
+    """
+
+    # TODO: Implement automatic *p* and *non-uniform* computations support.
 
     RGB = np.asarray(RGB)
 
@@ -167,36 +462,67 @@ def tonemapping_operator_Schlick94(
 
     RGB = RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
 
-    RGB = conform(RGB)
-
     return RGB
 
 
-def contrast_sensitivity_function_Tumblin98(L_a):
-    # Tumblin, J., Hodgins, J. K., & Guenter, B. K. (1999). Two methods for display of high contrast images. ACM Transactions on Graphics. doi:10.1145/300776.300783
-    # Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011). 3.2.2 Brightness Reproduction. Advanced High Dynamic Range Imaging. A K Peters/CRC Press. ISBN:978-1568817194
-    L_a = np.asarray(L_a)
-
-    gamma = np.where(L_a > 100,
-                     2.655,
-                     1.855 + 0.4 * np.log10(L_a + 2.3 * 10 ** -5))
-
-    return gamma
-
-
-def tonemapping_operator_Tumblin98(
+def tonemapping_operator_Tumblin1999(
         RGB,
         L_da=20,
         C_max=100,
         L_max=100,
         colourspace=RGB_COLOURSPACES['sRGB']):
+    """
+    Performs given *RGB* array tonemapping using Tumblin (1999) method [2]_.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    L_da : numeric, optional
+        :math:`L_{da}` display adaptation luminance, a mid-range display value.
+    C_max : numeric, optional
+        :math:`C_{max}` maximum contrast available from the display.
+    L_max : numeric, optional
+        :math:`L_{max}` maximum display luminance.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    References
+    ----------
+    .. [4]  Tumblin, J., Hodgins, J. K., & Guenter, B. K. (1999). Two methods
+            for display of high contrast images. ACM Transactions on Graphics.
+            doi:10.1145/300776.300783
+
+    Examples
+    --------
+    >>> tonemapping_operator_Tumblin1999(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    array([[[ 0.0400491...,  0.0293042...,  0.0196989...],
+            [ 0.1019767...,  0.0404488...,  0.0284851...]],
+    <BLANKLINE>
+           [[ 0.2490208...,  0.1218616...,  0.0759426...],
+            [ 0.3408361...,  0.1776878...,  0.1146893...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     L_w = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
+    f = lambda x: np.where(x > 100,
+                           2.655,
+                           1.855 + 0.4 * np.log10(x + 2.3 * 10 ** -5))
+
     L_wa = np.exp(np.mean(np.log(L_w + 2.3 * 10 ** -5)))
-    g_d = contrast_sensitivity_function_Tumblin98(L_da)
-    g_w = contrast_sensitivity_function_Tumblin98(L_wa)
+    g_d = f(L_da)
+    g_w = f(L_wa)
     g_wd = g_w / (1.855 + 0.4 * np.log(L_da))
 
     mL_wa = np.sqrt(C_max) ** (g_wd - 1)
@@ -204,21 +530,62 @@ def tonemapping_operator_Tumblin98(
     L_d = mL_wa * L_da * (L_w / L_wa) ** (g_w / g_d)
 
     RGB = RGB * L_d[..., np.newaxis] / L_w[..., np.newaxis]
-    RGB = RGB / L_max
-
-    RGB = conform(RGB)
+    RGB /= L_max
 
     return RGB
 
 
-def tonemapping_operator_Reinhard04(
+def tonemapping_operator_Reinhard2004(
         RGB,
         f=0,
         m=0.3,
         a=0,
         c=0,
         colourspace=RGB_COLOURSPACES['sRGB']):
-    # Reinhard, E., & Devlin, K. (2005). Dynamic range reduction inspired by photoreceptor physiology. IEEE Transactions on Visualization and Computer Graphics, 11(1), 13–24. doi:10.1109/TVCG.2005.9
+    """
+    Performs given *RGB* array tonemapping using Reinhard (2004) method.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    f : numeric, optional
+        :math:`f`.
+    m : numeric, optional
+        :math:`m`.
+    a : numeric, optional
+        :math:`a`.
+    c : numeric, optional
+        :math:`c`.
+    colourspace : RGB_Colourspace, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    References
+    ----------
+    .. [5]  Reinhard, E., & Devlin, K. (2005). Dynamic range reduction inspired
+            by photoreceptor physiology. IEEE Transactions on Visualization and
+            Computer Graphics, 11(1), 13–24. doi:10.1109/TVCG.2005.9
+
+    Examples
+    --------
+    >>> tonemapping_operator_Reinhard2004(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]),
+    ...     -10)  # doctest: +ELLIPSIS
+    array([[[ 0.0216792...,  0.0159556...,  0.0107821...],
+            [ 0.0605893...,  0.0249445...,  0.0176971...]],
+    <BLANKLINE>
+           [[ 0.1688971...,  0.0904532...,  0.0583583...],
+            [ 0.2331934...,  0.1368456...,  0.0928316...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     C_av = np.array((np.average(RGB[..., 0]),
@@ -242,13 +609,7 @@ def tonemapping_operator_Reinhard04(
 
     RGB = RGB / (RGB + (f * I_a) ** m)
 
-    RGB = conform(RGB)
-
     return RGB
-
-
-def tonemapping_operator_filmic_function(x, A, B, C, D, E, F):
-    return ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F
 
 
 def tonemapping_operator_filmic(RGB,
@@ -260,8 +621,57 @@ def tonemapping_operator_filmic(RGB,
                                 toe_denominator=0.3,
                                 exposure_bias=2,
                                 linear_whitepoint=11.2):
-    # Habble, J. (2010). Filmic Tonemapping Operators. Retrieved March 15, 2015, from http://filmicgames.com/archives/75
-    # Habble, J. (2010). Uncharted 2: HDR Lighting. Retrieved March 15, 2015, from http://www.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting
+    """
+    Performs given *RGB* array tonemapping using Reinhard (2004) method.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* array to perform tonemapping onto.
+    shoulder_strength : numeric, optional
+        Shoulder strength.
+    linear_strength : numeric, optional
+        Linear strength.
+    linear_angle : numeric, optional
+        Linear angle.
+    toe_strength : numeric, optional
+        Toe strength.
+    toe_numerator : numeric, optional
+        Toe numerator.
+    toe_denominator : numeric, optional
+        Toe denominator.
+    exposure_bias : numeric, optional
+        Exposure bias.
+    linear_whitepoint : numeric, optional
+        Linear whitepoint.
+
+    Returns
+    -------
+    ndarray
+        Tonemapped *RGB* array.
+
+    References
+    ----------
+    .. [6]  Habble, J. (2010). Filmic Tonemapping Operators. Retrieved March
+            15, 2015, from http://filmicgames.com/archives/75
+    .. [7]  Habble, J. (2010). Uncharted 2: HDR Lighting. Retrieved March 15,
+            2015, from
+            http://www.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting
+
+    Examples
+    --------
+    >>> tonemapping_operator_filmic(np.array(
+    ...     [[[0.48046875, 0.35156256, 0.23632812],
+    ...       [1.39843753, 0.55468757, 0.39062594]],
+    ...      [[4.40625388, 2.15625895, 1.34375372],
+    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    array([[[ 0.4507954...,  0.3619673...,  0.2617269...],
+            [ 0.7567191...,  0.4933310...,  0.3911730...]],
+    <BLANKLINE>
+           [[ 0.9725554...,  0.8557374...,  0.7465713...],
+            [ 1.0158782...,  0.9382937...,  0.8615161...]]])
+    """
+
     RGB = np.asarray(RGB)
 
     A = shoulder_strength
@@ -271,11 +681,10 @@ def tonemapping_operator_filmic(RGB,
     E = toe_numerator
     F = toe_denominator
 
-    RGB = tonemapping_operator_filmic_function(
-        RGB * exposure_bias, A, B, C, D, E, F)
-    RGB = RGB * (1 / tonemapping_operator_filmic_function(
-        linear_whitepoint, A, B, C, D, E, F))
+    f = lambda x, A, B, C, D, E, F: (
+        ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F)
 
-    RGB = conform(RGB)
+    RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
+    RGB *= (1 / f(linear_whitepoint, A, B, C, D, E, F))
 
     return RGB
