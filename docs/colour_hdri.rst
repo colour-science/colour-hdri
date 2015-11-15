@@ -13,6 +13,7 @@ Sub-Packages
     colour_hdri.process
     colour_hdri.recovery
     colour_hdri.sampling
+    colour_hdri.tonemapping
     colour_hdri.utilities
 
 Module Contents

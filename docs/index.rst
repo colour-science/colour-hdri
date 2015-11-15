@@ -1,6 +1,8 @@
 Colour - HDRI
 =============
 
+..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/e498d1e8b9efe4ca65992b60367b9f39d56a35cb/docs/_static/Radiance_001.png
+
 A `Python <https://www.python.org/>`_ package implementing various HDRI / Radiance image processing algorithms.
 
 It is open source and freely available under the `New BSD License <http://opensource.org/licenses/BSD-3-Clause>`_ terms.
