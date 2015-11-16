@@ -26,7 +26,9 @@ See Also
 """
 
 from __future__ import division, unicode_literals
+
 import numpy as np
+
 from colour import EPSILON, RGB_COLOURSPACES, RGB_luminance
 
 __author__ = 'Colour Developers'
@@ -161,7 +163,8 @@ def tonemapping_operator_normalisation(
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
-    RGB /= L_max
+
+    RGB = RGB / L_max
 
     return RGB
 
@@ -535,7 +538,7 @@ def tonemapping_operator_Tumblin1999(
     L_d = mL_wa * L_da * (L_w / L_wa) ** (g_w / g_d)
 
     RGB = RGB * L_d[..., np.newaxis] / L_w[..., np.newaxis]
-    RGB /= L_max
+    RGB = RGB / L_max
 
     return RGB
 
@@ -690,6 +693,6 @@ def tonemapping_operator_filmic(RGB,
         ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F)
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
-    RGB *= (1 / f(linear_whitepoint, A, B, C, D, E, F))
+    RGB = RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F))
 
     return RGB
