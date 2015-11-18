@@ -22,7 +22,7 @@ Defines global tonemapping operators objects:
 See Also
 --------
 `Colour - HDRI - Example: Global Tonemapping Operators IPython Notebook
-<https://github.com/colour-science/colour-hdri/blob/master/colour_hdri/examples/example_global_tonemapping_operators.ipynb>`_  # noqa
+<https://github.com/colour-science/colour-hdri/blob/master/colour_hdri/examples/examples_global_tonemapping_operators.ipynb>`_  # noqa
 """
 
 from __future__ import division, unicode_literals

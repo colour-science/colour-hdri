@@ -12,7 +12,7 @@ Defines the clipped highlights recovery objects:
 See Also
 --------
 `Colour - HDRI - Example: Merge from Raw Files IPython Notebook
-<https://github.com/colour-science/colour-hdri/blob/master/colour_hdri/examples/example_merge_from_raw_files.ipynb>`_  # noqa
+<https://github.com/colour-science/colour-hdri/blob/master/colour_hdri/examples/examples_merge_from_raw_files.ipynb>`_  # noqa
 """
 
 from __future__ import division, unicode_literals
