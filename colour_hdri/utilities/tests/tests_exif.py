@@ -8,13 +8,8 @@ Defines unit tests for :mod:`colour_hdri.utilities.exif` module.
 from __future__ import division, unicode_literals
 import os
 import shutil
-import sys
 import tempfile
-
-if sys.version_info[:2] <= (2, 6):
-    import unittest2 as unittest
-else:
-    import unittest
+import unittest
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.utilities import filter_files, vivified_to_dict

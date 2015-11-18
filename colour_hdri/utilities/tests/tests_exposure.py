@@ -8,12 +8,7 @@ Defines unit tests for :mod:`colour_hdri.utilities.exposure` module.
 from __future__ import division, unicode_literals
 
 import numpy as np
-import sys
-
-if sys.version_info[:2] <= (2, 6):
-    import unittest2 as unittest
-else:
-    import unittest
+import unittest
 
 from colour_hdri.utilities import (
     exposure_value,
