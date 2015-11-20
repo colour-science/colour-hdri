@@ -12,8 +12,9 @@ Defines Debevec (1997) camera responses computation objects:
 
 See Also
 --------
-`Colour - HDRI - Example: Merge from Low Dynamic Range Files IPython Notebook
-<https://github.com/colour-science/colour-hdri/blob/master/colour_hdri/examples/examples_merge_from_ldr_files.ipynb>`_  # noqa
+`Colour - HDRI - Examples: Merge from Low Dynamic Range Files IPython Notebook
+<https://github.com/colour-science/colour-hdri/\
+blob/master/colour_hdri/examples/examples_merge_from_ldr_files.ipynb>`_
 
 References
 ----------

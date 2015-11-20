@@ -21,8 +21,9 @@ Defines global tonemapping operators objects:
 
 See Also
 --------
-`Colour - HDRI - Example: Global Tonemapping Operators IPython Notebook
-<https://github.com/colour-science/colour-hdri/blob/master/colour_hdri/examples/examples_global_tonemapping_operators.ipynb>`_  # noqa
+`Colour - HDRI - Examples: Global Tonemapping Operators IPython Notebook
+<https://github.com/colour-science/colour-hdri/\
+blob/master/colour_hdri/examples/examples_global_tonemapping_operators.ipynb>`_
 """
 
 from __future__ import division, unicode_literals
@@ -131,7 +132,7 @@ def tonemapping_operator_normalisation(
     ----------
     RGB : array_like
         *RGB* array to perform tonemapping onto.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
@@ -227,7 +228,7 @@ def tonemapping_operator_logarithmic(
         :math:`q`.
     k : numeric, optional
         :math:`k`.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
@@ -280,7 +281,7 @@ def tonemapping_operator_exponential(
         :math:`q`.
     k : numeric, optional
         :math:`k`.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
@@ -334,7 +335,7 @@ def tonemapping_operator_logarithmic_mapping(
         :math:`p`.
     q : numeric, optional
         :math:`q`.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
@@ -391,7 +392,7 @@ def tonemapping_operator_exponentiation_mapping(
         :math:`p`.
     q : numeric, optional
         :math:`q`.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
@@ -438,7 +439,7 @@ def tonemapping_operator_Schlick1994(
         *RGB* array to perform tonemapping onto.
     p : numeric, optional
         :math:`p`.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
@@ -492,7 +493,7 @@ def tonemapping_operator_Tumblin1999(
         :math:`C_{max}` maximum contrast available from the display.
     L_max : numeric, optional
         :math:`L_{max}` maximum display luminance.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
@@ -565,7 +566,7 @@ def tonemapping_operator_Reinhard2004(
         :math:`a`.
     c : numeric, optional
         :math:`c`.
-    colourspace : RGB_Colourspace, optional
+    colourspace : `colour.RGB_Colourspace`, optional
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns

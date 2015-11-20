@@ -51,7 +51,7 @@ def tonemapping_operator_image_plot(image,
         Use a log scale for plotting the luminance mapping function.
     transfer_function : callable, optional
         OECF / transfer function used for plotting.
-    \*\*kwargs : \*\*
+    \**kwargs : dict, optional
         Keywords arguments.
 
     Returns

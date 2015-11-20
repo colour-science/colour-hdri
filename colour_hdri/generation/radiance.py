@@ -12,7 +12,8 @@ Defines HDRI / radiance image generation objects:
 See Also
 --------
 `Colour - HDRI - Examples IPython Notebooks
-<https://github.com/colour-science/colour-hdri/tree/master/colour_hdri/examples>`_  # noqa
+<https://github.com/colour-science/colour-hdri/\
+blob/master/colour_hdri/examples>`_
 
 References
 ----------
@@ -40,10 +41,11 @@ __status__ = 'Production'
 __all__ = ['image_stack_to_radiance_image']
 
 
-def image_stack_to_radiance_image(image_stack,
-                                  weighting_function=weighting_function_Debevec1997,
-                                  weighting_average=False,
-                                  camera_response_functions=None):
+def image_stack_to_radiance_image(
+        image_stack,
+        weighting_function=weighting_function_Debevec1997,
+        weighting_average=False,
+        camera_response_functions=None):
     """
     Generates a HDRI / radiance image from given image stack.
 
