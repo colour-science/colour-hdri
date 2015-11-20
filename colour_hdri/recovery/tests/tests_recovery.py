@@ -48,8 +48,8 @@ RAW_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('CR2',))
 
 class TestHighlightsRecoveryBlend(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.recovery.highlights.\
+highlights_recovery_blend` definition unit tests methods.
     """
 
     def setUp(self):
@@ -68,7 +68,7 @@ class TestHighlightsRecoveryBlend(unittest.TestCase):
 
     def test_highlights_recovery_blend(self):
         """
-        Tests :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`  # noqa
+        Tests :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`
         definition.
         """
 

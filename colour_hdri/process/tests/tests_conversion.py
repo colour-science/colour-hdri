@@ -45,8 +45,8 @@ RAW_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('CR2',))
 
 class TestConvertRawFilesToDngFiles(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.process.conversion.convert_raw_files_to_dng_files`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.process.conversion.\
+convert_raw_files_to_dng_files` definition unit tests methods.
     """
 
     def setUp(self):
@@ -65,8 +65,8 @@ class TestConvertRawFilesToDngFiles(unittest.TestCase):
 
     def test_convert_raw_files_to_dng_files(self):
         """
-        Tests :func:`colour_hdri.process.conversion.convert_raw_files_to_dng_files`  # noqa
-        definition.
+        Tests :func:`colour_hdri.process.conversion.\
+convert_raw_files_to_dng_files` definition.
         """
 
         reference_dng_files = sorted(filter_files(
@@ -84,8 +84,8 @@ class TestConvertRawFilesToDngFiles(unittest.TestCase):
 
 class TestConvertDngFilesToIntermediateFiles(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.process.conversion.convert_dng_files_to_intermediate_files`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.process.conversion.\
+convert_dng_files_to_intermediate_files` definition unit tests methods.
     """
 
     def setUp(self):
@@ -104,8 +104,8 @@ class TestConvertDngFilesToIntermediateFiles(unittest.TestCase):
 
     def test_convert_dng_files_to_intermediate_files(self):
         """
-        Tests :func:`colour_hdri.process.conversion.convert_dng_files_to_intermediate_files`  # noqa
-        definition.
+        Tests :func:`colour_hdri.process.conversion.\
+convert_dng_files_to_intermediate_files` definition.
         """
 
         reference_dng_files = sorted(

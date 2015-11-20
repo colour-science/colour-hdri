@@ -114,7 +114,8 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
     ----------
     .. [1]  Wikipedia. (n.d.). EV as a measure of luminance and illuminance.
             Retrieved November 14, 2015,
-            from https://en.wikipedia.org/wiki/Exposure_value#EV_as_a_measure_of_luminance_and_illuminance  # noqa
+            from https://en.wikipedia.org/wiki/\
+Exposure_value#EV_as_a_measure_of_luminance_and_illuminance
 
     Examples
     --------

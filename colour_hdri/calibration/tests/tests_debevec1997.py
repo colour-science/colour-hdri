@@ -77,14 +77,14 @@ class TestGSolve(unittest.TestCase):
 
 class TestCameraResponseFunctionsDebevec1997(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.calibration.debevec1997.camera_response_functions_Debevec1997`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.calibration.debevec1997.\
+camera_response_functions_Debevec1997` definition unit tests methods.
     """
 
     def test_camera_response_function_Debevec1997(self):
         """
-        Tests :func:`colour_hdri.calibration.debevec1997.camera_response_functions_Debevec1997`  # noqa
-        definition.
+        Tests :func:`colour_hdri.calibration.debevec1997.\
+camera_response_functions_Debevec1997` definition.
         """
 
         np.testing.assert_almost_equal(

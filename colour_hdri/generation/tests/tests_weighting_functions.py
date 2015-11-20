@@ -30,14 +30,14 @@ __all__ = ['TestNormalDistributionFunction',
 
 class TestNormalDistributionFunction(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.generation.weighting_functions.normal_distribution_function`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.generation.weighting_functions.\
+normal_distribution_function` definition unit tests methods.
     """
 
     def test_normal_distribution_function(self):
         """
-        Tests :func:`colour_hdri.generation.weighting_functions.normal_distribution_function`  # noqa
-        definition.
+        Tests :func:`colour_hdri.generation.weighting_functions.\
+normal_distribution_function` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -80,14 +80,14 @@ class TestHatFunction(unittest.TestCase):
 
 class TestWeightingFunctionDebevec1997(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.generation.weighting_functions.weighting_function_Debevec1997`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.generation.weighting_functions.\
+weighting_function_Debevec1997` definition unit tests methods.
     """
 
     def test_weighting_function_Debevec1997(self):
         """
-        Tests :func:`colour_hdri.generation.weighting_functions.weighting_function_Debevec1997`  # noqa
-        definition.
+        Tests :func:`colour_hdri.generation.weighting_functions.\
+weighting_function_Debevec1997` definition.
         """
 
         np.testing.assert_almost_equal(

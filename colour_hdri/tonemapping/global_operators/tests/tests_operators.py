@@ -65,15 +65,14 @@ class TestLogAverage(unittest.TestCase):
 
 class TestTonemappingOperatorSimple(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_simple`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_simple` definition unit tests methods.
     """
 
     def test_tonemapping_operator_simple(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_simple`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_simple` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -91,15 +90,14 @@ class TestTonemappingOperatorSimple(unittest.TestCase):
 
 class TestTonemappingOperatorNormalisation(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_normalisation`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_normalisation` definition unit tests methods.
     """
 
     def test_tonemapping_operator_normalisation(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_normalisation`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_normalisation` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -117,15 +115,14 @@ class TestTonemappingOperatorNormalisation(unittest.TestCase):
 
 class TestTonemappingOperatorGamma(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_gamma`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_gamma` definition unit tests methods.
     """
 
     def test_tonemapping_operator_gamma(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_gamma`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_gamma` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -144,15 +141,14 @@ class TestTonemappingOperatorGamma(unittest.TestCase):
 
 class TestTonemappingOperatorLogarithmic(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_logarithmic`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_logarithmic` definition unit tests methods.
     """
 
     def test_tonemapping_operator_logarithmic(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_logarithmic`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_logarithmic` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -171,15 +167,14 @@ class TestTonemappingOperatorLogarithmic(unittest.TestCase):
 
 class TestTonemappingOperatorExponential(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_exponential`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_exponential` definition unit tests methods.
     """
 
     def test_tonemapping_operator_exponential(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_exponential`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_exponential` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -198,15 +193,14 @@ class TestTonemappingOperatorExponential(unittest.TestCase):
 
 class TestTonemappingOperatorLogarithmicMapping(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_logarithmic_mapping`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_logarithmic_mapping` definition unit tests methods.
     """
 
     def test_tonemapping_operator_logarithmic_mapping(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_logarithmic_mapping`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_logarithmic_mapping` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -225,15 +219,14 @@ class TestTonemappingOperatorLogarithmicMapping(unittest.TestCase):
 
 class TestTonemappingOperatorExponentiationMapping(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_exponentiation_mapping`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_exponentiation_mapping` definition unit tests methods.
     """
 
     def test_tonemapping_operator_exponentiation_mapping(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_exponentiation_mapping`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_exponentiation_mapping` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -252,15 +245,14 @@ class TestTonemappingOperatorExponentiationMapping(unittest.TestCase):
 
 class TestTonemappingOperatorSchlick1994(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_Schlick1994`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_Schlick1994` definition unit tests methods.
     """
 
     def test_tonemapping_operator_Schlick1994(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_Schlick1994`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_Schlick1994` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -279,15 +271,14 @@ class TestTonemappingOperatorSchlick1994(unittest.TestCase):
 
 class TestTonemappingOperatorTumblin1999(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_Tumblin1999`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_Tumblin1999` definition unit tests methods.
     """
 
     def test_tonemapping_operator_Tumblin1999(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_Tumblin1999`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_Tumblin1999` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -306,15 +297,14 @@ class TestTonemappingOperatorTumblin1999(unittest.TestCase):
 
 class TestTonemappingOperatorReinhard2004(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_Reinhard2004`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_Reinhard2004` definition unit tests methods.
     """
 
     def test_tonemapping_operator_Reinhard2004(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_Reinhard2004`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_Reinhard2004` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -333,15 +323,14 @@ class TestTonemappingOperatorReinhard2004(unittest.TestCase):
 
 class TestTonemappingOperatorFilmic(unittest.TestCase):
     """
-    Defines
-    :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_filmic`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_filmic` definition unit tests methods.
     """
 
     def test_tonemapping_operator_filmic(self):
         """
-        Tests :func:`colour_hdri.tonemapping.global_operators.operators.tonemapping_operator_filmic`  # noqa
-        definition.
+        Tests :func:`colour_hdri.tonemapping.global_operators.operators.\
+tonemapping_operator_filmic` definition.
         """
 
         np.testing.assert_almost_equal(

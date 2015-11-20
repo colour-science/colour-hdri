@@ -38,14 +38,14 @@ JPG_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('jpg',))
 
 class TestSamplesGrossberg2003(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.sampling.grossberg2003.samples_Grossberg2003`  # noqa
-    definition unit tests methods.
+    Defines :func:`colour_hdri.sampling.grossberg2003.\
+samples_Grossberg2003` definition unit tests methods.
     """
 
     def test_samples_Grossberg2003(self):
         """
-        Tests :func:`colour_hdri.sampling.grossberg2003.samples_Grossberg2003`  # noqa
-        definition.
+        Tests :func:`colour_hdri.sampling.grossberg2003.\
+samples_Grossberg2003` definition.
         """
 
         np.testing.assert_almost_equal(
