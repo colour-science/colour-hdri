@@ -12,6 +12,7 @@ Defines the tonemapping operators plotting objects:
 
 from __future__ import division, unicode_literals
 
+import matplotlib
 import matplotlib.pyplot
 import numpy as np
 import pylab
