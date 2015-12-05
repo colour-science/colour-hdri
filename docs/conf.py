@@ -12,7 +12,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import re
 import sys
 
 try:
@@ -21,8 +20,9 @@ except ImportError:
     import mock
 
 # Mock modules for *readthedocs.org*.
-MOCK_MODULES = ('matplotlib',
-                'matplotlib.pyplot')
+MOCK_MODULES = (
+    'matplotlib',
+    'matplotlib.pyplot')
 
 for module in MOCK_MODULES:
     sys.modules[module] = mock.Mock()
