@@ -32,7 +32,7 @@ __all__ = ['radiance_image_strip_plot']
 def radiance_image_strip_plot(image,
                               count=5,
                               ev_steps=-2,
-                              transfer_function=DEFAULT_PLOTTING_OECF):
+                              OECF=DEFAULT_PLOTTING_OECF):
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
 
@@ -44,8 +44,8 @@ def radiance_image_strip_plot(image,
         Strip images count.
     ev_steps : numeric, optional
         Exposure variation for each image of the strip.
-    transfer_function : callable, optional
-        OECF / transfer function used for plotting.
+    OECF : callable, optional
+        OECF / opto-electronic conversion function used for plotting.
 
     Returns
     -------
@@ -63,7 +63,7 @@ def radiance_image_strip_plot(image,
         ev = i * ev_steps
         axis = matplotlib.pyplot.subplot(grid[i])
         axis.imshow(
-            np.clip(transfer_function(adjust_exposure(image, ev)), 0, 1))
+            np.clip(OECF(adjust_exposure(image, ev)), 0, 1))
         axis.text(width * 0.05,
                   height - height * 0.05,
                   'EV {0}'.format(ev),

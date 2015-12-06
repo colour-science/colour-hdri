@@ -37,7 +37,7 @@ __all__ = ['tonemapping_operator_image_plot']
 def tonemapping_operator_image_plot(image,
                                     luminance_function,
                                     log_scale=False,
-                                    transfer_function=DEFAULT_PLOTTING_OECF,
+                                    OECF=DEFAULT_PLOTTING_OECF,
                                     **kwargs):
     """
     Plots given tonemapped image with superimposed luminance mapping function.
@@ -50,8 +50,8 @@ def tonemapping_operator_image_plot(image,
         Luminance mapping function.
     log_scale : bool, optional
         Use a log scale for plotting the luminance mapping function.
-    transfer_function : callable, optional
-        OECF / transfer function used for plotting.
+    OECF : callable, optional
+        OECF / opto-electronic conversion function used for plotting.
     \**kwargs : dict, optional
         Keywords arguments.
 
@@ -63,7 +63,7 @@ def tonemapping_operator_image_plot(image,
     shape = image.shape
     limits = [0, 1, 0, 1]
 
-    image = np.clip(transfer_function(image), 0, 1)
+    image = np.clip(OECF(image), 0, 1)
     pylab.imshow(image,
                  aspect=shape[0] / shape[1],
                  extent=limits,
