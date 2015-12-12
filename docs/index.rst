@@ -38,7 +38,7 @@ The main reference for `Colour - HDRI <https://github.com/colour-science/colour-
 Contributing
 ------------
 
-If you would like to contribute to `Colour - HDRI <https://github.com/colour-science/colour-hdri>`_, please refer to the following `Contributing <http://colour-science.org/contributing.php>`_ guide for `Colour <https://github.com/colour-science/colour>`_.
+If you would like to contribute to `Colour - HDRI <https://github.com/colour-science/colour-hdri>`_, please refer to the following `Contributing <http://colour-science.org/contributing/>`_ guide for `Colour <https://github.com/colour-science/colour>`_.
 
 Bibliography
 ------------
