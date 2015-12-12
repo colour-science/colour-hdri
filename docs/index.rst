@@ -23,18 +23,6 @@ The main reference for `Colour - HDRI <https://github.com/colour-science/colour-
 
 -   :doc:`API Reference <api>`
 
-.. raw:: html
-
-    <div id="hidden-toctree">
-
-.. toctree::
-
-   colour_hdri
-
-.. raw:: html
-
-    </div>
-
 Contributing
 ------------
 
