@@ -142,9 +142,9 @@ class Image(object):
         """
 
         if value is not None:
-            assert type(value) in (str, unicode), (
-                ('"{0}" attribute: "{1}" type is not "str" or '
-                 '"unicode"!').format('path', value))
+            assert isinstance(value, basestring), (  # noqa
+                ('"{0}" attribute: "{1}" is not a '
+                 '"basestring" instance!').format('path', value))
 
         self.__path = value
 
@@ -173,9 +173,9 @@ class Image(object):
         """
 
         if value is not None:
-            assert type(value) in (tuple, list, np.ndarray, np.matrix), (
-                ('"{0}" attribute: "{1}" type is not "tuple", "list", '
-                 '"ndarray" or "matrix"!').format('data', value))
+            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
+                ('"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
+                 'or "matrix" instance!').format('data', value))
 
         self.__data = np.asarray(value)
 
@@ -204,8 +204,8 @@ class Image(object):
         """
 
         if value is not None:
-            assert type(value) is Metadata, (
-                '"{0}" attribute: "{1}" type is not "Metadata"!'.format(
+            assert isinstance(value, Metadata), (
+                '"{0}" attribute: "{1}" is not a "Metadata" instance!'.format(
                     'metadata', value))
 
         self.__metadata = value
