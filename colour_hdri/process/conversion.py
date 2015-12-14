@@ -77,6 +77,13 @@ elif platform.system() == 'Darwin':
 
     DNG_CONVERTER : unicode
     """
+else:
+    DNG_CONVERTER = None
+    """
+    Command line *dng* conversion application, usually *Adobe DNG Converter*.
+
+    DNG_CONVERTER : unicode
+    """
 
 DNG_CONVERSION_ARGUMENTS = '-e -d "{0}" "{1}"'
 """
