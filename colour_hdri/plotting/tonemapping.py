@@ -14,6 +14,7 @@ from __future__ import division, unicode_literals
 
 import matplotlib
 import matplotlib.pyplot
+import matplotlib.ticker
 import numpy as np
 import pylab
 
