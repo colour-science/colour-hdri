@@ -22,6 +22,7 @@ except ImportError:
 # Mock modules for *readthedocs.org*.
 MOCK_MODULES = (
     'matplotlib',
+    'matplotlib.cm',
     'matplotlib.pyplot')
 
 for module in MOCK_MODULES:
