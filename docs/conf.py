@@ -22,7 +22,11 @@ except ImportError:
 # Mock modules for *readthedocs.org*.
 MOCK_MODULES = (
     'colour',
-    'colour.plotting')
+    'colour.plotting',
+    'matplotlib',
+    'matplotlib.pyplot',
+    'matplotlib.ticker',
+    'pylab')
 
 for module in MOCK_MODULES:
     sys.modules[module] = mock.Mock()
