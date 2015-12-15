@@ -21,27 +21,11 @@ except ImportError:
 
 # Mock modules for *readthedocs.org*.
 MOCK_MODULES = (
-    'matplotlib',
-    'matplotlib.cm',
-    'matplotlib.image',
-    'matplotlib.path',
-    'matplotlib.pyplot',
-    'matplotlib.ticker',
-    'mpl_toolkits',
-    'mpl_toolkits.mplot3d',
-    'mpl_toolkits.mplot3d.art3d',
-    'pylab',
-    'scipy',
-    'scipy.interpolate',
-    'scipy.ndimage',
-    'scipy.spatial')
+    'colour',
+    'colour.plotting')
 
 for module in MOCK_MODULES:
     sys.modules[module] = mock.Mock()
-
-# Mock attributes for *readthedocs.org*.
-sys.modules['matplotlib'].get_backend = lambda: []
-sys.modules['pylab'].rcParams = {}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
