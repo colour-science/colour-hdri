@@ -31,7 +31,7 @@ when cloning the
 Primary Dependencies
 ^^^^^^^^^^^^^^^^^^^^
 
-**Colour - Demosaicing** requires various dependencies in order to run:
+**Colour - HDRI** requires various dependencies in order to run:
 
 -  `Python 2.7 <https://www.python.org/download/releases/>`_ or
    `Python 3.5 <https://www.python.org/download/releases/>`_
@@ -44,6 +44,7 @@ Optional Features Dependencies
 -   `colour-demosaicing <https://github.com/colour-science/colour-demosaicing>`_
 -   `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`_
 -   `dcraw <https://www.cybercom.net/~dcoffin/dcraw/>`_
+-   `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool/>`_
 -   `rawpy <https://github.com/neothemachine/rawpy>`_
 
 Pypi
