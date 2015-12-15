@@ -35,6 +35,11 @@ LONG_DESCRIPTION = open('README.rst').read()
 INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.7',
                              'recordclass>=0.4']
 
+OPTIONAL_REQUIREMENTS = ['rawpy>=0.5.0',
+                         'scipy>=0.16.0']
+
+PLOTTING_REQUIREMENTS = ['matplotlib>=1.3.1']
+
 DOCS_REQUIREMENTS = ['sphinx>=1.2.2']
 
 TESTS_REQUIREMENTS = ['coverage>=3.7.1',
@@ -58,6 +63,8 @@ setup(name='colour-hdri',
       install_requires=INSTALLATION_REQUIREMENTS,
       extras_require={
           'docs': DOCS_REQUIREMENTS,
+          'optional': OPTIONAL_REQUIREMENTS,
+          'plotting': PLOTTING_REQUIREMENTS,
           'tests': TESTS_REQUIREMENTS},
       classifiers=['Development Status :: 3 - Alpha',
                    'Environment :: Console',
