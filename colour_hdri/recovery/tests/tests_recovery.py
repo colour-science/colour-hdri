@@ -34,7 +34,7 @@ __status__ = 'Production'
 
 __all__ = ['FROBISHER_001_DIRECTORY',
            'RECOVERY_DIRECTORY',
-           'RAW_IMAGES'
+           'RAW_IMAGES',
            'TestHighlightsRecoveryBlend']
 
 FROBISHER_001_DIRECTORY = os.path.join(
