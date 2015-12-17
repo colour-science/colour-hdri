@@ -60,19 +60,22 @@ class TestGSolve(unittest.TestCase):
         for i in range(3):
             g, lE = g_solve(samples[..., i], L_l)
 
-            np.testing.assert_almost_equal(
+            # Lower precision for unit tests under *travis-ci*.
+            np.testing.assert_allclose(
                 g,
                 np.load(os.path.join(
                     CALIBRATION_DIRECTORY,
                     'test_g_solve_g_{0}.npy'.format(i))),
-                decimal=7)
+                rtol=0.0001,
+                atol=0.0001)
 
-            np.testing.assert_almost_equal(
+            np.testing.assert_allclose(
                 lE,
                 np.load(os.path.join(
                     CALIBRATION_DIRECTORY,
                     'test_g_solve_lE_{0}.npy'.format(i))),
-                decimal=7)
+                rtol=0.0001,
+                atol=0.0001)
 
 
 class TestCameraResponseFunctionsDebevec1997(unittest.TestCase):
@@ -87,13 +90,15 @@ camera_response_functions_Debevec1997` definition unit tests methods.
 camera_response_functions_Debevec1997` definition.
         """
 
-        np.testing.assert_almost_equal(
+        # Lower precision for unit tests under *travis-ci*.
+        np.testing.assert_allclose(
             camera_response_functions_Debevec1997(
                 ImageStack.from_files(JPG_IMAGES)),
             np.load(os.path.join(
                 CALIBRATION_DIRECTORY,
                 'test_camera_response_function_Debevec1997_crfs.npy')),
-            decimal=7)
+            rtol=0.0001,
+            atol=0.0001)
 
 
 if __name__ == '__main__':
