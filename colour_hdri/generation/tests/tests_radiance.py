@@ -71,8 +71,8 @@ radiance.image_stack_to_radiance_image` definition.
             np.load(os.path.join(
                 GENERATION_DIRECTORY,
                 'test_radiance_image_crfs.npy')),
-            rtol=0.0001,
-            atol=0.0001)
+            rtol=0.00001,
+            atol=0.00001)
 
 
 if __name__ == '__main__':
