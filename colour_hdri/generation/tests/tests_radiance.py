@@ -61,8 +61,9 @@ radiance.image_stack_to_radiance_image` definition.
                 'test_radiance_image_linear.npy')),
             decimal=7)
 
+        # Lower precision for unit tests under *travis-ci*.
         image_stack = ImageStack.from_files(JPG_IMAGES)
-        np.testing.assert_almost_equal(
+        np.testing.assert_allclose(
             image_stack_to_radiance_image(
                 image_stack,
                 camera_response_functions=(
@@ -70,7 +71,8 @@ radiance.image_stack_to_radiance_image` definition.
             np.load(os.path.join(
                 GENERATION_DIRECTORY,
                 'test_radiance_image_crfs.npy')),
-            decimal=7)
+            rtol=0.0001,
+            atol=0.0001)
 
 
 if __name__ == '__main__':
