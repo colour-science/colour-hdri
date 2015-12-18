@@ -58,7 +58,7 @@ def radiance_image_strip_plot(image,
     grid = matplotlib.gridspec.GridSpec(1, count)
     grid.update(wspace=0, hspace=0)
 
-    height, width, channel = image.shape
+    height, width, _channel = image.shape
     for i in range(count):
         ev = i * ev_steps
         axis = matplotlib.pyplot.subplot(grid[i])

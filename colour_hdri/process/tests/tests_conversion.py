@@ -9,6 +9,7 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 import os
+import platform
 import shutil
 import tempfile
 import unittest
@@ -68,6 +69,11 @@ convert_raw_files_to_dng_files` definition unit tests methods.
         Tests :func:`colour_hdri.process.conversion.\
 convert_raw_files_to_dng_files` definition.
         """
+
+        if platform.system() not in ('Windows', 'Microsoft', 'Darwin'):
+            # *Adobe DNG Converter* is not available on Linux, thus we skip
+            # that unit test.
+            return
 
         reference_dng_files = sorted(filter_files(
             PROCESS_DIRECTORY, ('dng',)))

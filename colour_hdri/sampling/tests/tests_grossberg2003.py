@@ -24,7 +24,7 @@ __status__ = 'Production'
 
 __all__ = ['FROBISHER_001_DIRECTORY',
            'SAMPLING_DIRECTORY',
-           'JPG_IMAGES'
+           'JPG_IMAGES',
            'TestSamplesGrossberg2003']
 
 FROBISHER_001_DIRECTORY = os.path.join(

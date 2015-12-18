@@ -36,8 +36,6 @@ from .calibration import *  # noqa
 from . import calibration
 from .models import *  # noqa
 from . import models
-from .plotting import *  # noqa
-from . import plotting
 from .process import *  # noqa
 from . import process
 from .recovery import *  # noqa
@@ -58,7 +56,6 @@ __all__ += sampling.__all__
 __all__ += generation.__all__
 __all__ += calibration.__all__
 __all__ += models.__all__
-__all__ += plotting.__all__
 __all__ += process.__all__
 __all__ += recovery.__all__
 __all__ += tonemapping.__all__

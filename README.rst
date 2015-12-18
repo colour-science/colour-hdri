@@ -1,3 +1,20 @@
+.. image:: https://badge.waffle.io/colour-science/colour-hdri.svg?label=ready&title=Ready
+    :target: https://github.com/colour-science/colour-hdri/issues
+.. image:: https://img.shields.io/travis/colour-science/colour-hdri/develop.svg
+    :target: https://travis-ci.org/colour-science/colour-hdri
+.. image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg
+    :target: https://coveralls.io/r/colour-science/colour-hdri
+.. image:: https://img.shields.io/scrutinizer/g/colour-science/colour-hdri/develop.svg
+    :target: https://scrutinizer-ci.com/g/colour-science/colour-hdri/
+.. image:: https://landscape.io/github/colour-science/colour-hdri/master/landscape.png
+    :target: https://landscape.io/github/colour-science/colour-hdri
+.. image:: https://img.shields.io/gemnasium/colour-science/colour-hdri.svg
+    :target: https://gemnasium.com/colour-science/colour-hdri
+.. image:: https://badge.fury.io/py/colour-hdri.svg
+    :target: https://pypi.python.org/pypi/colour-hdri
+.. image:: https://img.shields.io/pypi/dm/colour-hdri.svg
+    :target: https://pypi.python.org/pypi/colour-hdri
+
 Colour - HDRI
 =============
 
@@ -11,6 +28,8 @@ It is open source and freely available under the
 
 Features
 --------
+
+The following features are available:
 
 -   HDRI / Radiance Image Generation
 -   Debevec (1997) Camera Response Function Computation
