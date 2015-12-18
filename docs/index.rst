@@ -12,6 +12,8 @@ It is open source and freely available under the
 Features
 --------
 
+The following features are available:
+
 -   HDRI / Radiance Image Generation
 -   Debevec (1997) Camera Response Function Computation
 -   Grossberg (2003) Histogram Based Image Sampling
