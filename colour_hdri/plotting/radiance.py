@@ -15,7 +15,7 @@ from __future__ import division, unicode_literals
 import matplotlib.pyplot
 import numpy as np
 
-from colour.plotting import DEFAULT_PLOTTING_OECF
+from colour.plotting import DEFAULT_PLOTTING_OECF, display
 
 from colour_hdri.utilities.exposure import adjust_exposure
 
@@ -32,7 +32,8 @@ __all__ = ['radiance_image_strip_plot']
 def radiance_image_strip_plot(image,
                               count=5,
                               ev_steps=-2,
-                              OECF=DEFAULT_PLOTTING_OECF):
+                              OECF=DEFAULT_PLOTTING_OECF,
+                              **kwargs):
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
 
@@ -46,11 +47,13 @@ def radiance_image_strip_plot(image,
         Exposure variation for each image of the strip.
     OECF : callable, optional
         OECF / opto-electronic conversion function used for plotting.
+    \**kwargs : dict, optional
+        Keywords arguments.
 
     Returns
     -------
-    bool
-        Definition success.
+    Figure
+        Current figure or None.
     """
 
     image = np.asarray(image)
@@ -72,6 +75,4 @@ def radiance_image_strip_plot(image,
         axis.set_yticks([])
         axis.set_aspect('equal')
 
-    matplotlib.pyplot.show()
-
-    return True
+    return display(**kwargs)
