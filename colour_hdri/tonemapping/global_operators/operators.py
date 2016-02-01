@@ -525,9 +525,9 @@ def tonemapping_operator_Tumblin1999(
 
     L_w = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
-    f = lambda x: np.where(x > 100,
-                           2.655,
-                           1.855 + 0.4 * np.log10(x + 2.3 * 10 ** -5))
+    def f(x): return np.where(x > 100,
+                              2.655,
+                              1.855 + 0.4 * np.log10(x + 2.3 * 10 ** -5))
 
     L_wa = np.exp(np.mean(np.log(L_w + 2.3 * 10 ** -5)))
     g_d = f(L_da)
@@ -690,7 +690,7 @@ def tonemapping_operator_filmic(RGB,
     E = toe_numerator
     F = toe_denominator
 
-    f = lambda x, A, B, C, D, E, F: (
+    def f(x, A, B, C, D, E, F): return (
         ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F)
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
