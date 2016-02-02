@@ -20,7 +20,7 @@ from colour.plotting import DEFAULT_PLOTTING_OECF, display
 from colour_hdri.utilities.exposure import adjust_exposure
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'

@@ -72,7 +72,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Colour - HDRI'
-copyright = u'2015, Colour Developers'
+copyright = u'2015-2016, Colour Developers'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -293,7 +293,7 @@ texinfo_documents = [
 epub_title = u'Colour - HDRI'
 epub_author = u'Colour Developers'
 epub_publisher = u'Colour Developers'
-epub_copyright = u'2015, Colour Developers'
+epub_copyright = u'2015-2016, Colour Developers'
 
 # The basename for the epub file. It defaults to the project name.
 # epub_basename = u'colour-hdri'
