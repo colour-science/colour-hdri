@@ -113,14 +113,14 @@ class TestCopyExifTags(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self.__temporary_directory = tempfile.mkdtemp()
+        self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
         """
         After tests actions.
         """
 
-        shutil.rmtree(self.__temporary_directory)
+        shutil.rmtree(self._temporary_directory)
 
     def test_copy_exif_tags(self):
         """
@@ -130,7 +130,7 @@ class TestCopyExifTags(unittest.TestCase):
         reference_jpg_image = filter_files(
             FROBISHER_001_DIRECTORY, ('jpg',))[0]
         test_jpg_image = os.path.join(
-            self.__temporary_directory, os.path.basename(reference_jpg_image))
+            self._temporary_directory, os.path.basename(reference_jpg_image))
 
         shutil.copyfile(reference_jpg_image, test_jpg_image)
         self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '8.0')
@@ -151,14 +151,14 @@ class TestUpdateExifTags(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self.__temporary_directory = tempfile.mkdtemp()
+        self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
         """
         After tests actions.
         """
 
-        shutil.rmtree(self.__temporary_directory)
+        shutil.rmtree(self._temporary_directory)
 
     def test_update_exif_tags(self):
         """
@@ -169,7 +169,7 @@ class TestUpdateExifTags(unittest.TestCase):
         test_jpg_images = []
         for reference_jpg_image in reference_jpg_images:
             test_jpg_image = os.path.join(
-                self.__temporary_directory,
+                self._temporary_directory,
                 os.path.basename(reference_jpg_image))
             shutil.copyfile(reference_jpg_image, test_jpg_image)
             delete_exif_tags(test_jpg_image)
@@ -192,14 +192,14 @@ class TestDeleteExifTags(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self.__temporary_directory = tempfile.mkdtemp()
+        self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
         """
         After tests actions.
         """
 
-        shutil.rmtree(self.__temporary_directory)
+        shutil.rmtree(self._temporary_directory)
 
     def test_delete_exif_tags(self):
         """
@@ -209,7 +209,7 @@ class TestDeleteExifTags(unittest.TestCase):
         reference_jpg_image = filter_files(
             FROBISHER_001_DIRECTORY, ('jpg',))[0]
         test_jpg_image = os.path.join(
-            self.__temporary_directory, os.path.basename(reference_jpg_image))
+            self._temporary_directory, os.path.basename(reference_jpg_image))
 
         shutil.copyfile(reference_jpg_image, test_jpg_image)
         self.assertEqual(read_exif_tag(test_jpg_image, 'Aperture'), '8.0')
@@ -246,14 +246,14 @@ class TestWriteExifTag(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self.__temporary_directory = tempfile.mkdtemp()
+        self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
         """
         After tests actions.
         """
 
-        shutil.rmtree(self.__temporary_directory)
+        shutil.rmtree(self._temporary_directory)
 
     def test_write_exif_tag(self):
         """
@@ -263,7 +263,7 @@ class TestWriteExifTag(unittest.TestCase):
         reference_jpg_image = filter_files(
             FROBISHER_001_DIRECTORY, ('jpg',))[0]
         test_jpg_image = os.path.join(
-            self.__temporary_directory, os.path.basename(reference_jpg_image))
+            self._temporary_directory, os.path.basename(reference_jpg_image))
 
         shutil.copyfile(reference_jpg_image, test_jpg_image)
         # *Aperture* exif tag is not writeable, changing for *FNumber*.

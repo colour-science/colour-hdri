@@ -110,30 +110,30 @@ class Image(object):
     """
 
     def __init__(self, path=None, data=None, metadata=None):
-        self.__path = None
+        self._path = None
         self.path = path
-        self.__data = None
+        self._data = None
         self.data = data
-        self.__metadata = None
+        self._metadata = None
         self.metadata = metadata
 
     @property
     def path(self):
         """
-        Property for **self.__path** private attribute.
+        Property for **self._path** private attribute.
 
         Returns
         -------
         unicode
-            self.__path.
+            self._path.
         """
 
-        return self.__path
+        return self._path
 
     @path.setter
     def path(self, value):
         """
-        Setter for **self.__path** private attribute.
+        Setter for **self._path** private attribute.
 
         Parameters
         ----------
@@ -146,25 +146,25 @@ class Image(object):
                 ('"{0}" attribute: "{1}" is not a '
                  '"basestring" instance!').format('path', value))
 
-        self.__path = value
+        self._path = value
 
     @property
     def data(self):
         """
-        Property for **self.__data** private attribute.
+        Property for **self._data** private attribute.
 
         Returns
         -------
         unicode
-            self.__data.
+            self._data.
         """
 
-        return self.__data
+        return self._data
 
     @data.setter
     def data(self, value):
         """
-        Setter for **self.__data** private attribute.
+        Setter for **self._data** private attribute.
 
         Parameters
         ----------
@@ -177,25 +177,25 @@ class Image(object):
                 ('"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
                  'or "matrix" instance!').format('data', value))
 
-        self.__data = np.asarray(value)
+        self._data = np.asarray(value)
 
     @property
     def metadata(self):
         """
-        Property for **self.__metadata** private attribute.
+        Property for **self._metadata** private attribute.
 
         Returns
         -------
         unicode
-            self.__metadata.
+            self._metadata.
         """
 
-        return self.__metadata
+        return self._metadata
 
     @metadata.setter
     def metadata(self, value):
         """
-        Setter for **self.__metadata** private attribute.
+        Setter for **self._metadata** private attribute.
 
         Parameters
         ----------
@@ -208,7 +208,7 @@ class Image(object):
                 '"{0}" attribute: "{1}" is not a "Metadata" instance!'.format(
                     'metadata', value))
 
-        self.__metadata = value
+        self._metadata = value
 
     def read_data(self):
         """
@@ -220,8 +220,8 @@ class Image(object):
             Image pixel data.
         """
 
-        LOGGER.info('Reading "{0}" image.'.format(self.__path))
-        self.data = read_image(str(self.__path))
+        LOGGER.info('Reading "{0}" image.'.format(self._path))
+        self.data = read_image(str(self._path))
 
         return self.data
 
@@ -235,11 +235,11 @@ class Image(object):
             Image relevant exif metadata.
         """
 
-        LOGGER.info('Reading "{0}" image metadata.'.format(self.__path))
-        exif_data = read_exif_tags(self.__path)
+        LOGGER.info('Reading "{0}" image metadata.'.format(self._path))
+        exif_data = read_exif_tags(self._path)
         if not exif_data.get('EXIF'):
             raise RuntimeError(
-                '"{0}" file has no "Exif" data!'.format(self.__path))
+                '"{0}" file has no "Exif" data!'.format(self._path))
 
         f_number = exif_data['EXIF'].get('F Number')
         if f_number is not None:
@@ -300,7 +300,7 @@ class ImageStack(MutableSequence):
     """
 
     def __init__(self):
-        self.__list = []
+        self._list = []
 
     def __getitem__(self, index):
         """
@@ -317,7 +317,7 @@ class ImageStack(MutableSequence):
             Item at given index.
         """
 
-        return self.__list[index]
+        return self._list[index]
 
     def __setitem__(self, index, value):
         """
@@ -331,7 +331,7 @@ class ImageStack(MutableSequence):
             Item value.
         """
 
-        self.__list[index] = value
+        self._list[index] = value
 
     def __delitem__(self, index):
         """
@@ -343,14 +343,14 @@ class ImageStack(MutableSequence):
             Item index.
         """
 
-        del self.__list[index]
+        del self._list[index]
 
     def __len__(self):
         """
         Reimplements the :meth:`MutableSequence.__len__` method.
         """
 
-        return len(self.__list)
+        return len(self._list)
 
     def __getattr__(self, attribute):
         """
@@ -422,7 +422,7 @@ class ImageStack(MutableSequence):
             Item value.
         """
 
-        self.__list.insert(index, value)
+        self._list.insert(index, value)
 
     @staticmethod
     def from_files(image_files):
