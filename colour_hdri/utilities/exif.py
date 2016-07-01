@@ -121,7 +121,7 @@ def copy_exif_tags(source, target):
     """
 
     LOGGER.info("Copying '{0}' file exif data to '{1}' file.".format(
-        target, source))
+        source, target))
 
     subprocess.check_output(
         [EXIF_EXECUTABLE,
