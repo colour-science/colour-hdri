@@ -243,29 +243,29 @@ class Image(object):
 
         f_number = exif_data['EXIF'].get('F Number')
         if f_number is not None:
-            f_number = float(f_number[0])
+            f_number = np.float_(f_number[0])
 
         exposure_time = exif_data['EXIF'].get('Exposure Time')
         if exposure_time is not None:
-            exposure_time = float(Fraction(exposure_time[0]))
+            exposure_time = np.float_(Fraction(exposure_time[0]))
 
         iso = exif_data['EXIF'].get('ISO')
         if iso is not None:
-            iso = float(iso[0])
+            iso = np.float_(iso[0])
 
         black_level = exif_data['EXIF'].get('Black Level')
         if black_level is not None:
-            black_level = map(float, black_level[0].split())
+            black_level = map(np.float_, black_level[0].split())
             black_level = np.asarray(black_level) / 65535
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:
-            white_level = float(white_level[0]) / 65535
+            white_level = np.float_(white_level[0]) / 65535
 
         white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
         if white_balance_multipliers is not None:
             white_balance_multipliers = map(
-                float, white_balance_multipliers[0].split())
+                np.float_, white_balance_multipliers[0].split())
             white_balance_multipliers = np.asarray(
                 white_balance_multipliers) / white_balance_multipliers[1]
 
