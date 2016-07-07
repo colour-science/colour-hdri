@@ -11,7 +11,7 @@ Defines HDRI / radiance image generation objects:
 
 See Also
 --------
-`Colour - HDRI - Examples IPython Notebooks
+`Colour - HDRI - Examples Jupyter Notebooks
 <https://github.com/colour-science/colour-hdri/\
 blob/master/colour_hdri/examples>`_
 

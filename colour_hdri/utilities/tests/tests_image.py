@@ -198,14 +198,14 @@ class TestImageStack(unittest.TestCase):
 
         np.testing.assert_almost_equal(
             self._image_stack.f_number,
-            np.array([8., 8., 8.]),
+            np.array([8, 8, 8]),
             decimal=7)
 
         self.assertEqual(self._image_stack[0].metadata.f_number, 8)
 
         np.testing.assert_almost_equal(
             self._image_stack.exposure_time,
-            np.array([0.125, 1., 8.]),
+            np.array([0.125, 1, 8]),
             decimal=7)
 
         self.assertEqual(self._image_stack[0].metadata.exposure_time, 0.125)
@@ -236,7 +236,7 @@ class TestImageStack(unittest.TestCase):
 
         np.testing.assert_almost_equal(
             image_stack.f_number,
-            np.array([8., 8., 8.]),
+            np.array([8, 8, 8]),
             decimal=7)
 
         image_stack.f_number = np.array([1, 2, 3])

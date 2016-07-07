@@ -52,7 +52,7 @@ luminance_variance` definition.
         a = np.tile(np.arange(5), (5, 1))
 
         self.assertAlmostEqual(
-            luminance_variance(a), 12.24744871391589, places=7)
+            luminance_variance(a), 12.24744871, places=7)
 
 
 class TestFindRegionsVarianceMinimization(unittest.TestCase):

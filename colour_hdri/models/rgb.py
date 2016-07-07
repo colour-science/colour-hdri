@@ -98,7 +98,7 @@ def camera_space_to_sRGB(RGB, XYZ_to_camera_matrix):
     ...     [-0.77980000, 1.54740000, 0.24800000],
     ...     [-0.14960000, 0.19370000, 0.66510000]])
     >>> camera_space_to_sRGB(RGB, XYZ_to_camera_matrix)  # doctest: +ELLIPSIS
-    array([ 0.7564180...,  0.8683192...,  0.6044589...])
+    array([ 0.7564350...,  0.8683155...,  0.6044706...])
     """
 
     return camera_space_to_RGB(
