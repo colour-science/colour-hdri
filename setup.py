@@ -32,11 +32,10 @@ SHORT_DESCRIPTION = 'Colour - HDRI'
 
 LONG_DESCRIPTION = open('README.rst').read()
 
-INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.7',
+INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.8',
                              'recordclass>=0.4']
 
-OPTIONAL_REQUIREMENTS = ['rawpy>=0.5.0',
-                         'scipy>=0.16.0']
+OPTIONAL_REQUIREMENTS = ['rawpy>=0.5.0']
 
 PLOTTING_REQUIREMENTS = ['matplotlib>=1.3.1']
 
