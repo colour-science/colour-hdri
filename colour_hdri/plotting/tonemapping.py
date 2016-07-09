@@ -19,14 +19,14 @@ import numpy as np
 import pylab
 
 from colour.plotting import (
-    DEFAULT_PLOTTING_OECF,
+    DEFAULT_PLOTTING_ENCODING_CCTF,
     boundaries,
     canvas,
     display,
     decorate)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -35,11 +35,12 @@ __status__ = 'Production'
 __all__ = ['tonemapping_operator_image_plot']
 
 
-def tonemapping_operator_image_plot(image,
-                                    luminance_function,
-                                    log_scale=False,
-                                    OECF=DEFAULT_PLOTTING_OECF,
-                                    **kwargs):
+def tonemapping_operator_image_plot(
+        image,
+        luminance_function,
+        log_scale=False,
+        encoding_cctf=DEFAULT_PLOTTING_ENCODING_CCTF,
+        **kwargs):
     """
     Plots given tonemapped image with superimposed luminance mapping function.
 
@@ -51,8 +52,9 @@ def tonemapping_operator_image_plot(image,
         Luminance mapping function.
     log_scale : bool, optional
         Use a log scale for plotting the luminance mapping function.
-    OECF : callable, optional
-        OECF / opto-electronic conversion function used for plotting.
+    encoding_cctf : callable, optional
+        Encoding colour component transfer function / opto-electronic
+        transfer function used for plotting.
     \**kwargs : dict, optional
         Keywords arguments.
 
@@ -64,7 +66,7 @@ def tonemapping_operator_image_plot(image,
     shape = image.shape
     limits = [0, 1, 0, 1]
 
-    image = np.clip(OECF(image), 0, 1)
+    image = np.clip(encoding_cctf(image), 0, 1)
     pylab.imshow(image,
                  aspect=shape[0] / shape[1],
                  extent=limits,

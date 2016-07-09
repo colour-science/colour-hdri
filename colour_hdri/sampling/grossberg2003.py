@@ -26,7 +26,7 @@ import numpy as np
 from colour import tsplit, tstack
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -68,7 +68,7 @@ def samples_Grossberg2003(image_stack, samples=1000, n=256):
             [np.histogram(image[..., c], n, range=(0, 1))[0]
              for c in np.arange(channels_c)])
         cdf = np.cumsum(histograms, axis=0)
-        cdf_i.append(cdf.astype(float) / np.max(cdf, axis=0))
+        cdf_i.append(cdf.astype(np.float_) / np.max(cdf, axis=0))
 
     samples_cdf_i = np.zeros((samples, len(cdf_i), channels_c))
     samples_u = np.linspace(0, 1, samples)

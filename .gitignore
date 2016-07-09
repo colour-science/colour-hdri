@@ -3,6 +3,7 @@
 .idea
 .ipynb_checkpoints/
 __pycache__
+build
 colour_hdri.egg-info
 dist
 docs/_build

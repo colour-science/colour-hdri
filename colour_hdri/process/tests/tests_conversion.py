@@ -23,7 +23,7 @@ from colour_hdri.process import (
 from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -55,14 +55,14 @@ convert_raw_files_to_dng_files` definition unit tests methods.
         Initialises common tests attributes.
         """
 
-        self.__temporary_directory = tempfile.mkdtemp()
+        self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
         """
         After tests actions.
         """
 
-        shutil.rmtree(self.__temporary_directory)
+        shutil.rmtree(self._temporary_directory)
 
     def test_convert_raw_files_to_dng_files(self):
         """
@@ -78,7 +78,7 @@ convert_raw_files_to_dng_files` definition.
         reference_dng_files = sorted(filter_files(
             PROCESS_DIRECTORY, ('dng',)))
         test_dng_files = sorted(convert_raw_files_to_dng_files(
-            RAW_IMAGES, self.__temporary_directory))
+            RAW_IMAGES, self._temporary_directory))
 
         for test_dng_file, reference_dng_file in zip(
                 test_dng_files, reference_dng_files):
@@ -99,14 +99,14 @@ convert_dng_files_to_intermediate_files` definition unit tests methods.
         Initialises common tests attributes.
         """
 
-        self.__temporary_directory = tempfile.mkdtemp()
+        self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
         """
         After tests actions.
         """
 
-        shutil.rmtree(self.__temporary_directory)
+        shutil.rmtree(self._temporary_directory)
 
     def test_convert_dng_files_to_intermediate_files(self):
         """
@@ -116,7 +116,7 @@ convert_dng_files_to_intermediate_files` definition.
 
         reference_dng_files = sorted(
             filter_files(PROCESS_DIRECTORY, ('dng',)))
-        tests_dng_files = [os.path.join(self.__temporary_directory,
+        tests_dng_files = [os.path.join(self._temporary_directory,
                                         os.path.basename(reference_dng_file))
                            for reference_dng_file in reference_dng_files]
         for reference_dng_file, tests_dng_file in zip(reference_dng_files,
@@ -127,7 +127,7 @@ convert_dng_files_to_intermediate_files` definition.
             filter_files(PROCESS_DIRECTORY, ('tiff',)))
 
         test_tiff_files = sorted(convert_dng_files_to_intermediate_files(
-            tests_dng_files, self.__temporary_directory))
+            tests_dng_files, self._temporary_directory))
 
         for test_tiff_file, reference_tiff_file in zip(
                 test_tiff_files, reference_tiff_files):
