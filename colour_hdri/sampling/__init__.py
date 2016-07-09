@@ -4,5 +4,7 @@
 from __future__ import absolute_import
 
 from .grossberg2003 import samples_Grossberg2003
+from .variance_minimization import light_probe_sampling_variance_minimization
 
 __all__ = ['samples_Grossberg2003']
+__all__ += ['light_probe_sampling_variance_minimization']

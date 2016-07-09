@@ -25,7 +25,7 @@ from colour import read_image, tsplit, tstack
 from colour_hdri.utilities.exif import read_exif_tags
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -110,30 +110,30 @@ class Image(object):
     """
 
     def __init__(self, path=None, data=None, metadata=None):
-        self.__path = None
+        self._path = None
         self.path = path
-        self.__data = None
+        self._data = None
         self.data = data
-        self.__metadata = None
+        self._metadata = None
         self.metadata = metadata
 
     @property
     def path(self):
         """
-        Property for **self.__path** private attribute.
+        Property for **self._path** private attribute.
 
         Returns
         -------
         unicode
-            self.__path.
+            self._path.
         """
 
-        return self.__path
+        return self._path
 
     @path.setter
     def path(self, value):
         """
-        Setter for **self.__path** private attribute.
+        Setter for **self._path** private attribute.
 
         Parameters
         ----------
@@ -146,25 +146,25 @@ class Image(object):
                 ('"{0}" attribute: "{1}" is not a '
                  '"basestring" instance!').format('path', value))
 
-        self.__path = value
+        self._path = value
 
     @property
     def data(self):
         """
-        Property for **self.__data** private attribute.
+        Property for **self._data** private attribute.
 
         Returns
         -------
         unicode
-            self.__data.
+            self._data.
         """
 
-        return self.__data
+        return self._data
 
     @data.setter
     def data(self, value):
         """
-        Setter for **self.__data** private attribute.
+        Setter for **self._data** private attribute.
 
         Parameters
         ----------
@@ -177,25 +177,25 @@ class Image(object):
                 ('"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
                  'or "matrix" instance!').format('data', value))
 
-        self.__data = np.asarray(value)
+        self._data = np.asarray(value)
 
     @property
     def metadata(self):
         """
-        Property for **self.__metadata** private attribute.
+        Property for **self._metadata** private attribute.
 
         Returns
         -------
         unicode
-            self.__metadata.
+            self._metadata.
         """
 
-        return self.__metadata
+        return self._metadata
 
     @metadata.setter
     def metadata(self, value):
         """
-        Setter for **self.__metadata** private attribute.
+        Setter for **self._metadata** private attribute.
 
         Parameters
         ----------
@@ -208,7 +208,7 @@ class Image(object):
                 '"{0}" attribute: "{1}" is not a "Metadata" instance!'.format(
                     'metadata', value))
 
-        self.__metadata = value
+        self._metadata = value
 
     def read_data(self):
         """
@@ -220,8 +220,8 @@ class Image(object):
             Image pixel data.
         """
 
-        LOGGER.info('Reading "{0}" image.'.format(self.__path))
-        self.data = read_image(str(self.__path))
+        LOGGER.info('Reading "{0}" image.'.format(self._path))
+        self.data = read_image(str(self._path))
 
         return self.data
 
@@ -235,37 +235,37 @@ class Image(object):
             Image relevant exif metadata.
         """
 
-        LOGGER.info('Reading "{0}" image metadata.'.format(self.__path))
-        exif_data = read_exif_tags(self.__path)
+        LOGGER.info('Reading "{0}" image metadata.'.format(self._path))
+        exif_data = read_exif_tags(self._path)
         if not exif_data.get('EXIF'):
             raise RuntimeError(
-                '"{0}" file has no "Exif" data!'.format(self.__path))
+                '"{0}" file has no "Exif" data!'.format(self._path))
 
         f_number = exif_data['EXIF'].get('F Number')
         if f_number is not None:
-            f_number = float(f_number[0])
+            f_number = np.float_(f_number[0])
 
         exposure_time = exif_data['EXIF'].get('Exposure Time')
         if exposure_time is not None:
-            exposure_time = float(Fraction(exposure_time[0]))
+            exposure_time = np.float_(Fraction(exposure_time[0]))
 
         iso = exif_data['EXIF'].get('ISO')
         if iso is not None:
-            iso = float(iso[0])
+            iso = np.float_(iso[0])
 
         black_level = exif_data['EXIF'].get('Black Level')
         if black_level is not None:
-            black_level = map(float, black_level[0].split())
+            black_level = map(np.float_, black_level[0].split())
             black_level = np.asarray(black_level) / 65535
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:
-            white_level = float(white_level[0]) / 65535
+            white_level = np.float_(white_level[0]) / 65535
 
         white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
         if white_balance_multipliers is not None:
             white_balance_multipliers = map(
-                float, white_balance_multipliers[0].split())
+                np.float_, white_balance_multipliers[0].split())
             white_balance_multipliers = np.asarray(
                 white_balance_multipliers) / white_balance_multipliers[1]
 
@@ -300,7 +300,7 @@ class ImageStack(MutableSequence):
     """
 
     def __init__(self):
-        self.__list = []
+        self._list = []
 
     def __getitem__(self, index):
         """
@@ -317,7 +317,7 @@ class ImageStack(MutableSequence):
             Item at given index.
         """
 
-        return self.__list[index]
+        return self._list[index]
 
     def __setitem__(self, index, value):
         """
@@ -331,7 +331,7 @@ class ImageStack(MutableSequence):
             Item value.
         """
 
-        self.__list[index] = value
+        self._list[index] = value
 
     def __delitem__(self, index):
         """
@@ -343,14 +343,14 @@ class ImageStack(MutableSequence):
             Item index.
         """
 
-        del self.__list[index]
+        del self._list[index]
 
     def __len__(self):
         """
         Reimplements the :meth:`MutableSequence.__len__` method.
         """
 
-        return len(self.__list)
+        return len(self._list)
 
     def __getattr__(self, attribute):
         """
@@ -422,7 +422,7 @@ class ImageStack(MutableSequence):
             Item value.
         """
 
-        self.__list.insert(index, value)
+        self._list.insert(index, value)
 
     @staticmethod
     def from_files(image_files):

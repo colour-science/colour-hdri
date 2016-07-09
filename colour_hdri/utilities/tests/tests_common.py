@@ -20,7 +20,7 @@ from colour_hdri.utilities import (
     filter_files)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -53,9 +53,10 @@ class TestLinearConversion(unittest.TestCase):
             linear_conversion(np.linspace(0, 1, 10),
                               np.array([0, 1]),
                               np.array([1, np.pi])),
-            np.array([1., 1.2379547, 1.4759095, 1.7138642, 1.951819,
-                      2.1897737, 2.4277284, 2.6656832, 2.9036379, 3.1415927]),
-            decimal=7)
+            np.array([1.00000000, 1.23795474, 1.47590948, 1.71386422,
+                      1.95181896, 2.18977370, 2.42772844, 2.66568318,
+                      2.90363791, 3.14159265]),
+            decimal=8)
 
 
 class TestVivification(unittest.TestCase):

@@ -1,24 +1,42 @@
-.. image:: https://badge.waffle.io/colour-science/colour-hdri.svg?label=ready&title=Ready
-    :target: https://github.com/colour-science/colour-hdri/issues
-.. image:: https://img.shields.io/travis/colour-science/colour-hdri/develop.svg
-    :target: https://travis-ci.org/colour-science/colour-hdri
-.. image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg
-    :target: https://coveralls.io/r/colour-science/colour-hdri
-.. image:: https://img.shields.io/scrutinizer/g/colour-science/colour-hdri/develop.svg
-    :target: https://scrutinizer-ci.com/g/colour-science/colour-hdri/
-.. image:: https://landscape.io/github/colour-science/colour-hdri/master/landscape.png
-    :target: https://landscape.io/github/colour-science/colour-hdri
-.. image:: https://img.shields.io/gemnasium/colour-science/colour-hdri.svg
-    :target: https://gemnasium.com/colour-science/colour-hdri
-.. image:: https://badge.fury.io/py/colour-hdri.svg
-    :target: https://pypi.python.org/pypi/colour-hdri
-.. image:: https://img.shields.io/pypi/dm/colour-hdri.svg
-    :target: https://pypi.python.org/pypi/colour-hdri
-
 Colour - HDRI
 =============
 
 ..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/master/docs/_static/Radiance_001.png
+
+.. list-table::
+    :stub-columns: 1
+
+    * - Status
+      - |waffle| |travis| |coveralls| |scrutinizer| |landscape| |gemnasium|
+    * - Package
+      - |version| |downloads|
+
+.. |waffle| image:: https://badge.waffle.io/colour-science/colour-hdri.svg?label=ready&title=Ready
+    :target: https://github.com/colour-science/colour-hdri/issues
+    :alt: Issues Ready
+.. |travis| image:: https://img.shields.io/travis/colour-science/colour-hdri/develop.svg
+    :target: https://travis-ci.org/colour-science/colour-hdri
+    :alt: Develop Build Status
+.. |coveralls| image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg
+    :target: https://coveralls.io/r/colour-science/colour-hdri
+    :alt: Coverage Status
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/colour-science/colour-hdri/develop.svg
+    :target: https://scrutinizer-ci.com/g/colour-science/colour-hdri/
+    :alt: Code Quality
+.. |landscape| image:: https://landscape.io/github/colour-science/colour-hdri/master/landscape.png
+    :target: https://landscape.io/github/colour-science/colour-hdri
+    :alt: Code Quality
+.. |gemnasium| image:: https://img.shields.io/gemnasium/colour-science/colour-hdri.svg
+    :target: https://gemnasium.com/colour-science/colour-hdri
+    :alt: Dependencies Status
+.. |version| image:: https://badge.fury.io/py/colour-hdri.svg
+    :target: https://pypi.python.org/pypi/colour-hdri
+    :alt: Package Version
+.. |downloads| image:: https://img.shields.io/pypi/dm/colour-hdri.svg
+    :target: https://pypi.python.org/pypi/colour-hdri
+    :alt: Package Downloads
+
+.. end-badges
 
 A `Python <https://www.python.org/>`_ package implementing various
 HDRI / Radiance image processing algorithms.
@@ -34,6 +52,7 @@ The following features are available:
 -   HDRI / Radiance Image Generation
 -   Debevec (1997) Camera Response Function Computation
 -   Grossberg (2003) Histogram Based Image Sampling
+-   Variance Minimization Light Probe Sampling
 -   Global Tonemapping Operators
 -   Raw Processing Helpers
 
@@ -98,7 +117,7 @@ API
 ^^^
 
 The main reference for `Colour - HDRI <https://github.com/colour-science/colour-hdri>`_
-is the Sphinx `API Reference <http://colour-hdri.readthedocs.org/en/latest/>`_.
+is the Sphinx `API Reference <http://colour-hdri.readthedocs.io/en/latest/>`_.
 
 Examples
 ^^^^^^^^
@@ -123,7 +142,7 @@ format or `reStructuredText <https://github.com/colour-science/colour-hdri/blob/
 About
 -----
 
-| **Colour - HDRI** by Colour Developers - 2015
-| Copyright © 2015 – Colour Developers – `colour-science@googlegroups.com <colour-science@googlegroups.com>`_
+| **Colour - HDRI** by Colour Developers
+| Copyright © 2015-2016 – Colour Developers – `colour-science@googlegroups.com <colour-science@googlegroups.com>`_
 | This software is released under terms of New BSD License: http://opensource.org/licenses/BSD-3-Clause
 | `http://github.com/colour-science/colour-hdri <http://github.com/colour-science/colour-hdri>`_

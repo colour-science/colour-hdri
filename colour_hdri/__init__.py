@@ -44,7 +44,7 @@ from .tonemapping import *  # noqa
 from . import tonemapping
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -71,7 +71,7 @@ __application_name__ = 'Colour - HDRI'
 
 __major_version__ = '0'
 __minor_version__ = '1'
-__change_version__ = '0'
+__change_version__ = '1'
 __version__ = '.'.join((__major_version__,
                         __minor_version__,
                         __change_version__))

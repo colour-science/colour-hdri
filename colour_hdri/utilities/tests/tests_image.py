@@ -16,7 +16,7 @@ from colour_hdri.utilities import filter_files
 from colour_hdri.utilities import Metadata, Image, ImageStack
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -61,7 +61,7 @@ class TestImage(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self.__test_jpg_image = filter_files(
+        self._test_jpg_image = filter_files(
             FROBISHER_001_DIRECTORY, ('jpg',))[0]
 
     def test_required_attributes(self):
@@ -92,7 +92,7 @@ class TestImage(unittest.TestCase):
         Tests :attr:`colour_hdri.utilities.image.Image.read_data` method.
         """
 
-        image = Image(self.__test_jpg_image)
+        image = Image(self._test_jpg_image)
 
         self.assertEqual(image.data, np.array(None))
         self.assertTupleEqual(image.read_data().shape, (426, 640, 3))
@@ -102,7 +102,7 @@ class TestImage(unittest.TestCase):
         Tests :attr:`colour_hdri.utilities.image.Image.end` method.
         """
 
-        image = Image(self.__test_jpg_image)
+        image = Image(self._test_jpg_image)
 
         self.assertEqual(image.metadata, None)
         self.assertTupleEqual(tuple(image.read_metadata()),
@@ -120,10 +120,10 @@ class TestImageStack(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self.__test_jpg_images = filter_files(
+        self._test_jpg_images = filter_files(
             FROBISHER_001_DIRECTORY, ('jpg',))
 
-        self.__image_stack = ImageStack().from_files(self.__test_jpg_images)
+        self._image_stack = ImageStack().from_files(self._test_jpg_images)
 
     def test_required_methods(self):
         """
@@ -150,7 +150,7 @@ class TestImageStack(unittest.TestCase):
         method.
         """
 
-        for image in self.__image_stack:
+        for image in self._image_stack:
             self.assertIsInstance(image, Image)
 
     def test__setitem__(self):
@@ -160,7 +160,7 @@ class TestImageStack(unittest.TestCase):
         """
 
         image_stack = ImageStack()
-        image = Image(self.__test_jpg_images[0])
+        image = Image(self._test_jpg_images[0])
         image.read_data()
         image.read_metadata()
         image_stack.insert(0, image)
@@ -173,7 +173,7 @@ class TestImageStack(unittest.TestCase):
         method.
         """
 
-        image_stack = ImageStack().from_files(self.__test_jpg_images)
+        image_stack = ImageStack().from_files(self._test_jpg_images)
 
         del image_stack[0]
 
@@ -184,7 +184,7 @@ class TestImageStack(unittest.TestCase):
         Tests :attr:`colour_hdri.utilities.image.ImageStack.__len__` method.
         """
 
-        self.assertEqual(len(self.__image_stack), 3)
+        self.assertEqual(len(self._image_stack), 3)
 
     def test__getattr__(self):
         """
@@ -193,28 +193,28 @@ class TestImageStack(unittest.TestCase):
         """
 
         self.assertTupleEqual(
-            self.__image_stack.data.shape,
+            self._image_stack.data.shape,
             (426, 640, 3, 3))
 
         np.testing.assert_almost_equal(
-            self.__image_stack.f_number,
-            np.array([8., 8., 8.]),
+            self._image_stack.f_number,
+            np.array([8, 8, 8]),
             decimal=7)
 
-        self.assertEqual(self.__image_stack[0].metadata.f_number, 8)
+        self.assertEqual(self._image_stack[0].metadata.f_number, 8)
 
         np.testing.assert_almost_equal(
-            self.__image_stack.exposure_time,
-            np.array([0.125, 1., 8.]),
+            self._image_stack.exposure_time,
+            np.array([0.125, 1, 8]),
             decimal=7)
 
-        self.assertEqual(self.__image_stack[0].metadata.exposure_time, 0.125)
+        self.assertEqual(self._image_stack[0].metadata.exposure_time, 0.125)
 
         self.assertListEqual(
-            list(self.__image_stack.black_level),
+            list(self._image_stack.black_level),
             [None, None, None])
 
-        self.assertEqual(self.__image_stack[0].metadata.black_level, None)
+        self.assertEqual(self._image_stack[0].metadata.black_level, None)
 
     def test__setattr__(self):
         """
@@ -222,7 +222,7 @@ class TestImageStack(unittest.TestCase):
         method.
         """
 
-        image_stack = ImageStack().from_files(self.__test_jpg_images)
+        image_stack = ImageStack().from_files(self._test_jpg_images)
 
         self.assertTupleEqual(
             image_stack.data.shape,
@@ -236,7 +236,7 @@ class TestImageStack(unittest.TestCase):
 
         np.testing.assert_almost_equal(
             image_stack.f_number,
-            np.array([8., 8., 8.]),
+            np.array([8, 8, 8]),
             decimal=7)
 
         image_stack.f_number = np.array([1, 2, 3])

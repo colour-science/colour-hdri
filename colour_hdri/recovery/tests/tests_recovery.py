@@ -26,7 +26,7 @@ from colour_hdri.models import camera_space_to_sRGB
 from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -57,14 +57,14 @@ highlights_recovery_blend` definition unit tests methods.
         Initialises common tests attributes.
         """
 
-        self.__temporary_directory = tempfile.mkdtemp()
+        self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
         """
         After tests actions.
         """
 
-        shutil.rmtree(self.__temporary_directory)
+        shutil.rmtree(self._temporary_directory)
 
     def test_highlights_recovery_blend(self):
         """
@@ -82,7 +82,7 @@ highlights_recovery_blend` definition unit tests methods.
 
         reference_raw_file = RAW_IMAGES[1]
         test_raw_file = os.path.join(
-            self.__temporary_directory, os.path.basename(reference_raw_file))
+            self._temporary_directory, os.path.basename(reference_raw_file))
         shutil.copyfile(reference_raw_file, test_raw_file)
         command = [RAW_CONVERTER] + shlex.split(
             RAW_D_CONVERSION_ARGUMENTS.format(test_raw_file),

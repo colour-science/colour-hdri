@@ -11,7 +11,7 @@ Defines HDRI / radiance image generation objects:
 
 See Also
 --------
-`Colour - HDRI - Examples IPython Notebooks
+`Colour - HDRI - Examples Jupyter Notebooks
 <https://github.com/colour-science/colour-hdri/\
 blob/master/colour_hdri/examples>`_
 
@@ -32,7 +32,7 @@ from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'

@@ -17,7 +17,7 @@ from colour_hdri.generation import (
     weighting_function_Debevec1997)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -42,20 +42,23 @@ normal_distribution_function` definition.
 
         np.testing.assert_almost_equal(
             normal_distribution_function(np.linspace(0, 1, 10)),
-            np.array([0.0038659, 0.0347086, 0.1800217, 0.5394075, 0.9337121,
-                      0.9337121, 0.5394075, 0.1800217, 0.0347086, 0.0038659]),
+            np.array([0.00386592, 0.03470859, 0.18002174, 0.53940751,
+                      0.93371212, 0.93371212, 0.53940751, 0.18002174,
+                      0.03470859, 0.00386592]),
             decimal=7)
 
         np.testing.assert_almost_equal(
             normal_distribution_function(np.linspace(0, 1, 10), 0, 1),
-            np.array([1.0000000, 0.9938462, 0.9756110, 0.9459595, 0.9059552,
-                      0.8569969, 0.8007374, 0.7389913, 0.6736385, 0.6065307]),
+            np.array([1.00000000, 0.99384617, 0.97561098, 0.94595947,
+                      0.90595519, 0.85699689, 0.80073740, 0.73899130,
+                      0.67363846, 0.60653066]),
             decimal=7)
 
         np.testing.assert_almost_equal(
             normal_distribution_function(np.linspace(0, 1, 10), 0.5, 0.5),
-            np.array([0.6065307, 0.7389913, 0.8569969, 0.9459595, 0.9938462,
-                      0.9938462, 0.9459595, 0.8569969, 0.7389913, 0.6065307]),
+            np.array([0.60653066, 0.73899130, 0.85699689, 0.94595947,
+                      0.99384617, 0.99384617, 0.94595947, 0.85699689,
+                      0.73899130, 0.60653066]),
             decimal=7)
 
 
@@ -73,8 +76,9 @@ class TestHatFunction(unittest.TestCase):
 
         np.testing.assert_almost_equal(
             hat_function(np.linspace(0, 1, 10)),
-            np.array([0., 0.9509921, 0.9991356, 0.9999981, 1.,
-                      1., 0.9999981, 0.9991356, 0.9509921, 0.]),
+            np.array([0.00000000, 0.95099207, 0.99913557, 0.99999812,
+                      1.00000000, 1.00000000, 0.99999812, 0.99913557,
+                      0.95099207, 0.00000000]),
             decimal=7)
 
 
@@ -92,19 +96,23 @@ weighting_function_Debevec1997` definition.
 
         np.testing.assert_almost_equal(
             weighting_function_Debevec1997(np.linspace(0, 1, 10)),
-            np.array([0., 0.2327366, 0.488491, 0.7442455, 1.,
-                      1., 0.7442455, 0.488491, 0.2327366, 0.]),
+            np.array([0.00000000, 0.23273657, 0.48849105, 0.74424552,
+                      1.00000000, 1.00000000, 0.74424552, 0.48849105,
+                      0.23273657, 0.00000000]),
             decimal=7)
 
         np.testing.assert_almost_equal(
             weighting_function_Debevec1997(np.linspace(0, 1, 10), 0, 1),
-            np.array([0., 0.25, 0.5, 0.75, 1., 1., 0.75, 0.5, 0.25, 0.]),
+            np.array([0.00000000, 0.25000000, 0.50000000, 0.75000000,
+                      1.00000000, 1.00000000, 0.75000000, 0.50000000,
+                      0.25000000, 0.00000000]),
             decimal=7)
 
         np.testing.assert_almost_equal(
             weighting_function_Debevec1997(np.linspace(0, 1, 10), 0.25, 0.75),
-            np.array([0., 0., 0., 0.4285714, 1.,
-                      1., 0.4285714, 0., 0., 0.]),
+            np.array([0.00000000, 0.00000000, 0.00000000, 0.42857143,
+                      1.00000000, 1.00000000, 0.42857143, 0.00000000,
+                      0.00000000, 0.00000000]),
             decimal=7)
 
 
