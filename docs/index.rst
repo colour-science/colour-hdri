@@ -18,6 +18,7 @@ The following features are available:
 -   Debevec (1997) Camera Response Function Computation
 -   Grossberg (2003) Histogram Based Image Sampling
 -   Global Tonemapping Operators
+-   Variance Minimization Light Probe Sampling
 -   Raw Processing Helpers
 
 Installation

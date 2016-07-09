@@ -7,6 +7,7 @@ Sub-Modules
 .. toctree::
 
    colour_hdri.plotting.radiance
+   colour_hdri.plotting.tonemapping
 
 Module Contents
 ---------------
