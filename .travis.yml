@@ -30,7 +30,6 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - PACKAGES="python=${PYTHON_VERSION}"
-  - PACKAGES="${PACKAGES} numpy"; if [ ${NUMPY_VERSION} ]; then PACKAGES="${PACKAGES}=${NUMPY_VERSION}"; fi
   - PACKAGES="${PACKAGES} scipy"; if [ ${SCIPY_VERSION} ]; then PACKAGES="${PACKAGES}=${SCIPY_VERSION}"; fi
   - PACKAGES="${PACKAGES} matplotlib"; if [ ${MATPLOTLIB_VERSION} ]; then PACKAGES="${PACKAGES}=${MATPLOTLIB_VERSION}"; fi
   # TODO: Investigate reason why *dcraw* cannot be installed along other packages.
@@ -44,7 +43,7 @@ before_install:
 install:
   - conda create --yes --quiet -n colour-hdri-test ${PACKAGES} pip setuptools nose
   - source activate colour-hdri-test
-  - pip install colour-science recordclass coverage coveralls flake8 mock==1.0.1
+  - pip install colour-science six recordclass coverage coveralls flake8 mock==1.0.1
   - sudo cp /home/travis/build/colour-science/colour-hdri/oiio-Release-1.5.21/dist/linux64/bin/* /usr/local/bin/
   - sudo cp /home/travis/build/colour-science/colour-hdri/oiio-Release-1.5.21/dist/linux64/lib/* /usr/local/lib/
   - cp /home/travis/build/colour-science/colour-hdri/oiio-Release-1.5.21/dist/linux64/python/OpenImageIO.so /home/travis/miniconda/envs/colour-hdri-test/lib/python2.7/site-packages/

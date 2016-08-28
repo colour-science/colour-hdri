@@ -21,6 +21,7 @@ from __future__ import division, unicode_literals
 import logging
 import re
 import subprocess
+from six import text_type
 
 from colour_hdri.utilities import vivification
 
@@ -89,7 +90,7 @@ def read_exif_tags(image):
     LOGGER.info("Reading '{0}' image exif data.".format(image))
 
     exif_tags = vivification()
-    lines = unicode(subprocess.check_output(
+    lines = text_type(subprocess.check_output(
         [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
         'utf-8', 'ignore').split('\n')
 
@@ -195,7 +196,7 @@ def read_exif_tag(image, tag):
         Tag value.
     """
 
-    value = unicode(subprocess.check_output(
+    value = text_type(subprocess.check_output(
         [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
         'utf-8', 'ignore').split(':').pop().strip()
 
