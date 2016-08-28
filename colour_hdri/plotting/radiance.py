@@ -48,8 +48,12 @@ def radiance_image_strip_plot(image,
     encoding_cctf : callable, optional
         Encoding colour component transfer function / opto-electronic
         transfer function used for plotting.
+
+    Other Parameters
+    ----------------
     \**kwargs : dict, optional
-        Keywords arguments.
+        {:func:`display`},
+        Please refer to the documentation of the previously listed definitions.
 
     Returns
     -------
