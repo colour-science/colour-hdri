@@ -12,11 +12,11 @@ import numpy as np
 import os
 import unittest
 
-from colour import read_image
+from colour import RGB_COLOURSPACES, RGB_luminance, read_image
+
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.sampling import light_probe_sampling_variance_minimization
 from colour_hdri.sampling.variance_minimization import (
-    DEFAULT_LUMINANCE_FACTORS,
     luminance_variance,
     find_regions_variance_minimization,
     highlight_regions_variance_minimization)
@@ -67,11 +67,15 @@ find_regions_variance_minimization` definition unit tests methods.
 find_regions_variance_minimization` definition.
         """
 
+        colourspace = RGB_COLOURSPACES['sRGB']
+
         image = read_image(str(os.path.join(
             SAMPLING_DIRECTORY,
             'tests_light_probe_sampling_variance_minimization.exr')))
 
-        Y = np.dot(image, DEFAULT_LUMINANCE_FACTORS)
+        Y = RGB_luminance(
+            image, colourspace.primaries, colourspace.whitepoint)
+
         regions = find_regions_variance_minimization(Y, n=1)
         self.assertListEqual(
             regions,
@@ -118,11 +122,14 @@ highlight_regions_variance_minimization` definition unit tests methods.
 highlight_regions_variance_minimization` definition.
         """
 
+        colourspace = RGB_COLOURSPACES['sRGB']
+
         image = read_image(str(os.path.join(
             SAMPLING_DIRECTORY,
             'tests_light_probe_sampling_variance_minimization.exr')))
 
-        Y = np.dot(image, DEFAULT_LUMINANCE_FACTORS)
+        Y = RGB_luminance(
+            image, colourspace.primaries, colourspace.whitepoint)
         regions = find_regions_variance_minimization(Y, n=4)
         np.testing.assert_almost_equal(
             highlight_regions_variance_minimization(image, regions),
