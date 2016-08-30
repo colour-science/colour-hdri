@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-Absolute Luminance Calibration
-==============================
+Absolute Luminance Calibration - Lagarde (2016)
+===============================================
 
-Defines panoramic images absolute *Luminance* calibration objects:
+Defines Lagarde (2016) panoramic images absolute *Luminance* calibration
+objects:
 
--   :func:`absolute_luminance_calibration`
--   :func:`upper_hemisphere_illuminance`
--   :func:`upper_hemisphere_illuminance_weights`
+-   :func:`absolute_luminance_calibration_Lagarde2016`
+-   :func:`upper_hemisphere_illuminance_Lagarde2016`
+-   :func:`upper_hemisphere_illuminance_weights_Lagarde2016`
 
 References
 ----------
@@ -32,16 +33,115 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['absolute_luminance_calibration',
-           'upper_hemisphere_illuminance',
-           'upper_hemisphere_illuminance_weights']
+__all__ = ['upper_hemisphere_illuminance_Lagarde2016',
+           'upper_hemisphere_illuminance_weights_Lagarde2016',
+           'absolute_luminance_calibration_Lagarde2016']
 
 
-def absolute_luminance_calibration(RGB,
-                                   measured_illuminance,
-                                   colourspace=RGB_COLOURSPACES['sRGB']):
+def upper_hemisphere_illuminance_Lagarde2016(
+        RGB,
+        colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Performs absolute *Luminance* calibration of given *RGB* panoramic image.
+    Computes upper hemisphere illuminance :math:`E_v` of given RGB panoramic
+    image.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* panoramic image array.
+    colourspace : `colour.RGB_Colourspace`, optional
+        *RGB* colourspace used for internal *Luminance* computation.
+
+    Returns
+    -------
+    numeric
+        Upper hemisphere illuminance :math:`E_v`.
+
+    Examples
+    --------
+    >>> RGB = np.ones((16, 32, 3))
+    >>> upper_hemisphere_illuminance_Lagarde2016(RGB)  # doctest: +ELLIPSIS
+    2.9344691...
+    """
+
+    RGB = np.asarray(RGB)
+
+    height, width, channels = RGB.shape
+
+    L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
+
+    theta = np.linspace(0, 1, height) * np.pi
+
+    theta_cos = np.cos(theta)[..., np.newaxis]
+    theta_sin = np.sin(theta)[..., np.newaxis]
+
+    E_v = np.sum(np.where(theta_cos > 0, L * theta_cos * theta_sin, 0))
+
+    E_v *= 2 * np.pi ** 2 / (width * height)
+
+    return E_v
+
+
+def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
+    """
+    Computes upper hemisphere illuminance weights for use with applications
+    unable to perform the computation directly, i.e. *Adobe Photoshop*.
+
+    Parameters
+    ----------
+    height : int
+        Output array height.
+    width : int
+        Output array width.
+
+    Returns
+    -------
+    ndarray
+        Upper hemisphere illuminance weights.
+
+    Examples
+    --------
+    >>> upper_hemisphere_illuminance_weights_Lagarde2016(  # doctest: +ELLIPSIS
+    ...    16, 1)
+    array([[ 0...        ],
+           [ 4.0143297...],
+           [ 7.3345454...],
+           [ 9.3865515...],
+           [ 9.8155376...],
+           [ 8.5473281...],
+           [ 5.8012079...],
+           [ 2.0520061...],
+           [ 0...        ],
+           [ 0...        ],
+           [ 0...        ],
+           [ 0...        ],
+           [ 0...        ],
+           [ 0...        ],
+           [ 0...        ],
+           [ 0...        ]])
+    """
+
+    w = np.zeros((height, width))
+
+    theta = (np.linspace(0, 1, height) * np.pi)
+    theta = np.tile(theta[..., np.newaxis], (1, width))
+
+    theta_cos = np.cos(theta)
+    theta_sin = np.sin(theta)
+
+    w[theta_cos > 0] = (theta_cos[theta_cos > 0] * theta_sin[theta_cos > 0] *
+                        2 * np.pi ** 2)
+
+    return w
+
+
+def absolute_luminance_calibration_Lagarde2016(
+        RGB,
+        measured_illuminance,
+        colourspace=RGB_COLOURSPACES['sRGB']):
+    """
+    Performs absolute *Luminance* calibration of given *RGB* panoramic image
+    using Lagarde (2016) method.
 
     Parameters
     ----------
@@ -60,7 +160,8 @@ def absolute_luminance_calibration(RGB,
     Examples
     --------
     >>> RGB = np.ones((4, 8, 3))
-    >>> absolute_luminance_calibration(RGB, 500)  # doctest: +ELLIPSIS
+    >>> absolute_luminance_calibration_Lagarde2016(  # doctest: +ELLIPSIS
+    ...     RGB, 500)
     array([[[ 233.9912506...,  233.9912506...,  233.9912506...],
             [ 233.9912506...,  233.9912506...,  233.9912506...],
             [ 233.9912506...,  233.9912506...,  233.9912506...],
@@ -100,100 +201,6 @@ def absolute_luminance_calibration(RGB,
 
     RGB = np.asarray(RGB)
 
-    E_v = upper_hemisphere_illuminance(RGB, colourspace)
+    E_v = upper_hemisphere_illuminance_Lagarde2016(RGB, colourspace)
 
     return RGB / E_v * measured_illuminance
-
-
-def upper_hemisphere_illuminance(RGB, colourspace=RGB_COLOURSPACES['sRGB']):
-    """
-    Computes upper hemisphere illuminance :math:`E_v` of given RGB panoramic
-    image.
-
-    Parameters
-    ----------
-    RGB : array_like
-        *RGB* panoramic image array.
-    colourspace : `colour.RGB_Colourspace`, optional
-        *RGB* colourspace used for internal *Luminance* computation.
-
-    Returns
-    -------
-    numeric
-        Upper hemisphere illuminance :math:`E_v`.
-
-    Examples
-    --------
-    >>> RGB = np.ones((16, 32, 3))
-    >>> upper_hemisphere_illuminance(RGB)  # doctest: +ELLIPSIS
-    2.9344691...
-    """
-
-    RGB = np.asarray(RGB)
-
-    height, width, channels = RGB.shape
-
-    L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
-
-    theta = np.linspace(0, 1, height) * np.pi
-
-    theta_cos = np.cos(theta)[..., np.newaxis]
-    theta_sin = np.sin(theta)[..., np.newaxis]
-
-    E_v = np.sum(np.where(theta_cos > 0, L * theta_cos * theta_sin, 0))
-
-    E_v *= 2 * np.pi ** 2 / (width * height)
-
-    return E_v
-
-
-def upper_hemisphere_illuminance_weights(height, width):
-    """
-    Computes upper hemisphere illuminance weights for use with applications
-    unable to perform the computation directly, i.e. *Adobe Photoshop*.
-
-    Parameters
-    ----------
-    height : int
-        Output array height.
-    width : int
-        Output array width.
-
-    Returns
-    -------
-    ndarray
-        Upper hemisphere illuminance weights.
-
-    Examples
-    --------
-    >>> upper_hemisphere_illuminance_weights(16, 1)  # doctest: +ELLIPSIS
-    array([[ 0...        ],
-           [ 4.0143297...],
-           [ 7.3345454...],
-           [ 9.3865515...],
-           [ 9.8155376...],
-           [ 8.5473281...],
-           [ 5.8012079...],
-           [ 2.0520061...],
-           [ 0...        ],
-           [ 0...        ],
-           [ 0...        ],
-           [ 0...        ],
-           [ 0...        ],
-           [ 0...        ],
-           [ 0...        ],
-           [ 0...        ]])
-    """
-
-    w = np.zeros((height, width))
-
-    theta = (np.linspace(0, 1, height) * np.pi)
-    theta = np.tile(theta[..., np.newaxis], (1, width))
-
-    theta_cos = np.cos(theta)
-    theta_sin = np.sin(theta)
-
-    w[theta_cos > 0] = (theta_cos[theta_cos > 0] * theta_sin[theta_cos > 0] *
-                        2 * np.pi ** 2)
-
-    return w

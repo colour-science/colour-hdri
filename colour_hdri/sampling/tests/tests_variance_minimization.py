@@ -15,10 +15,11 @@ import unittest
 from colour import RGB_COLOURSPACES, RGB_luminance, read_image
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
-from colour_hdri.sampling import light_probe_sampling_variance_minimization
+from colour_hdri.sampling import (
+    light_probe_sampling_variance_minimization_Viriyothai2009)
 from colour_hdri.sampling.variance_minimization import (
     luminance_variance,
-    find_regions_variance_minimization,
+    find_regions_variance_minimization_Viriyothai2009,
     highlight_regions_variance_minimization)
 
 __author__ = 'Colour Developers'
@@ -30,8 +31,8 @@ __status__ = 'Production'
 
 __all__ = ['SAMPLING_DIRECTORY',
            'TestLuminanceVariance',
-           'TestFindRegionsVarianceMinimization',
-           'TestLightProbeSamplingVarianceMinimization']
+           'TestFindRegionsVarianceMinimizationViriyothai2009',
+           'TestLightProbeSamplingVarianceMinimizationViriyothai2009']
 
 SAMPLING_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'colour_hdri', 'sampling')
@@ -55,33 +56,35 @@ luminance_variance` definition.
             luminance_variance(a), 12.24744871, places=7)
 
 
-class TestFindRegionsVarianceMinimization(unittest.TestCase):
+class TestFindRegionsVarianceMinimizationViriyothai2009(unittest.TestCase):
     """
     Defines :func:`colour_hdri.sampling.variance_minimization.\
-find_regions_variance_minimization` definition unit tests methods.
+find_regions_variance_minimization_Viriyothai2009` definition unit tests
+    methods.
     """
 
-    def test_find_regions_variance_minimization(self):
+    def test_find_regions_variance_minimization_Viriyothai2009(self):
         """
         Tests :func:`colour_hdri.sampling.variance_minimization.\
-find_regions_variance_minimization` definition.
+find_regions_variance_minimization_Viriyothai2009` definition.
         """
 
         colourspace = RGB_COLOURSPACES['sRGB']
 
         image = read_image(str(os.path.join(
             SAMPLING_DIRECTORY,
-            'tests_light_probe_sampling_variance_minimization.exr')))
+            'tests_light_probe_sampling_variance_minimization_'
+            'Viriyothai2009.exr')))
 
         Y = RGB_luminance(
             image, colourspace.primaries, colourspace.whitepoint)
 
-        regions = find_regions_variance_minimization(Y, n=1)
+        regions = find_regions_variance_minimization_Viriyothai2009(Y, n=1)
         self.assertListEqual(
             regions,
             [(0, 256, 0, 156), (0, 256, 156, 256)])
 
-        regions = find_regions_variance_minimization(Y, n=2)
+        regions = find_regions_variance_minimization_Viriyothai2009(Y, n=2)
         self.assertListEqual(
             regions,
             [(0, 97, 0, 156),
@@ -89,7 +92,7 @@ find_regions_variance_minimization` definition.
              (0, 100, 156, 256),
              (100, 256, 156, 256)])
 
-        regions = find_regions_variance_minimization(Y, n=4)
+        regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
         self.assertListEqual(
             regions,
             [(0, 39, 0, 91),
@@ -126,11 +129,12 @@ highlight_regions_variance_minimization` definition.
 
         image = read_image(str(os.path.join(
             SAMPLING_DIRECTORY,
-            'tests_light_probe_sampling_variance_minimization.exr')))
+            'tests_light_probe_sampling_variance_minimization_'
+            'Viriyothai2009.exr')))
 
         Y = RGB_luminance(
             image, colourspace.primaries, colourspace.whitepoint)
-        regions = find_regions_variance_minimization(Y, n=4)
+        regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
         np.testing.assert_almost_equal(
             highlight_regions_variance_minimization(image, regions),
             read_image(str(os.path.join(
@@ -139,23 +143,27 @@ highlight_regions_variance_minimization` definition.
             decimal=7)
 
 
-class TestLightProbeSamplingVarianceMinimization(unittest.TestCase):
+class TestLightProbeSamplingVarianceMinimizationViriyothai2009(
+        unittest.TestCase):
     """
     Defines :func:`colour_hdri.sampling.variance_minimization.\
-light_probe_sampling_variance_minimization` definition unit tests methods.
+light_probe_sampling_variance_minimization_Viriyothai2009` definition unit
+    tests methods.
     """
 
-    def test_light_probe_sampling_variance_minimization(self):
+    def test_light_probe_sampling_variance_minimization_Viriyothai2009(self):
         """
         Tests :func:`colour_hdri.sampling.variance_minimization.\
-light_probe_sampling_variance_minimization` definition.
+light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         """
 
         image = read_image(str(os.path.join(
             SAMPLING_DIRECTORY,
-            'tests_light_probe_sampling_variance_minimization.exr')))
+            'tests_light_probe_sampling_variance_minimization_'
+            'Viriyothai2009.exr')))
 
-        lights = light_probe_sampling_variance_minimization(image)
+        lights = light_probe_sampling_variance_minimization_Viriyothai2009(
+            image)
         uvs = np.array([light[0] for light in lights])
         colours = np.array([light[1] for light in lights])
         indexes = np.array([light[2] for light in lights])

@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Variance Minimization Light Probe Sampling - Viriyothai (2009)
-==============================================================
+Viriyothai (2009) Variance Minimization Light Probe Sampling
+============================================================
 
 Defines Viriyothai (2009) variance minimization light probe sampling objects:
 
--   :func:`light_probe_sampling_variance_minimization`
+-   :func:`light_probe_sampling_variance_minimization_Viriyothai2009`
 
 References
 ----------
@@ -32,13 +32,13 @@ __status__ = 'Production'
 
 __all__ = ['Light_Specification',
            'luminance_variance',
-           'find_regions_variance_minimization',
+           'find_regions_variance_minimization_Viriyothai2009',
            'highlight_regions_variance_minimization',
-           'light_probe_sampling_variance_minimization']
+           'light_probe_sampling_variance_minimization_Viriyothai2009']
 
 
 class Light_Specification(
-    namedtuple('Light_Specification', ('uv', 'colour', 'index'))):
+        namedtuple('Light_Specification', ('uv', 'colour', 'index'))):
     """
     Defines a light probe sampling resulting light specification.
 
@@ -84,7 +84,7 @@ def luminance_variance(a):
     return variance
 
 
-def find_regions_variance_minimization(a, n=4):
+def find_regions_variance_minimization_Viriyothai2009(a, n=4):
     """
     Finds the :math:`2^n` regions using Viriyothai (2009) variance minimization
     light probe sampling algorithm on given :math:`a` 2-D array.
@@ -184,7 +184,7 @@ def highlight_regions_variance_minimization(
     return a
 
 
-def light_probe_sampling_variance_minimization(
+def light_probe_sampling_variance_minimization_Viriyothai2009(
         light_probe,
         lights_count=16,
         colourspace=RGB_COLOURSPACES['sRGB']):
@@ -217,7 +217,7 @@ def light_probe_sampling_variance_minimization(
 
     Y = RGB_luminance(
         light_probe, colourspace.primaries, colourspace.whitepoint)
-    regions = find_regions_variance_minimization(Y, iterations)
+    regions = find_regions_variance_minimization_Viriyothai2009(Y, iterations)
 
     lights = []
     for region in regions:

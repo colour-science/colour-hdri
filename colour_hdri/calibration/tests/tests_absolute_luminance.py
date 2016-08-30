@@ -16,10 +16,10 @@ from colour import read_image
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.calibration import (
-    absolute_luminance_calibration,
-    upper_hemisphere_illuminance_weights)
+    upper_hemisphere_illuminance_weights_Lagarde2016,
+    absolute_luminance_calibration_Lagarde2016)
 from colour_hdri.calibration.absolute_luminance import (
-    upper_hemisphere_illuminance)
+    upper_hemisphere_illuminance_Lagarde2016)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
@@ -28,9 +28,9 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['TestAbsoluteLuminanceCalibration',
-           'TestUpperHemisphereIlluminance',
-           'TestUpperHemisphereIlluminanceWeights']
+__all__ = ['TestUpperHemisphereIlluminanceLagarde2016',
+           'TestUpperHemisphereIlluminanceWeightsLagarde2016',
+           'TestAbsoluteLuminanceCalibrationLagarde2016']
 
 UNITY_001_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'unity_001')
@@ -39,79 +39,48 @@ CALIBRATION_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'colour_hdri', 'calibration')
 
 
-class TestAbsoluteLuminanceCalibration(unittest.TestCase):
+class TestUpperHemisphereIlluminanceLagarde2016(unittest.TestCase):
     """
     Defines :func:`colour_hdri.calibration.absolute_luminance.\
-absolute_luminance_calibration` definition unit tests methods.
+upper_hemisphere_illuminance_Lagarde2016` definition unit tests methods.
     """
 
-    def test_absolute_luminance_calibration(self):
+    def test_upper_hemisphere_illuminance_Lagarde2016(self):
         """
         Tests :func:`colour_hdri.calibration.absolute_luminance.\
-absolute_luminance_calibration` definition.
-        """
-
-        # Unity Technologies. (2016). Treasure Island - white balanced.exr.
-        # Retrieved August 30, 2016, from http://blog.selfshadow.com/\
-        # publications/s2016-shading-course/unity/supplemental/\
-        # Treasure Island - white balanced.exr
-
-        reference_exr_file = read_image(
-            str(os.path.join(
-                UNITY_001_DIRECTORY,
-                'Unity_Treasure_Island_White_Balanced.exr')))
-
-        test_exr_file = read_image(
-            str(os.path.join(
-                CALIBRATION_DIRECTORY,
-                'Unity_Treasure_Island_White_Balanced_Absolute.exr')))
-
-        np.testing.assert_allclose(
-            absolute_luminance_calibration(
-                reference_exr_file, 51000),
-            test_exr_file,
-            rtol=0.0000001,
-            atol=0.0000001)
-
-
-class TestUpperHemisphereIlluminance(unittest.TestCase):
-    """
-    Defines :func:`colour_hdri.calibration.absolute_luminance.\
-upper_hemisphere_illuminance` definition unit tests methods.
-    """
-
-    def test_upper_hemisphere_illuminance(self):
-        """
-        Tests :func:`colour_hdri.calibration.absolute_luminance.\
-upper_hemisphere_illuminance` definition.
+upper_hemisphere_illuminance_Lagarde2016` definition.
         """
 
         self.assertAlmostEqual(
-            upper_hemisphere_illuminance(np.ones((16, 32, 3))),
+            upper_hemisphere_illuminance_Lagarde2016(
+                np.ones((16, 32, 3))),
             2.934469165342606,
             places=7)
 
         self.assertAlmostEqual(
-            upper_hemisphere_illuminance(np.ones((16, 32, 3)) * 10),
+            upper_hemisphere_illuminance_Lagarde2016(
+                np.ones((16, 32, 3)) * 10),
             29.344691653426061,
             places=7)
 
         self.assertAlmostEqual(
-            upper_hemisphere_illuminance(np.ones((16, 32, 3)) * 0.1),
+            upper_hemisphere_illuminance_Lagarde2016(
+                np.ones((16, 32, 3)) * 0.1),
             0.293446916534261,
             places=7)
 
 
-class TestUpperHemisphereIlluminanceWeights(unittest.TestCase):
+class TestUpperHemisphereIlluminanceWeightsLagarde2016(unittest.TestCase):
     """
     Defines :func:`colour_hdri.calibration.absolute_luminance.\
-upper_hemisphere_illuminance_weights` definition unit tests methods.
+upper_hemisphere_illuminance_weights_Lagarde2016` definition unit tests
+    methods.
     """
 
-    def test_upper_hemisphere_illuminance_weights(self):
+    def test_upper_hemisphere_illuminance_weights_Lagarde2016(self):
         """
         Tests :func:`colour_hdri.calibration.absolute_luminance.\
-upper_hemisphere_illuminance_weights` definition.
+upper_hemisphere_illuminance_weights_Lagarde2016` definition.
         """
 
         weights = np.array(
@@ -149,9 +118,44 @@ upper_hemisphere_illuminance_weights` definition.
              [0.00000000]])
 
         np.testing.assert_almost_equal(
-            upper_hemisphere_illuminance_weights(32, 16),
+            upper_hemisphere_illuminance_weights_Lagarde2016(32, 16),
             np.tile(weights, (1, 16)),
             decimal=7)
+
+
+class TestAbsoluteLuminanceCalibrationLagarde2016(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.calibration.absolute_luminance.\
+absolute_luminance_calibration_Lagarde2016` definition unit tests methods.
+    """
+
+    def test_absolute_luminance_calibration_Lagarde2016(self):
+        """
+        Tests :func:`colour_hdri.calibration.absolute_luminance.\
+absolute_luminance_calibration_Lagarde2016` definition.
+        """
+
+        # Unity Technologies. (2016). Treasure Island - white balanced.exr.
+        # Retrieved August 30, 2016, from http://blog.selfshadow.com/\
+        # publications/s2016-shading-course/unity/supplemental/\
+        # Treasure Island - white balanced.exr
+
+        reference_exr_file = read_image(
+            str(os.path.join(
+                UNITY_001_DIRECTORY,
+                'Unity_Treasure_Island_White_Balanced.exr')))
+
+        test_exr_file = read_image(
+            str(os.path.join(
+                CALIBRATION_DIRECTORY,
+                'Unity_Treasure_Island_White_Balanced_Absolute.exr')))
+
+        np.testing.assert_allclose(
+            absolute_luminance_calibration_Lagarde2016(
+                reference_exr_file, 51000),
+            test_exr_file,
+            rtol=0.0000001,
+            atol=0.0000001)
 
 
 if __name__ == '__main__':
