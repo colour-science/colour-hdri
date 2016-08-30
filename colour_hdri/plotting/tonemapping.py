@@ -55,14 +55,20 @@ def tonemapping_operator_image_plot(
     encoding_cctf : callable, optional
         Encoding colour component transfer function / opto-electronic
         transfer function used for plotting.
+
+    Other Parameters
+    ----------------
     \**kwargs : dict, optional
-        Keywords arguments.
+        {:func:`boundaries`, :func:`canvas`, :func:`decorate`,
+        :func:`display`},
+        Please refer to the documentation of the previously listed definitions.
 
     Returns
     -------
     bool
         Definition success.
     """
+
     shape = image.shape
     limits = [0, 1, 0, 1]
 
@@ -99,4 +105,5 @@ def tonemapping_operator_image_plot(
     canvas(**settings)
     decorate(**settings)
     boundaries(**settings)
+
     return display(**settings)

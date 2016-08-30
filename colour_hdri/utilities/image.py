@@ -20,7 +20,7 @@ from collections import MutableSequence
 from fractions import Fraction
 from recordclass import recordclass
 
-from colour import read_image, tsplit, tstack
+from colour import is_string, read_image, tsplit, tstack
 
 from colour_hdri.utilities.exif import read_exif_tags
 
@@ -142,9 +142,9 @@ class Image(object):
         """
 
         if value is not None:
-            assert isinstance(value, basestring), (  # noqa
+            assert is_string(value), (
                 ('"{0}" attribute: "{1}" is not a '
-                 '"basestring" instance!').format('path', value))
+                 '"string" like object!').format('path', value))
 
         self._path = value
 

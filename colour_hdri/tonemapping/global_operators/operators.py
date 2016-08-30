@@ -21,7 +21,7 @@ Defines global tonemapping operators objects:
 
 See Also
 --------
-`Colour - HDRI - Examples: Global Tonemapping Operators IPython Notebook
+`Colour - HDRI - Examples: Global Tonemapping Operators Jupyter Notebook
 <https://github.com/colour-science/colour-hdri/\
 blob/master/colour_hdri/examples/examples_global_tonemapping_operators.ipynb>`_
 """
