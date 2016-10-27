@@ -21,7 +21,9 @@ from colour import read_image
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.process import RAW_CONVERTER, RAW_D_CONVERSION_ARGUMENTS
-from colour_hdri.recovery import highlights_recovery_blend
+from colour_hdri.recovery import (
+    highlights_recovery_blend,
+    highlights_recovery_LCHab)
 from colour_hdri.models import camera_space_to_sRGB
 from colour_hdri.utilities import filter_files
 
@@ -35,7 +37,9 @@ __status__ = 'Production'
 __all__ = ['FROBISHER_001_DIRECTORY',
            'RECOVERY_DIRECTORY',
            'RAW_IMAGES',
-           'TestHighlightsRecoveryBlend']
+           'XYZ_TO_CAMERA_MATRIX',
+           'TestHighlightsRecoveryBlend',
+           'TestHighlightsRecoveryLCHab']
 
 FROBISHER_001_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
@@ -44,6 +48,11 @@ RECOVERY_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'colour_hdri', 'recovery')
 
 RAW_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('CR2',))
+
+XYZ_TO_CAMERA_MATRIX = np.array([
+    [0.47160000, 0.06030000, -0.08300000],
+    [-0.77980000, 1.54740000, 0.24800000],
+    [-0.14960000, 0.19370000, 0.66510000]])
 
 
 class TestHighlightsRecoveryBlend(unittest.TestCase):
@@ -75,11 +84,6 @@ highlights_recovery_blend` definition unit tests methods.
         multipliers = np.array([2.42089718, 1.00000000, 1.54687415])
         multipliers /= np.max(multipliers)
 
-        XYZ_to_camera_matrix = np.array([
-            [0.47160000, 0.06030000, -0.08300000],
-            [-0.77980000, 1.54740000, 0.24800000],
-            [-0.14960000, 0.19370000, 0.66510000]])
-
         reference_raw_file = RAW_IMAGES[1]
         test_raw_file = os.path.join(
             self._temporary_directory, os.path.basename(reference_raw_file))
@@ -87,7 +91,7 @@ highlights_recovery_blend` definition unit tests methods.
         command = [RAW_CONVERTER] + shlex.split(
             RAW_D_CONVERSION_ARGUMENTS.format(test_raw_file),
             posix=(False
-                   if platform.system() in ("Windows", "Microsoft") else
+                   if platform.system() in ('Windows', 'Microsoft') else
                    True))
 
         subprocess.call(command)
@@ -99,15 +103,75 @@ highlights_recovery_blend` definition unit tests methods.
         test_tiff_file = highlights_recovery_blend(
             test_tiff_file, multipliers)
         test_tiff_file = camera_space_to_sRGB(
-            test_tiff_file, XYZ_to_camera_matrix)
+            test_tiff_file, XYZ_TO_CAMERA_MATRIX)
 
-        reference_tiff_file = read_image(str(os.path.join(
+        reference_exr_file = read_image(str(os.path.join(
             RECOVERY_DIRECTORY,
-            os.path.basename(re.sub('\.CR2$', '.exr', test_raw_file)))))
+            os.path.basename(re.sub('\.CR2$', '_Blend.exr', test_raw_file)))))
 
         np.testing.assert_almost_equal(
             test_tiff_file[::10, ::10, :],
-            reference_tiff_file,
+            reference_exr_file,
+            decimal=7)
+
+
+class TestHighlightsRecoveryLCHab(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.recovery.highlights.\
+highlights_recovery_LCHab` definition unit tests methods.
+    """
+
+    def setUp(self):
+        """
+        Initialises common tests attributes.
+        """
+
+        self._temporary_directory = tempfile.mkdtemp()
+
+    def tearDown(self):
+        """
+        After tests actions.
+        """
+
+        shutil.rmtree(self._temporary_directory)
+
+    def test_highlights_recovery_LCHab(self):
+        """
+        Tests :func:`colour_hdri.recovery.highlights.highlights_recovery_LCHab`
+        definition.
+        """
+
+        multipliers = np.array([2.42089718, 1.00000000, 1.54687415])
+        multipliers /= np.max(multipliers)
+
+        reference_raw_file = RAW_IMAGES[1]
+        test_raw_file = os.path.join(
+            self._temporary_directory, os.path.basename(reference_raw_file))
+        shutil.copyfile(reference_raw_file, test_raw_file)
+        command = [RAW_CONVERTER] + shlex.split(
+            RAW_D_CONVERSION_ARGUMENTS.format(test_raw_file),
+            posix=(False
+                   if platform.system() in ('Windows', 'Microsoft') else
+                   True))
+
+        subprocess.call(command)
+
+        test_tiff_file = read_image(
+            str(re.sub('\.CR2$', '.tiff', test_raw_file)))
+
+        test_tiff_file *= multipliers
+        test_tiff_file = highlights_recovery_LCHab(
+            test_tiff_file, min(multipliers))
+        test_tiff_file = camera_space_to_sRGB(
+            test_tiff_file, XYZ_TO_CAMERA_MATRIX)
+
+        reference_exr_file = read_image(str(os.path.join(
+            RECOVERY_DIRECTORY,
+            os.path.basename(re.sub('\.CR2$', '_LCHab.exr', test_raw_file)))))
+
+        np.testing.assert_almost_equal(
+            test_tiff_file[::10, ::10, :],
+            reference_exr_file,
             decimal=7)
 
 
