@@ -16,6 +16,8 @@ import re
 
 from collections import defaultdict
 
+from colour import tsplit
+
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
@@ -57,8 +59,8 @@ def linear_conversion(a, old_range, new_range):
 
     a = np.asarray(a)
 
-    in_min, in_max = old_range
-    out_min, out_max = new_range
+    in_min, in_max = tsplit(old_range)
+    out_min, out_max = tsplit(new_range)
 
     return (((a - in_min) / (in_max - in_min)) *
             (out_max - out_min) + out_min)
