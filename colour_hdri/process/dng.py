@@ -24,7 +24,7 @@ import shlex
 import subprocess
 from copy import deepcopy
 
-from colour import CaseInsensitiveMapping
+from colour import CaseInsensitiveMapping, warning
 
 from colour_hdri.utilities import (
     ExifTag,
@@ -61,6 +61,8 @@ RAW_CONVERTER : unicode
 """
 
 RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
+if platform.system() in ('Windows', 'Microsoft'):
+    RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', '')
 """
 Arguments for the command line raw conversion application for non demosaiced
 linear *tiff* file format output.
@@ -69,6 +71,8 @@ RAW_CONVERSION_ARGUMENTS : unicode
 """
 
 RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
+if platform.system() in ('Windows', 'Microsoft'):
+    RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', '')
 """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
@@ -76,30 +80,22 @@ linear *tiff* file format output.
 RAW_D_CONVERSION_ARGUMENTS : unicode
 """
 
-if platform.system() in ('Windows', 'Microsoft'):
-    DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
-    """
-    Command line *DNG* conversion application, usually *Adobe DNG Converter*.
-
-    DNG_CONVERTER : unicode
-    """
-elif platform.system() == 'Darwin':
+if platform.system() == 'Darwin':
     DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
                      'MacOS/Adobe DNG Converter')
-    """
-    Command line *dng* conversion application, usually *Adobe DNG Converter*.
-
-    DNG_CONVERTER : unicode
-    """
+if platform.system() in ('Windows', 'Microsoft'):
+    DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
 else:
-    DNG_CONVERTER = None
-    """
-    Command line *dng* conversion application, usually *Adobe DNG Converter*.
+    warning('"Adobe DNG Converter" is not available on your platform!')
+"""
+Command line *DNG* conversion application, usually *Adobe DNG Converter*.
 
-    DNG_CONVERTER : unicode
-    """
+DNG_CONVERTER : unicode
+"""
 
 DNG_CONVERSION_ARGUMENTS = '-e -d "{0}" "{1}"'
+if platform.system() in ('Windows', 'Microsoft'):
+    DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
 """
 Arguments for the command line *dng* conversion application.
 
