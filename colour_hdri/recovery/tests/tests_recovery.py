@@ -97,7 +97,7 @@ highlights_recovery_blend` definition unit tests methods.
         subprocess.call(command)
 
         test_tiff_file = read_image(
-            str(re.sub('\.CR2$', '.tiff', test_raw_file)))
+            str(re.sub('\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
 
         test_tiff_file *= multipliers
         test_tiff_file = highlights_recovery_blend(
@@ -109,10 +109,11 @@ highlights_recovery_blend` definition unit tests methods.
             RECOVERY_DIRECTORY,
             os.path.basename(re.sub('\.CR2$', '_Blend.exr', test_raw_file)))))
 
-        np.testing.assert_almost_equal(
-            test_tiff_file[::10, ::10, :],
+        np.testing.assert_allclose(
+            test_tiff_file,
             reference_exr_file,
-            decimal=7)
+            rtol=0.0001,
+            atol=0.0001)
 
 
 class TestHighlightsRecoveryLCHab(unittest.TestCase):
@@ -157,7 +158,7 @@ highlights_recovery_LCHab` definition unit tests methods.
         subprocess.call(command)
 
         test_tiff_file = read_image(
-            str(re.sub('\.CR2$', '.tiff', test_raw_file)))
+            str(re.sub('\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
 
         test_tiff_file *= multipliers
         test_tiff_file = highlights_recovery_LCHab(
@@ -169,10 +170,11 @@ highlights_recovery_LCHab` definition unit tests methods.
             RECOVERY_DIRECTORY,
             os.path.basename(re.sub('\.CR2$', '_LCHab.exr', test_raw_file)))))
 
-        np.testing.assert_almost_equal(
-            test_tiff_file[::10, ::10, :],
+        np.testing.assert_allclose(
+            test_tiff_file,
             reference_exr_file,
-            decimal=7)
+            rtol=0.0001,
+            atol=0.0001)
 
 
 if __name__ == '__main__':
