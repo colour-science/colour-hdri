@@ -15,7 +15,7 @@ from __future__ import division, unicode_literals
 import numpy as np
 import unittest
 
-from colour_hdri.models.adobe_dng import interpolated_matrix
+from colour_hdri.models.dng import interpolated_matrix
 from colour_hdri.models import (
     xy_to_camera_neutral,
     camera_neutral_to_xy,

@@ -17,12 +17,15 @@ from __future__ import division, unicode_literals
 import logging
 import numpy as np
 from collections import MutableSequence
-from fractions import Fraction
 from recordclass import recordclass
 
 from colour import is_string, read_image, tsplit, tstack
 
-from colour_hdri.utilities.exif import read_exif_tags
+from colour_hdri.utilities.exif import (
+    parse_exif_array,
+    parse_exif_fraction,
+    parse_exif_numeric,
+    read_exif_tags)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
@@ -243,29 +246,29 @@ class Image(object):
 
         f_number = exif_data['EXIF'].get('F Number')
         if f_number is not None:
-            f_number = np.float_(f_number[0])
+            f_number = parse_exif_numeric(f_number[0])
 
         exposure_time = exif_data['EXIF'].get('Exposure Time')
         if exposure_time is not None:
-            exposure_time = np.float_(Fraction(exposure_time[0]))
+            exposure_time = parse_exif_fraction(exposure_time[0])
 
         iso = exif_data['EXIF'].get('ISO')
         if iso is not None:
-            iso = np.float_(iso[0])
+            iso = parse_exif_numeric(iso[0])
 
         black_level = exif_data['EXIF'].get('Black Level')
         if black_level is not None:
-            black_level = map(np.float_, black_level[0].split())
+            black_level = parse_exif_array(black_level[0])
             black_level = np.asarray(black_level) / 65535
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:
-            white_level = np.float_(white_level[0]) / 65535
+            white_level = parse_exif_numeric(white_level[0]) / 65535
 
         white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
         if white_balance_multipliers is not None:
-            white_balance_multipliers = map(
-                np.float_, white_balance_multipliers[0].split())
+            white_balance_multipliers = parse_exif_array(
+                white_balance_multipliers[0])
             white_balance_multipliers = np.asarray(
                 white_balance_multipliers) / white_balance_multipliers[1]
 

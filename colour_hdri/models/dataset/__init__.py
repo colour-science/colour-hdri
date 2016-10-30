@@ -3,7 +3,7 @@
 
 from __future__ import absolute_import
 
-from .adobe_dng import (
+from .dng import (
     ADOBE_DNG_XYZ_ILLUMINANT,
     DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE,
     LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS)

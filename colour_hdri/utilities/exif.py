@@ -19,8 +19,11 @@ Exif data manipulation routines based on *exiftool*:
 from __future__ import division, unicode_literals
 
 import logging
+import numpy as np
 import re
 import subprocess
+from collections import namedtuple
+from fractions import Fraction
 from six import text_type
 
 from colour_hdri.utilities import vivification
@@ -33,6 +36,11 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['EXIF_EXECUTABLE',
+           'ExifTag',
+           'parse_exif_string',
+           'parse_exif_numeric',
+           'parse_exif_fraction',
+           'parse_exif_array',
            'parse_exif_data',
            'read_exif_tags',
            'copy_exif_tags',
@@ -44,6 +52,112 @@ __all__ = ['EXIF_EXECUTABLE',
 LOGGER = logging.getLogger(__name__)
 
 EXIF_EXECUTABLE = 'exiftool'
+
+
+class ExifTag(
+        namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
+    """
+    Hunt colour appearance model induction factors.
+
+    Parameters
+    ----------
+    group : unicode, optional
+        Exif tag group name.
+    name : unicode, optional
+        Exif tag name.
+    value : object, optional
+        Exif tag value.
+    identifier : numeric, optional
+        Exif tag identifier.
+    """
+
+    def __new__(cls, group=None, name=None, value=None, identifier=None):
+        """
+        Returns a new instance of the :class:`ExifTag` class.
+        """
+
+        return super(ExifTag, cls).__new__(
+            cls, group, name, value, identifier)
+
+
+def parse_exif_string(exif_tag):
+    """
+    Parses given exif tag assuming it is a string and return its value.
+
+    Parameters
+    ----------
+    exif_tag : ExifTag
+        Exif tag to parse.
+
+    Returns
+    -------
+    unicode
+        Parsed exif tag value.
+    """
+
+    return text_type(exif_tag.value)
+
+
+def parse_exif_numeric(exif_tag, dtype=np.float_):
+    """
+    Parses given exif tag assuming it is a numeric type and return its value.
+
+    Parameters
+    ----------
+    exif_tag : ExifTag
+        Exif tag to parse.
+    dtype : object, optional
+        Return value data type.
+
+    Returns
+    -------
+    numeric
+        Parsed exif tag value.
+    """
+
+    return dtype(exif_tag.value)
+
+
+def parse_exif_fraction(exif_tag, dtype=np.float_):
+    """
+    Parses given exif tag assuming it is a fraction and return its value.
+
+    Parameters
+    ----------
+    exif_tag : ExifTag
+        Exif tag to parse.
+    dtype : object, optional
+        Return value data type.
+
+    Returns
+    -------
+    numeric
+        Parsed exif tag value.
+    """
+
+    return dtype(Fraction(exif_tag.value))
+
+
+def parse_exif_array(exif_tag, dtype=np.float_, shape=None):
+    """
+    Parses given exif tag assuming it is an array and return its value.
+
+    Parameters
+    ----------
+    exif_tag : ExifTag
+        Exif tag to parse.
+    dtype : object, optional
+        Return value data type.
+    shape : array_like, optional
+        Shape of
+
+    Returns
+    -------
+    ndarray
+        Parsed exif tag value.
+    """
+
+    return np.array(exif_tag.value.split()).astype(dtype).reshape(shape)
 
 
 def parse_exif_data(data):
@@ -99,7 +213,11 @@ def read_exif_tags(image):
             continue
 
         group, identifier, tag, value = parse_exif_data(line)
-        exif_tags[group][tag] = (value, identifier)
+
+        if not exif_tags[group][tag]:
+            exif_tags[group][tag] = []
+
+        exif_tags[group][tag].append(ExifTag(group, tag, value, identifier))
 
     return exif_tags
 

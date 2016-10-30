@@ -1,7 +1,7 @@
-colour_hdri.process.conversion Module
+colour_hdri.models.dataset.dng Module
 =====================================
 
-.. automodule:: colour_hdri.process.conversion
+.. automodule:: colour_hdri.models.dataset.dng
     :members:
     :undoc-members:
     :show-inheritance:

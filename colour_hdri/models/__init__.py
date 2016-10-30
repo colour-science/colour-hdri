@@ -5,7 +5,7 @@ from __future__ import absolute_import
 
 from .dataset import *  # noqa
 from . import dataset
-from .adobe_dng import (
+from .dng import (
     xy_to_camera_neutral,
     camera_neutral_to_xy,
     XYZ_to_camera_space_matrix,
