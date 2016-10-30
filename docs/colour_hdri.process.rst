@@ -6,7 +6,7 @@ Sub-Modules
 
 .. toctree::
 
-   colour_hdri.process.conversion
+   colour_hdri.process.dng
 
 Module Contents
 ---------------

@@ -1,11 +1,19 @@
 colour_hdri.models Package
 ==========================
 
+Sub-Packages
+------------
+
+.. toctree::
+
+    colour_hdri.models.dataset
+
 Sub-Modules
 -----------
 
 .. toctree::
 
+   colour_hdri.models.dng
    colour_hdri.models.rgb
 
 Module Contents

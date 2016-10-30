@@ -54,6 +54,7 @@ The following features are available:
 -   Grossberg (2003) Histogram Based Image Sampling
 -   Variance Minimization Light Probe Sampling
 -   Global Tonemapping Operators
+-   Adobe DNG SDK Colour Processing
 -   Absolute Luminance Calibration
 -   Raw Processing Helpers
 

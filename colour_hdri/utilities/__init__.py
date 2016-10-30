@@ -10,6 +10,11 @@ from .common import (
     filter_files)
 from .exif import (
     EXIF_EXECUTABLE,
+    ExifTag,
+    parse_exif_string,
+    parse_exif_numeric,
+    parse_exif_fraction,
+    parse_exif_array,
     parse_exif_data,
     read_exif_tags,
     copy_exif_tags,
@@ -35,6 +40,11 @@ __all__ += [
     'filter_files']
 __all__ += [
     'EXIF_EXECUTABLE',
+    'ExifTag',
+    'parse_exif_string',
+    'parse_exif_numeric',
+    'parse_exif_fraction',
+    'parse_exif_array',
     'parse_exif_data',
     'read_exif_tags',
     'copy_exif_tags',

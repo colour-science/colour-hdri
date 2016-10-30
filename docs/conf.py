@@ -32,6 +32,8 @@ for module in MOCK_MODULES:
     sys.modules[module] = mock.Mock()
 
 # Mock attributes for *readthedocs.org*.
+sys.modules['colour'].ILLUMINANTS = {
+    'CIE 1931 2 Degree Standard Observer': {'D50': None}}
 sys.modules['colour'].RGB_COLOURSPACES = {'sRGB': None}
 
 # If extensions (or modules to document with autodoc) are in another directory,
