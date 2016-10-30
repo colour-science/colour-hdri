@@ -86,6 +86,7 @@ if platform.system() == 'Darwin':
 if platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
 else:
+    DNG_CONVERTER = None
     warning('"Adobe DNG Converter" is not available on your platform!')
 """
 Command line *DNG* conversion application, usually *Adobe DNG Converter*.
