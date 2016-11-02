@@ -83,7 +83,7 @@ RAW_D_CONVERSION_ARGUMENTS : unicode
 if platform.system() == 'Darwin':
     DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
                      'MacOS/Adobe DNG Converter')
-if platform.system() in ('Windows', 'Microsoft'):
+elif platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
 else:
     DNG_CONVERTER = None
@@ -285,8 +285,8 @@ def read_dng_files_exif_tags(dng_files,
     for dng_file in dng_files:
         exif_tags = read_exif_tags(dng_file)
         binding = deepcopy(exif_tags_binding)
-        for group in binding:
-            for tag in binding[group]:
+        for group, tags in binding.items():
+            for tag in tags:
                 exif_tag = exif_tags[group].get(tag)
                 parser = binding[group][tag][0]
                 if exif_tag is None:
