@@ -83,7 +83,7 @@ RAW_D_CONVERSION_ARGUMENTS : unicode
 if platform.system() == 'Darwin':
     DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
                      'MacOS/Adobe DNG Converter')
-if platform.system() in ('Windows', 'Microsoft'):
+elif platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
 else:
     DNG_CONVERTER = None
