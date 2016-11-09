@@ -108,6 +108,7 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
         'Make': (parse_exif_string, None),
         'Camera Model Name': (parse_exif_string, None),
         'Camera Serial Number': (parse_exif_string, None),
+        'Lens Model': (parse_exif_string, None),
         'DNG Lens Info': (parse_exif_string, None),
         'Focal Length': (parse_exif_numeric, None),
         'Exposure Time': (parse_exif_numeric, None),

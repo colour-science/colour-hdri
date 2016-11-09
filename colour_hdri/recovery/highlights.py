@@ -91,9 +91,7 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     return RGB_o
 
 
-def highlights_recovery_LCHab(
-        RGB,
-        threshold=1):
+def highlights_recovery_LCHab(RGB, threshold=1):
     """
     Performs highlights recovery in *CIE LCHab* colourspace.
 
@@ -115,16 +113,13 @@ def highlights_recovery_LCHab(
          Highlights recovered *RGB* colourspace array.
     """
 
-    XYZ = sRGB_to_XYZ(RGB, apply_decoding_cctf=False)
-    LCHab = Lab_to_LCHab(XYZ_to_Lab(XYZ, sRGB_COLOURSPACE.whitepoint))
-    L, _C, H = tsplit(LCHab)
+    L, _C, H = tsplit(Lab_to_LCHab(XYZ_to_Lab(sRGB_to_XYZ(
+        RGB, apply_decoding_cctf=False),
+        sRGB_COLOURSPACE.whitepoint)))
+    _L_c, C_c, _H_c = tsplit(Lab_to_LCHab(XYZ_to_Lab(sRGB_to_XYZ(
+        np.clip(RGB, 0, threshold), apply_decoding_cctf=False),
+        sRGB_COLOURSPACE.whitepoint)))
 
-    XYZ_c = sRGB_to_XYZ(np.clip(RGB, 0, threshold), apply_decoding_cctf=False)
-    LCHab_c = Lab_to_LCHab(XYZ_to_Lab(XYZ_c, sRGB_COLOURSPACE.whitepoint))
-    _L_c, C_c, _H_c = tsplit(LCHab_c)
-
-    XYZ_r = Lab_to_XYZ(LCHab_to_Lab(
-        tstack((L, C_c, H))), sRGB_COLOURSPACE.whitepoint)
-    RGB_r = XYZ_to_sRGB(XYZ_r, apply_encoding_cctf=False)
-
-    return RGB_r
+    return XYZ_to_sRGB(Lab_to_XYZ(LCHab_to_Lab(
+        tstack((L, C_c, H))), sRGB_COLOURSPACE.whitepoint),
+        apply_encoding_cctf=False)

@@ -7,13 +7,11 @@ Defines unit tests for :mod:`colour_hdri.utilities.common` module.
 
 from __future__ import division, unicode_literals
 
-import numpy as np
 import os
 import unittest
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.utilities import (
-    linear_conversion,
     vivification,
     vivified_to_dict,
     path_exists,
@@ -27,7 +25,6 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['FROBISHER_001_DIRECTORY',
-           'TestLinearConversion',
            'TestVivification',
            'TestVivifiedToDict',
            'TestPathExists',
@@ -35,28 +32,6 @@ __all__ = ['FROBISHER_001_DIRECTORY',
 
 FROBISHER_001_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
-
-
-class TestLinearConversion(unittest.TestCase):
-    """
-    Defines :func:`colour_hdri.utilities.common.linear_conversion` definition
-    unit tests methods.
-    """
-
-    def test_linear_conversion(self):
-        """
-        Tests :func:`colour_hdri.utilities.common.linear_conversion`
-        definition.
-        """
-
-        np.testing.assert_almost_equal(
-            linear_conversion(np.linspace(0, 1, 10),
-                              np.array([0, 1]),
-                              np.array([1, np.pi])),
-            np.array([1.00000000, 1.23795474, 1.47590948, 1.71386422,
-                      1.95181896, 2.18977370, 2.42772844, 2.66568318,
-                      2.90363791, 3.14159265]),
-            decimal=8)
 
 
 class TestVivification(unittest.TestCase):

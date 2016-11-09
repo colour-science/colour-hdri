@@ -116,12 +116,12 @@ from colour import (
     dot_matrix,
     dot_vector,
     is_identity,
+    linear_conversion,
     tstack,
     uv_to_CCT_Robertson1968,
     xy_to_XYZ)
 
 from colour_hdri.models import ADOBE_DNG_XYZ_ILLUMINANT
-from colour_hdri.utilities import linear_conversion
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
