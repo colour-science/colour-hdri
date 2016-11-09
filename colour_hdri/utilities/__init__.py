@@ -3,7 +3,6 @@
 
 from __future__ import absolute_import
 from .common import (
-    linear_conversion,
     vivification,
     vivified_to_dict,
     path_exists,
@@ -33,7 +32,6 @@ from .image import (
 
 __all__ = []
 __all__ += [
-    'linear_conversion',
     'vivification',
     'vivified_to_dict',
     'path_exists',

@@ -10,13 +10,10 @@ Defines common utilities objects that don't fall in any specific category.
 
 from __future__ import division, unicode_literals
 
-import numpy as np
 import os
 import re
 
 from collections import defaultdict
-
-from colour import tsplit
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
@@ -25,45 +22,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['linear_conversion',
-           'vivification',
+__all__ = ['vivification',
            'vivified_to_dict',
            'path_exists',
            'filter_files']
-
-
-def linear_conversion(a, old_range, new_range):
-    """
-    Performs a simple linear conversion of given array between the old and new
-    ranges.
-
-    Parameters
-    ----------
-    a : array_like
-        Array to perform the linear conversion onto.
-    old_range : array_like
-        Old range.
-    new_range : array_like
-        New range.
-
-    Returns
-    -------
-    ndarray
-
-    Examples
-    --------
-    >>> a = np.linspace(0, 1, 10)
-    >>> linear_conversion(a, np.array([0, 1]), np.array([1, 10]))
-    array([  1.,   2.,   3.,   4.,   5.,   6.,   7.,   8.,   9.,  10.])
-    """
-
-    a = np.asarray(a)
-
-    in_min, in_max = tsplit(old_range)
-    out_min, out_max = tsplit(new_range)
-
-    return (((a - in_min) / (in_max - in_min)) *
-            (out_max - out_min) + out_min)
 
 
 def vivification():
