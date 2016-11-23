@@ -430,7 +430,7 @@ def tonemapping_operator_Schlick1994(
         p=1,
         colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Performs given *RGB* array tonemapping using Schlick (1994)
+    Performs given *RGB* array tonemapping using *Schlick (1994)*
     method [2]_[3]_.
 
     Parameters
@@ -481,7 +481,8 @@ def tonemapping_operator_Tumblin1999(
         L_max=100,
         colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Performs given *RGB* array tonemapping using Tumblin (1999) method [2]_.
+    Performs given *RGB* array tonemapping using
+    *Tumblin, Hodgins and Guenter (1999)* method [2]_.
 
     Parameters
     ----------
@@ -552,7 +553,8 @@ def tonemapping_operator_Reinhard2004(
         c=0,
         colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Performs given *RGB* array tonemapping using Reinhard (2004) method.
+    Performs given *RGB* array tonemapping using *Reinhard and Devlin (2004)*
+    method.
 
     Parameters
     ----------
@@ -631,7 +633,7 @@ def tonemapping_operator_filmic(RGB,
                                 exposure_bias=2,
                                 linear_whitepoint=11.2):
     """
-    Performs given *RGB* array tonemapping using Reinhard (2004) method.
+    Performs given *RGB* array tonemapping using *Habble (2010)* method.
 
     Parameters
     ----------

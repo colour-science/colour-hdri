@@ -5,7 +5,7 @@
 Absolute Luminance Calibration - Lagarde (2016)
 ===============================================
 
-Defines Lagarde (2016) panoramic images absolute *Luminance* calibration
+Defines *Lagarde (2016)* panoramic images absolute *Luminance* calibration
 objects:
 
 -   :func:`absolute_luminance_calibration_Lagarde2016`
@@ -141,7 +141,7 @@ def absolute_luminance_calibration_Lagarde2016(
         colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Performs absolute *Luminance* calibration of given *RGB* panoramic image
-    using Lagarde (2016) method.
+    using *Lagarde (2016)* method.
 
     Parameters
     ----------

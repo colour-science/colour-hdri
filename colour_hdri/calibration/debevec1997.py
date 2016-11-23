@@ -5,7 +5,7 @@
 Debevec (1997) Camera Response Function Computation
 ===================================================
 
-Defines Debevec (1997) camera responses computation objects:
+Defines *Debevec (1997)* camera responses computation objects:
 
 -   :func:`g_solve`
 -   :func:`camera_response_functions_Debevec1997`
@@ -115,8 +115,8 @@ def camera_response_functions_Debevec1997(image_stack,
                                           n=256,
                                           normalise=True):
     """
-    Returns the camera response functions for given image stack using Debevec
-    (1997) method.
+    Returns the camera response functions for given image stack using
+    *Debevec (1997)* method.
 
     Image channels are sampled with :math:`s` sampling function and the output
     samples are passed to :func:`g_solve`.
