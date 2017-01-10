@@ -86,7 +86,7 @@ def hat_function(a):
 
 def weighting_function_Debevec1997(a, domain_l=0.01, domain_h=0.99):
     """
-    Returns given array weighted by Debevec (1997) function.
+    Returns given array weighted by *Debevec (1997)* function.
 
     Parameters
     ----------

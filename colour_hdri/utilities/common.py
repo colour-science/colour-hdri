@@ -122,5 +122,5 @@ def filter_files(directory, extensions):
     """
 
     return map(lambda x: os.path.join(directory, x),
-               filter(lambda x: re.search('\.({0})$'.format(
+               filter(lambda x: re.search('{0}$'.format(
                    '|'.join(extensions)), x), sorted(os.listdir(directory))))

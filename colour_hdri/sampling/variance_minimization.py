@@ -5,7 +5,7 @@
 Viriyothai (2009) Variance Minimization Light Probe Sampling
 ============================================================
 
-Defines Viriyothai (2009) variance minimization light probe sampling objects:
+Defines *Viriyothai (2009)* variance minimization light probe sampling objects:
 
 -   :func:`light_probe_sampling_variance_minimization_Viriyothai2009`
 
@@ -86,8 +86,8 @@ def luminance_variance(a):
 
 def find_regions_variance_minimization_Viriyothai2009(a, n=4):
     """
-    Finds the :math:`2^n` regions using Viriyothai (2009) variance minimization
-    light probe sampling algorithm on given :math:`a` 2-D array.
+    Finds the :math:`2^n` regions using *Viriyothai (2009)* variance
+    minimization light probe sampling algorithm on given :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -189,7 +189,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
         lights_count=16,
         colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Sample given light probe to find lights using Viriyothai (2009) variance
+    Sample given light probe to find lights using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm.
 
     Parameters

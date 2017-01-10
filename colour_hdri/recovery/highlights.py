@@ -46,7 +46,7 @@ __all__ = ['highlights_recovery_blend',
 
 def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     """
-    Performs highlights recovery using Coffin (1997) method from *dcraw*.
+    Performs highlights recovery using *Coffin (1997)* method from *dcraw*.
 
     Parameters
     ----------
