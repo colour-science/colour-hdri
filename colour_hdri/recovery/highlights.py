@@ -25,16 +25,16 @@ from colour import (
     LCHab_to_Lab,
     Lab_to_LCHab,
     Lab_to_XYZ,
+    RGB_to_XYZ,
     XYZ_to_Lab,
-    XYZ_to_sRGB,
+    XYZ_to_RGB,
     dot_vector,
     sRGB_COLOURSPACE,
-    sRGB_to_XYZ,
     tsplit,
     tstack)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -91,7 +91,8 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     return RGB_o
 
 
-def highlights_recovery_LCHab(RGB, threshold=1):
+def highlights_recovery_LCHab(
+        RGB, threshold=None, RGB_colourspace=sRGB_COLOURSPACE):
     """
     Performs highlights recovery in *CIE LCHab* colourspace.
 
@@ -100,12 +101,10 @@ def highlights_recovery_LCHab(RGB, threshold=1):
     RGB : array_like
         *RGB* colourspace array.
     threshold : numeric, optional
-        Threshold for highlights selection.
-
-    Notes
-    -----
-    -   `RGB` array is assumed to be *sRGB* linearly encoded as per
-        *IEC 61966-2-1:1999*.
+        Threshold for highlights selection, automatically computed
+        if not given.
+    RGB_colourspace : RGB_Colourspace, optional
+        Working *RGB* colourspace to perform the *CIE LCHab* to and from.
 
     Returns
     -------
@@ -113,13 +112,21 @@ def highlights_recovery_LCHab(RGB, threshold=1):
          Highlights recovered *RGB* colourspace array.
     """
 
-    L, _C, H = tsplit(Lab_to_LCHab(XYZ_to_Lab(sRGB_to_XYZ(
-        RGB, apply_decoding_cctf=False),
-        sRGB_COLOURSPACE.whitepoint)))
-    _L_c, C_c, _H_c = tsplit(Lab_to_LCHab(XYZ_to_Lab(sRGB_to_XYZ(
-        np.clip(RGB, 0, threshold), apply_decoding_cctf=False),
-        sRGB_COLOURSPACE.whitepoint)))
+    L, _C, H = tsplit(Lab_to_LCHab(XYZ_to_Lab(RGB_to_XYZ(
+        RGB,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.RGB_to_XYZ_matrix),
+        RGB_colourspace.whitepoint)))
+    _L_c, C_c, _H_c = tsplit(Lab_to_LCHab(XYZ_to_Lab(RGB_to_XYZ(
+        np.clip(RGB, 0, threshold),
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.RGB_to_XYZ_matrix),
+        RGB_colourspace.whitepoint)))
 
-    return XYZ_to_sRGB(Lab_to_XYZ(LCHab_to_Lab(
-        tstack((L, C_c, H))), sRGB_COLOURSPACE.whitepoint),
-        apply_encoding_cctf=False)
+    return XYZ_to_RGB(Lab_to_XYZ(LCHab_to_Lab(
+        tstack((L, C_c, H))), RGB_colourspace.whitepoint),
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.XYZ_to_RGB_matrix)
