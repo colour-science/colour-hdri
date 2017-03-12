@@ -32,7 +32,7 @@ SHORT_DESCRIPTION = 'Colour - HDRI'
 
 LONG_DESCRIPTION = open('README.rst').read()
 
-INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.8',
+INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.9',
                              'recordclass>=0.4']
 
 OPTIONAL_REQUIREMENTS = ['rawpy>=0.5.0']
@@ -46,10 +46,10 @@ TESTS_REQUIREMENTS = ['coverage>=3.7.1',
                       'nose>=1.3.4']
 
 if os.environ.get('READTHEDOCS') == 'True':
-    INSTALLATION_REQUIREMENTS += ['mock==1.0.1']
+    INSTALLATION_REQUIREMENTS += ['mock']
 
 setup(name='colour-hdri',
-      version='0.1.1',
+      version='0.1.2',
       author=__author__,
       author_email=__email__,
       include_package_data=True,

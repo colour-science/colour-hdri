@@ -90,7 +90,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
             b[k] = w_ij * B[j]
             k += 1
 
-    A[k, n / 2] = 1
+    A[k, np.int_(n / 2)] = 1
     k += 1
 
     for i in np.arange(1, n - 1, 1):

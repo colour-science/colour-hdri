@@ -55,7 +55,7 @@ if [ -n "${OPTION_GENERATE_HTML_FILES+1}" ]; then
     echo Sphinx Documentation Build - Begin
     echo -------------------------------------------------------------------------------
     cd $SPHINX_DOCUMENTATION_DIRECTORY
-    make html
+    make html 2>&1 | grep -v --line-buffered -e "more than one target found for cross-reference" -e "Duplicate explicit target name" -e "Duplicate target name, cannot be used as a unique reference"
     echo -------------------------------------------------------------------------------
     echo Sphinx Documentation Build - End
     echo -------------------------------------------------------------------------------
