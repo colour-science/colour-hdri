@@ -26,7 +26,7 @@ from colour.plotting import (
     decorate)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -55,14 +55,20 @@ def tonemapping_operator_image_plot(
     encoding_cctf : callable, optional
         Encoding colour component transfer function / opto-electronic
         transfer function used for plotting.
+
+    Other Parameters
+    ----------------
     \**kwargs : dict, optional
-        Keywords arguments.
+        {:func:`boundaries`, :func:`canvas`, :func:`decorate`,
+        :func:`display`},
+        Please refer to the documentation of the previously listed definitions.
 
     Returns
     -------
     bool
         Definition success.
     """
+
     shape = image.shape
     limits = [0, 1, 0, 1]
 
@@ -99,4 +105,5 @@ def tonemapping_operator_image_plot(
     canvas(**settings)
     decorate(**settings)
     boundaries(**settings)
+
     return display(**settings)

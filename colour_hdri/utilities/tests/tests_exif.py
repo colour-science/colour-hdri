@@ -6,6 +6,8 @@ Defines unit tests for :mod:`colour_hdri.utilities.exif` module.
 """
 
 from __future__ import division, unicode_literals
+
+import numpy as np
 import os
 import shutil
 import tempfile
@@ -14,6 +16,11 @@ import unittest
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.utilities import filter_files, vivified_to_dict
 from colour_hdri.utilities import (
+    ExifTag,
+    parse_exif_string,
+    parse_exif_numeric,
+    parse_exif_fraction,
+    parse_exif_array,
     parse_exif_data,
     read_exif_tags,
     copy_exif_tags,
@@ -23,13 +30,17 @@ from colour_hdri.utilities import (
     write_exif_tag)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['FROBISHER_001_DIRECTORY',
+           'TestParseExifString',
+           'TestParseExifNumeric',
+           'TestParseExifFraction',
+           'TestParseExifArray',
            'TestParseExifData',
            'TestReadExifTags',
            'TestCopyExifTags',
@@ -40,6 +51,98 @@ __all__ = ['FROBISHER_001_DIRECTORY',
 
 FROBISHER_001_DIRECTORY = os.path.join(
     TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
+
+
+class TestParseExifString(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.parse_exif_string` definition
+    unit tests methods.
+    """
+
+    def test_parse_exif_string(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.parse_exif_string` definition.
+        """
+
+        exif_tag = ExifTag('EXIF', 'Make', 'Canon', '271')
+        self.assertEqual(parse_exif_string(exif_tag), 'Canon')
+
+
+class TestParseExifNumeric(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.parse_exif_numeric` definition
+    unit tests methods.
+    """
+
+    def test_parse_exif_numeric(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.parse_exif_numeric` definition.
+        """
+
+        exif_tag = ExifTag('EXIF', 'Focal Length', '16', '37386')
+        self.assertEqual(parse_exif_numeric(exif_tag), 16)
+
+        exif_tag = ExifTag('EXIF', 'Focal Length', '16', '37386')
+        self.assertIsInstance(parse_exif_numeric(exif_tag, np.int_), np.int_)
+
+
+class TestParseExifFraction(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.parse_exif_fraction` definition
+    unit tests methods.
+    """
+
+    def test_parse_exif_fraction(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.parse_exif_fraction`
+        definition.
+        """
+
+        exif_tag = ExifTag('EXIF', 'Exposure Time', '0.01666666667', '33434')
+        self.assertAlmostEqual(
+            parse_exif_fraction(exif_tag),
+            0.01666666,
+            places=7)
+
+        exif_tag = ExifTag('EXIF', 'Exposure Time', '10/4000', '33434')
+        self.assertAlmostEqual(
+            parse_exif_fraction(exif_tag),
+            0.00250000,
+            places=7)
+
+        self.assertIsInstance(parse_exif_fraction(exif_tag, np.int_), np.int_)
+
+
+class TestParseExifArray(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exif.parse_exif_array` definition
+    unit tests methods.
+    """
+
+    def test_parse_exif_array(self):
+        """
+        Tests :func:`colour_hdri.utilities.exif.parse_exif_array` definition.
+        """
+
+        exif_tag = ExifTag('EXIF',
+                           'Color Matrix 1',
+                           ('0.5309 -0.0229 -0.0336 '
+                            '-0.6241 1.3265 0.3337 '
+                            '-0.0817 0.1215 0.6664'),
+                           '50721')
+        np.testing.assert_array_equal(
+            parse_exif_array(exif_tag),
+            np.array([
+                0.5309, -0.0229, -0.0336,
+                -0.6241, 1.3265, 0.3337,
+                -0.0817, 0.1215, 0.6664]))
+
+        np.testing.assert_array_equal(
+            parse_exif_array(exif_tag, shape=(3, 3)),
+            np.array([
+                [0.5309, -0.0229, -0.0336],
+                [-0.6241, 1.3265, 0.3337],
+                [-0.0817, 0.1215, 0.6664]]))
 
 
 class TestParseExifData(unittest.TestCase):
@@ -92,14 +195,24 @@ class TestReadExifTags(unittest.TestCase):
 
         self.assertListEqual(
             sorted(exif_data['EXIF'].values()),
-            [('0.125', '33434'), ('1', '274'), ('100', '34855'),
-             ('16', '37386'), ('2', '262'), ('2', '296'),
-             ('2015:09:19 03:39:20', '306'),
-             ('2015:09:19 03:39:20', '36867'),
-             ('2015:09:19 03:39:20', '36868'), ('426', '40963'),
-             ('640', '40962'), ('72', '282'), ('72', '283'),
-             ('8', '33437'), ('Canon', '271'), ('EOS 5D Mark II', '272'),
-             ('Photos 1.0.1', '305')])
+            [[ExifTag('EXIF', 'Camera Model Name', 'EOS 5D Mark II', '272')],
+             [ExifTag('EXIF', 'Create Date', '2015:09:19 03:39:20', '36868')],
+             [ExifTag('EXIF', 'Date/Time Original',
+                      '2015:09:19 03:39:20', '36867')],
+             [ExifTag('EXIF', 'Exif Image Height', '426', '40963')],
+             [ExifTag('EXIF', 'Exif Image Width', '640', '40962')],
+             [ExifTag('EXIF', 'Exposure Time', '0.125', '33434')],
+             [ExifTag('EXIF', 'F Number', '8', '33437')],
+             [ExifTag('EXIF', 'Focal Length', '16', '37386')],
+             [ExifTag('EXIF', 'ISO', '100', '34855')],
+             [ExifTag('EXIF', 'Make', 'Canon', '271')],
+             [ExifTag('EXIF', 'Modify Date', '2015:09:19 03:39:20', '306')],
+             [ExifTag('EXIF', 'Orientation', '1', '274')],
+             [ExifTag('EXIF', 'Photometric Interpretation', '2', '262')],
+             [ExifTag('EXIF', 'Resolution Unit', '2', '296')],
+             [ExifTag('EXIF', 'Software', 'Photos 1.0.1', '305')],
+             [ExifTag('EXIF', 'X Resolution', '72', '282')],
+             [ExifTag('EXIF', 'Y Resolution', '72', '283')]])
 
 
 class TestCopyExifTags(unittest.TestCase):

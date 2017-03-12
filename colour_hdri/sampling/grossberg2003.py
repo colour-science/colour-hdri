@@ -5,7 +5,7 @@
 Grossberg (2003) Histogram Based Image Sampling
 ===============================================
 
-Defines Grossberg (2003) histogram based image sampling objects:
+Defines *Grossberg (2003)* histogram based image sampling objects:
 
 -   :func:`samples_Grossberg2003`
 
@@ -26,7 +26,7 @@ import numpy as np
 from colour import tsplit, tstack
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -38,7 +38,7 @@ __all__ = ['samples_Grossberg2003']
 def samples_Grossberg2003(image_stack, samples=1000, n=256):
     """
     Returns the samples for given image stack intensity histograms using
-    Grossberg (2003) method.
+    *Grossberg (2003)* method.
 
     Parameters
     ----------

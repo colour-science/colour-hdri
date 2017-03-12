@@ -17,7 +17,7 @@ from __future__ import division, unicode_literals
 import numpy as np
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -86,7 +86,7 @@ def hat_function(a):
 
 def weighting_function_Debevec1997(a, domain_l=0.01, domain_h=0.99):
     """
-    Returns given array weighted by Debevec (1997) function.
+    Returns given array weighted by *Debevec (1997)* function.
 
     Parameters
     ----------

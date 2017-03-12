@@ -6,6 +6,7 @@ Sub-Modules
 
 .. toctree::
 
+   colour_hdri.calibration.absolute_luminance
    colour_hdri.calibration.debevec1997
 
 Module Contents

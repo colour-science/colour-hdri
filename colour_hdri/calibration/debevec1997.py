@@ -5,14 +5,14 @@
 Debevec (1997) Camera Response Function Computation
 ===================================================
 
-Defines Debevec (1997) camera responses computation objects:
+Defines *Debevec (1997)* camera responses computation objects:
 
 -   :func:`g_solve`
 -   :func:`camera_response_functions_Debevec1997`
 
 See Also
 --------
-`Colour - HDRI - Examples: Merge from Low Dynamic Range Files IPython Notebook
+`Colour - HDRI - Examples: Merge from Low Dynamic Range Files Jupyter Notebook
 <https://github.com/colour-science/colour-hdri/\
 blob/master/colour_hdri/examples/examples_merge_from_ldr_files.ipynb>`_
 
@@ -33,7 +33,7 @@ from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -90,7 +90,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
             b[k] = w_ij * B[j]
             k += 1
 
-    A[k, n / 2] = 1
+    A[k, np.int_(n / 2)] = 1
     k += 1
 
     for i in np.arange(1, n - 1, 1):
@@ -115,8 +115,8 @@ def camera_response_functions_Debevec1997(image_stack,
                                           n=256,
                                           normalise=True):
     """
-    Returns the camera response functions for given image stack using Debevec
-    (1997) method.
+    Returns the camera response functions for given image stack using
+    *Debevec (1997)* method.
 
     Image channels are sampled with :math:`s` sampling function and the output
     samples are passed to :func:`g_solve`.

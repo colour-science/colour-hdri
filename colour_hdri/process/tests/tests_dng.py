@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Defines unit tests for :mod:`colour_hdri.process.conversion` module.
+Defines unit tests for :mod:`colour_hdri.process.adobe_dng` module.
 """
 
 from __future__ import division, unicode_literals
@@ -19,11 +19,12 @@ from colour import read_image
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.process import (
     convert_raw_files_to_dng_files,
-    convert_dng_files_to_intermediate_files)
+    convert_dng_files_to_intermediate_files,
+    read_dng_files_exif_tags)
 from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -46,7 +47,7 @@ RAW_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('CR2',))
 
 class TestConvertRawFilesToDngFiles(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.process.conversion.\
+    Defines :func:`colour_hdri.process.adobe_dng.\
 convert_raw_files_to_dng_files` definition unit tests methods.
     """
 
@@ -66,7 +67,7 @@ convert_raw_files_to_dng_files` definition unit tests methods.
 
     def test_convert_raw_files_to_dng_files(self):
         """
-        Tests :func:`colour_hdri.process.conversion.\
+        Tests :func:`colour_hdri.process.adobe_dng.\
 convert_raw_files_to_dng_files` definition.
         """
 
@@ -90,7 +91,7 @@ convert_raw_files_to_dng_files` definition.
 
 class TestConvertDngFilesToIntermediateFiles(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.process.conversion.\
+    Defines :func:`colour_hdri.process.adobe_dng.\
 convert_dng_files_to_intermediate_files` definition unit tests methods.
     """
 
@@ -110,7 +111,7 @@ convert_dng_files_to_intermediate_files` definition unit tests methods.
 
     def test_convert_dng_files_to_intermediate_files(self):
         """
-        Tests :func:`colour_hdri.process.conversion.\
+        Tests :func:`colour_hdri.process.adobe_dng.\
 convert_dng_files_to_intermediate_files` definition.
         """
 
@@ -135,6 +136,35 @@ convert_dng_files_to_intermediate_files` definition.
                 read_image(str(test_tiff_file)),
                 read_image(str(reference_tiff_file)),
                 decimal=7)
+
+
+class TestReadDngFilesExifTags(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.process.adobe_dng.\
+read_dng_files_exif_tags` definition unit tests methods.
+    """
+
+    def test_read_dng_files_exif_tags(self):
+        """
+        Tests :func:`colour_hdri.process.adobe_dng.\
+read_dng_files_exif_tags` definition.
+        """
+
+        reference_dng_files = sorted(
+            filter_files(PROCESS_DIRECTORY, ('dng',)))
+        exif_tags = read_dng_files_exif_tags(reference_dng_files)
+        self.assertEqual(len(exif_tags), 3)
+        self.assertIn('EXIF', exif_tags[0])
+        self.assertIn('Make', exif_tags[0]['EXIF'])
+
+        self.assertAlmostEquals(
+            exif_tags[0]['EXIF']['Exposure Time'],
+            0.12500000,
+            places=7)
+
+        np.testing.assert_array_equal(
+            exif_tags[0]['EXIF']['Reduction Matrix 1'],
+            np.identity(3))
 
 
 if __name__ == '__main__':

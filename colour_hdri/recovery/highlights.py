@@ -8,10 +8,11 @@ Clipped Highlights Recovery
 Defines the clipped highlights recovery objects:
 
 -   :func:`highlights_recovery_blend`
+-   :func:`highlights_recovery_LCHab`
 
 See Also
 --------
-`Colour - HDRI - Examples: Merge from Raw Files IPython Notebook
+`Colour - HDRI - Examples: Merge from Raw Files Jupyter Notebook
 <https://github.com/colour-science/colour-hdri/\
 blob/master/colour_hdri/examples/examples_merge_from_raw_files.ipynb>`_
 """
@@ -20,21 +21,32 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import dot_vector
+from colour import (
+    LCHab_to_Lab,
+    Lab_to_LCHab,
+    Lab_to_XYZ,
+    RGB_to_XYZ,
+    XYZ_to_Lab,
+    XYZ_to_RGB,
+    dot_vector,
+    sRGB_COLOURSPACE,
+    tsplit,
+    tstack)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['highlights_recovery_blend']
+__all__ = ['highlights_recovery_blend',
+           'highlights_recovery_LCHab']
 
 
 def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     """
-    Performs highlights recovery using Coffin (1997) method from *dcraw*.
+    Performs highlights recovery using *Coffin (1997)* method from *dcraw*.
 
     Parameters
     ----------
@@ -43,7 +55,7 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     multipliers : array_like
         Normalised camera white level or white balance multipliers.
     threshold : numeric, optional
-        Threshold for the highlights selection.
+        Threshold for highlights selection.
 
     Returns
     -------
@@ -77,3 +89,44 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     RGB_o = dot_vector(np.linalg.inv(M), Lab)
 
     return RGB_o
+
+
+def highlights_recovery_LCHab(
+        RGB, threshold=None, RGB_colourspace=sRGB_COLOURSPACE):
+    """
+    Performs highlights recovery in *CIE LCHab* colourspace.
+
+    Parameters
+    ----------
+    RGB : array_like
+        *RGB* colourspace array.
+    threshold : numeric, optional
+        Threshold for highlights selection, automatically computed
+        if not given.
+    RGB_colourspace : RGB_Colourspace, optional
+        Working *RGB* colourspace to perform the *CIE LCHab* to and from.
+
+    Returns
+    -------
+    ndarray
+         Highlights recovered *RGB* colourspace array.
+    """
+
+    L, _C, H = tsplit(Lab_to_LCHab(XYZ_to_Lab(RGB_to_XYZ(
+        RGB,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.RGB_to_XYZ_matrix),
+        RGB_colourspace.whitepoint)))
+    _L_c, C_c, _H_c = tsplit(Lab_to_LCHab(XYZ_to_Lab(RGB_to_XYZ(
+        np.clip(RGB, 0, threshold),
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.RGB_to_XYZ_matrix),
+        RGB_colourspace.whitepoint)))
+
+    return XYZ_to_RGB(Lab_to_XYZ(LCHab_to_Lab(
+        tstack((L, C_c, H))), RGB_colourspace.whitepoint),
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.XYZ_to_RGB_matrix)

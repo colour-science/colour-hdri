@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Variance Minimization Light Probe Sampling - Viriyothai (2009)
-==============================================================
+Viriyothai (2009) Variance Minimization Light Probe Sampling
+============================================================
 
-Defines Viriyothai (2009) variance minimization light probe sampling objects:
+Defines *Viriyothai (2009)* variance minimization light probe sampling objects:
 
--   :func:`light_probe_sampling_variance_minimization`
+-   :func:`light_probe_sampling_variance_minimization_Viriyothai2009`
 
 References
 ----------
@@ -21,28 +21,20 @@ from __future__ import division, unicode_literals
 import numpy as np
 from collections import namedtuple
 
-from colour import centroid, warning
+from colour import RGB_COLOURSPACES, RGB_luminance, centroid, warning
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['DEFAULT_LUMINANCE_FACTORS',
-           'Light_Specification',
+__all__ = ['Light_Specification',
            'luminance_variance',
-           'find_regions_variance_minimization',
+           'find_regions_variance_minimization_Viriyothai2009',
            'highlight_regions_variance_minimization',
-           'light_probe_sampling_variance_minimization']
-
-DEFAULT_LUMINANCE_FACTORS = np.array([0.2126, 0.7152, 0.0722])
-"""
-Default weighting factors for Luminance conversion, i.e., *Rec. 709*.
-
-DEFAULT_LUMINANCE_FACTORS : array_like
-"""
+           'light_probe_sampling_variance_minimization_Viriyothai2009']
 
 
 class Light_Specification(
@@ -92,10 +84,10 @@ def luminance_variance(a):
     return variance
 
 
-def find_regions_variance_minimization(a, n=4):
+def find_regions_variance_minimization_Viriyothai2009(a, n=4):
     """
-    Finds the :math:`2^n` regions using Viriyothai (2009) variance minimization
-    light probe sampling algorithm on given :math:`a` 2-D array.
+    Finds the :math:`2^n` regions using *Viriyothai (2009)* variance
+    minimization light probe sampling algorithm on given :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -192,12 +184,12 @@ def highlight_regions_variance_minimization(
     return a
 
 
-def light_probe_sampling_variance_minimization(
+def light_probe_sampling_variance_minimization_Viriyothai2009(
         light_probe,
         lights_count=16,
-        luminance_factors=DEFAULT_LUMINANCE_FACTORS):
+        colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Sample given light probe to find lights using Viriyothai (2009) variance
+    Sample given light probe to find lights using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm.
 
     Parameters
@@ -206,8 +198,8 @@ def light_probe_sampling_variance_minimization(
         Array to sample for lights.
     lights_count : int
         Amount of lights to generate.
-    luminance_factors : array_like
-        Weighting factors for Luminance conversion.
+    colourspace : `colour.RGB_Colourspace`, optional
+        *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
     -------
@@ -223,8 +215,9 @@ def light_probe_sampling_variance_minimization(
             '{0} lights requested, {1} will be effectively computed!'.format(
                 lights_count, iterations ** 2))
 
-    Y = np.dot(light_probe, luminance_factors)
-    regions = find_regions_variance_minimization(Y, iterations)
+    Y = RGB_luminance(
+        light_probe, colourspace.primaries, colourspace.whitepoint)
+    regions = find_regions_variance_minimization_Viriyothai2009(Y, iterations)
 
     lights = []
     for region in regions:

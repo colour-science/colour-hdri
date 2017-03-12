@@ -20,7 +20,7 @@ from colour.plotting import DEFAULT_PLOTTING_ENCODING_CCTF, display
 from colour_hdri.utilities.exposure import adjust_exposure
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2016 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -48,8 +48,12 @@ def radiance_image_strip_plot(image,
     encoding_cctf : callable, optional
         Encoding colour component transfer function / opto-electronic
         transfer function used for plotting.
+
+    Other Parameters
+    ----------------
     \**kwargs : dict, optional
-        Keywords arguments.
+        {:func:`display`},
+        Please refer to the documentation of the previously listed definitions.
 
     Returns
     -------
