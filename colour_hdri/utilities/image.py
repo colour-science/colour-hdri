@@ -19,13 +19,14 @@ import numpy as np
 from collections import MutableSequence
 from recordclass import recordclass
 
-from colour import is_string, read_image, tsplit, tstack
+from colour import is_string, read_image, tsplit, tstack, warning
 
 from colour_hdri.utilities.exif import (
     parse_exif_array,
     parse_exif_fraction,
     parse_exif_numeric,
     read_exif_tags)
+from colour_hdri.utilities.exposure import average_luminance
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
@@ -298,6 +299,7 @@ class ImageStack(MutableSequence):
     __len__
     __getattr__
     __setattr__
+    sort
     insert
     from_files
     """
@@ -427,6 +429,19 @@ class ImageStack(MutableSequence):
 
         self._list.insert(index, value)
 
+    def sort(self, key=None):
+        """
+        Sorts the underlying data structure.
+
+        Parameters
+        ----------
+        key : callable
+            Function of one argument that is used to extract a comparison key
+            from each data structure.
+        """
+
+        self._list = sorted(self._list, key=key)
+
     @staticmethod
     def from_files(image_files):
         """
@@ -448,5 +463,23 @@ class ImageStack(MutableSequence):
             image.read_data()
             image.read_metadata()
             image_stack.append(image)
+
+        def luminance_average_key(image):
+            """
+            Comparison key function.
+            """
+
+            f_number = image.metadata.f_number
+            exposure_time = image.metadata.exposure_time
+            iso = image.metadata.iso
+
+            if None in (f_number, exposure_time, iso):
+                warning('"{0}" exposure data is missing, average luminance '
+                        'sorting is inapplicable!'.format(image.path))
+                return None
+
+            return average_luminance(f_number, exposure_time, iso)
+
+        image_stack.sort(luminance_average_key)
 
         return image_stack
