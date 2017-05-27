@@ -261,6 +261,15 @@ class TestImageStack(unittest.TestCase):
 
         self.assertEqual(image_stack[0].metadata.black_level, 2048)
 
+    def test_from_files(self):
+        """
+        Tests :attr:`colour_hdri.utilities.image.ImageStack.test_from_files`
+        method.
+        """
+
+        image_stack = ImageStack().from_files(reversed(self._test_jpg_images))
+        self.assertListEqual(list(image_stack.path), self._test_jpg_images)
+
 
 if __name__ == '__main__':
     unittest.main()
