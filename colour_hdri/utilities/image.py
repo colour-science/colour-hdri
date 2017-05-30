@@ -214,9 +214,15 @@ class Image(object):
 
         self._metadata = value
 
-    def read_data(self):
+    def read_data(self, decoding_cctf=None):
         """
         Reads image pixel data at :attr:`Image.path` attribute.
+
+        Parameters
+        ----------
+        decoding_cctf : object, optional
+            Decoding colour component transfer function (Decoding CCTF) or
+            electro-optical transfer function (EOTF / EOCF).
 
         Returns
         -------
@@ -226,6 +232,8 @@ class Image(object):
 
         LOGGER.info('Reading "{0}" image.'.format(self._path))
         self.data = read_image(str(self._path))
+        if decoding_cctf is not None:
+            self.data = decoding_cctf(self.data)
 
         return self.data
 
@@ -443,7 +451,7 @@ class ImageStack(MutableSequence):
         self._list = sorted(self._list, key=key)
 
     @staticmethod
-    def from_files(image_files):
+    def from_files(image_files, decoding_cctf=None):
         """
         Returns a :class:`ImageStack` instance with given image files.
 
@@ -451,6 +459,9 @@ class ImageStack(MutableSequence):
         ----------
         image_files : array_like
             Image files.
+        decoding_cctf : object, optional
+            Decoding colour component transfer function (Decoding CCTF) or
+            electro-optical transfer function (EOTF / EOCF).
 
         Returns
         -------
@@ -460,7 +471,7 @@ class ImageStack(MutableSequence):
         image_stack = ImageStack()
         for image_file in image_files:
             image = Image(image_file)
-            image.read_data()
+            image.read_data(decoding_cctf)
             image.read_metadata()
             image_stack.append(image)
 
