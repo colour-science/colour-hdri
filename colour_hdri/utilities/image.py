@@ -19,13 +19,14 @@ import numpy as np
 from collections import MutableSequence
 from recordclass import recordclass
 
-from colour import is_string, read_image, tsplit, tstack
+from colour import is_string, read_image, tsplit, tstack, warning
 
 from colour_hdri.utilities.exif import (
     parse_exif_array,
     parse_exif_fraction,
     parse_exif_numeric,
     read_exif_tags)
+from colour_hdri.utilities.exposure import average_luminance
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
@@ -213,9 +214,15 @@ class Image(object):
 
         self._metadata = value
 
-    def read_data(self):
+    def read_data(self, decoding_cctf=None):
         """
         Reads image pixel data at :attr:`Image.path` attribute.
+
+        Parameters
+        ----------
+        decoding_cctf : object, optional
+            Decoding colour component transfer function (Decoding CCTF) or
+            electro-optical transfer function (EOTF / EOCF).
 
         Returns
         -------
@@ -225,6 +232,8 @@ class Image(object):
 
         LOGGER.info('Reading "{0}" image.'.format(self._path))
         self.data = read_image(str(self._path))
+        if decoding_cctf is not None:
+            self.data = decoding_cctf(self.data)
 
         return self.data
 
@@ -298,6 +307,7 @@ class ImageStack(MutableSequence):
     __len__
     __getattr__
     __setattr__
+    sort
     insert
     from_files
     """
@@ -427,8 +437,21 @@ class ImageStack(MutableSequence):
 
         self._list.insert(index, value)
 
+    def sort(self, key=None):
+        """
+        Sorts the underlying data structure.
+
+        Parameters
+        ----------
+        key : callable
+            Function of one argument that is used to extract a comparison key
+            from each data structure.
+        """
+
+        self._list = sorted(self._list, key=key)
+
     @staticmethod
-    def from_files(image_files):
+    def from_files(image_files, decoding_cctf=None):
         """
         Returns a :class:`ImageStack` instance with given image files.
 
@@ -436,6 +459,9 @@ class ImageStack(MutableSequence):
         ----------
         image_files : array_like
             Image files.
+        decoding_cctf : object, optional
+            Decoding colour component transfer function (Decoding CCTF) or
+            electro-optical transfer function (EOTF / EOCF).
 
         Returns
         -------
@@ -445,8 +471,26 @@ class ImageStack(MutableSequence):
         image_stack = ImageStack()
         for image_file in image_files:
             image = Image(image_file)
-            image.read_data()
+            image.read_data(decoding_cctf)
             image.read_metadata()
             image_stack.append(image)
+
+        def luminance_average_key(image):
+            """
+            Comparison key function.
+            """
+
+            f_number = image.metadata.f_number
+            exposure_time = image.metadata.exposure_time
+            iso = image.metadata.iso
+
+            if None in (f_number, exposure_time, iso):
+                warning('"{0}" exposure data is missing, average luminance '
+                        'sorting is inapplicable!'.format(image.path))
+                return None
+
+            return average_luminance(f_number, exposure_time, iso)
+
+        image_stack.sort(luminance_average_key)
 
         return image_stack

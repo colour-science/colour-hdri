@@ -9,7 +9,7 @@ Colour - HDRI
     * - Status
       - |waffle| |travis| |coveralls| |scrutinizer| |landscape| |gemnasium|
     * - Package
-      - |version| |downloads|
+      - |version|
 
 .. |waffle| image:: https://badge.waffle.io/colour-science/colour-hdri.svg?label=ready&title=Ready
     :target: https://github.com/colour-science/colour-hdri/issues
@@ -32,9 +32,6 @@ Colour - HDRI
 .. |version| image:: https://badge.fury.io/py/colour-hdri.svg
     :target: https://pypi.python.org/pypi/colour-hdri
     :alt: Package Version
-.. |downloads| image:: https://img.shields.io/pypi/dm/colour-hdri.svg
-    :target: https://pypi.python.org/pypi/colour-hdri
-    :alt: Package Downloads
 
 .. end-badges
 

@@ -54,6 +54,7 @@ radiance.image_stack_to_radiance_image` definition.
         image_stack = ImageStack.from_files(JPG_IMAGES)
         image_stack.data = RGB_COLOURSPACES['sRGB'].decoding_cctf(
             image_stack.data)
+
         np.testing.assert_almost_equal(
             image_stack_to_radiance_image(image_stack),
             np.load(os.path.join(

@@ -26,7 +26,7 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tsplit, tstack
+from colour import tsplit, tstack, warning
 
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.utilities import average_luminance
@@ -68,11 +68,18 @@ def image_stack_to_radiance_image(
     -------
     ndarray
         Radiance image.
+
+    Warning
+    -------
+    If the image stack contains images with negative or equal to zero values,
+    unpredictable results may occur and NaNs might be generated. It is
+    thus recommended to encode the images in a wider RGB colourspace or clamp
+    negative values.
     """
 
     image_c = None
     weight_c = None
-    for image in image_stack:
+    for i, image in enumerate(image_stack):
         if image_c is None:
             image_c = np.zeros(image.data.shape)
             weight_c = np.zeros(image.data.shape)
@@ -82,11 +89,28 @@ def image_stack_to_radiance_image(
             image.metadata.exposure_time,
             image.metadata.iso)
 
+        if np.any(image.data <= 0):
+            warning(
+                '"{0}" image channels contain negative or equal to zero '
+                'values, unpredictable results may occur! Please consider '
+                'encoding your images in a wider gamut RGB colourspace or '
+                'clamp negative values.'.format(image.path))
+
         if weighting_average and image.data.ndim == 3:
-            weight = weighting_function(np.average(image.data, axis=-1))
-            weight = np.rollaxis(weight[np.newaxis], 0, 3)
+            average = np.average(image.data, axis=-1)
+
+            weights = weighting_function(average)
+            weights = np.rollaxis(weights[np.newaxis], 0, 3)
+            if i == 0:
+                weights[average >= 0.5] = 1
+            if i == len(image_stack) - 1:
+                weights[average <= 0.5] = 1
         else:
-            weight = weighting_function(image.data)
+            weights = weighting_function(image.data)
+            if i == 0:
+                weights[image.data >= 0.5] = 1
+            if i == len(image_stack) - 1:
+                weights[image.data <= 0.5] = 1
 
         image_data = image.data
         if camera_response_functions is not None:
@@ -98,11 +122,10 @@ def image_stack_to_radiance_image(
             B = np.interp(B, samples, camera_response_functions[..., 2])
             image_data = tstack((R, G, B))
 
-        image_c += weight * image_data / L
-        weight_c += weight
+        image_c += weights * image_data / L
+        weight_c += weights
 
     if image_c is not None:
         image_c /= weight_c
-        image_c[np.isnan(image_c)] = 0
 
     return image_c
