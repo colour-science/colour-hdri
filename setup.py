@@ -49,7 +49,7 @@ if os.environ.get('READTHEDOCS') == 'True':
     INSTALLATION_REQUIREMENTS += ['mock']
 
 setup(name='colour-hdri',
-      version='0.1.2',
+      version='0.1.3',
       author=__author__,
       author_email=__email__,
       include_package_data=True,
