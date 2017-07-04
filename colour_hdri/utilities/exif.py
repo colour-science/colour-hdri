@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 EXIF Manipulation
 =================
@@ -35,27 +34,19 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['EXIF_EXECUTABLE',
-           'ExifTag',
-           'parse_exif_string',
-           'parse_exif_numeric',
-           'parse_exif_fraction',
-           'parse_exif_array',
-           'parse_exif_data',
-           'read_exif_tags',
-           'copy_exif_tags',
-           'update_exif_tags',
-           'delete_exif_tags',
-           'read_exif_tag',
-           'write_exif_tag']
+__all__ = [
+    'EXIF_EXECUTABLE', 'ExifTag', 'parse_exif_string', 'parse_exif_numeric',
+    'parse_exif_fraction', 'parse_exif_array', 'parse_exif_data',
+    'read_exif_tags', 'copy_exif_tags', 'update_exif_tags', 'delete_exif_tags',
+    'read_exif_tag', 'write_exif_tag'
+]
 
 LOGGER = logging.getLogger(__name__)
 
 EXIF_EXECUTABLE = 'exiftool'
 
 
-class ExifTag(
-        namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
+class ExifTag(namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
     """
     Hunt colour appearance model induction factors.
 
@@ -76,8 +67,7 @@ class ExifTag(
         Returns a new instance of the :class:`ExifTag` class.
         """
 
-        return super(ExifTag, cls).__new__(
-            cls, group, name, value, identifier)
+        return super(ExifTag, cls).__new__(cls, group, name, value, identifier)
 
 
 def parse_exif_string(exif_tag):
@@ -180,9 +170,7 @@ def parse_exif_data(data):
         data)
 
     return map(lambda x: x.strip() if x is not None else x,
-               (search.group('group'),
-                search.group('id'),
-                search.group('tag'),
+               (search.group('group'), search.group('id'), search.group('tag'),
                 search.group('value')))
 
 
@@ -204,9 +192,10 @@ def read_exif_tags(image):
     LOGGER.info("Reading '{0}' image exif data.".format(image))
 
     exif_tags = vivification()
-    lines = text_type(subprocess.check_output(
-        [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
-        'utf-8', 'ignore').split('\n')
+    lines = text_type(
+        subprocess.check_output(
+            [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]), 'utf-8',
+        'ignore').split('\n')
 
     for line in lines:
         if not line.strip():
@@ -239,15 +228,12 @@ def copy_exif_tags(source, target):
         Definition success.
     """
 
-    LOGGER.info("Copying '{0}' file exif data to '{1}' file.".format(
-        source, target))
+    LOGGER.info(
+        "Copying '{0}' file exif data to '{1}' file.".format(source, target))
 
-    subprocess.check_output(
-        [EXIF_EXECUTABLE,
-         '-overwrite_original',
-         '-TagsFromFile',
-         '{0}'.format(source),
-         '{0}'.format(target)])
+    arguments = [EXIF_EXECUTABLE, '-overwrite_original', '-TagsFromFile']
+    arguments += [source, target]
+    subprocess.check_output(arguments)
 
     return True
 
@@ -314,8 +300,8 @@ def read_exif_tag(image, tag):
         Tag value.
     """
 
-    value = text_type(subprocess.check_output(
-        [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
+    value = text_type(
+        subprocess.check_output([EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
         'utf-8', 'ignore').split(':').pop().strip()
 
     LOGGER.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
@@ -346,8 +332,8 @@ def write_exif_tag(image, tag, value):
     LOGGER.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
         image, tag, value))
 
-    subprocess.check_output(
-        [EXIF_EXECUTABLE, '-overwrite_original', '-{0}={1}'.format(tag, value),
-         image])
+    arguments = [EXIF_EXECUTABLE, '-overwrite_original']
+    arguments += ['-{0}={1}'.format(tag, value), image]
+    subprocess.check_output(arguments)
 
     return True

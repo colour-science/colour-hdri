@@ -20,20 +20,18 @@ except ImportError:
     import mock
 
 # Mock modules for *readthedocs.org*.
-MOCK_MODULES = (
-    'colour',
-    'colour.plotting',
-    'matplotlib',
-    'matplotlib.pyplot',
-    'matplotlib.ticker',
-    'pylab')
+MOCK_MODULES = ('colour', 'colour.plotting', 'matplotlib', 'matplotlib.pyplot',
+                'matplotlib.ticker', 'pylab')
 
 for module in MOCK_MODULES:
     sys.modules[module] = mock.Mock()
 
 # Mock attributes for *readthedocs.org*.
 sys.modules['colour'].ILLUMINANTS = {
-    'CIE 1931 2 Degree Standard Observer': {'D50': None}}
+    'CIE 1931 2 Degree Standard Observer': {
+        'D50': None
+    }
+}
 sys.modules['colour'].RGB_COLOURSPACES = {'sRGB': None}
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -50,15 +48,10 @@ sys.modules['colour'].RGB_COLOURSPACES = {'sRGB': None}
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.ifconfig',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.mathjax']
+    'sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo',
+    'sphinx.ext.coverage', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode',
+    'sphinx.ext.autosummary', 'sphinx.ext.napoleon', 'sphinx.ext.mathjax'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -122,7 +115,6 @@ pygments_style = 'sphinx'
 
 # If true, keep warnings as 'system message' paragraphs in the built documents.
 # keep_warnings = False
-
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -251,19 +243,15 @@ latex_documents = [
 # If false, no module index is generated.
 # latex_domain_indices = True
 
-
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ('index', 'Colour_HDRI', u'Colour - HDRI Documentation',
-     [u'Colour Developers'], 1)
-]
+man_pages = [('index', 'Colour_HDRI', u'Colour - HDRI Documentation',
+              [u'Colour Developers'], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
-
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -272,8 +260,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     ('index', 'Colour_HDRI', u'Colour - HDRI Documentation',
-     u'Colour Developers', 'Colour - HDRI',
-     'One line description of project.', 'Miscellaneous'),
+     u'Colour Developers', 'Colour - HDRI', 'One line description of project.',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -287,7 +275,6 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the 'Top' node's menu.
 # texinfo_no_detailmenu = False
-
 
 # -- Options for Epub output ----------------------------------------------
 
@@ -362,7 +349,6 @@ autoclass_content = 'both'
 
 intersphinx_mapping = {'python': ('https://docs.python.org/3.5', None)}
 
-
 # def _autodoc_process_docstring(app,
 #                                what,
 #                                name,
@@ -397,12 +383,7 @@ intersphinx_mapping = {'python': ('https://docs.python.org/3.5', None)}
 #     offset[0] += len(references)
 
 
-def _autodoc_process_docstring(app,
-                               what,
-                               name,
-                               obj,
-                               options,
-                               lines):
+def _autodoc_process_docstring(app, what, name, obj, options, lines):
     """
     Process the docstrings to remove the *# noqa* *flake8* pragma.
     """

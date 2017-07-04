@@ -1,6 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Defines unit tests for :mod:`colour_hdri.generation.radiance` module.
 """
@@ -25,18 +24,18 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['FROBISHER_001_DIRECTORY',
-           'GENERATION_DIRECTORY',
-           'JPG_IMAGES',
-           'TestRadianceImage']
+__all__ = [
+    'FROBISHER_001_DIRECTORY', 'GENERATION_DIRECTORY', 'JPG_IMAGES',
+    'TestRadianceImage'
+]
 
-FROBISHER_001_DIRECTORY = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
+FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                       'frobisher_001')
 
-GENERATION_DIRECTORY = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, 'colour_hdri', 'generation')
+GENERATION_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
+                                    'generation')
 
-JPG_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('jpg',))
+JPG_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('jpg', ))
 
 
 class TestRadianceImage(unittest.TestCase):
@@ -57,9 +56,9 @@ radiance.image_stack_to_radiance_image` definition.
 
         np.testing.assert_almost_equal(
             image_stack_to_radiance_image(image_stack),
-            np.load(os.path.join(
-                GENERATION_DIRECTORY,
-                'test_radiance_image_linear.npy')),
+            np.load(
+                os.path.join(GENERATION_DIRECTORY,
+                             'test_radiance_image_linear.npy')),
             decimal=7)
 
         # Lower precision for unit tests under *travis-ci*.
@@ -69,9 +68,9 @@ radiance.image_stack_to_radiance_image` definition.
                 image_stack,
                 camera_response_functions=(
                     camera_response_functions_Debevec1997(image_stack))),
-            np.load(os.path.join(
-                GENERATION_DIRECTORY,
-                'test_radiance_image_crfs.npy')),
+            np.load(
+                os.path.join(GENERATION_DIRECTORY,
+                             'test_radiance_image_crfs.npy')),
             rtol=0.00001,
             atol=0.00001)
 

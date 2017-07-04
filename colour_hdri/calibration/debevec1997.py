@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Debevec (1997) Camera Response Function Computation
 ===================================================
@@ -39,8 +38,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['g_solve',
-           'camera_response_functions_Debevec1997']
+__all__ = ['g_solve', 'camera_response_functions_Debevec1997']
 
 
 def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
@@ -146,14 +144,14 @@ def camera_response_functions_Debevec1997(image_stack,
         Camera response functions :math:`g(z)`.
     """
 
-    samples = s(image_stack.data, samples, n)
+    s_o = s(image_stack.data, samples, n)
 
-    L_l = np.log(average_luminance(image_stack.f_number,
-                                   image_stack.exposure_time,
-                                   image_stack.iso))
+    L_l = np.log(
+        average_luminance(image_stack.f_number, image_stack.exposure_time,
+                          image_stack.iso))
 
-    crfs = np.exp(tstack(np.array([g_solve(samples[..., x], L_l, l, w, n)[0]
-                                   for x in range(samples.shape[-1])])))
+    g_c = [g_solve(s_o[..., x], L_l, l, w, n)[0] for x in range(s_o.shape[-1])]
+    crfs = np.exp(tstack(np.array(g_c)))
 
     if normalise:
         # TODO: Investigate if the normalisation value should account for the

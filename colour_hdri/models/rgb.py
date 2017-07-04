@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 RGB Colourspace & Transformations
 =================================
@@ -24,8 +23,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['camera_space_to_RGB',
-           'camera_space_to_sRGB']
+__all__ = ['camera_space_to_RGB', 'camera_space_to_sRGB']
 
 
 def camera_space_to_RGB(RGB, M_XYZ_to_camera_space, RGB_to_XYZ_matrix):
@@ -101,5 +99,5 @@ def camera_space_to_sRGB(RGB, M_XYZ_to_camera_space):
     array([ 0.7564350...,  0.8683155...,  0.6044706...])
     """
 
-    return camera_space_to_RGB(
-        RGB, M_XYZ_to_camera_space, RGB_COLOURSPACES['sRGB'].RGB_to_XYZ_matrix)
+    return camera_space_to_RGB(RGB, M_XYZ_to_camera_space,
+                               RGB_COLOURSPACES['sRGB'].RGB_to_XYZ_matrix)

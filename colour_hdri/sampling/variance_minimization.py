@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Viriyothai (2009) Variance Minimization Light Probe Sampling
 ============================================================
@@ -30,11 +29,12 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['Light_Specification',
-           'luminance_variance',
-           'find_regions_variance_minimization_Viriyothai2009',
-           'highlight_regions_variance_minimization',
-           'light_probe_sampling_variance_minimization_Viriyothai2009']
+__all__ = [
+    'Light_Specification', 'luminance_variance',
+    'find_regions_variance_minimization_Viriyothai2009',
+    'highlight_regions_variance_minimization',
+    'light_probe_sampling_variance_minimization_Viriyothai2009'
+]
 
 
 class Light_Specification(
@@ -78,8 +78,8 @@ def luminance_variance(a):
 
     x_centroid, y_centroid = centroid(a)
 
-    variance = np.sqrt(np.sum(
-        a * ((y - y_centroid) ** 2 + (x - x_centroid) ** 2)))
+    variance = np.sqrt(
+        np.sum(a * ((y - y_centroid) ** 2 + (x - x_centroid) ** 2)))
 
     return variance
 
@@ -148,10 +148,10 @@ def find_regions_variance_minimization_Viriyothai2009(a, n=4):
     return regions
 
 
-def highlight_regions_variance_minimization(
-        a,
-        regions,
-        highlight_colour=np.array([0, 1, 0])):
+def highlight_regions_variance_minimization(a,
+                                            regions,
+                                            highlight_colour=np.array(
+                                                [0, 1, 0])):
     """
     Highlights regions using with variance minimized on given :math:`a`
     3-D array.
@@ -185,9 +185,7 @@ def highlight_regions_variance_minimization(
 
 
 def light_probe_sampling_variance_minimization_Viriyothai2009(
-        light_probe,
-        lights_count=16,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+        light_probe, lights_count=16, colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Sample given light probe to find lights using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm.
@@ -211,12 +209,11 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
 
     iterations = np.sqrt(lights_count).astype(np.int_)
     if iterations ** 2 != lights_count:
-        warning(
-            '{0} lights requested, {1} will be effectively computed!'.format(
-                lights_count, iterations ** 2))
+        warning('{0} lights requested, {1} will be effectively computed!'.
+                format(lights_count, iterations ** 2))
 
-    Y = RGB_luminance(
-        light_probe, colourspace.primaries, colourspace.whitepoint)
+    Y = RGB_luminance(light_probe, colourspace.primaries,
+                      colourspace.whitepoint)
     regions = find_regions_variance_minimization_Viriyothai2009(Y, iterations)
 
     lights = []
@@ -224,10 +221,9 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
         y_min, y_max, x_min, x_max = region
         c = centroid(Y[y_min:y_max, x_min:x_max])
         c = (c + np.array([y_min, x_min]))
+        light_probe_c = light_probe[y_min:y_max, x_min:x_max]
         lights.append(
-            Light_Specification(
-                (c / np.array(Y.shape))[::-1],
-                np.sum(np.sum(light_probe[y_min:y_max, x_min:x_max], 0), 0),
-                c))
+            Light_Specification((c / np.array(Y.shape))[::-1],
+                                np.sum(np.sum(light_probe_c, 0), 0), c))
 
     return lights

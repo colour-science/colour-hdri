@@ -1,6 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Defines unit tests for :mod:`colour_hdri.calibration.absolute_luminance`
 module.
@@ -28,15 +27,16 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['TestUpperHemisphereIlluminanceLagarde2016',
-           'TestUpperHemisphereIlluminanceWeightsLagarde2016',
-           'TestAbsoluteLuminanceCalibrationLagarde2016']
+__all__ = [
+    'TestUpperHemisphereIlluminanceLagarde2016',
+    'TestUpperHemisphereIlluminanceWeightsLagarde2016',
+    'TestAbsoluteLuminanceCalibrationLagarde2016'
+]
 
-UNITY_001_DIRECTORY = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, 'unity_001')
+UNITY_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'unity_001')
 
-CALIBRATION_DIRECTORY = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, 'colour_hdri', 'calibration')
+CALIBRATION_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
+                                     'calibration')
 
 
 class TestUpperHemisphereIlluminanceLagarde2016(unittest.TestCase):
@@ -52,8 +52,7 @@ upper_hemisphere_illuminance_Lagarde2016` definition.
         """
 
         self.assertAlmostEqual(
-            upper_hemisphere_illuminance_Lagarde2016(
-                np.ones((16, 32, 3))),
+            upper_hemisphere_illuminance_Lagarde2016(np.ones((16, 32, 3))),
             2.934469165342606,
             places=7)
 
@@ -115,7 +114,7 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition.
              [0.00000000],
              [0.00000000],
              [0.00000000],
-             [0.00000000]])
+             [0.00000000]])  # yapf: disable
 
         np.testing.assert_almost_equal(
             upper_hemisphere_illuminance_weights_Lagarde2016(32, 16),
@@ -141,18 +140,19 @@ absolute_luminance_calibration_Lagarde2016` definition.
         # Treasure Island - white balanced.exr
 
         reference_exr_file = read_image(
-            str(os.path.join(
-                UNITY_001_DIRECTORY,
-                'Unity_Treasure_Island_White_Balanced.exr')))
+            str(
+                os.path.join(UNITY_001_DIRECTORY,
+                             'Unity_Treasure_Island_White_Balanced.exr')))
 
         test_exr_file = read_image(
-            str(os.path.join(
-                CALIBRATION_DIRECTORY,
-                'Unity_Treasure_Island_White_Balanced_Absolute.exr')))
+            str(
+                os.path.join(
+                    CALIBRATION_DIRECTORY,
+                    'Unity_Treasure_Island_White_Balanced_Absolute.exr')))
 
         np.testing.assert_allclose(
-            absolute_luminance_calibration_Lagarde2016(
-                reference_exr_file, 51000),
+            absolute_luminance_calibration_Lagarde2016(reference_exr_file,
+                                                       51000),
             test_exr_file,
             rtol=0.0000001,
             atol=0.0000001)

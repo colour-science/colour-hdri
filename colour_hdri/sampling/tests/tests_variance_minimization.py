@@ -1,6 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Defines unit tests for :mod:`colour_hdri.sampling.variance_minimization`
 module.
@@ -18,8 +17,7 @@ from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009)
 from colour_hdri.sampling.variance_minimization import (
-    luminance_variance,
-    find_regions_variance_minimization_Viriyothai2009,
+    luminance_variance, find_regions_variance_minimization_Viriyothai2009,
     highlight_regions_variance_minimization)
 
 __author__ = 'Colour Developers'
@@ -29,13 +27,14 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['SAMPLING_DIRECTORY',
-           'TestLuminanceVariance',
-           'TestFindRegionsVarianceMinimizationViriyothai2009',
-           'TestLightProbeSamplingVarianceMinimizationViriyothai2009']
+__all__ = [
+    'SAMPLING_DIRECTORY', 'TestLuminanceVariance',
+    'TestFindRegionsVarianceMinimizationViriyothai2009',
+    'TestLightProbeSamplingVarianceMinimizationViriyothai2009'
+]
 
-SAMPLING_DIRECTORY = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, 'colour_hdri', 'sampling')
+SAMPLING_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
+                                  'sampling')
 
 
 class TestLuminanceVariance(unittest.TestCase):
@@ -52,8 +51,7 @@ luminance_variance` definition.
 
         a = np.tile(np.arange(5), (5, 1))
 
-        self.assertAlmostEqual(
-            luminance_variance(a), 12.24744871, places=7)
+        self.assertAlmostEqual(luminance_variance(a), 12.24744871, places=7)
 
 
 class TestFindRegionsVarianceMinimizationViriyothai2009(unittest.TestCase):
@@ -71,18 +69,20 @@ find_regions_variance_minimization_Viriyothai2009` definition.
 
         colourspace = RGB_COLOURSPACES['sRGB']
 
-        image = read_image(str(os.path.join(
-            SAMPLING_DIRECTORY,
-            'tests_light_probe_sampling_variance_minimization_'
-            'Viriyothai2009.exr')))
+        image = read_image(
+            str(
+                os.path.join(
+                    SAMPLING_DIRECTORY,
+                    'tests_light_probe_sampling_variance_minimization_'
+                    'Viriyothai2009.exr')))
 
-        Y = RGB_luminance(
-            image, colourspace.primaries, colourspace.whitepoint)
+        Y = RGB_luminance(image, colourspace.primaries, colourspace.whitepoint)
 
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=1)
         self.assertListEqual(
             regions,
-            [(0, 256, 0, 156), (0, 256, 156, 256)])
+            [(0, 256, 0, 156),
+             (0, 256, 156, 256)])  # yapf: disable
 
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=2)
         self.assertListEqual(
@@ -90,7 +90,7 @@ find_regions_variance_minimization_Viriyothai2009` definition.
             [(0, 97, 0, 156),
              (97, 256, 0, 156),
              (0, 100, 156, 256),
-             (100, 256, 156, 256)])
+             (100, 256, 156, 256)])  # yapf: disable
 
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
         self.assertListEqual(
@@ -110,7 +110,7 @@ find_regions_variance_minimization_Viriyothai2009` definition.
              (100, 163, 156, 215),
              (100, 163, 215, 256),
              (163, 256, 156, 216),
-             (163, 256, 216, 256)])
+             (163, 256, 216, 256)])  # yapf: disable
 
 
 class TestHighlightRegionsVarianceMinimization(unittest.TestCase):
@@ -127,19 +127,22 @@ highlight_regions_variance_minimization` definition.
 
         colourspace = RGB_COLOURSPACES['sRGB']
 
-        image = read_image(str(os.path.join(
-            SAMPLING_DIRECTORY,
-            'tests_light_probe_sampling_variance_minimization_'
-            'Viriyothai2009.exr')))
+        image = read_image(
+            str(
+                os.path.join(
+                    SAMPLING_DIRECTORY,
+                    'tests_light_probe_sampling_variance_minimization_'
+                    'Viriyothai2009.exr')))
 
-        Y = RGB_luminance(
-            image, colourspace.primaries, colourspace.whitepoint)
+        Y = RGB_luminance(image, colourspace.primaries, colourspace.whitepoint)
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
         np.testing.assert_almost_equal(
             highlight_regions_variance_minimization(image, regions),
-            read_image(str(os.path.join(
-                SAMPLING_DIRECTORY,
-                'tests_highlight_regions_variance_minimization.exr'))),
+            read_image(
+                str(
+                    os.path.join(
+                        SAMPLING_DIRECTORY,
+                        'tests_highlight_regions_variance_minimization.exr'))),
             decimal=7)
 
 
@@ -157,10 +160,12 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition unit
 light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         """
 
-        image = read_image(str(os.path.join(
-            SAMPLING_DIRECTORY,
-            'tests_light_probe_sampling_variance_minimization_'
-            'Viriyothai2009.exr')))
+        image = read_image(
+            str(
+                os.path.join(
+                    SAMPLING_DIRECTORY,
+                    'tests_light_probe_sampling_variance_minimization_'
+                    'Viriyothai2009.exr')))
 
         lights = light_probe_sampling_variance_minimization_Viriyothai2009(
             image)
@@ -187,7 +192,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
                  [0.87500000, 0.54687500],
                  [0.64843750, 0.79687500],
                  [0.87500000, 0.80078125]]),
-            decimal=7)
+            decimal=7)  # yapf: disable
 
         np.testing.assert_almost_equal(
             colours,
@@ -208,26 +213,27 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
                  [191.57947493, 95.21154106, 286.79548484],
                  [168.29435712, 45.09299320, 213.38641733],
                  [253.65272349, 50.30476046, 303.96245855]]),
-            decimal=7)
+            decimal=7)  # yapf: disable
 
         np.testing.assert_array_equal(
             indexes,
-            np.array([[29, 41],
-                      [83, 40],
-                      [29, 110],
-                      [82, 110],
-                      [124, 43],
-                      [124, 111],
-                      [190, 47],
-                      [193, 113],
-                      [30, 166],
-                      [90, 166],
-                      [30, 224],
-                      [92, 224],
-                      [140, 164],
-                      [140, 224],
-                      [204, 166],
-                      [205, 224]]))
+            np.array(
+                [[29, 41],
+                 [83, 40],
+                 [29, 110],
+                 [82, 110],
+                 [124, 43],
+                 [124, 111],
+                 [190, 47],
+                 [193, 113],
+                 [30, 166],
+                 [90, 166],
+                 [30, 224],
+                 [92, 224],
+                 [140, 164],
+                 [140, 224],
+                 [204, 166],
+                 [205, 224]]))  # yapf: disable
 
 
 if __name__ == '__main__':

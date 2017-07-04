@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Adobe DNG SDK Colour Processing
 ===============================
@@ -107,19 +106,10 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import (
-    EPSILON,
-    UCS_to_uv,
-    XYZ_to_UCS,
-    XYZ_to_xy,
-    chromatic_adaptation_matrix_VonKries,
-    dot_matrix,
-    dot_vector,
-    is_identity,
-    linear_conversion,
-    tstack,
-    uv_to_CCT_Robertson1968,
-    xy_to_XYZ)
+from colour import (EPSILON, UCS_to_uv, XYZ_to_UCS, XYZ_to_xy,
+                    chromatic_adaptation_matrix_VonKries, dot_matrix,
+                    dot_vector, is_identity, linear_conversion, tstack,
+                    uv_to_CCT_Robertson1968, xy_to_XYZ)
 
 from colour_hdri.models import ADOBE_DNG_XYZ_ILLUMINANT
 
@@ -130,11 +120,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['interpolated_matrix',
-           'xy_to_camera_neutral',
-           'camera_neutral_to_xy',
-           'XYZ_to_camera_space_matrix',
-           'camera_space_to_XYZ_matrix']
+__all__ = [
+    'interpolated_matrix', 'xy_to_camera_neutral', 'camera_neutral_to_xy',
+    'XYZ_to_camera_space_matrix', 'camera_space_to_XYZ_matrix'
+]
 
 
 def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
@@ -191,18 +180,14 @@ def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
     elif CCT >= CCT_2:
         return M_2
     else:
-        return linear_conversion(
-            1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2), tstack((M_1, M_2)))
+        return linear_conversion(1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2),
+                                 tstack((M_1, M_2)))
 
 
-def xy_to_camera_neutral(xy,
-                         CCT_calibration_illuminant_1,
-                         CCT_calibration_illuminant_2,
-                         M_color_matrix_1,
-                         M_color_matrix_2,
-                         M_camera_calibration_1,
-                         M_camera_calibration_2,
-                         analog_balance):
+def xy_to_camera_neutral(xy, CCT_calibration_illuminant_1,
+                         CCT_calibration_illuminant_2, M_color_matrix_1,
+                         M_color_matrix_2, M_camera_calibration_1,
+                         M_camera_calibration_2, analog_balance):
     """
     Converts given *xy* white balance chromaticity coordinates to
     *Camera Neutral* coordinates.
@@ -239,14 +224,14 @@ def xy_to_camera_neutral(xy,
 
     Examples
     --------
-    >>> M_color_matrix_1 = np.array([
-    ...     [0.5309, -0.0229, -0.0336],
-    ...     [-0.6241, 1.3265, 0.3337],
-    ...     [-0.0817, 0.1215, 0.6664]])
-    >>> M_color_matrix_2 = np.array([
-    ...     [0.4716, 0.0603, -0.0830],
-    ...     [-0.7798, 1.5474, 0.2480],
-    ...     [-0.1496, 0.1937, 0.6651]])
+    >>> M_color_matrix_1 = np.array(
+    ...     [[0.5309, -0.0229, -0.0336],
+    ...      [-0.6241, 1.3265, 0.3337],
+    ...      [-0.0817, 0.1215, 0.6664]])
+    >>> M_color_matrix_2 = np.array(
+    ...     [[0.4716, 0.0603, -0.0830],
+    ...      [-0.7798, 1.5474, 0.2480],
+    ...      [-0.1496, 0.1937, 0.6651]])
     >>> M_camera_calibration_1 = np.identity(3)
     >>> M_camera_calibration_2 = np.identity(3)
     >>> analog_balance = np.ones(3)
@@ -263,14 +248,9 @@ def xy_to_camera_neutral(xy,
     """
 
     M_XYZ_to_camera = XYZ_to_camera_space_matrix(
-        xy,
-        CCT_calibration_illuminant_1,
-        CCT_calibration_illuminant_2,
-        M_color_matrix_1,
-        M_color_matrix_2,
-        M_camera_calibration_1,
-        M_camera_calibration_2,
-        analog_balance)
+        xy, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
+        M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
+        M_camera_calibration_2, analog_balance)
 
     camera_neutral = dot_vector(M_XYZ_to_camera, xy_to_XYZ(xy))
     camera_neutral /= camera_neutral[1]
@@ -331,14 +311,14 @@ def camera_neutral_to_xy(camera_neutral,
 
     Examples
     --------
-    >>> M_color_matrix_1 = np.array([
-    ...     [0.5309, -0.0229, -0.0336],
-    ...     [-0.6241, 1.3265, 0.3337],
-    ...     [-0.0817, 0.1215, 0.6664]])
-    >>> M_color_matrix_2 = np.array([
-    ...     [0.4716, 0.0603, -0.0830],
-    ...     [-0.7798, 1.5474, 0.2480],
-    ...     [-0.1496, 0.1937, 0.6651]])
+    >>> M_color_matrix_1 = np.array(
+    ...     [[0.5309, -0.0229, -0.0336],
+    ...      [-0.6241, 1.3265, 0.3337],
+    ...      [-0.0817, 0.1215, 0.6664]])
+    >>> M_color_matrix_2 = np.array(
+    ...     [[0.4716, 0.0603, -0.0830],
+    ...      [-0.7798, 1.5474, 0.2480],
+    ...      [-0.1496, 0.1937, 0.6651]])
     >>> M_camera_calibration_1 = np.identity(3)
     >>> M_camera_calibration_2 = np.identity(3)
     >>> analog_balance = np.ones(3)
@@ -360,14 +340,9 @@ def camera_neutral_to_xy(camera_neutral,
     while True:
         xy_p = np.copy(xy)
         M_XYZ_to_camera = XYZ_to_camera_space_matrix(
-            xy,
-            CCT_calibration_illuminant_1,
-            CCT_calibration_illuminant_2,
-            M_color_matrix_1,
-            M_color_matrix_2,
-            M_camera_calibration_1,
-            M_camera_calibration_2,
-            analog_balance)
+            xy, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
+            M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
+            M_camera_calibration_2, analog_balance)
 
         XYZ = dot_vector(np.linalg.inv(M_XYZ_to_camera), camera_neutral)
         xy = XYZ_to_xy(XYZ)
@@ -380,14 +355,10 @@ def camera_neutral_to_xy(camera_neutral,
         'balance chromaticity coordinates!'.format(xy))
 
 
-def XYZ_to_camera_space_matrix(xy,
-                               CCT_calibration_illuminant_1,
-                               CCT_calibration_illuminant_2,
-                               M_color_matrix_1,
-                               M_color_matrix_2,
-                               M_camera_calibration_1,
-                               M_camera_calibration_2,
-                               analog_balance):
+def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
+                               CCT_calibration_illuminant_2, M_color_matrix_1,
+                               M_color_matrix_2, M_camera_calibration_1,
+                               M_camera_calibration_2, analog_balance):
     """
     Returns the *CIE XYZ* to *Camera Space* matrix for given *xy* white balance
     chromaticity coordinates. [4]_
@@ -423,14 +394,14 @@ def XYZ_to_camera_space_matrix(xy,
 
     Examples
     --------
-    >>> M_color_matrix_1 = np.array([
-    ...     [0.5309, -0.0229, -0.0336],
-    ...     [-0.6241, 1.3265, 0.3337],
-    ...     [-0.0817, 0.1215, 0.6664]])
-    >>> M_color_matrix_2 = np.array([
-    ...     [0.4716, 0.0603, -0.0830],
-    ...     [-0.7798, 1.5474, 0.2480],
-    ...     [-0.1496, 0.1937, 0.6651]])
+    >>> M_color_matrix_1 = np.array(
+    ...     [[0.5309, -0.0229, -0.0336],
+    ...      [-0.6241, 1.3265, 0.3337],
+    ...      [-0.0817, 0.1215, 0.6664]])
+    >>> M_color_matrix_2 = np.array(
+    ...     [[0.4716, 0.0603, -0.0830],
+    ...      [-0.7798, 1.5474, 0.2480],
+    ...      [-0.1496, 0.1937, 0.6651]])
     >>> M_camera_calibration_1 = np.identity(3)
     >>> M_camera_calibration_2 = np.identity(3)
     >>> analog_balance = np.ones(3)
@@ -455,16 +426,15 @@ def XYZ_to_camera_space_matrix(xy,
 
     if is_identity(M_color_matrix_1) or is_identity(M_color_matrix_2):
         M_CM = (M_color_matrix_1
-                if is_identity(M_color_matrix_2) else
-                M_color_matrix_2)
+                if is_identity(M_color_matrix_2) else M_color_matrix_2)
     else:
-        M_CM = interpolated_matrix(
-            CCT, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
-            M_color_matrix_1, M_color_matrix_2)
+        M_CM = interpolated_matrix(CCT, CCT_calibration_illuminant_1,
+                                   CCT_calibration_illuminant_2,
+                                   M_color_matrix_1, M_color_matrix_2)
 
-    M_CC = interpolated_matrix(
-        CCT, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
-        M_camera_calibration_1, M_camera_calibration_2)
+    M_CC = interpolated_matrix(CCT, CCT_calibration_illuminant_1,
+                               CCT_calibration_illuminant_2,
+                               M_camera_calibration_1, M_camera_calibration_2)
 
     M_XYZ_to_camera_space = dot_matrix(dot_matrix(M_AB, M_CC), M_CM)
 
@@ -531,25 +501,25 @@ def camera_space_to_XYZ_matrix(xy,
 
     Examples
     --------
-    >>> M_color_matrix_1 = np.array([
-    ...     [0.5309, -0.0229, -0.0336],
-    ...     [-0.6241, 1.3265, 0.3337],
-    ...     [-0.0817, 0.1215, 0.6664]])
-    >>> M_color_matrix_2 = np.array([
-    ...     [0.4716, 0.0603, -0.0830],
-    ...     [-0.7798, 1.5474, 0.2480],
-    ...     [-0.1496, 0.1937, 0.6651]])
+    >>> M_color_matrix_1 = np.array(
+    ...     [[0.5309, -0.0229, -0.0336],
+    ...      [-0.6241, 1.3265, 0.3337],
+    ...      [-0.0817, 0.1215, 0.6664]])
+    >>> M_color_matrix_2 = np.array(
+    ...     [[0.4716, 0.0603, -0.0830],
+    ...      [-0.7798, 1.5474, 0.2480],
+    ...      [-0.1496, 0.1937, 0.6651]])
     >>> M_camera_calibration_1 = np.identity(3)
     >>> M_camera_calibration_2 = np.identity(3)
     >>> analog_balance = np.ones(3)
-    >>> M_forward_matrix_1 = np.array([
-    ...     [0.8924, -0.1041, 0.1760],
-    ...     [0.4351, 0.6621, -0.0972],
-    ...     [0.0505, -0.1562, 0.9308]])
-    >>> M_forward_matrix_2 = np.array([
-    ...     [0.8924, -0.1041, 0.1760],
-    ...     [0.4351, 0.6621, -0.0972],
-    ...     [0.0505, -0.1562, 0.9308]])
+    >>> M_forward_matrix_1 = np.array(
+    ...     [[0.8924, -0.1041, 0.1760],
+    ...      [0.4351, 0.6621, -0.0972],
+    ...      [0.0505, -0.1562, 0.9308]])
+    >>> M_forward_matrix_2 = np.array(
+    ...     [[0.8924, -0.1041, 0.1760],
+    ...      [0.4351, 0.6621, -0.0972],
+    ...      [0.0505, -0.1562, 0.9308]])
     >>> camera_space_to_XYZ_matrix(  # doctest: +ELLIPSIS
     ...     np.array([0.32816244, 0.34698169]),
     ...     2850,
@@ -571,14 +541,9 @@ def camera_space_to_XYZ_matrix(xy,
     if is_identity(M_forward_matrix_1) and is_identity(M_forward_matrix_2):
         M_camera_to_XYZ = np.linalg.inv(
             XYZ_to_camera_space_matrix(
-                xy,
-                CCT_calibration_illuminant_1,
-                CCT_calibration_illuminant_2,
-                M_color_matrix_1,
-                M_color_matrix_2,
-                M_camera_calibration_1,
-                M_camera_calibration_2,
-                analog_balance))
+                xy, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
+                M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
+                M_camera_calibration_2, analog_balance))
         M_CAT = chromatic_adaptation_matrix_VonKries(
             xy_to_XYZ(xy),
             xy_to_XYZ(ADOBE_DNG_XYZ_ILLUMINANT),
@@ -601,26 +566,19 @@ def camera_space_to_XYZ_matrix(xy,
         # interpolated camera calibration matrix :math:`CC` and the
         # analog balance matrix :math:`AB` are accounted for.
         camera_neutral = xy_to_camera_neutral(
-            xy,
-            CCT_calibration_illuminant_1,
-            CCT_calibration_illuminant_2,
-            M_color_matrix_1,
-            M_color_matrix_2,
-            M_camera_calibration_1,
-            M_camera_calibration_2,
-            analog_balance)
+            xy, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
+            M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
+            M_camera_calibration_2, analog_balance)
 
         M_AB = np.diagflat(analog_balance)
 
         M_reference_neutral = dot_vector(
-            np.linalg.inv(dot_matrix(M_AB, M_CC)),
-            camera_neutral)
+            np.linalg.inv(dot_matrix(M_AB, M_CC)), camera_neutral)
         M_D = np.linalg.inv(np.diagflat(M_reference_neutral))
-        M_FM = interpolated_matrix(
-            CCT, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
-            M_forward_matrix_1, M_forward_matrix_2)
+        M_FM = interpolated_matrix(CCT, CCT_calibration_illuminant_1,
+                                   CCT_calibration_illuminant_2,
+                                   M_forward_matrix_1, M_forward_matrix_2)
         M_camera_space_to_XYZ = dot_matrix(
-            dot_matrix(M_FM, M_D),
-            np.linalg.inv(dot_matrix(M_AB, M_CC)))
+            dot_matrix(M_FM, M_D), np.linalg.inv(dot_matrix(M_AB, M_CC)))
 
     return M_camera_space_to_XYZ

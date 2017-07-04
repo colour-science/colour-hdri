@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Image Data & Metadata Utilities
 ===============================
@@ -21,11 +20,8 @@ from recordclass import recordclass
 
 from colour import is_string, read_image, tsplit, tstack, warning
 
-from colour_hdri.utilities.exif import (
-    parse_exif_array,
-    parse_exif_fraction,
-    parse_exif_numeric,
-    read_exif_tags)
+from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
+                                        parse_exif_numeric, read_exif_tags)
 from colour_hdri.utilities.exposure import average_luminance
 
 __author__ = 'Colour Developers'
@@ -35,21 +31,15 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['Metadata',
-           'Image',
-           'ImageStack']
+__all__ = ['Metadata', 'Image', 'ImageStack']
 
 LOGGER = logging.getLogger(__name__)
 
 
 class Metadata(
-    recordclass('Metadata',
-                ('f_number',
-                 'exposure_time',
-                 'iso',
-                 'black_level',
-                 'white_level',
-                 'white_balance_multipliers'))):
+        recordclass('Metadata',
+                    ('f_number', 'exposure_time', 'iso', 'black_level',
+                     'white_level', 'white_balance_multipliers'))):
     """
     Defines the base object for storing exif metadata relevant to
     HDRI / radiance image generation.
@@ -77,14 +67,9 @@ class Metadata(
                 black_level=None,
                 white_level=None,
                 white_balance_multipliers=None):
-        return super(Metadata, cls).__new__(
-            cls,
-            f_number,
-            exposure_time,
-            iso,
-            black_level,
-            white_level,
-            white_balance_multipliers)
+        return super(Metadata, cls).__new__(cls, f_number, exposure_time, iso,
+                                            black_level, white_level,
+                                            white_balance_multipliers)
 
 
 class Image(object):
@@ -146,9 +131,9 @@ class Image(object):
         """
 
         if value is not None:
-            assert is_string(value), (
-                ('"{0}" attribute: "{1}" is not a '
-                 '"string" like object!').format('path', value))
+            assert is_string(value), (('"{0}" attribute: "{1}" is not a '
+                                       '"string" like object!').format(
+                                           'path', value))
 
         self._path = value
 
@@ -177,9 +162,9 @@ class Image(object):
         """
 
         if value is not None:
-            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
-                ('"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
-                 'or "matrix" instance!').format('data', value))
+            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), ((
+                '"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
+                'or "matrix" instance!').format('data', value))
 
         self._data = np.asarray(value)
 
@@ -281,13 +266,8 @@ class Image(object):
             white_balance_multipliers = np.asarray(
                 white_balance_multipliers) / white_balance_multipliers[1]
 
-        self.metadata = Metadata(
-            f_number,
-            exposure_time,
-            iso,
-            black_level,
-            white_level,
-            white_balance_multipliers)
+        self.metadata = Metadata(f_number, exposure_time, iso, black_level,
+                                 white_level, white_balance_multipliers)
 
         return self.metadata
 

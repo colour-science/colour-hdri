@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Colour - HDRI
 =============
@@ -60,18 +59,18 @@ __all__ += process.__all__
 __all__ += recovery.__all__
 __all__ += tonemapping.__all__
 
-RESOURCES_DIRECTORY = os.path.join(
-    os.path.dirname(__file__), 'resources')
-EXAMPLES_RESOURCES_DIRECTORY = os.path.join(
-    RESOURCES_DIRECTORY, 'colour-hdri-examples-dataset')
-TESTS_RESOURCES_DIRECTORY = os.path.join(
-    RESOURCES_DIRECTORY, 'colour-hdri-tests-dataset')
+RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'resources')
+EXAMPLES_RESOURCES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY,
+                                            'colour-hdri-examples-dataset')
+TESTS_RESOURCES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY,
+                                         'colour-hdri-tests-dataset')
 
 __application_name__ = 'Colour - HDRI'
 
 __major_version__ = '0'
 __minor_version__ = '1'
 __change_version__ = '3'
-__version__ = '.'.join((__major_version__,
-                        __minor_version__,
-                        __change_version__))
+__version__ = '.'.join(
+    (__major_version__,
+     __minor_version__,
+     __change_version__))  # yapf: disable

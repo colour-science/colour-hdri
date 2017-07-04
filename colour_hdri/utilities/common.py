@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Common Utilities
 ================
@@ -22,10 +21,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['vivification',
-           'vivified_to_dict',
-           'path_exists',
-           'filter_files']
+__all__ = ['vivification', 'vivified_to_dict', 'path_exists', 'filter_files']
 
 
 def vivification():
@@ -72,8 +68,10 @@ def vivified_to_dict(vivified):
     """
 
     if isinstance(vivified, defaultdict):
-        vivified = {key: vivified_to_dict(value)
-                    for key, value in vivified.iteritems()}
+        vivified = {
+            key: vivified_to_dict(value)
+            for key, value in vivified.iteritems()
+        }
     return vivified
 
 
@@ -122,5 +120,6 @@ def filter_files(directory, extensions):
     """
 
     return map(lambda x: os.path.join(directory, x),
-               filter(lambda x: re.search('{0}$'.format(
-                   '|'.join(extensions)), x), sorted(os.listdir(directory))))
+               filter(
+                   lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
+                   sorted(os.listdir(directory))))
