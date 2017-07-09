@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Image Exposure Value Computation
 ================================
@@ -23,9 +22,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['exposure_value',
-           'adjust_exposure',
-           'average_luminance']
+__all__ = ['exposure_value', 'adjust_exposure', 'average_luminance']
 
 
 def exposure_value(f_number, exposure_time, iso):

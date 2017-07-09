@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Absolute Luminance Calibration - Lagarde (2016)
 ===============================================
@@ -33,14 +32,15 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['upper_hemisphere_illuminance_Lagarde2016',
-           'upper_hemisphere_illuminance_weights_Lagarde2016',
-           'absolute_luminance_calibration_Lagarde2016']
+__all__ = [
+    'upper_hemisphere_illuminance_Lagarde2016',
+    'upper_hemisphere_illuminance_weights_Lagarde2016',
+    'absolute_luminance_calibration_Lagarde2016'
+]
 
 
 def upper_hemisphere_illuminance_Lagarde2016(
-        RGB,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+        RGB, colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Computes upper hemisphere illuminance :math:`E_v` of given RGB panoramic
     image.
@@ -129,16 +129,14 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
     theta_cos = np.cos(theta)
     theta_sin = np.sin(theta)
 
-    w[theta_cos > 0] = (theta_cos[theta_cos > 0] * theta_sin[theta_cos > 0] *
-                        2 * np.pi ** 2)
+    w[theta_cos > 0] = (
+        theta_cos[theta_cos > 0] * theta_sin[theta_cos > 0] * 2 * np.pi ** 2)
 
     return w
 
 
 def absolute_luminance_calibration_Lagarde2016(
-        RGB,
-        measured_illuminance,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+        RGB, measured_illuminance, colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Performs absolute *Luminance* calibration of given *RGB* panoramic image
     using *Lagarde (2016)* method.

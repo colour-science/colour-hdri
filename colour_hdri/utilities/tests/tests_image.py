@@ -1,6 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Defines unit tests for :mod:`colour_hdri.utilities.image` module.
 """
@@ -24,8 +23,8 @@ __status__ = 'Production'
 
 __all__ = ['TestMetadata']
 
-FROBISHER_001_DIRECTORY = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
+FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                       'frobisher_001')
 
 
 class TestMetadata(unittest.TestCase):
@@ -39,11 +38,8 @@ class TestMetadata(unittest.TestCase):
         Tests presence of required attributes.
         """
 
-        required_attributes = ('f_number',
-                               'exposure_time',
-                               'iso',
-                               'black_level',
-                               'white_level',
+        required_attributes = ('f_number', 'exposure_time', 'iso',
+                               'black_level', 'white_level',
                                'white_balance_multipliers')
 
         for attribute in required_attributes:
@@ -61,17 +57,15 @@ class TestImage(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self._test_jpg_image = filter_files(
-            FROBISHER_001_DIRECTORY, ('jpg',))[0]
+        self._test_jpg_image = filter_files(FROBISHER_001_DIRECTORY,
+                                            ('jpg', ))[0]
 
     def test_required_attributes(self):
         """
         Tests presence of required attributes.
         """
 
-        required_attributes = ('path',
-                               'data',
-                               'metadata')
+        required_attributes = ('path', 'data', 'metadata')
 
         for attribute in required_attributes:
             self.assertIn(attribute, dir(Image))
@@ -81,8 +75,7 @@ class TestImage(unittest.TestCase):
         Tests presence of required methods.
         """
 
-        required_methods = ('read_data',
-                            'read_metadata')
+        required_methods = ('read_data', 'read_metadata')
 
         for method in required_methods:
             self.assertIn(method, dir(Image))
@@ -105,8 +98,9 @@ class TestImage(unittest.TestCase):
         image = Image(self._test_jpg_image)
 
         self.assertEqual(image.metadata, None)
-        self.assertTupleEqual(tuple(image.read_metadata()),
-                              (8.0, 0.125, 100.0, None, None, None))
+        self.assertTupleEqual(
+            tuple(image.read_metadata()), (8.0, 0.125, 100.0, None, None,
+                                           None))
 
 
 class TestImageStack(unittest.TestCase):
@@ -120,8 +114,8 @@ class TestImageStack(unittest.TestCase):
         Initialises common tests attributes.
         """
 
-        self._test_jpg_images = filter_files(
-            FROBISHER_001_DIRECTORY, ('jpg',))
+        self._test_jpg_images = filter_files(FROBISHER_001_DIRECTORY,
+                                             ('jpg', ))
 
         self._image_stack = ImageStack().from_files(self._test_jpg_images)
 
@@ -130,16 +124,9 @@ class TestImageStack(unittest.TestCase):
         Tests presence of required methods.
         """
 
-        required_methods = (
-            '__init__',
-            '__getitem__',
-            '__setitem__',
-            '__delitem__',
-            '__len__',
-            '__getattr__',
-            '__setattr__',
-            'insert',
-            'from_files')
+        required_methods = ('__init__', '__getitem__', '__setitem__',
+                            '__delitem__', '__len__', '__getattr__',
+                            '__setattr__', 'insert', 'from_files')
 
         for method in required_methods:
             self.assertIn(method, dir(ImageStack))
@@ -192,14 +179,10 @@ class TestImageStack(unittest.TestCase):
         method.
         """
 
-        self.assertTupleEqual(
-            self._image_stack.data.shape,
-            (426, 640, 3, 3))
+        self.assertTupleEqual(self._image_stack.data.shape, (426, 640, 3, 3))
 
         np.testing.assert_almost_equal(
-            self._image_stack.f_number,
-            np.array([8, 8, 8]),
-            decimal=7)
+            self._image_stack.f_number, np.array([8, 8, 8]), decimal=7)
 
         self.assertEqual(self._image_stack[0].metadata.f_number, 8)
 
@@ -211,8 +194,7 @@ class TestImageStack(unittest.TestCase):
         self.assertEqual(self._image_stack[0].metadata.exposure_time, 0.125)
 
         self.assertListEqual(
-            list(self._image_stack.black_level),
-            [None, None, None])
+            list(self._image_stack.black_level), [None, None, None])
 
         self.assertEqual(self._image_stack[0].metadata.black_level, None)
 
@@ -224,40 +206,28 @@ class TestImageStack(unittest.TestCase):
 
         image_stack = ImageStack().from_files(self._test_jpg_images)
 
-        self.assertTupleEqual(
-            image_stack.data.shape,
-            (426, 640, 3, 3))
+        self.assertTupleEqual(image_stack.data.shape, (426, 640, 3, 3))
 
         image_stack.data = np.random.random((20, 10, 3, 3))
 
-        self.assertTupleEqual(
-            image_stack.data.shape,
-            (20, 10, 3, 3))
+        self.assertTupleEqual(image_stack.data.shape, (20, 10, 3, 3))
 
         np.testing.assert_almost_equal(
-            image_stack.f_number,
-            np.array([8, 8, 8]),
-            decimal=7)
+            image_stack.f_number, np.array([8, 8, 8]), decimal=7)
 
         image_stack.f_number = np.array([1, 2, 3])
 
         np.testing.assert_almost_equal(
-            image_stack.f_number,
-            np.array([1, 2, 3]),
-            decimal=7)
+            image_stack.f_number, np.array([1, 2, 3]), decimal=7)
 
         self.assertEqual(image_stack[0].metadata.f_number, 1)
 
-        self.assertListEqual(
-            list(image_stack.black_level),
-            [None, None, None])
+        self.assertListEqual(list(image_stack.black_level), [None, None, None])
 
         image_stack.black_level = np.array([2048, 2048, 2048])
 
         np.testing.assert_almost_equal(
-            image_stack.black_level,
-            np.array([2048, 2048, 2048]),
-            decimal=7)
+            image_stack.black_level, np.array([2048, 2048, 2048]), decimal=7)
 
         self.assertEqual(image_stack[0].metadata.black_level, 2048)
 

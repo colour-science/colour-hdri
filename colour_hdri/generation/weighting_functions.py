@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Weighting Functions
 ===================
@@ -23,9 +22,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['normal_distribution_function',
-           'hat_function',
-           'weighting_function_Debevec1997']
+__all__ = [
+    'normal_distribution_function', 'hat_function',
+    'weighting_function_Debevec1997'
+]
 
 
 def normal_distribution_function(a, mu=0.5, sigma=0.15):

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 HDRI / Radiance Image Generation
 ================================
@@ -84,17 +83,14 @@ def image_stack_to_radiance_image(
             image_c = np.zeros(image.data.shape)
             weight_c = np.zeros(image.data.shape)
 
-        L = average_luminance(
-            image.metadata.f_number,
-            image.metadata.exposure_time,
-            image.metadata.iso)
+        L = average_luminance(image.metadata.f_number,
+                              image.metadata.exposure_time, image.metadata.iso)
 
         if np.any(image.data <= 0):
-            warning(
-                '"{0}" image channels contain negative or equal to zero '
-                'values, unpredictable results may occur! Please consider '
-                'encoding your images in a wider gamut RGB colourspace or '
-                'clamp negative values.'.format(image.path))
+            warning('"{0}" image channels contain negative or equal to zero '
+                    'values, unpredictable results may occur! Please consider '
+                    'encoding your images in a wider gamut RGB colourspace or '
+                    'clamp negative values.'.format(image.path))
 
         if weighting_average and image.data.ndim == 3:
             average = np.average(image.data, axis=-1)

@@ -1,6 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Defines unit tests for :mod:`colour_hdri.utilities.common` module.
 """
@@ -11,11 +10,8 @@ import os
 import unittest
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
-from colour_hdri.utilities import (
-    vivification,
-    vivified_to_dict,
-    path_exists,
-    filter_files)
+from colour_hdri.utilities import (vivification, vivified_to_dict, path_exists,
+                                   filter_files)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
@@ -24,14 +20,13 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['FROBISHER_001_DIRECTORY',
-           'TestVivification',
-           'TestVivifiedToDict',
-           'TestPathExists',
-           'TestFilterFiles']
+__all__ = [
+    'FROBISHER_001_DIRECTORY', 'TestVivification', 'TestVivifiedToDict',
+    'TestPathExists', 'TestFilterFiles'
+]
 
-FROBISHER_001_DIRECTORY = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, 'frobisher_001')
+FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                       'frobisher_001')
 
 
 class TestVivification(unittest.TestCase):
@@ -97,10 +92,10 @@ class TestFilterFiles(unittest.TestCase):
         """
 
         raw_files = filter_files(FROBISHER_001_DIRECTORY, ('CR2', 'jpg'))
-        self.assertListEqual(sorted(map(os.path.basename, raw_files)),
-                             ['IMG_2600.CR2', 'IMG_2600.jpg',
-                              'IMG_2601.CR2', 'IMG_2601.jpg',
-                              'IMG_2602.CR2', 'IMG_2602.jpg'])
+        self.assertListEqual(
+            sorted(map(os.path.basename, raw_files)),
+            ['IMG_2600.CR2', 'IMG_2600.jpg', 'IMG_2601.CR2',
+             'IMG_2601.jpg', 'IMG_2602.CR2', 'IMG_2602.jpg'])  # yapf: disable
 
 
 if __name__ == '__main__':

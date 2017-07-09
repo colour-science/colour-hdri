@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 HDRI / Radiance Image Plotting
 ==============================
@@ -70,12 +69,12 @@ def radiance_image_strip_plot(image,
     for i in range(count):
         ev = i * ev_steps
         axis = matplotlib.pyplot.subplot(grid[i])
-        axis.imshow(
-            np.clip(encoding_cctf(adjust_exposure(image, ev)), 0, 1))
-        axis.text(width * 0.05,
-                  height - height * 0.05,
-                  'EV {0}'.format(ev),
-                  color=(1, 1, 1))
+        axis.imshow(np.clip(encoding_cctf(adjust_exposure(image, ev)), 0, 1))
+        axis.text(
+            width * 0.05,
+            height - height * 0.05,
+            'EV {0}'.format(ev),
+            color=(1, 1, 1))
         axis.set_xticks([])
         axis.set_yticks([])
         axis.set_aspect('equal')

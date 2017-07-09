@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Clipped Highlights Recovery
 ===========================
@@ -21,17 +20,9 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import (
-    LCHab_to_Lab,
-    Lab_to_LCHab,
-    Lab_to_XYZ,
-    RGB_to_XYZ,
-    XYZ_to_Lab,
-    XYZ_to_RGB,
-    dot_vector,
-    sRGB_COLOURSPACE,
-    tsplit,
-    tstack)
+from colour import (LCHab_to_Lab, Lab_to_LCHab, Lab_to_XYZ, RGB_to_XYZ,
+                    XYZ_to_Lab, XYZ_to_RGB, dot_vector, sRGB_COLOURSPACE,
+                    tsplit, tstack)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
@@ -40,8 +31,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['highlights_recovery_blend',
-           'highlights_recovery_LCHab']
+__all__ = ['highlights_recovery_blend', 'highlights_recovery_LCHab']
 
 
 def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
@@ -68,9 +58,10 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
             https://www.cybercom.net/~dcoffin/dcraw/
     """
 
-    M = np.array([[1.0000000, 1.0000000, 1.0000000],
-                  [1.7320508, -1.7320508, 0.0000000],
-                  [-1.0000000, -1.0000000, 2.0000000]])
+    M = np.array(
+        [[1.0000000, 1.0000000, 1.0000000],
+         [1.7320508, -1.7320508, 0.0000000],
+         [-1.0000000, -1.0000000, 2.0000000]])  # yapf: disable
 
     clipping_level = np.min(multipliers) * threshold
 
@@ -91,8 +82,9 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
     return RGB_o
 
 
-def highlights_recovery_LCHab(
-        RGB, threshold=None, RGB_colourspace=sRGB_COLOURSPACE):
+def highlights_recovery_LCHab(RGB,
+                              threshold=None,
+                              RGB_colourspace=sRGB_COLOURSPACE):
     """
     Performs highlights recovery in *CIE LCHab* colourspace.
 
@@ -112,21 +104,22 @@ def highlights_recovery_LCHab(
          Highlights recovered *RGB* colourspace array.
     """
 
-    L, _C, H = tsplit(Lab_to_LCHab(XYZ_to_Lab(RGB_to_XYZ(
-        RGB,
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.RGB_to_XYZ_matrix),
-        RGB_colourspace.whitepoint)))
-    _L_c, C_c, _H_c = tsplit(Lab_to_LCHab(XYZ_to_Lab(RGB_to_XYZ(
-        np.clip(RGB, 0, threshold),
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.RGB_to_XYZ_matrix),
-        RGB_colourspace.whitepoint)))
+    L, _C, H = tsplit(
+        Lab_to_LCHab(
+            XYZ_to_Lab(
+                RGB_to_XYZ(RGB, RGB_colourspace.whitepoint, RGB_colourspace.
+                           whitepoint, RGB_colourspace.RGB_to_XYZ_matrix),
+                RGB_colourspace.whitepoint)))
+    _L_c, C_c, _H_c = tsplit(
+        Lab_to_LCHab(
+            XYZ_to_Lab(
+                RGB_to_XYZ(
+                    np.clip(RGB, 0, threshold), RGB_colourspace.whitepoint,
+                    RGB_colourspace.whitepoint, RGB_colourspace.
+                    RGB_to_XYZ_matrix), RGB_colourspace.whitepoint)))
 
-    return XYZ_to_RGB(Lab_to_XYZ(LCHab_to_Lab(
-        tstack((L, C_c, H))), RGB_colourspace.whitepoint),
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.XYZ_to_RGB_matrix)
+    return XYZ_to_RGB(
+        Lab_to_XYZ(
+            LCHab_to_Lab(tstack((L, C_c, H))),
+            RGB_colourspace.whitepoint), RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint, RGB_colourspace.XYZ_to_RGB_matrix)

@@ -1,6 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Defines unit tests for :mod:`colour_hdri.utilities.exposure` module.
 """
@@ -10,10 +9,8 @@ from __future__ import division, unicode_literals
 import numpy as np
 import unittest
 
-from colour_hdri.utilities import (
-    exposure_value,
-    adjust_exposure,
-    average_luminance)
+from colour_hdri.utilities import (exposure_value, adjust_exposure,
+                                   average_luminance)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
@@ -22,9 +19,7 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['TestExposureValue',
-           'TestAdjustExposure',
-           'TestAverageLuminance']
+__all__ = ['TestExposureValue', 'TestAdjustExposure', 'TestAverageLuminance']
 
 
 class TestExposureValue(unittest.TestCase):
@@ -39,11 +34,12 @@ class TestExposureValue(unittest.TestCase):
         """
 
         np.testing.assert_almost_equal(
-            exposure_value(np.array([2.8, 5.6, 8]),
-                           np.array([0.125, 0.5, 1.0]),
-                           np.array([100, 800, 16000])),
+            exposure_value(
+                np.array([2.8, 5.6, 8]),
+                np.array([0.125, 0.5, 1.0]),
+                np.array([100, 800, 16000])),
             np.array([5.97085365, 8.97085365, 13.32192809]),
-            decimal=7)
+            decimal=7)  # yapf: disable
 
 
 class TestAdjustExposure(unittest.TestCase):
@@ -77,11 +73,12 @@ class TestAverageLuminance(unittest.TestCase):
         """
 
         np.testing.assert_almost_equal(
-            average_luminance(np.array([2.8, 5.6, 8]),
-                              np.array([0.125, 0.5, 1.0]),
-                              np.array([100, 800, 16000])),
+            average_luminance(
+                np.array([2.8, 5.6, 8]),
+                np.array([0.125, 0.5, 1.0]),
+                np.array([100, 800, 16000])),
             np.array([0.12755102, 1.02040816, 20.]),
-            decimal=7)
+            decimal=7)  # yapf: disable
 
 
 if __name__ == '__main__':
