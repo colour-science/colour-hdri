@@ -41,7 +41,7 @@ __status__ = 'Production'
 __all__ = ['g_solve', 'camera_response_functions_Debevec1997']
 
 
-def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
+def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     """
     Given a set of pixel values observed for several pixels in several images
     with different exposure times, this function returns the imaging system’s
@@ -54,7 +54,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
         Set of pixel values observed for several pixels in several images.
     B : array_like
         Log :math:`\Delta t`, or log shutter speed for images.
-    l : numeric, optional
+    l_s : numeric, optional
         :math:`\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
@@ -70,7 +70,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
 
     Z = np.asarray(Z).astype(int)
     B = np.asarray(B)
-    l = np.asarray(l)
+    l_s = np.asarray(l_s)
 
     Z_x, Z_y = Z.shape
 
@@ -92,9 +92,9 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
     k += 1
 
     for i in np.arange(1, n - 1, 1):
-        A[k, i - 1] = l * w[i]
-        A[k, i + 0] = l * w[i] * -2
-        A[k, i + 1] = l * w[i]
+        A[k, i - 1] = l_s * w[i]
+        A[k, i + 0] = l_s * w[i] * -2
+        A[k, i + 1] = l_s * w[i]
         k += 1
 
     x = np.squeeze(np.linalg.lstsq(A, b)[0])
@@ -108,7 +108,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
 def camera_response_functions_Debevec1997(image_stack,
                                           s=samples_Grossberg2003,
                                           samples=1000,
-                                          l=30,
+                                          l_s=30,
                                           w=weighting_function_Debevec1997,
                                           n=256,
                                           normalise=True):
@@ -127,7 +127,7 @@ def camera_response_functions_Debevec1997(image_stack,
         Sampling function :math:`s`.
     samples : int, optional
         Samples count per images.
-    l : numeric, optional
+    l_s : numeric, optional
         :math:`\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
@@ -150,7 +150,9 @@ def camera_response_functions_Debevec1997(image_stack,
         average_luminance(image_stack.f_number, image_stack.exposure_time,
                           image_stack.iso))
 
-    g_c = [g_solve(s_o[..., x], L_l, l, w, n)[0] for x in range(s_o.shape[-1])]
+    g_c = [
+        g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])
+    ]
     crfs = np.exp(tstack(np.array(g_c)))
 
     if normalise:
