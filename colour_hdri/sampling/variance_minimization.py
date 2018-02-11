@@ -6,13 +6,15 @@ Viriyothai (2009) Variance Minimization Light Probe Sampling
 
 Defines *Viriyothai (2009)* variance minimization light probe sampling objects:
 
--   :func:`light_probe_sampling_variance_minimization_Viriyothai2009`
+-   :func:`colour_hdri.\
+light_probe_sampling_variance_minimization_Viriyothai2009`
 
 References
 ----------
-.. [1]  Viriyothai, K., & Debevec, P. (2009). Variance minimization light probe
-        sampling. SIGGRAPH’09: Posters, (Egsr), 60558.
-        doi:10.1145/1599301.1599393
+-   :cite:`Viriyothai2009` : Viriyothai, K., & Debevec, P. (2009). Variance
+    minimization light probe sampling. In SIGGRAPH ’09: Posters on - SIGGRAPH
+    ’09 (pp. 1–1). New York, New York, USA: ACM Press.
+    doi:10.1145/1599301.1599393
 """
 
 from __future__ import division, unicode_literals
@@ -20,7 +22,8 @@ from __future__ import division, unicode_literals
 import numpy as np
 from collections import namedtuple
 
-from colour import RGB_COLOURSPACES, RGB_luminance, centroid, warning
+from colour.models import RGB_COLOURSPACES, RGB_luminance
+from colour.utilities import centroid, warning
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
@@ -202,7 +205,13 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
     Returns
     -------
     list
-        list of :class:`Light_Specification` lights.
+        list of
+        :class:`colour_hdri.sampling.variance_minimization.Light_Specification`
+        lights.
+
+    References
+    ----------
+    -   :cite:`Viriyothai2009`
     """
 
     light_probe = np.asarray(light_probe)

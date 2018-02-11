@@ -1,10 +1,8 @@
-colour_hdri Package
-===================
-
-Sub-Packages
-------------
+Colour - HDRI
+=============
 
 .. toctree::
+    :maxdepth: 3
 
     colour_hdri.calibration
     colour_hdri.generation
@@ -15,11 +13,3 @@ Sub-Packages
     colour_hdri.sampling
     colour_hdri.tonemapping
     colour_hdri.utilities
-
-Module Contents
----------------
-
-.. automodule:: colour_hdri
-    :members:
-    :undoc-members:
-    :show-inheritance:

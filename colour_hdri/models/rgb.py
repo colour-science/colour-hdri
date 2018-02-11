@@ -6,15 +6,16 @@ RGB Colourspace & Transformations
 
 Defines the following *RGB* colourspace transformations:
 
--   :func:`camera_space_to_RGB`
--   :func:`camera_space_to_sRGB`
+-   :func:`colour_hdri.camera_space_to_RGB`
+-   :func:`colour_hdri.camera_space_to_sRGB`
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import RGB_COLOURSPACES, dot_matrix, dot_vector
+from colour.models import RGB_COLOURSPACES
+from colour.utilities import dot_matrix, dot_vector
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'

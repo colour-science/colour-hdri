@@ -6,9 +6,9 @@ Image Data & Metadata Utilities
 
 Defines various image data and metadata utilities classes:
 
--   :class:`Metadata`
--   :class:`Image`
--   :class:`ImageStack`
+-   :class:`colour_hdri.Metadata`
+-   :class:`colour_hdri.Image`
+-   :class:`colour_hdri.ImageStack`
 """
 
 from __future__ import division, unicode_literals
@@ -18,7 +18,8 @@ import numpy as np
 from collections import MutableSequence
 from recordclass import recordclass
 
-from colour import is_string, read_image, tsplit, tstack, warning
+from colour.io import read_image
+from colour.utilities import is_string, tsplit, tstack, warning
 
 from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
                                         parse_exif_numeric, read_exif_tags)
@@ -433,7 +434,8 @@ class ImageStack(MutableSequence):
     @staticmethod
     def from_files(image_files, decoding_cctf=None):
         """
-        Returns a :class:`ImageStack` instance with given image files.
+        Returns a :class:`colour_hdri.ImageStack` instance with given image
+        files.
 
         Parameters
         ----------

@@ -7,9 +7,9 @@ Adobe DNG SDK Conversion Process
 Defines various objects implementing raw conversion based on *Adobe DNG SDK*
 and *dcraw*:
 
--   :func:`convert_raw_files_to_dng_files`
--   :func:`convert_dng_files_to_intermediate_files`
--   :func:`read_dng_files_exif_tags`
+-   :func:`colour_hdri.convert_raw_files_to_dng_files`
+-   :func:`colour_hdri.convert_dng_files_to_intermediate_files`
+-   :func:`colour_hdri.read_dng_files_exif_tags`
 """
 
 from __future__ import division, unicode_literals
@@ -23,7 +23,8 @@ import shlex
 import subprocess
 from copy import deepcopy
 
-from colour import CaseInsensitiveMapping, warning
+from colour.utilities import CaseInsensitiveMapping, warning
+from colour.utilities.documentation import DocstringText
 
 from colour_hdri.utilities import (ExifTag, parse_exif_array,
                                    parse_exif_numeric, parse_exif_string,
@@ -45,27 +46,28 @@ __all__ = [
 
 LOGGER = logging.getLogger(__name__)
 
-RAW_CONVERTER = 'dcraw'
-"""
+RAW_CONVERTER = DocstringText('dcraw')
+RAW_CONVERTER.__doc__ = """
 Command line raw conversion application, usually Dave Coffin's *dcraw*.
 
 RAW_CONVERTER : unicode
 """
 
-RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
+RAW_CONVERSION_ARGUMENTS = DocstringText('-t 0 -D -W -4 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
     RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', '')
-"""
+RAW_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for non demosaiced
 linear *tiff* file format output.
 
 RAW_CONVERSION_ARGUMENTS : unicode
 """
 
-RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
+RAW_D_CONVERSION_ARGUMENTS = DocstringText(
+    '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
     RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', '')
-"""
+RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
 
@@ -73,23 +75,25 @@ RAW_D_CONVERSION_ARGUMENTS : unicode
 """
 
 if platform.system() == 'Darwin':
-    DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
-                     'MacOS/Adobe DNG Converter')
+    DNG_CONVERTER = DocstringText(
+        '/Applications/Adobe DNG Converter.app/Contents/'
+        'MacOS/Adobe DNG Converter')
 elif platform.system() in ('Windows', 'Microsoft'):
-    DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
+    DNG_CONVERTER = DocstringText(
+        'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe')
 else:
     DNG_CONVERTER = None
     warning('"Adobe DNG Converter" is not available on your platform!')
-"""
+DNG_CONVERTER.__doc__ = """
 Command line *DNG* conversion application, usually *Adobe DNG Converter*.
 
 DNG_CONVERTER : unicode
 """
 
-DNG_CONVERSION_ARGUMENTS = '-e -d "{0}" "{1}"'
+DNG_CONVERSION_ARGUMENTS = DocstringText('-e -d "{0}" "{1}"')
 if platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
-"""
+DNG_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line *dng* conversion application.
 
 DNG_CONVERSION_ARGUMENTS : unicode
@@ -157,7 +161,7 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
                                None)
         })
 })
-"""
+DNG_EXIF_TAGS_BINDING.__doc__ = """
 Exif tags binding for a *dng* file.
 
 DNG_EXIF_TAGS_BINDING : CaseInsensitiveMapping

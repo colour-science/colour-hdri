@@ -6,7 +6,7 @@ Tonemapping Operators Plotting
 
 Defines the tonemapping operators plotting objects:
 
--   :func:`radiance_image_strip_plot`
+-   :func:`colour_hdri.plotting.tonemapping_operator_image_plot`
 """
 
 from __future__ import division, unicode_literals
@@ -54,9 +54,8 @@ def tonemapping_operator_image_plot(
     Other Parameters
     ----------------
     \**kwargs : dict, optional
-        {:func:`boundaries`, :func:`canvas`, :func:`decorate`,
-        :func:`display`},
-        Please refer to the documentation of the previously listed definitions.
+        {:func:`colour.plotting.render`},
+        Please refer to the documentation of the previously listed definition.
 
     Returns
     -------

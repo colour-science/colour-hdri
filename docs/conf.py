@@ -12,27 +12,12 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
+autosummary_generate = True
 
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-
-# Mock modules for *readthedocs.org*.
-MOCK_MODULES = ('colour', 'colour.plotting', 'matplotlib', 'matplotlib.pyplot',
-                'matplotlib.ticker', 'pylab')
-
-for module in MOCK_MODULES:
-    sys.modules[module] = mock.Mock()
-
-# Mock attributes for *readthedocs.org*.
-sys.modules['colour'].ILLUMINANTS = {
-    'CIE 1931 2 Degree Standard Observer': {
-        'D50': None
-    }
-}
-sys.modules['colour'].RGB_COLOURSPACES = {'sRGB': None}
+autodoc_mock_imports = [
+    'colour', 'colour.plotting', 'matplotlib', 'matplotlib.pyplot',
+    'matplotlib.ticker', 'pylab'
+]
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -50,7 +35,8 @@ sys.modules['colour'].RGB_COLOURSPACES = {'sRGB': None}
 extensions = [
     'sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo',
     'sphinx.ext.coverage', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode',
-    'sphinx.ext.autosummary', 'sphinx.ext.napoleon', 'sphinx.ext.mathjax'
+    'sphinx.ext.autosummary', 'sphinx.ext.napoleon', 'sphinx.ext.mathjax',
+    'sphinxcontrib.bibtex'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -120,7 +106,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-# html_theme = 'default'
+html_theme = 'sphinx_rtd_theme'
 #
 # html_theme_options = {}
 
@@ -141,7 +127,7 @@ pygments_style = 'sphinx'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = 'Colour_Logo_Small_001.png'
+html_logo = '_static/Colour_Logo_Small_001.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -349,39 +335,6 @@ autoclass_content = 'both'
 
 intersphinx_mapping = {'python': ('https://docs.python.org/3.5', None)}
 
-# def _autodoc_process_docstring(app,
-#                                what,
-#                                name,
-#                                obj,
-#                                options,
-#                                lines,
-#                                offset=[0]):
-#     """
-#     Process the docstrings for references counting.
-#     """
-#
-#     references = []
-#     for line in lines:
-#         match = re.match('^.. \[([a-z0-9_.-])\]',
-#                          line.strip(),
-#                          re.IGNORECASE)
-#         if match:
-#             references.append(match.group(1))
-#
-#     references.sort(key=lambda x: -len(x))
-#     for i, line in enumerate(lines):
-#         for reference in references:
-#             if re.match('^\d+$', reference):
-#                 new_reference = '{0}'.format((offset[0] + int(reference)))
-#             else:
-#                 new_reference = '{0}{1}'.format(reference, offset[0])
-#             lines[i] = lines[i].replace('[{0}]_'.format(reference),
-#                                         '[{0}]_'.format(new_reference))
-#             lines[i] = lines[i].replace('.. [{0}]'.format(reference),
-#                                         '.. [{0}]'.format(new_reference))
-#
-#     offset[0] += len(references)
-
 
 def _autodoc_process_docstring(app, what, name, obj, options, lines):
     """
@@ -393,4 +346,7 @@ def _autodoc_process_docstring(app, what, name, obj, options, lines):
 
 
 def setup(app):
+    app.add_stylesheet('custom.css')
     app.connect('autodoc-process-docstring', _autodoc_process_docstring)
+
+import colour_hdri

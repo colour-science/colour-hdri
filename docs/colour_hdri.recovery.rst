@@ -1,17 +1,17 @@
-colour_hdri.recovery Package
-============================
+Highlights Recovery
+===================
 
-Sub-Modules
------------
+.. contents:: :local:
 
-.. toctree::
+Clipped Highlights Recovery
+---------------------------
 
-   colour_hdri.recovery.highlights
+``colour_hdri``
 
-Module Contents
----------------
+.. currentmodule:: colour_hdri
 
-.. automodule:: colour_hdri.recovery
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. autosummary::
+    :toctree: generated/
+
+    highlights_recovery_blend
+    highlights_recovery_LCHab

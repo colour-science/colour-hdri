@@ -6,7 +6,7 @@ HDRI / Radiance Image Plotting
 
 Defines the HDRI / radiance image plotting objects:
 
--   :func:`radiance_image_strip_plot`
+-   :func:`colour_hdri.plotting.radiance_image_strip_plot`
 """
 
 from __future__ import division, unicode_literals
@@ -51,8 +51,8 @@ def radiance_image_strip_plot(image,
     Other Parameters
     ----------------
     \**kwargs : dict, optional
-        {:func:`display`},
-        Please refer to the documentation of the previously listed definitions.
+        {:func:`colour.plotting.display`},
+        Please refer to the documentation of the previously listed definition.
 
     Returns
     -------

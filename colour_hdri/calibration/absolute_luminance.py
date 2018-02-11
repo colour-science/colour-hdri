@@ -7,16 +7,16 @@ Absolute Luminance Calibration - Lagarde (2016)
 Defines *Lagarde (2016)* panoramic images absolute *Luminance* calibration
 objects:
 
--   :func:`absolute_luminance_calibration_Lagarde2016`
--   :func:`upper_hemisphere_illuminance_Lagarde2016`
--   :func:`upper_hemisphere_illuminance_weights_Lagarde2016`
+-   :func:`colour_hdri.absolute_luminance_calibration_Lagarde2016`
+-   :func:`colour_hdri.upper_hemisphere_illuminance_Lagarde2016`
+-   :func:`colour_hdri.upper_hemisphere_illuminance_weights_Lagarde2016`
 
 References
 ----------
-.. [1]  Lagarde, S., Lachambre, S., & Jover, C. (2016). An Artist-Friendly
-        Workflow for Panoramic HDRI. Retrieved from
-        http://blog.selfshadow.com/publications/s2016-shading-course/\
-unity/s2016_pbs_unity_hdri_notes.pdf
+-   :cite:`Lagarde2016b` : Lagarde, S., Lachambre, S., & Jover, C. (2016). An
+    Artist-Friendly Workflow for Panoramic HDRI. Retrieved from
+    http://blog.selfshadow.com/publications/s2016-shading-course/unity/\
+s2016_pbs_unity_hdri_notes.pdf
 """
 
 from __future__ import division, unicode_literals
@@ -56,6 +56,10 @@ def upper_hemisphere_illuminance_Lagarde2016(
     -------
     numeric
         Upper hemisphere illuminance :math:`E_v`.
+
+    References
+    ----------
+    -   :cite:`Lagarde2016b`
 
     Examples
     --------
@@ -98,6 +102,10 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
     -------
     ndarray
         Upper hemisphere illuminance weights.
+
+    References
+    ----------
+    -   :cite:`Lagarde2016b`
 
     Examples
     --------

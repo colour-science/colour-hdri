@@ -6,23 +6,28 @@ Clipped Highlights Recovery
 
 Defines the clipped highlights recovery objects:
 
--   :func:`highlights_recovery_blend`
--   :func:`highlights_recovery_LCHab`
+-   :func:`colour_hdri.highlights_recovery_blend`
+-   :func:`colour_hdri.highlights_recovery_LCHab`
 
 See Also
 --------
 `Colour - HDRI - Examples: Merge from Raw Files Jupyter Notebook
 <https://github.com/colour-science/colour-hdri/\
 blob/master/colour_hdri/examples/examples_merge_from_raw_files.ipynb>`_
+
+References
+----------
+-   :cite:`Coffin2015a` : Coffin, D. (2015). dcraw. Retrieved from
+    https://www.cybercom.net/~dcoffin/dcraw/
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import (LCHab_to_Lab, Lab_to_LCHab, Lab_to_XYZ, RGB_to_XYZ,
-                    XYZ_to_Lab, XYZ_to_RGB, dot_vector, sRGB_COLOURSPACE,
-                    tsplit, tstack)
+from colour.models import (LCHab_to_Lab, Lab_to_LCHab, Lab_to_XYZ, RGB_to_XYZ,
+                           XYZ_to_Lab, XYZ_to_RGB, sRGB_COLOURSPACE)
+from colour.utilities import dot_vector, tsplit, tstack
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
@@ -54,8 +59,7 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
 
     References
     ----------
-    .. [1]  Coffin, D. (2015). dcraw. Retrieved from
-            https://www.cybercom.net/~dcoffin/dcraw/
+    -   :cite:`Coffin2015a`
     """
 
     M = np.array(

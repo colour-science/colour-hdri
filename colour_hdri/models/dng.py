@@ -6,10 +6,10 @@ Adobe DNG SDK Colour Processing
 
 Defines various objects implementing *Adobe DNG SDK* colour processing:
 
--   :func:`xy_to_camera_neutral`
--   :func:`camera_neutral_to_xy`
--   :func:`XYZ_to_camera_space_matrix`
--   :func:`camera_space_to_XYZ_matrix`
+-   :func:`colour_hdri.xy_to_camera_neutral`
+-   :func:`colour_hdri.camera_neutral_to_xy`
+-   :func:`colour_hdri.XYZ_to_camera_space_matrix`
+-   :func:`colour_hdri.camera_space_to_XYZ_matrix`
 
 The *Adobe DNG SDK* defines the following tags relevant for the current
 implementation:
@@ -89,27 +89,40 @@ Notes
     If they match, then use the camera calibration tags. If not, then use
     identity matrices.
 -   The Hue/Saturation/Value Mapping Table is ignored by the current
-    implementation because deemed unsuitable. [3]_
+    implementation because deemed unsuitable :cite:`McGuffog2012a`.
 -   The various matrices used in this module are extracted from a
     *Canon EOS 5D Mark II* camera.
 
 References
 ----------
-.. [1]  Adobe Systems. (2012). Digital Negative (DNG) Specification, 1–101.
-.. [2]  Adobe Systems. (2015). Adobe DNG SDK 1.4. Retrieved from
-        http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
-.. [3]  McGuffog, S. (2012). Hue Twists in DNG Camera Profiles. Retrieved
-        October 29, 2016, from http://dcptool.sourceforge.net/Hue%20Twists.html
+-   :cite:`AdobeSystems2012d` : Adobe Systems. (2012). Translating White
+    Balance xy Coordinates to Camera Neutral Coordinates. In Digital Negative
+    (DNG) Specification (p. 80).
+-   :cite:`AdobeSystems2012d` : Adobe Systems. (2012). Translating Camera
+    Neutral Coordinates to White Balance xy Coordinates. In Digital Negative
+    (DNG) Specification (pp. 80–81).
+-   :cite:`AdobeSystems2012f` : Adobe Systems. (2012). Digital Negative (DNG)
+    Specification.
+-   :cite:`AdobeSystems2012g` : Adobe Systems. (2012). Camera to XYZ (D50)
+    Transform. In Digital Negative (DNG) Specification (p. 81).
+-   :cite:`AdobeSystems2015d` : Adobe Systems. (2015). Adobe DNG SDK 1.4.
+    Retrieved from http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`McGuffog2012a` : McGuffog, S. (2012). Hue Twists in DNG Camera
+    Profiles. Retrieved October 29, 2016, from
+    http://dcptool.sourceforge.net/Hue Twists.html
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import (EPSILON, UCS_to_uv, XYZ_to_UCS, XYZ_to_xy,
-                    chromatic_adaptation_matrix_VonKries, dot_matrix,
-                    dot_vector, is_identity, linear_conversion, tstack,
-                    uv_to_CCT_Robertson1968, xy_to_XYZ)
+from colour.adaptation import chromatic_adaptation_matrix_VonKries
+from colour.algebra import is_identity
+from colour.constants import EPSILON
+from colour.models import UCS_to_uv, XYZ_to_UCS, XYZ_to_xy, xy_to_XYZ
+from colour.utilities import (dot_matrix, dot_vector, linear_conversion,
+                              tstack)
+from colour.temperature import uv_to_CCT_Robertson1968
 
 from colour_hdri.models import ADOBE_DNG_XYZ_ILLUMINANT
 
@@ -218,9 +231,10 @@ def xy_to_camera_neutral(xy, CCT_calibration_illuminant_1,
 
     References
     ----------
-    .. [4]  Adobe Systems. (2012). Translating White Balance xy Coordinates to
-            Camera Neutral Coordinates.
-            In Digital Negative (DNG) Specification (p. 80).
+    -   :cite:`AdobeSystems2012d`
+    -   :cite:`AdobeSystems2012f`
+    -   :cite:`AdobeSystems2015d`
+    -   :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -305,9 +319,10 @@ def camera_neutral_to_xy(camera_neutral,
 
     References
     ----------
-    .. [5]  Adobe Systems. (2012). Translating Camera Neutral Coordinates to
-            White Balance xy Coordinates.
-            In Digital Negative (DNG) Specification (pp. 80–81).
+    -   :cite:`AdobeSystems2012e`
+    -   :cite:`AdobeSystems2012f`
+    -   :cite:`AdobeSystems2015d`
+    -   :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -361,7 +376,7 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
                                M_camera_calibration_2, analog_balance):
     """
     Returns the *CIE XYZ* to *Camera Space* matrix for given *xy* white balance
-    chromaticity coordinates. [4]_
+    chromaticity coordinates.
 
     Parameters
     ----------
@@ -390,7 +405,14 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`ADOBE_DNG_XYZ_ILLUMINANT` attribute.
+        :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        attribute.
+
+    References
+    ----------
+    -   :cite:`AdobeSystems2012f`
+    -   :cite:`AdobeSystems2015d`
+    -   :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -492,12 +514,15 @@ def camera_space_to_XYZ_matrix(xy,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`ADOBE_DNG_XYZ_ILLUMINANT` attribute.
+        :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        attribute.
 
     References
     ----------
-    .. [6]  Adobe Systems. (2012). Camera to XYZ (D50) Transform.
-            In Digital Negative (DNG) Specification (p. 81).
+    -   :cite:`AdobeSystems2012f`
+    -   :cite:`AdobeSystems2012g`
+    -   :cite:`AdobeSystems2015d`
+    -   :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -557,7 +582,8 @@ def camera_space_to_XYZ_matrix(xy,
             CCT, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
             M_camera_calibration_1, M_camera_calibration_2)
 
-        # The reference implementation [2]_ diverges from the white-paper [1]_:
+        # The reference implementation :cite:`AdobeSystems2015d` diverges from
+        # the white-paper :cite:`AdobeSystems2012f`:
         # The reference implementation directly computes the camera neutral by
         # multiplying directly the interpolated colour matrix :math:`CM` with
         # the tristimulus values of the *xy* white balance chromaticity

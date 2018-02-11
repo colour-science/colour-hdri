@@ -6,14 +6,27 @@ Adobe DNG SDK Dataset
 
 Defines various dataset objects for *Adobe DNG SDK*:
 
--   :attr:`ADOBE_DNG_XYZ_ILLUMINANT`
--   :attr:`DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE`
--   :attr:`LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS`
+-   :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+-   :attr:`colour_hdri.models.dataset.dng.\
+DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE`
+-   :attr:`colour_hdri.models.dataset.dng.\
+LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS`
+
+References
+----------
+-   :cite:`AdobeSystems2015c` : Adobe Systems. (2015). Adobe DNG SDK 1.4 -
+    dng_sdk_1_4/dng_sdk/source/dng_camera_profile.cpp -
+    dng_camera_profile::IlluminantToTemperature. Retrieved from
+    http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015d` : Adobe Systems. (2015). Adobe DNG SDK 1.4 -
+    dng_sdk_1_4/dng_sdk/source/dng_tag_values.h - LightSource tag. Retrieved
+    from http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
 """
 
 from __future__ import division, unicode_literals
 
-from colour import CaseInsensitiveMapping, ILLUMINANTS
+from colour.colorimetry import ILLUMINANTS
+from colour.utilities import CaseInsensitiveMapping
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
@@ -63,10 +76,7 @@ DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE = (CaseInsensitiveMapping({
 
 References
 ----------
-..[1]   Adobe Systems. (2015). Adobe DNG SDK 1.4 -
-        dng_sdk_1_4/dng_sdk/source/dng_camera_profile.cpp -
-        dng_camera_profile::IlluminantToTemperature.
-        Retrieved from http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015c`
 
 Notes
 -----
@@ -104,9 +114,7 @@ LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS = {
 
 References
 ----------
-..[2]   Adobe Systems. (2015). Adobe DNG SDK 1.4 -
-        dng_sdk_1_4/dng_sdk/source/dng_tag_values.h - LightSource tag.
-        Retrieved from http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015e`
 
 LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS : CaseInsensitiveMapping
 """

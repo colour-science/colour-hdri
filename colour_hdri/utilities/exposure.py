@@ -6,9 +6,15 @@ Image Exposure Value Computation
 
 Defines image exposure value computation objects:
 
--   :func:`exposure_value`
--   :func:`adjust_exposure`
--   :func:`average_luminance`
+-   :func:`colour_hdri.exposure_value`
+-   :func:`colour_hdri.adjust_exposure`
+-   :func:`colour_hdri.average_luminance`
+
+References
+----------
+-   :cite:`Wikipediabj` : Wikipedia. (n.d.). EV as a measure of luminance and
+    illuminance. Retrieved November 14, 2015, from https://en.wikipedia.org/\
+wiki/Exposure_value#EV_as_a_measure_of_luminance_and_illuminance
 """
 
 from __future__ import division, unicode_literals
@@ -109,10 +115,7 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
 
     References
     ----------
-    .. [1]  Wikipedia. (n.d.). EV as a measure of luminance and illuminance.
-            Retrieved November 14, 2015,
-            from https://en.wikipedia.org/wiki/\
-Exposure_value#EV_as_a_measure_of_luminance_and_illuminance
+    -   :cite:`Wikipediabj`
 
     Examples
     --------

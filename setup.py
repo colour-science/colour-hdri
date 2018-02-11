@@ -35,12 +35,14 @@ OPTIONAL_REQUIREMENTS = ['rawpy>=0.5.0']
 
 PLOTTING_REQUIREMENTS = ['matplotlib>=1.3.1']
 
-DOCS_REQUIREMENTS = ['sphinx>=1.2.2']
+DOCS_REQUIREMENTS = [
+    'sphinx>=1.6.6', 'sphinxcontrib-bibtex', 'sphinx_rtd_theme'
+]
 
 TESTS_REQUIREMENTS = ['coverage>=3.7.1', 'flake8>=2.1.0', 'nose>=1.3.4']
 
 if os.environ.get('READTHEDOCS') == 'True':
-    INSTALLATION_REQUIREMENTS += ['mock']
+    INSTALLATION_REQUIREMENTS += ['mock', 'sphinxcontrib-bibtex']
 
 setup(
     name='colour-hdri',

@@ -6,8 +6,8 @@ Debevec (1997) Camera Response Function Computation
 
 Defines *Debevec (1997)* camera responses computation objects:
 
--   :func:`g_solve`
--   :func:`camera_response_functions_Debevec1997`
+-   :func:`colour_hdri.g_solve`
+-   :func:`colour_hdri.camera_response_functions_Debevec1997`
 
 See Also
 --------
@@ -17,15 +17,18 @@ blob/master/colour_hdri/examples/examples_merge_from_ldr_files.ipynb>`_
 
 References
 ----------
-.. [1]  Debevec, P., & Malik, J. (1997). Recovering High Dynamic Range Radiance
-        Maps from Photographs, (August), 1–10. doi:10.1145/258734.258884
+-   :cite:`Debevec1997a` : Debevec, P. E., & Malik, J. (1997). Recovering high
+    dynamic range radiance maps from photographs. In Proceedings of the 24th
+    annual conference on Computer graphics and interactive techniques -
+    SIGGRAPH ’97 (pp. 369–378). New York, New York, USA: ACM Press.
+    doi:10.1145/258734.258884
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tstack
+from colour.utilities import tstack
 
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.sampling import samples_Grossberg2003
@@ -66,6 +69,10 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     tuple
         Camera response functions :math:`g(z)` and log film irradiance values
         :math:`lE`.
+
+    References
+    ----------
+    -   :cite:`Debevec1997a`
     """
 
     Z = np.asarray(Z).astype(int)
@@ -117,11 +124,11 @@ def camera_response_functions_Debevec1997(image_stack,
     *Debevec (1997)* method.
 
     Image channels are sampled with :math:`s` sampling function and the output
-    samples are passed to :func:`g_solve`.
+    samples are passed to :func:`colour_hdri.g_solve`.
 
     Parameters
     ----------
-    image_stack : ImageStack
+    image_stack : colour_hdri.ImageStack
         Stack of single channel or multi-channel floating point images.
     s : callable, optional
         Sampling function :math:`s`.
@@ -142,6 +149,10 @@ def camera_response_functions_Debevec1997(image_stack,
     -------
     ndarray
         Camera response functions :math:`g(z)`.
+
+    References
+    ----------
+    -   :cite:`Debevec1997a`
     """
 
     s_o = s(image_stack.data, samples, n)
