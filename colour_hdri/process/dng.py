@@ -90,7 +90,7 @@ Command line *DNG* conversion application, usually *Adobe DNG Converter*.
 DNG_CONVERTER : unicode
 """
 
-DNG_CONVERSION_ARGUMENTS = DocstringText('-e -d "{0}" "{1}"')
+DNG_CONVERSION_ARGUMENTS = DocstringText('-l -d "{0}" "{1}"')
 if platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
 DNG_CONVERSION_ARGUMENTS.__doc__ = """
@@ -116,7 +116,7 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
             'Black Level Repeat Dim': (lambda x: parse_exif_array(x, np.int_),
                                        None),
             'Black Level': (lambda x: parse_exif_array(x, np.int_), None),
-            'White Level': (lambda x: parse_exif_numeric(x, np.int_), None),
+            'White Level': (lambda x: parse_exif_array(x, np.int_), None),
             'Samples Per Pixel': (lambda x: parse_exif_numeric(x, np.int_),
                                   None),
             'Active Area': (lambda x: parse_exif_array(x, np.int_), None),
