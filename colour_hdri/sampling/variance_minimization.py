@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Viriyothai (2009) Variance Minimization Light Probe Sampling
