@@ -1,15 +1,21 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Weighting Functions
 ===================
 
 Defines weighting function objects used when generating radiance images:
 
--   :func:`normal_distribution_function`
--   :func:`hat_function`
--   :func:`weighting_function_Debevec1997`
+-   :func:`colour_hdri.normal_distribution_function`
+-   :func:`colour_hdri.hat_function`
+-   :func:`colour_hdri.weighting_function_Debevec1997`
+
+References
+----------
+-   :cite:`Debevec1997a` : Debevec, P. E., & Malik, J. (1997). Recovering high
+    dynamic range radiance maps from photographs. In Proceedings of the 24th
+    annual conference on Computer graphics and interactive techniques -
+    SIGGRAPH '97 (pp. 369-378). New York, New York, USA: ACM Press.
+    doi:10.1145/258734.258884
 """
 
 from __future__ import division, unicode_literals
@@ -17,15 +23,16 @@ from __future__ import division, unicode_literals
 import numpy as np
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['normal_distribution_function',
-           'hat_function',
-           'weighting_function_Debevec1997']
+__all__ = [
+    'normal_distribution_function', 'hat_function',
+    'weighting_function_Debevec1997'
+]
 
 
 def normal_distribution_function(a, mu=0.5, sigma=0.15):
@@ -106,9 +113,7 @@ def weighting_function_Debevec1997(a, domain_l=0.01, domain_h=0.99):
 
     References
     ----------
-    .. [1]  Debevec, P., & Malik, J. (1997). Recovering High Dynamic Range
-            Radiance Maps from Photographs, (August), 1–10.
-            doi:10.1145/258734.258884
+    -   :cite:`Debevec1997a`
 
     Examples
     -------

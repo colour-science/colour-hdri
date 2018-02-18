@@ -1,14 +1,12 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Debevec (1997) Camera Response Function Computation
 ===================================================
 
 Defines *Debevec (1997)* camera responses computation objects:
 
--   :func:`g_solve`
--   :func:`camera_response_functions_Debevec1997`
+-   :func:`colour_hdri.g_solve`
+-   :func:`colour_hdri.camera_response_functions_Debevec1997`
 
 See Also
 --------
@@ -18,35 +16,37 @@ blob/master/colour_hdri/examples/examples_merge_from_ldr_files.ipynb>`_
 
 References
 ----------
-.. [1]  Debevec, P., & Malik, J. (1997). Recovering High Dynamic Range Radiance
-        Maps from Photographs, (August), 1–10. doi:10.1145/258734.258884
+-   :cite:`Debevec1997a` : Debevec, P. E., & Malik, J. (1997). Recovering high
+    dynamic range radiance maps from photographs. In Proceedings of the 24th
+    annual conference on Computer graphics and interactive techniques -
+    SIGGRAPH '97 (pp. 369-378). New York, New York, USA: ACM Press.
+    doi:10.1145/258734.258884
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tstack
+from colour.utilities import tstack
 
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['g_solve',
-           'camera_response_functions_Debevec1997']
+__all__ = ['g_solve', 'camera_response_functions_Debevec1997']
 
 
-def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
+def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     """
     Given a set of pixel values observed for several pixels in several images
-    with different exposure times, this function returns the imaging system’s
+    with different exposure times, this function returns the imaging system's
     response function :math:`g` as well as the log film irradiance values
     :math:`lE` for the observed pixels.
 
@@ -56,7 +56,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
         Set of pixel values observed for several pixels in several images.
     B : array_like
         Log :math:`\Delta t`, or log shutter speed for images.
-    l : numeric, optional
+    l_s : numeric, optional
         :math:`\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
@@ -68,11 +68,15 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
     tuple
         Camera response functions :math:`g(z)` and log film irradiance values
         :math:`lE`.
+
+    References
+    ----------
+    -   :cite:`Debevec1997a`
     """
 
     Z = np.asarray(Z).astype(int)
     B = np.asarray(B)
-    l = np.asarray(l)
+    l_s = np.asarray(l_s)
 
     Z_x, Z_y = Z.shape
 
@@ -94,9 +98,9 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
     k += 1
 
     for i in np.arange(1, n - 1, 1):
-        A[k, i - 1] = l * w[i]
-        A[k, i + 0] = l * w[i] * -2
-        A[k, i + 1] = l * w[i]
+        A[k, i - 1] = l_s * w[i]
+        A[k, i + 0] = l_s * w[i] * -2
+        A[k, i + 1] = l_s * w[i]
         k += 1
 
     x = np.squeeze(np.linalg.lstsq(A, b)[0])
@@ -110,7 +114,7 @@ def g_solve(Z, B, l=30, w=weighting_function_Debevec1997, n=256):
 def camera_response_functions_Debevec1997(image_stack,
                                           s=samples_Grossberg2003,
                                           samples=1000,
-                                          l=30,
+                                          l_s=30,
                                           w=weighting_function_Debevec1997,
                                           n=256,
                                           normalise=True):
@@ -119,17 +123,17 @@ def camera_response_functions_Debevec1997(image_stack,
     *Debevec (1997)* method.
 
     Image channels are sampled with :math:`s` sampling function and the output
-    samples are passed to :func:`g_solve`.
+    samples are passed to :func:`colour_hdri.g_solve`.
 
     Parameters
     ----------
-    image_stack : ImageStack
+    image_stack : colour_hdri.ImageStack
         Stack of single channel or multi-channel floating point images.
     s : callable, optional
         Sampling function :math:`s`.
     samples : int, optional
         Samples count per images.
-    l : numeric, optional
+    l_s : numeric, optional
         :math:`\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
@@ -144,16 +148,22 @@ def camera_response_functions_Debevec1997(image_stack,
     -------
     ndarray
         Camera response functions :math:`g(z)`.
+
+    References
+    ----------
+    -   :cite:`Debevec1997a`
     """
 
-    samples = s(image_stack.data, samples, n)
+    s_o = s(image_stack.data, samples, n)
 
-    L_l = np.log(average_luminance(image_stack.f_number,
-                                   image_stack.exposure_time,
-                                   image_stack.iso))
+    L_l = np.log(
+        average_luminance(image_stack.f_number, image_stack.exposure_time,
+                          image_stack.iso))
 
-    crfs = np.exp(tstack(np.array([g_solve(samples[..., x], L_l, l, w, n)[0]
-                                   for x in range(samples.shape[-1])])))
+    g_c = [
+        g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])
+    ]
+    crfs = np.exp(tstack(np.array(g_c)))
 
     if normalise:
         # TODO: Investigate if the normalisation value should account for the

@@ -1,32 +1,30 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Grossberg (2003) Histogram Based Image Sampling
 ===============================================
 
 Defines *Grossberg (2003)* histogram based image sampling objects:
 
--   :func:`samples_Grossberg2003`
+-   :func:`colour_hdri.samples_Grossberg2003`
 
 References
 ----------
-.. [1]  Grossberg, M. D., & Nayar, S. K. (2003). Determining the camera
-        response from images: What is knowable? IEEE Transactions on Pattern
-        Analysis and Machine Intelligence, 25(11), 1455–1467.
-        doi:10.1109/TPAMI.2003.1240119
-.. [2]  Banterle, F., & Benedetti, L. (2014). PICCANTE: An Open and Portable
-        Library for HDR Imaging.
+-   :cite:`Banterle2014a` : Banterle, F., & Benedetti, L. (2014). PICCANTE: An
+    Open and Portable Library for HDR Imaging.
+-   :cite:`Grossberg2003g` : Grossberg, M. D., & Nayar, S. K. (2003).
+    Determining the camera response from images: What is knowable? IEEE
+    Transactions on Pattern Analysis and Machine Intelligence, 25(11),
+    1455-1467. doi:10.1109/TPAMI.2003.1240119
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tsplit, tstack
+from colour.utilities import tsplit, tstack
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -53,6 +51,11 @@ def samples_Grossberg2003(image_stack, samples=1000, n=256):
     -------
     ndarray
         Intensity histograms samples.
+
+    References
+    ----------
+    -   :cite:`Banterle2014a`
+    -   :cite:`Grossberg2003g`
     """
 
     image_stack = np.asarray(image_stack)
@@ -66,7 +69,7 @@ def samples_Grossberg2003(image_stack, samples=1000, n=256):
     for image in tsplit(image_stack):
         histograms = tstack(
             [np.histogram(image[..., c], n, range=(0, 1))[0]
-             for c in np.arange(channels_c)])
+             for c in np.arange(channels_c)])  # yapf: disable
         cdf = np.cumsum(histograms, axis=0)
         cdf_i.append(cdf.astype(np.float_) / np.max(cdf, axis=0))
 
@@ -75,7 +78,7 @@ def samples_Grossberg2003(image_stack, samples=1000, n=256):
     for i in np.arange(samples):
         for j in np.arange(channels_c):
             for k, cdf in enumerate(cdf_i):
-                samples_cdf_i[i, k, j] = np.argmin(np.abs(cdf[:, j] -
-                                                          samples_u[i]))
+                samples_cdf_i[i, k, j] = np.argmin(
+                    np.abs(cdf[:, j] - samples_u[i]))
 
     return samples_cdf_i

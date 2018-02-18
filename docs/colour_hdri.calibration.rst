@@ -1,18 +1,30 @@
-colour_hdri.calibration Package
-===============================
+Camera Calibration
+==================
 
-Sub-Modules
------------
+.. contents:: :local:
 
-.. toctree::
+Absolute Luminance - Lagarde (2016)
+-----------------------------------
 
-   colour_hdri.calibration.absolute_luminance
-   colour_hdri.calibration.debevec1997
+``colour_hdri``
 
-Module Contents
----------------
+.. currentmodule:: colour_hdri
 
-.. automodule:: colour_hdri.calibration
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. autosummary::
+    :toctree: generated/
+
+    absolute_luminance_calibration_Lagarde2016
+    upper_hemisphere_illuminance_weights_Lagarde2016
+
+Debevec (1997)
+--------------
+
+``colour_hdri``
+
+.. currentmodule:: colour_hdri
+
+.. autosummary::
+    :toctree: generated/
+
+    g_solve
+    camera_response_functions_Debevec1997

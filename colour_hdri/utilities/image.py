@@ -1,15 +1,13 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Image Data & Metadata Utilities
 ===============================
 
 Defines various image data and metadata utilities classes:
 
--   :class:`Metadata`
--   :class:`Image`
--   :class:`ImageStack`
+-   :class:`colour_hdri.Metadata`
+-   :class:`colour_hdri.Image`
+-   :class:`colour_hdri.ImageStack`
 """
 
 from __future__ import division, unicode_literals
@@ -19,37 +17,29 @@ import numpy as np
 from collections import MutableSequence
 from recordclass import recordclass
 
-from colour import is_string, read_image, tsplit, tstack, warning
+from colour.io import read_image
+from colour.utilities import is_string, tsplit, tstack, warning
 
-from colour_hdri.utilities.exif import (
-    parse_exif_array,
-    parse_exif_fraction,
-    parse_exif_numeric,
-    read_exif_tags)
+from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
+                                        parse_exif_numeric, read_exif_tags)
 from colour_hdri.utilities.exposure import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['Metadata',
-           'Image',
-           'ImageStack']
+__all__ = ['Metadata', 'Image', 'ImageStack']
 
 LOGGER = logging.getLogger(__name__)
 
 
 class Metadata(
-    recordclass('Metadata',
-                ('f_number',
-                 'exposure_time',
-                 'iso',
-                 'black_level',
-                 'white_level',
-                 'white_balance_multipliers'))):
+        recordclass('Metadata',
+                    ('f_number', 'exposure_time', 'iso', 'black_level',
+                     'white_level', 'white_balance_multipliers'))):
     """
     Defines the base object for storing exif metadata relevant to
     HDRI / radiance image generation.
@@ -77,14 +67,9 @@ class Metadata(
                 black_level=None,
                 white_level=None,
                 white_balance_multipliers=None):
-        return super(Metadata, cls).__new__(
-            cls,
-            f_number,
-            exposure_time,
-            iso,
-            black_level,
-            white_level,
-            white_balance_multipliers)
+        return super(Metadata, cls).__new__(cls, f_number, exposure_time, iso,
+                                            black_level, white_level,
+                                            white_balance_multipliers)
 
 
 class Image(object):
@@ -146,9 +131,9 @@ class Image(object):
         """
 
         if value is not None:
-            assert is_string(value), (
-                ('"{0}" attribute: "{1}" is not a '
-                 '"string" like object!').format('path', value))
+            assert is_string(value), (('"{0}" attribute: "{1}" is not a '
+                                       '"string" like object!').format(
+                                           'path', value))
 
         self._path = value
 
@@ -177,9 +162,9 @@ class Image(object):
         """
 
         if value is not None:
-            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
-                ('"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
-                 'or "matrix" instance!').format('data', value))
+            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), ((
+                '"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
+                'or "matrix" instance!').format('data', value))
 
         self._data = np.asarray(value)
 
@@ -281,13 +266,8 @@ class Image(object):
             white_balance_multipliers = np.asarray(
                 white_balance_multipliers) / white_balance_multipliers[1]
 
-        self.metadata = Metadata(
-            f_number,
-            exposure_time,
-            iso,
-            black_level,
-            white_level,
-            white_balance_multipliers)
+        self.metadata = Metadata(f_number, exposure_time, iso, black_level,
+                                 white_level, white_balance_multipliers)
 
         return self.metadata
 
@@ -453,7 +433,8 @@ class ImageStack(MutableSequence):
     @staticmethod
     def from_files(image_files, decoding_cctf=None):
         """
-        Returns a :class:`ImageStack` instance with given image files.
+        Returns a :class:`colour_hdri.ImageStack` instance with given image
+        files.
 
         Parameters
         ----------

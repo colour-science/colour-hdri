@@ -1,56 +1,76 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Global Tonemapping Operators
 ============================
 
 Defines global tonemapping operators objects:
 
--   :func:`tonemapping_operator_simple`
--   :func:`tonemapping_operator_normalisation`
--   :func:`tonemapping_operator_gamma`
--   :func:`tonemapping_operator_logarithmic`
--   :func:`tonemapping_operator_exponential`
--   :func:`tonemapping_operator_logarithmic_mapping`
--   :func:`tonemapping_operator_exponentiation_mapping`
--   :func:`tonemapping_operator_Schlick1994`
--   :func:`tonemapping_operator_Tumblin1999`
--   :func:`tonemapping_operator_Reinhard2004`
--   :func:`tonemapping_operator_filmic`
+-   :func:`colour_hdri.tonemapping_operator_simple`
+-   :func:`colour_hdri.tonemapping_operator_normalisation`
+-   :func:`colour_hdri.tonemapping_operator_gamma`
+-   :func:`colour_hdri.tonemapping_operator_logarithmic`
+-   :func:`colour_hdri.tonemapping_operator_exponential`
+-   :func:`colour_hdri.tonemapping_operator_logarithmic_mapping`
+-   :func:`colour_hdri.tonemapping_operator_exponentiation_mapping`
+-   :func:`colour_hdri.tonemapping_operator_Schlick1994`
+-   :func:`colour_hdri.tonemapping_operator_Tumblin1999`
+-   :func:`colour_hdri.tonemapping_operator_Reinhard2004`
+-   :func:`colour_hdri.tonemapping_operator_filmic`
 
 See Also
 --------
 `Colour - HDRI - Examples: Global Tonemapping Operators Jupyter Notebook
 <https://github.com/colour-science/colour-hdri/\
 blob/master/colour_hdri/examples/examples_global_tonemapping_operators.ipynb>`_
+
+References
+----------
+-   :cite:`Banterle2011k` : Banterle, F., Artusi, A., Debattista, K., &
+    Chalmers, A. (2011). 3.2.1 Simple Mapping Methods. In Advanced High
+    Dynamic Range Imaging (pp. 38-41). A K Peters/CRC Press.
+    ISBN:978-1568817194
+-   :cite:`Habble2010d` : Habble, J. (2010). Filmic Tonemapping Operators.
+    Retrieved March 15, 2015, from http://filmicgames.com/archives/75
+-   :cite:`Habble2010e` : Habble, J. (2010). Uncharted 2: HDR Lighting.
+    Retrieved March 15, 2015, from
+    http://www.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting
+-   :cite:`Reinhard2005c` : Reinhard, E., & Devlin, K. (2005). Dynamic Range
+    Reduction Inspired by Photoreceptor Physiology. IEEE Transactions on
+    Visualization and Computer Graphics, 11(1), 13-24. doi:10.1109/TVCG.2005.9
+-   :cite:`Schlick1994` : Schlick, C. (1994). Quantization Techniques for
+    Visualization of High Dynamic Range Pictures. Proceedings of the Fifth
+    Eurographics Workshop on Rendering, (Section 5), 7-18.
+-   :cite:`Tumblin1999c` : Tumblin, J., Hodgins, J. K., & Guenter, B. K.
+    (1999). Two methods for display of high contrast images. ACM Transactions
+    on Graphics, 18(1), 56-94. doi:10.1145/300776.300783
+-   :cite:`Wikipediabn` : Wikipedia. (n.d.). Tonemapping - Purpose and methods.
+    Retrieved March 15, 2015, from
+    http://en.wikipedia.org/wiki/Tone_mapping#Purpose_and_methods
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import EPSILON, RGB_COLOURSPACES, RGB_luminance
+from colour.constants import EPSILON
+from colour.models import RGB_COLOURSPACES, RGB_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['log_average',
-           'tonemapping_operator_simple',
-           'tonemapping_operator_normalisation',
-           'tonemapping_operator_gamma',
-           'tonemapping_operator_logarithmic',
-           'tonemapping_operator_exponential',
-           'tonemapping_operator_logarithmic_mapping',
-           'tonemapping_operator_exponentiation_mapping',
-           'tonemapping_operator_Schlick1994',
-           'tonemapping_operator_Tumblin1999',
-           'tonemapping_operator_Reinhard2004',
-           'tonemapping_operator_filmic']
+__all__ = [
+    'log_average', 'tonemapping_operator_simple',
+    'tonemapping_operator_normalisation', 'tonemapping_operator_gamma',
+    'tonemapping_operator_logarithmic', 'tonemapping_operator_exponential',
+    'tonemapping_operator_logarithmic_mapping',
+    'tonemapping_operator_exponentiation_mapping',
+    'tonemapping_operator_Schlick1994', 'tonemapping_operator_Tumblin1999',
+    'tonemapping_operator_Reinhard2004', 'tonemapping_operator_filmic'
+]
 
 
 def log_average(a, epsilon=EPSILON):
@@ -72,7 +92,7 @@ def log_average(a, epsilon=EPSILON):
     Examples
     --------
     >>> log_average(np.linspace(0, 10, 10))  # doctest: +ELLIPSIS
-    0.125071409675722
+    0.1...
     """
 
     a = np.asarray(a)
@@ -99,9 +119,7 @@ def tonemapping_operator_simple(RGB):
 
     References
     ----------
-    .. [1]  Wikipedia. (n.d.). Tonemapping - Purpose and methods. Retrieved
-            March 15, 2015, from
-            http://en.wikipedia.org/wiki/Tone_mapping#Purpose_and_methods
+    -   :cite:`Wikipediabn`
 
     Examples
     --------
@@ -122,9 +140,8 @@ def tonemapping_operator_simple(RGB):
     return RGB / (RGB + 1)
 
 
-def tonemapping_operator_normalisation(
-        RGB,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+def tonemapping_operator_normalisation(RGB,
+                                       colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Performs given *RGB* array tonemapping using the normalisation method.
 
@@ -142,9 +159,7 @@ def tonemapping_operator_normalisation(
 
     References
     ----------
-    .. [2]  Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011).
-            3.2.1 Simple Mapping Methods. In Advanced High Dynamic Range
-            Imaging (pp. 38–41). A K Peters/CRC Press. ISBN:978-1568817194
+    -   :cite:`Banterle2011k`
 
     Examples
     --------
@@ -173,7 +188,7 @@ def tonemapping_operator_normalisation(
 def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
     """
     Performs given *RGB* array tonemapping using the gamma and exposure
-    correction method [2]_.
+    correction method.
 
     Parameters
     ----------
@@ -188,6 +203,10 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
     -------
     ndarray
         Tonemapped *RGB* array.
+
+    References
+    ----------
+    -   :cite:`Banterle2011k`
 
     Examples
     --------
@@ -212,13 +231,12 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
     return RGB
 
 
-def tonemapping_operator_logarithmic(
-        RGB,
-        q=1,
-        k=1,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+def tonemapping_operator_logarithmic(RGB,
+                                     q=1,
+                                     k=1,
+                                     colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Performs given *RGB* array tonemapping using the logarithmic method [2]_.
+    Performs given *RGB* array tonemapping using the logarithmic method.
 
     Parameters
     ----------
@@ -235,6 +253,10 @@ def tonemapping_operator_logarithmic(
     -------
     ndarray
         Tonemapped *RGB* array.
+
+    References
+    ----------
+    -   :cite:`Banterle2011k`
 
     Examples
     --------
@@ -265,13 +287,12 @@ def tonemapping_operator_logarithmic(
     return RGB
 
 
-def tonemapping_operator_exponential(
-        RGB,
-        q=1,
-        k=1,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+def tonemapping_operator_exponential(RGB,
+                                     q=1,
+                                     k=1,
+                                     colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Performs given *RGB* array tonemapping using the exponential method [2]_.
+    Performs given *RGB* array tonemapping using the exponential method.
 
     Parameters
     ----------
@@ -288,6 +309,10 @@ def tonemapping_operator_exponential(
     -------
     ndarray
         Tonemapped *RGB* array.
+
+    References
+    ----------
+    -   :cite:`Banterle2011k`
 
     Examples
     --------
@@ -319,10 +344,7 @@ def tonemapping_operator_exponential(
 
 
 def tonemapping_operator_logarithmic_mapping(
-        RGB,
-        p=1,
-        q=1,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+        RGB, p=1, q=1, colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Performs given *RGB* array tonemapping using the logarithmic mapping
     method.
@@ -345,9 +367,7 @@ def tonemapping_operator_logarithmic_mapping(
 
     References
     ----------
-    .. [3]  Schlick, C. (1994). Quantization Techniques for Visualization of
-            High Dynamic Range Pictures. Proceedings of the Fifth Eurographics
-            Workshop on Rendering, (Section 5), 7–18.
+    -   :cite:`Schlick1994`
 
     Examples
     --------
@@ -376,13 +396,10 @@ def tonemapping_operator_logarithmic_mapping(
 
 
 def tonemapping_operator_exponentiation_mapping(
-        RGB,
-        p=1,
-        q=1,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+        RGB, p=1, q=1, colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Performs given *RGB* array tonemapping using the exponentiation mapping
-    method [3]_.
+    method.
 
     Parameters
     ----------
@@ -399,6 +416,10 @@ def tonemapping_operator_exponentiation_mapping(
     -------
     ndarray
         Tonemapped *RGB* array.
+
+    References
+    ----------
+    -   :cite:`Schlick1994`
 
     Examples
     --------
@@ -425,13 +446,11 @@ def tonemapping_operator_exponentiation_mapping(
     return RGB
 
 
-def tonemapping_operator_Schlick1994(
-        RGB,
-        p=1,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+def tonemapping_operator_Schlick1994(RGB,
+                                     p=1,
+                                     colourspace=RGB_COLOURSPACES['sRGB']):
     """
-    Performs given *RGB* array tonemapping using *Schlick (1994)*
-    method [2]_[3]_.
+    Performs given *RGB* array tonemapping using *Schlick (1994)* method.
 
     Parameters
     ----------
@@ -446,6 +465,11 @@ def tonemapping_operator_Schlick1994(
     -------
     ndarray
         Tonemapped *RGB* array.
+
+    References
+    ----------
+    -   :cite:`Banterle2011k`
+    -   :cite:`Schlick1994`
 
     Examples
     --------
@@ -474,15 +498,14 @@ def tonemapping_operator_Schlick1994(
     return RGB
 
 
-def tonemapping_operator_Tumblin1999(
-        RGB,
-        L_da=20,
-        C_max=100,
-        L_max=100,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+def tonemapping_operator_Tumblin1999(RGB,
+                                     L_da=20,
+                                     C_max=100,
+                                     L_max=100,
+                                     colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Performs given *RGB* array tonemapping using
-    *Tumblin, Hodgins and Guenter (1999)* method [2]_.
+    *Tumblin, Hodgins and Guenter (1999)* method.
 
     Parameters
     ----------
@@ -504,9 +527,7 @@ def tonemapping_operator_Tumblin1999(
 
     References
     ----------
-    .. [4]  Tumblin, J., Hodgins, J. K., & Guenter, B. K. (1999). Two methods
-            for display of high contrast images. ACM Transactions on Graphics.
-            doi:10.1145/300776.300783
+    -   :cite:`Tumblin1999c`
 
     Examples
     --------
@@ -526,9 +547,9 @@ def tonemapping_operator_Tumblin1999(
 
     L_w = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
-    def f(x): return np.where(x > 100,
-                              2.655,
-                              1.855 + 0.4 * np.log10(x + 2.3 * 10 ** -5))
+    def f(x):
+        return np.where(x > 100, 2.655,
+                        1.855 + 0.4 * np.log10(x + 2.3 * 10 ** -5))
 
     L_wa = np.exp(np.mean(np.log(L_w + 2.3 * 10 ** -5)))
     g_d = f(L_da)
@@ -545,13 +566,12 @@ def tonemapping_operator_Tumblin1999(
     return RGB
 
 
-def tonemapping_operator_Reinhard2004(
-        RGB,
-        f=0,
-        m=0.3,
-        a=0,
-        c=0,
-        colourspace=RGB_COLOURSPACES['sRGB']):
+def tonemapping_operator_Reinhard2004(RGB,
+                                      f=0,
+                                      m=0.3,
+                                      a=0,
+                                      c=0,
+                                      colourspace=RGB_COLOURSPACES['sRGB']):
     """
     Performs given *RGB* array tonemapping using *Reinhard and Devlin (2004)*
     method.
@@ -578,9 +598,7 @@ def tonemapping_operator_Reinhard2004(
 
     References
     ----------
-    .. [5]  Reinhard, E., & Devlin, K. (2005). Dynamic range reduction inspired
-            by photoreceptor physiology. IEEE Transactions on Visualization and
-            Computer Graphics, 11(1), 13–24. doi:10.1109/TVCG.2005.9
+    -   :cite:`Reinhard2005c`
 
     Examples
     --------
@@ -599,8 +617,7 @@ def tonemapping_operator_Reinhard2004(
 
     RGB = np.asarray(RGB)
 
-    C_av = np.array((np.average(RGB[..., 0]),
-                     np.average(RGB[..., 1]),
+    C_av = np.array((np.average(RGB[..., 0]), np.average(RGB[..., 1]),
                      np.average(RGB[..., 2])))
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
@@ -610,9 +627,9 @@ def tonemapping_operator_Reinhard2004(
 
     f = np.exp(-f)
 
-    m = (m if m > 0 else
-         (0.3 + 0.7 * ((np.log(L_max) - L_lav) /
-                       (np.log(L_max) - np.log(L_min)) ** 1.4)))
+    m = (m
+         if m > 0 else (0.3 + 0.7 * ((np.log(L_max) - L_lav) /
+                                     (np.log(L_max) - np.log(L_min)) ** 1.4)))
 
     I_l = (c * RGB + (1 - c)) * L[..., np.newaxis]
     I_g = c * C_av + (1 - c) * L_lav
@@ -663,11 +680,8 @@ def tonemapping_operator_filmic(RGB,
 
     References
     ----------
-    .. [6]  Habble, J. (2010). Filmic Tonemapping Operators. Retrieved March
-            15, 2015, from http://filmicgames.com/archives/75
-    .. [7]  Habble, J. (2010). Uncharted 2: HDR Lighting. Retrieved March 15,
-            2015, from
-            http://www.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting
+    -   :cite:`Habble2010d`
+    -   :cite:`Habble2010e`
 
     Examples
     --------
@@ -692,8 +706,9 @@ def tonemapping_operator_filmic(RGB,
     E = toe_numerator
     F = toe_denominator
 
-    def f(x, A, B, C, D, E, F): return (
-        ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F)
+    def f(x, A, B, C, D, E, F):
+        return (((x * (A * x + C * B) + D * E) /
+                 (x * (A * x + B) + D * F)) - E / F)
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
     RGB = RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F))

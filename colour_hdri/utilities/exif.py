@@ -1,19 +1,17 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
-EXIF Manipulation
-=================
+EXIF Data Manipulation
+======================
 
 Exif data manipulation routines based on *exiftool*:
 
--   :func:`parse_exif_data`
--   :func:`read_exif_tags`
--   :func:`copy_exif_tags`
--   :func:`update_exif_tags`
--   :func:`delete_exif_tags`
--   :func:`read_exif_tag`
--   :func:`write_exif_tag`
+-   :func:`colour_hdri.parse_exif_data`
+-   :func:`colour_hdri.read_exif_tags`
+-   :func:`colour_hdri.copy_exif_tags`
+-   :func:`colour_hdri.update_exif_tags`
+-   :func:`colour_hdri.delete_exif_tags`
+-   :func:`colour_hdri.read_exif_tag`
+-   :func:`colour_hdri.write_exif_tag`
 """
 
 from __future__ import division, unicode_literals
@@ -26,36 +24,35 @@ from collections import namedtuple
 from fractions import Fraction
 from six import text_type
 
+from colour.utilities.documentation import DocstringText
+
 from colour_hdri.utilities import vivification
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['EXIF_EXECUTABLE',
-           'ExifTag',
-           'parse_exif_string',
-           'parse_exif_numeric',
-           'parse_exif_fraction',
-           'parse_exif_array',
-           'parse_exif_data',
-           'read_exif_tags',
-           'copy_exif_tags',
-           'update_exif_tags',
-           'delete_exif_tags',
-           'read_exif_tag',
-           'write_exif_tag']
+__all__ = [
+    'EXIF_EXECUTABLE', 'ExifTag', 'parse_exif_string', 'parse_exif_numeric',
+    'parse_exif_fraction', 'parse_exif_array', 'parse_exif_data',
+    'read_exif_tags', 'copy_exif_tags', 'update_exif_tags', 'delete_exif_tags',
+    'read_exif_tag', 'write_exif_tag'
+]
 
 LOGGER = logging.getLogger(__name__)
 
-EXIF_EXECUTABLE = 'exiftool'
+EXIF_EXECUTABLE = DocstringText('exiftool')
+EXIF_EXECUTABLE.__doc__ = """
+Command line exif manipulation application, usually Phil Harvey's *ExifTool*.
+
+EXIF_EXECUTABLE : unicode
+"""
 
 
-class ExifTag(
-        namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
+class ExifTag(namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
     """
     Hunt colour appearance model induction factors.
 
@@ -73,11 +70,10 @@ class ExifTag(
 
     def __new__(cls, group=None, name=None, value=None, identifier=None):
         """
-        Returns a new instance of the :class:`ExifTag` class.
+        Returns a new instance of the :class:`colour_hdri.ExifTag` class.
         """
 
-        return super(ExifTag, cls).__new__(
-            cls, group, name, value, identifier)
+        return super(ExifTag, cls).__new__(cls, group, name, value, identifier)
 
 
 def parse_exif_string(exif_tag):
@@ -180,9 +176,7 @@ def parse_exif_data(data):
         data)
 
     return map(lambda x: x.strip() if x is not None else x,
-               (search.group('group'),
-                search.group('id'),
-                search.group('tag'),
+               (search.group('group'), search.group('id'), search.group('tag'),
                 search.group('value')))
 
 
@@ -204,9 +198,10 @@ def read_exif_tags(image):
     LOGGER.info("Reading '{0}' image exif data.".format(image))
 
     exif_tags = vivification()
-    lines = text_type(subprocess.check_output(
-        [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
-        'utf-8', 'ignore').split('\n')
+    lines = text_type(
+        subprocess.check_output(
+            [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]), 'utf-8',
+        'ignore').split('\n')
 
     for line in lines:
         if not line.strip():
@@ -239,15 +234,12 @@ def copy_exif_tags(source, target):
         Definition success.
     """
 
-    LOGGER.info("Copying '{0}' file exif data to '{1}' file.".format(
-        source, target))
+    LOGGER.info(
+        "Copying '{0}' file exif data to '{1}' file.".format(source, target))
 
-    subprocess.check_output(
-        [EXIF_EXECUTABLE,
-         '-overwrite_original',
-         '-TagsFromFile',
-         '{0}'.format(source),
-         '{0}'.format(target)])
+    arguments = [EXIF_EXECUTABLE, '-overwrite_original', '-TagsFromFile']
+    arguments += [source, target]
+    subprocess.check_output(arguments)
 
     return True
 
@@ -314,8 +306,8 @@ def read_exif_tag(image, tag):
         Tag value.
     """
 
-    value = text_type(subprocess.check_output(
-        [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
+    value = text_type(
+        subprocess.check_output([EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
         'utf-8', 'ignore').split(':').pop().strip()
 
     LOGGER.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
@@ -346,8 +338,8 @@ def write_exif_tag(image, tag, value):
     LOGGER.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
         image, tag, value))
 
-    subprocess.check_output(
-        [EXIF_EXECUTABLE, '-overwrite_original', '-{0}={1}'.format(tag, value),
-         image])
+    arguments = [EXIF_EXECUTABLE, '-overwrite_original']
+    arguments += ['-{0}={1}'.format(tag, value), image]
+    subprocess.check_output(arguments)
 
     return True
