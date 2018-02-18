@@ -19,7 +19,7 @@ References
 -   :cite:`Debevec1997a` : Debevec, P. E., & Malik, J. (1997). Recovering high
     dynamic range radiance maps from photographs. In Proceedings of the 24th
     annual conference on Computer graphics and interactive techniques -
-    SIGGRAPH ’97 (pp. 369–378). New York, New York, USA: ACM Press.
+    SIGGRAPH '97 (pp. 369-378). New York, New York, USA: ACM Press.
     doi:10.1145/258734.258884
 """
 
@@ -46,7 +46,7 @@ __all__ = ['g_solve', 'camera_response_functions_Debevec1997']
 def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     """
     Given a set of pixel values observed for several pixels in several images
-    with different exposure times, this function returns the imaging system’s
+    with different exposure times, this function returns the imaging system's
     response function :math:`g` as well as the log film irradiance values
     :math:`lE` for the observed pixels.
 

@@ -14,7 +14,7 @@ References
 -   :cite:`Grossberg2003g` : Grossberg, M. D., & Nayar, S. K. (2003).
     Determining the camera response from images: What is knowable? IEEE
     Transactions on Pattern Analysis and Machine Intelligence, 25(11),
-    1455–1467. doi:10.1109/TPAMI.2003.1240119
+    1455-1467. doi:10.1109/TPAMI.2003.1240119
 """
 
 from __future__ import division, unicode_literals

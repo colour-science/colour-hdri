@@ -99,7 +99,7 @@ References
     (DNG) Specification (p. 80).
 -   :cite:`AdobeSystems2012d` : Adobe Systems. (2012). Translating Camera
     Neutral Coordinates to White Balance xy Coordinates. In Digital Negative
-    (DNG) Specification (pp. 80–81).
+    (DNG) Specification (pp. 80-81).
 -   :cite:`AdobeSystems2012f` : Adobe Systems. (2012). Digital Negative (DNG)
     Specification.
 -   :cite:`AdobeSystems2012g` : Adobe Systems. (2012). Camera to XYZ (D50)

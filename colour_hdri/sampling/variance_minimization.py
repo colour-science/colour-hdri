@@ -11,8 +11,8 @@ light_probe_sampling_variance_minimization_Viriyothai2009`
 References
 ----------
 -   :cite:`Viriyothai2009` : Viriyothai, K., & Debevec, P. (2009). Variance
-    minimization light probe sampling. In SIGGRAPH ’09: Posters on - SIGGRAPH
-    ’09 (pp. 1–1). New York, New York, USA: ACM Press.
+    minimization light probe sampling. In SIGGRAPH '09: Posters on - SIGGRAPH
+    '09 (pp. 1-1). New York, New York, USA: ACM Press.
     doi:10.1145/1599301.1599393
 """
 
