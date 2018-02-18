@@ -8,6 +8,7 @@ Pypi Setup
 from __future__ import unicode_literals
 
 import os
+import re
 
 from setuptools import setup
 from setuptools import find_packages
@@ -22,7 +23,7 @@ __status__ = 'Production'
 __all__ = [
     'SHORT_DESCRIPTION', 'LONG_DESCRIPTION', 'INSTALLATION_REQUIREMENTS',
     'OPTIONAL_REQUIREMENTS', 'PLOTTING_REQUIREMENTS', 'DOCS_REQUIREMENTS',
-    'TESTS_REQUIREMENTS'
+    'TESTS_REQUIREMENTS', 'DEVELOPMENT_REQUIREMENTS'
 ]
 
 SHORT_DESCRIPTION = 'Colour - HDRI'
@@ -30,6 +31,9 @@ SHORT_DESCRIPTION = 'Colour - HDRI'
 LONG_DESCRIPTION = open('README.rst').read()
 
 INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.9', 'recordclass>=0.4']
+
+if os.environ.get('READTHEDOCS') == 'True':
+    INSTALLATION_REQUIREMENTS += ['mock', 'sphinxcontrib-bibtex']
 
 OPTIONAL_REQUIREMENTS = ['rawpy>=0.5.0']
 
@@ -41,24 +45,49 @@ DOCS_REQUIREMENTS = [
 
 TESTS_REQUIREMENTS = ['coverage>=3.7.1', 'flake8>=2.1.0', 'nose>=1.3.4']
 
-if os.environ.get('READTHEDOCS') == 'True':
-    INSTALLATION_REQUIREMENTS += ['mock', 'sphinxcontrib-bibtex']
+DEVELOPMENT_REQUIREMENTS = TESTS_REQUIREMENTS + [
+    'invoke', 'restructuredtext_lint', 'twine', 'yapf'
+]
+
+
+def get_version():
+    """
+    Returns the package full version.
+
+    Returns
+    -------
+    unicode
+        Package full version.
+    """
+
+    with open(os.path.join('colour_hdri', '__init__.py')) as file_handle:
+        file_content = file_handle.read()
+        major_version = re.search("__major_version__\s+=\s+'(.*)'",
+                                  file_content).group(1)
+        minor_version = re.search("__minor_version__\s+=\s+'(.*)'",
+                                  file_content).group(1)
+        change_version = re.search("__change_version__\s+=\s+'(.*)'",
+                                   file_content).group(1)
+
+        return '.'.join((major_version, minor_version, change_version))
+
 
 setup(
     name='colour-hdri',
-    version='0.1.3',
+    version=get_version(),
     author=__author__,
     author_email=__email__,
     include_package_data=True,
     packages=find_packages(),
     scripts=[],
     url='http://github.com/colour-science/colour-hdri',
-    license='',
+    license=__license__,
     description=SHORT_DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     install_requires=INSTALLATION_REQUIREMENTS,
     extras_require={
         'docs': DOCS_REQUIREMENTS,
+        'development': DEVELOPMENT_REQUIREMENTS,
         'optional': OPTIONAL_REQUIREMENTS,
         'plotting': PLOTTING_REQUIREMENTS,
         'tests': TESTS_REQUIREMENTS
