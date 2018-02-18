@@ -86,9 +86,9 @@ else:
 
 if DNG_CONVERTER is not None:
     DNG_CONVERTER.__doc__ = """
-    Command line *DNG* conversion application, usually *Adobe DNG Converter*.
-    
-    DNG_CONVERTER : unicode
+Command line *DNG* conversion application, usually *Adobe DNG Converter*.
+
+DNG_CONVERTER : unicode
 """
 
 DNG_CONVERSION_ARGUMENTS = DocstringText('-l -d "{0}" "{1}"')
