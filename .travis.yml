@@ -52,7 +52,7 @@ install:
 
 script:
   - flake8 colour_hdri
-  - nosetests --nocapture --with-doctest --doctest-options=+ELLIPSIS,+NORMALIZE_WHITESPACE --with-coverage --cover-package=colour_hdri -exclude-dir=
+  - nosetests --nocapture --with-doctest --doctest-options=+ELLIPSIS,+NORMALIZE_WHITESPACE --with-coverage --cover-package=colour_hdri colour_hdri
 
 after_success:
   - coveralls
