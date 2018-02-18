@@ -30,7 +30,7 @@ SHORT_DESCRIPTION = 'Colour - HDRI'
 
 LONG_DESCRIPTION = open('README.rst').read()
 
-INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.9', 'recordclass>=0.4']
+INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.11', 'recordclass>=0.4']
 
 if os.environ.get('READTHEDOCS') == 'True':
     INSTALLATION_REQUIREMENTS += ['mock', 'sphinxcontrib-bibtex']
