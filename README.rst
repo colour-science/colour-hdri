@@ -3,33 +3,20 @@ Colour - HDRI
 
 ..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/master/docs/_static/Radiance_001.png
 
-.. list-table::
-    :stub-columns: 1
+.. start-badges
 
-    * - Status
-      - |waffle| |travis| |coveralls| |scrutinizer| |landscape| |gemnasium|
-    * - Package
-      - |version|
+|travis| |coveralls| |codacy| |version|
 
-.. |waffle| image:: https://badge.waffle.io/colour-science/colour-hdri.svg?label=ready&title=Ready
-    :target: https://github.com/colour-science/colour-hdri/issues
-    :alt: Issues Ready
-.. |travis| image:: https://img.shields.io/travis/colour-science/colour-hdri/develop.svg
+.. |travis| image:: https://img.shields.io/travis/colour-science/colour-hdri/develop.svg?style=flat-square
     :target: https://travis-ci.org/colour-science/colour-hdri
     :alt: Develop Build Status
-.. |coveralls| image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg
+.. |coveralls| image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg?style=flat-square
     :target: https://coveralls.io/r/colour-science/colour-hdri
     :alt: Coverage Status
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/colour-science/colour-hdri/develop.svg
-    :target: https://scrutinizer-ci.com/g/colour-science/colour-hdri/
-    :alt: Code Quality
-.. |landscape| image:: https://landscape.io/github/colour-science/colour-hdri/master/landscape.png
-    :target: https://landscape.io/github/colour-science/colour-hdri
-    :alt: Code Quality
-.. |gemnasium| image:: https://img.shields.io/gemnasium/colour-science/colour-hdri.svg
-    :target: https://gemnasium.com/colour-science/colour-hdri
-    :alt: Dependencies Status
-.. |version| image:: https://badge.fury.io/py/colour-hdri.svg
+.. |codacy| image:: https://img.shields.io/codacy/grade/290ad2c23b0749b99a1d548ca47d9062/develop.svg?style=flat-square
+    :target: https://www.codacy.com/app/colour-science/colour-hdri
+    :alt: Code Grade
+.. |version| image:: https://img.shields.io/pypi/v/colour-hdri.svg?style=flat-square
     :target: https://pypi.python.org/pypi/colour-hdri
     :alt: Package Version
 
