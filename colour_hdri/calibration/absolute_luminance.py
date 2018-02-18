@@ -69,7 +69,7 @@ def upper_hemisphere_illuminance_Lagarde2016(
 
     RGB = np.asarray(RGB)
 
-    height, width, channels = RGB.shape
+    height, width, _channels = RGB.shape
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 

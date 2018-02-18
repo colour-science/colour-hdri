@@ -108,7 +108,7 @@ def find_regions_variance_minimization_Viriyothai2009(a, n=4):
 
     regions = [(0, a.shape[0], 0, a.shape[1])]
 
-    for i in range(n):
+    for _i in range(n):
         sub_regions = []
         for region in regions:
             variance = np.inf

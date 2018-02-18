@@ -192,7 +192,8 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
             os.path.basename(
                 re.sub('{0}$'.format(raw_file_extension), '.dng', raw_file)))
 
-        path_exists(dng_file) and os.remove(dng_file)
+        if path_exists(dng_file):
+            os.remove(dng_file)
 
         LOGGER.info(
             'Converting "{0}" file to "{1}" file.'.format(raw_file, dng_file))
@@ -235,7 +236,8 @@ def convert_dng_files_to_intermediate_files(dng_files,
     for dng_file in dng_files:
         intermediate_file = re.sub('\.dng$', '.tiff', dng_file)
 
-        path_exists(intermediate_file) and os.remove(intermediate_file)
+        if path_exists(intermediate_file):
+            os.remove(intermediate_file)
 
         LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
             dng_file, intermediate_file))
@@ -252,7 +254,9 @@ def convert_dng_files_to_intermediate_files(dng_files,
         tiff_file = os.path.join(output_directory,
                                  os.path.basename(intermediate_file))
         if tiff_file != intermediate_file:
-            path_exists(tiff_file) and os.remove(tiff_file)
+            if path_exists(tiff_file):
+                os.remove(tiff_file)
+
             os.rename(intermediate_file, tiff_file)
 
         intermediate_files.append(tiff_file)
