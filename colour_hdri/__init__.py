@@ -119,7 +119,7 @@ __application_name__ = 'Colour - HDRI'
 
 __major_version__ = '0'
 __minor_version__ = '1'
-__change_version__ = '3'
+__change_version__ = '4'
 __version__ = '.'.join(
     (__major_version__,
      __minor_version__,
