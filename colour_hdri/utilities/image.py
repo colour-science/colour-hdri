@@ -257,7 +257,8 @@ class Image(object):
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:
-            white_level = parse_exif_numeric(white_level[0]) / 65535
+            white_level = parse_exif_array(white_level[0])
+            white_level = np.asarray(white_level) / 65535
 
         white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
         if white_balance_multipliers is not None:
