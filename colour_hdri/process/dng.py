@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Adobe DNG SDK Conversion Process
@@ -7,9 +6,9 @@ Adobe DNG SDK Conversion Process
 Defines various objects implementing raw conversion based on *Adobe DNG SDK*
 and *dcraw*:
 
--   :func:`convert_raw_files_to_dng_files`
--   :func:`convert_dng_files_to_intermediate_files`
--   :func:`read_dng_files_exif_tags`
+-   :func:`colour_hdri.convert_raw_files_to_dng_files`
+-   :func:`colour_hdri.convert_dng_files_to_intermediate_files`
+-   :func:`colour_hdri.read_dng_files_exif_tags`
 """
 
 from __future__ import division, unicode_literals
@@ -23,14 +22,15 @@ import shlex
 import subprocess
 from copy import deepcopy
 
-from colour import CaseInsensitiveMapping, warning
+from colour.utilities import CaseInsensitiveMapping, warning
+from colour.utilities.documentation import DocstringText
 
 from colour_hdri.utilities import (ExifTag, parse_exif_array,
                                    parse_exif_numeric, parse_exif_string,
                                    path_exists, read_exif_tags)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -45,27 +45,28 @@ __all__ = [
 
 LOGGER = logging.getLogger(__name__)
 
-RAW_CONVERTER = 'dcraw'
-"""
+RAW_CONVERTER = DocstringText('dcraw')
+RAW_CONVERTER.__doc__ = """
 Command line raw conversion application, usually Dave Coffin's *dcraw*.
 
 RAW_CONVERTER : unicode
 """
 
-RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
+RAW_CONVERSION_ARGUMENTS = DocstringText('-t 0 -D -W -4 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
     RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', '')
-"""
+RAW_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for non demosaiced
 linear *tiff* file format output.
 
 RAW_CONVERSION_ARGUMENTS : unicode
 """
 
-RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
+RAW_D_CONVERSION_ARGUMENTS = DocstringText(
+    '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
     RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', '')
-"""
+RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
 
@@ -73,23 +74,27 @@ RAW_D_CONVERSION_ARGUMENTS : unicode
 """
 
 if platform.system() == 'Darwin':
-    DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
-                     'MacOS/Adobe DNG Converter')
+    DNG_CONVERTER = DocstringText(
+        '/Applications/Adobe DNG Converter.app/Contents/'
+        'MacOS/Adobe DNG Converter')
 elif platform.system() in ('Windows', 'Microsoft'):
-    DNG_CONVERTER = 'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe'
+    DNG_CONVERTER = DocstringText(
+        'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe')
 else:
     DNG_CONVERTER = None
     warning('"Adobe DNG Converter" is not available on your platform!')
-"""
+
+if DNG_CONVERTER is not None:
+    DNG_CONVERTER.__doc__ = """
 Command line *DNG* conversion application, usually *Adobe DNG Converter*.
 
 DNG_CONVERTER : unicode
 """
 
-DNG_CONVERSION_ARGUMENTS = '-e -d "{0}" "{1}"'
+DNG_CONVERSION_ARGUMENTS = DocstringText('-l -d "{0}" "{1}"')
 if platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
-"""
+DNG_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line *dng* conversion application.
 
 DNG_CONVERSION_ARGUMENTS : unicode
@@ -112,7 +117,7 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
             'Black Level Repeat Dim': (lambda x: parse_exif_array(x, np.int_),
                                        None),
             'Black Level': (lambda x: parse_exif_array(x, np.int_), None),
-            'White Level': (lambda x: parse_exif_numeric(x, np.int_), None),
+            'White Level': (lambda x: parse_exif_array(x, np.int_), None),
             'Samples Per Pixel': (lambda x: parse_exif_numeric(x, np.int_),
                                   None),
             'Active Area': (lambda x: parse_exif_array(x, np.int_), None),
@@ -157,7 +162,7 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
                                None)
         })
 })
-"""
+DNG_EXIF_TAGS_BINDING.__doc__ = """
 Exif tags binding for a *dng* file.
 
 DNG_EXIF_TAGS_BINDING : CaseInsensitiveMapping
@@ -189,7 +194,8 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
             os.path.basename(
                 re.sub('{0}$'.format(raw_file_extension), '.dng', raw_file)))
 
-        path_exists(dng_file) and os.remove(dng_file)
+        if path_exists(dng_file):
+            os.remove(dng_file)
 
         LOGGER.info(
             'Converting "{0}" file to "{1}" file.'.format(raw_file, dng_file))
@@ -232,7 +238,8 @@ def convert_dng_files_to_intermediate_files(dng_files,
     for dng_file in dng_files:
         intermediate_file = re.sub('\.dng$', '.tiff', dng_file)
 
-        path_exists(intermediate_file) and os.remove(intermediate_file)
+        if path_exists(intermediate_file):
+            os.remove(intermediate_file)
 
         LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
             dng_file, intermediate_file))
@@ -249,7 +256,9 @@ def convert_dng_files_to_intermediate_files(dng_files,
         tiff_file = os.path.join(output_directory,
                                  os.path.basename(intermediate_file))
         if tiff_file != intermediate_file:
-            path_exists(tiff_file) and os.remove(tiff_file)
+            if path_exists(tiff_file):
+                os.remove(tiff_file)
+
             os.rename(intermediate_file, tiff_file)
 
         intermediate_files.append(tiff_file)

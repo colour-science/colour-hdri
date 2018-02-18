@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 HDRI / Radiance Image Plotting
@@ -6,7 +5,7 @@ HDRI / Radiance Image Plotting
 
 Defines the HDRI / radiance image plotting objects:
 
--   :func:`radiance_image_strip_plot`
+-   :func:`colour_hdri.plotting.radiance_image_strip_plot`
 """
 
 from __future__ import division, unicode_literals
@@ -19,7 +18,7 @@ from colour.plotting import DEFAULT_PLOTTING_ENCODING_CCTF, display
 from colour_hdri.utilities.exposure import adjust_exposure
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -51,8 +50,8 @@ def radiance_image_strip_plot(image,
     Other Parameters
     ----------------
     \**kwargs : dict, optional
-        {:func:`display`},
-        Please refer to the documentation of the previously listed definitions.
+        {:func:`colour.plotting.display`},
+        Please refer to the documentation of the previously listed definition.
 
     Returns
     -------

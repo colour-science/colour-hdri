@@ -1,18 +1,17 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-EXIF Manipulation
-=================
+EXIF Data Manipulation
+======================
 
 Exif data manipulation routines based on *exiftool*:
 
--   :func:`parse_exif_data`
--   :func:`read_exif_tags`
--   :func:`copy_exif_tags`
--   :func:`update_exif_tags`
--   :func:`delete_exif_tags`
--   :func:`read_exif_tag`
--   :func:`write_exif_tag`
+-   :func:`colour_hdri.parse_exif_data`
+-   :func:`colour_hdri.read_exif_tags`
+-   :func:`colour_hdri.copy_exif_tags`
+-   :func:`colour_hdri.update_exif_tags`
+-   :func:`colour_hdri.delete_exif_tags`
+-   :func:`colour_hdri.read_exif_tag`
+-   :func:`colour_hdri.write_exif_tag`
 """
 
 from __future__ import division, unicode_literals
@@ -25,10 +24,12 @@ from collections import namedtuple
 from fractions import Fraction
 from six import text_type
 
+from colour.utilities.documentation import DocstringText
+
 from colour_hdri.utilities import vivification
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -43,7 +44,12 @@ __all__ = [
 
 LOGGER = logging.getLogger(__name__)
 
-EXIF_EXECUTABLE = 'exiftool'
+EXIF_EXECUTABLE = DocstringText('exiftool')
+EXIF_EXECUTABLE.__doc__ = """
+Command line exif manipulation application, usually Phil Harvey's *ExifTool*.
+
+EXIF_EXECUTABLE : unicode
+"""
 
 
 class ExifTag(namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
@@ -64,7 +70,7 @@ class ExifTag(namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
 
     def __new__(cls, group=None, name=None, value=None, identifier=None):
         """
-        Returns a new instance of the :class:`ExifTag` class.
+        Returns a new instance of the :class:`colour_hdri.ExifTag` class.
         """
 
         return super(ExifTag, cls).__new__(cls, group, name, value, identifier)

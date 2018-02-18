@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Absolute Luminance Calibration - Lagarde (2016)
@@ -7,16 +6,16 @@ Absolute Luminance Calibration - Lagarde (2016)
 Defines *Lagarde (2016)* panoramic images absolute *Luminance* calibration
 objects:
 
--   :func:`absolute_luminance_calibration_Lagarde2016`
--   :func:`upper_hemisphere_illuminance_Lagarde2016`
--   :func:`upper_hemisphere_illuminance_weights_Lagarde2016`
+-   :func:`colour_hdri.absolute_luminance_calibration_Lagarde2016`
+-   :func:`colour_hdri.upper_hemisphere_illuminance_Lagarde2016`
+-   :func:`colour_hdri.upper_hemisphere_illuminance_weights_Lagarde2016`
 
 References
 ----------
-.. [1]  Lagarde, S., Lachambre, S., & Jover, C. (2016). An Artist-Friendly
-        Workflow for Panoramic HDRI. Retrieved from
-        http://blog.selfshadow.com/publications/s2016-shading-course/\
-unity/s2016_pbs_unity_hdri_notes.pdf
+-   :cite:`Lagarde2016b` : Lagarde, S., Lachambre, S., & Jover, C. (2016). An
+    Artist-Friendly Workflow for Panoramic HDRI. Retrieved from
+    http://blog.selfshadow.com/publications/s2016-shading-course/unity/\
+s2016_pbs_unity_hdri_notes.pdf
 """
 
 from __future__ import division, unicode_literals
@@ -26,7 +25,7 @@ import numpy as np
 from colour import RGB_COLOURSPACES, RGB_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -57,6 +56,10 @@ def upper_hemisphere_illuminance_Lagarde2016(
     numeric
         Upper hemisphere illuminance :math:`E_v`.
 
+    References
+    ----------
+    -   :cite:`Lagarde2016b`
+
     Examples
     --------
     >>> RGB = np.ones((16, 32, 3))
@@ -66,7 +69,7 @@ def upper_hemisphere_illuminance_Lagarde2016(
 
     RGB = np.asarray(RGB)
 
-    height, width, channels = RGB.shape
+    height, width, _channels = RGB.shape
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
@@ -98,6 +101,10 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
     -------
     ndarray
         Upper hemisphere illuminance weights.
+
+    References
+    ----------
+    -   :cite:`Lagarde2016b`
 
     Examples
     --------

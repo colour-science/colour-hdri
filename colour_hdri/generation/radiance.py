@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 HDRI / Radiance Image Generation
@@ -6,7 +5,7 @@ HDRI / Radiance Image Generation
 
 Defines HDRI / radiance image generation objects:
 
--   :func:`image_stack_to_radiance_image`
+-   :func:`colour_hdri.image_stack_to_radiance_image`
 
 See Also
 --------
@@ -16,22 +15,23 @@ blob/master/colour_hdri/examples>`_
 
 References
 ----------
-.. [1]  Banterle, F., Artusi, A., Debattista, K., & Chalmers, A. (2011). 2.1.1
-        Generating HDR Content by Combining Multiple Exposures. Advanced High
-        Dynamic Range Imaging. A K Peters/CRC Press. ISBN:978-1568817194
+-   :cite:`Banterle2011n` : Banterle, F., Artusi, A., Debattista, K., &
+    Chalmers, A. (2011). 2.1.1 Generating HDR Content by Combining Multiple
+    Exposures. Advanced High Dynamic Range Imaging. A K Peters/CRC Press.
+    ISBN:978-1568817194
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tsplit, tstack, warning
+from colour.utilities import tsplit, tstack, warning
 
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -50,7 +50,7 @@ def image_stack_to_radiance_image(
 
     Parameters
     ----------
-    image_stack : ImageStack
+    image_stack : colour_hdri.ImageStack
         Stack of single channel or multi-channel floating point images. The
         stack is assumed to be representing linear values except if
         ``camera_response_functions`` argument is provided.
@@ -74,6 +74,10 @@ def image_stack_to_radiance_image(
     unpredictable results may occur and NaNs might be generated. It is
     thus recommended to encode the images in a wider RGB colourspace or clamp
     negative values.
+
+    References
+    ----------
+    -   :cite:`Banterle2011n`
     """
 
     image_c = None

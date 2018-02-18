@@ -1,25 +1,32 @@
-colour_hdri.models Package
-==========================
+Colour Models
+=============
 
-Sub-Packages
-------------
+.. contents:: :local:
 
-.. toctree::
+Adobe DNG SDK
+-------------
 
-    colour_hdri.models.dataset
+``colour_hdri``
 
-Sub-Modules
------------
+.. currentmodule:: colour_hdri
 
-.. toctree::
+.. autosummary::
+    :toctree: generated/
 
-   colour_hdri.models.dng
-   colour_hdri.models.rgb
+    xy_to_camera_neutral
+    camera_neutral_to_xy
+    XYZ_to_camera_space_matrix
+    camera_space_to_XYZ_matrix
 
-Module Contents
----------------
+RGB Models
+----------
 
-.. automodule:: colour_hdri.models
-    :members:
-    :undoc-members:
-    :show-inheritance:
+``colour_hdri``
+
+.. currentmodule:: colour_hdri
+
+.. autosummary::
+    :toctree: generated/
+
+    camera_space_to_RGB
+    camera_space_to_sRGB

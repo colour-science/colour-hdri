@@ -1,18 +1,28 @@
-colour_hdri.plotting Package
-============================
+Plotting
+========
 
-Sub-Modules
------------
+.. contents:: :local:
 
-.. toctree::
+HDRI / Radiance Image
+---------------------
 
-   colour_hdri.plotting.radiance
-   colour_hdri.plotting.tonemapping
+``colour_hdri.plotting``
 
-Module Contents
----------------
+.. currentmodule:: colour_hdri.plotting
 
-.. automodule:: colour_hdri.plotting
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. autosummary::
+    :toctree: generated/
+
+    radiance_image_strip_plot
+
+Tonemapping Operators
+---------------------
+
+``colour_hdri.plotting``
+
+.. currentmodule:: colour_hdri.plotting
+
+.. autosummary::
+    :toctree: generated/
+
+    tonemapping_operator_image_plot

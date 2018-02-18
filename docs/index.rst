@@ -84,9 +84,12 @@ API
 ^^^
 
 The main reference for `Colour - HDRI <https://github.com/colour-science/colour-hdri>`_
-is the complete Sphinx API Reference:
+is the manual:
 
--   :doc:`API Reference <api>`
+.. toctree::
+    :maxdepth: 4
+
+    manual
 
 Examples
 ^^^^^^^^
@@ -104,14 +107,14 @@ guide for `Colour <https://github.com/colour-science/colour>`_.
 Bibliography
 ------------
 
-The bibliography is available in the repository in either
+The bibliography is available in the repository in
 `BibTeX <https://github.com/colour-science/colour-hdri/blob/develop/BIBLIOGRAPHY.bib>`_
-format or `reStructuredText <https://github.com/colour-science/colour-hdri/blob/develop/BIBLIOGRAPHY.rst>`_.
+format.
 
 About
 -----
 
 | **Colour - HDRI** by Colour Developers
-| Copyright © 2015-2017 – Colour Developers – `colour-science@googlegroups.com <colour-science@googlegroups.com>`_
+| Copyright © 2015-2018 – Colour Developers – `colour-science@googlegroups.com <colour-science@googlegroups.com>`_
 | This software is released under terms of New BSD License: http://opensource.org/licenses/BSD-3-Clause
 | `http://github.com/colour-science/colour-hdri <http://github.com/colour-science/colour-hdri>`_

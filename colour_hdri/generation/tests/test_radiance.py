@@ -18,7 +18,7 @@ from colour_hdri.calibration import camera_response_functions_Debevec1997
 from colour_hdri.utilities import ImageStack, filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -54,12 +54,14 @@ radiance.image_stack_to_radiance_image` definition.
         image_stack.data = RGB_COLOURSPACES['sRGB'].decoding_cctf(
             image_stack.data)
 
-        np.testing.assert_almost_equal(
+        # Lower precision for unit tests under *travis-ci*.
+        np.testing.assert_allclose(
             image_stack_to_radiance_image(image_stack),
             np.load(
                 os.path.join(GENERATION_DIRECTORY,
                              'test_radiance_image_linear.npy')),
-            decimal=7)
+            rtol=0.0001,
+            atol=0.0001)
 
         # Lower precision for unit tests under *travis-ci*.
         image_stack = ImageStack.from_files(JPG_IMAGES)
@@ -71,8 +73,8 @@ radiance.image_stack_to_radiance_image` definition.
             np.load(
                 os.path.join(GENERATION_DIRECTORY,
                              'test_radiance_image_crfs.npy')),
-            rtol=0.00001,
-            atol=0.00001)
+            rtol=0.0001,
+            atol=0.0001)
 
 
 if __name__ == '__main__':

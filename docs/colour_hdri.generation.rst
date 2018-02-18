@@ -1,18 +1,30 @@
-colour_hdri.generation Package
-==============================
+HDRI / Radiance Image Generation
+================================
 
-Sub-Modules
------------
+.. contents:: :local:
 
-.. toctree::
+Generation
+----------
 
-   colour_hdri.generation.radiance
-   colour_hdri.generation.weighting_functions
+``colour_hdri``
 
-Module Contents
----------------
+.. currentmodule:: colour_hdri
 
-.. automodule:: colour_hdri.generation
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. autosummary::
+    :toctree: generated/
+
+    image_stack_to_radiance_image
+
+Weighting Functions
+-------------------
+
+``colour_hdri``
+
+.. currentmodule:: colour_hdri
+
+.. autosummary::
+    :toctree: generated/
+
+    normal_distribution_function
+    hat_function
+    weighting_function_Debevec1997

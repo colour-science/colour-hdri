@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Tonemapping Operators Plotting
@@ -6,7 +5,7 @@ Tonemapping Operators Plotting
 
 Defines the tonemapping operators plotting objects:
 
--   :func:`radiance_image_strip_plot`
+-   :func:`colour_hdri.plotting.tonemapping_operator_image_plot`
 """
 
 from __future__ import division, unicode_literals
@@ -21,7 +20,7 @@ from colour.plotting import (DEFAULT_PLOTTING_ENCODING_CCTF, boundaries,
                              canvas, display, decorate)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -54,9 +53,8 @@ def tonemapping_operator_image_plot(
     Other Parameters
     ----------------
     \**kwargs : dict, optional
-        {:func:`boundaries`, :func:`canvas`, :func:`decorate`,
-        :func:`display`},
-        Please refer to the documentation of the previously listed definitions.
+        {:func:`colour.plotting.render`},
+        Please refer to the documentation of the previously listed definition.
 
     Returns
     -------

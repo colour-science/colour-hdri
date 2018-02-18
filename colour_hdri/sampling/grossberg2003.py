@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Grossberg (2003) Histogram Based Image Sampling
@@ -6,26 +5,26 @@ Grossberg (2003) Histogram Based Image Sampling
 
 Defines *Grossberg (2003)* histogram based image sampling objects:
 
--   :func:`samples_Grossberg2003`
+-   :func:`colour_hdri.samples_Grossberg2003`
 
 References
 ----------
-.. [1]  Grossberg, M. D., & Nayar, S. K. (2003). Determining the camera
-        response from images: What is knowable? IEEE Transactions on Pattern
-        Analysis and Machine Intelligence, 25(11), 1455–1467.
-        doi:10.1109/TPAMI.2003.1240119
-.. [2]  Banterle, F., & Benedetti, L. (2014). PICCANTE: An Open and Portable
-        Library for HDR Imaging.
+-   :cite:`Banterle2014a` : Banterle, F., & Benedetti, L. (2014). PICCANTE: An
+    Open and Portable Library for HDR Imaging.
+-   :cite:`Grossberg2003g` : Grossberg, M. D., & Nayar, S. K. (2003).
+    Determining the camera response from images: What is knowable? IEEE
+    Transactions on Pattern Analysis and Machine Intelligence, 25(11),
+    1455-1467. doi:10.1109/TPAMI.2003.1240119
 """
 
 from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour import tsplit, tstack
+from colour.utilities import tsplit, tstack
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -52,6 +51,11 @@ def samples_Grossberg2003(image_stack, samples=1000, n=256):
     -------
     ndarray
         Intensity histograms samples.
+
+    References
+    ----------
+    -   :cite:`Banterle2014a`
+    -   :cite:`Grossberg2003g`
     """
 
     image_stack = np.asarray(image_stack)

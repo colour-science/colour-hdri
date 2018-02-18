@@ -12,6 +12,7 @@ import platform
 import shutil
 import tempfile
 import unittest
+import zipfile
 
 from colour import read_image
 
@@ -22,7 +23,7 @@ from colour_hdri.process import (convert_raw_files_to_dng_files,
 from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2017 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -124,8 +125,31 @@ convert_dng_files_to_intermediate_files` definition.
                                                       tests_dng_files):
             shutil.copyfile(reference_dng_file, tests_dng_file)
 
+        reference_zip_files = sorted(
+            filter_files(PROCESS_DIRECTORY, ('zip', )))
+
+        for reference_zip_file in reference_zip_files:
+            with zipfile.ZipFile(reference_zip_file) as zip_file:
+                tiff_file_name = os.path.basename(reference_zip_file).replace(
+                    '.zip', '')
+                with open(
+                        os.path.join(self._temporary_directory,
+                                     tiff_file_name),
+                        'wb') as reference_tiff_file:
+                    reference_tiff_file.write(zip_file.read(tiff_file_name))
+
         reference_tiff_files = sorted(
-            filter_files(PROCESS_DIRECTORY, ('tiff', )))
+            filter_files(self._temporary_directory, ('tiff', )))
+
+        # for reference_tiff_file in reference_tiff_files:
+        #     os.chdir(os.path.dirname(reference_tiff_file))
+        #     with zipfile.ZipFile(
+        #             '{0}.zip'.format(reference_tiff_file),
+        #             mode='w') as zip_file:
+        #         zip_file.write(
+        #             os.path.basename(reference_tiff_file),
+        #             compress_type=zipfile.ZIP_DEFLATED)
+        #         os.remove(reference_tiff_file)
 
         test_tiff_files = sorted(
             convert_dng_files_to_intermediate_files(tests_dng_files,
