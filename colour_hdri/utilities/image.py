@@ -17,6 +17,7 @@ import numpy as np
 from collections import MutableSequence
 from recordclass import recordclass
 
+from colour.constants import DEFAULT_FLOAT_DTYPE
 from colour.io import read_image
 from colour.utilities import is_string, tsplit, tstack, warning
 
@@ -253,11 +254,14 @@ class Image(object):
         black_level = exif_data['EXIF'].get('Black Level')
         if black_level is not None:
             black_level = parse_exif_array(black_level[0])
-            black_level = np.asarray(black_level) / 65535
+            black_level = np.asarray(
+                black_level, dtype=DEFAULT_FLOAT_DTYPE) / 65535
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:
-            white_level = parse_exif_numeric(white_level[0]) / 65535
+            white_level = parse_exif_array(white_level[0])
+            white_level = np.asarray(
+                white_level, dtype=DEFAULT_FLOAT_DTYPE) / 65535
 
         white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
         if white_balance_multipliers is not None:

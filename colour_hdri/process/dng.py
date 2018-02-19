@@ -54,7 +54,8 @@ RAW_CONVERTER : unicode
 
 RAW_CONVERSION_ARGUMENTS = DocstringText('-t 0 -D -W -4 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
-    RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', '')
+    RAW_CONVERSION_ARGUMENTS = DocstringText(
+        RAW_CONVERSION_ARGUMENTS.replace('"', ''))
 RAW_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for non demosaiced
 linear *tiff* file format output.
@@ -65,7 +66,8 @@ RAW_CONVERSION_ARGUMENTS : unicode
 RAW_D_CONVERSION_ARGUMENTS = DocstringText(
     '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
-    RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', '')
+    RAW_D_CONVERSION_ARGUMENTS = DocstringText(
+        RAW_D_CONVERSION_ARGUMENTS.replace('"', ''))
 RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
@@ -93,7 +95,8 @@ DNG_CONVERTER : unicode
 
 DNG_CONVERSION_ARGUMENTS = DocstringText('-l -d "{0}" "{1}"')
 if platform.system() in ('Windows', 'Microsoft'):
-    DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
+    DNG_CONVERSION_ARGUMENTS = DocstringText(
+        DNG_CONVERSION_ARGUMENTS.replace('"', ''))
 DNG_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line *dng* conversion application.
 
