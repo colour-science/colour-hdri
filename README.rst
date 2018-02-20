@@ -96,6 +96,10 @@ The documentation building dependencies are installed as follows::
 
     pip install 'colour-hdri[docs]'
 
+The overall development dependencies are installed as follows::
+
+    pip install 'colour-hdri[development]'
+
 Usage
 -----
 
