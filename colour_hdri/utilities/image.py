@@ -17,8 +17,8 @@ import numpy as np
 from collections import MutableSequence
 from recordclass import recordclass
 
+from colour import read_image
 from colour.constants import DEFAULT_FLOAT_DTYPE
-from colour.io import read_image
 from colour.utilities import is_string, tsplit, tstack, warning
 
 from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
