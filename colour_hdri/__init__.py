@@ -22,6 +22,7 @@ Subpackages
 
 from __future__ import absolute_import
 
+import numpy as np
 import os
 
 from .utilities import (
@@ -124,3 +125,6 @@ __version__ = '.'.join(
     (__major_version__,
      __minor_version__,
      __change_version__))  # yapf: disable
+
+# TODO: Remove legacy printing support when deemed appropriate.
+np.set_printoptions(legacy='1.13')

@@ -4,6 +4,11 @@ Colour - HDRI - TODO
 TODO
 ----
 
+-   colour_hdri/__init__.py
+
+    -   Line 128 : # TODO: Remove legacy printing support when deemed appropriate.
+
+
 -   colour_hdri/calibration/debevec1997.py
 
     -   Line 168 : # TODO: Investigate if the normalisation value should account for the percentage of uncertain camera response functions values or be correlated to it and scaled accordingly. As an alternative of setting the uncertain camera response functions values to zero, it would be interesting to explore extrapolation as the camera response functions are essentially smooth. It is important to note that camera sensors are usually acting non linearly when reaching saturation level.
