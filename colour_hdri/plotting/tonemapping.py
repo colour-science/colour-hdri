@@ -16,7 +16,7 @@ import matplotlib.ticker
 import numpy as np
 import pylab
 
-from colour.plotting import (DEFAULT_PLOTTING_ENCODING_CCTF, boundaries,
+from colour.plotting import (DEFAULT_PLOTTING_COLOURSPACE, boundaries,
                              canvas, display, decorate)
 
 __author__ = 'Colour Developers'
@@ -33,7 +33,7 @@ def tonemapping_operator_image_plot(
         image,
         luminance_function,
         log_scale=False,
-        encoding_cctf=DEFAULT_PLOTTING_ENCODING_CCTF,
+        encoding_cctf=DEFAULT_PLOTTING_COLOURSPACE.encoding_cctf,
         **kwargs):
     """
     Plots given tonemapped image with superimposed luminance mapping function.

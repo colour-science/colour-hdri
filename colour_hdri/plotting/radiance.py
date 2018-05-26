@@ -13,7 +13,7 @@ from __future__ import division, unicode_literals
 import matplotlib.pyplot
 import numpy as np
 
-from colour.plotting import DEFAULT_PLOTTING_ENCODING_CCTF, display
+from colour.plotting import DEFAULT_PLOTTING_COLOURSPACE, display
 
 from colour_hdri.utilities.exposure import adjust_exposure
 
@@ -27,11 +27,12 @@ __status__ = 'Production'
 __all__ = ['radiance_image_strip_plot']
 
 
-def radiance_image_strip_plot(image,
-                              count=5,
-                              ev_steps=-2,
-                              encoding_cctf=DEFAULT_PLOTTING_ENCODING_CCTF,
-                              **kwargs):
+def radiance_image_strip_plot(
+        image,
+        count=5,
+        ev_steps=-2,
+        encoding_cctf=DEFAULT_PLOTTING_COLOURSPACE.encoding_cctf,
+        **kwargs):
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
 

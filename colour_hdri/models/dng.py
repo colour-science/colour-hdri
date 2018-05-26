@@ -141,7 +141,7 @@ __all__ = [
 def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
     """
     Computes the matrix interpolated from :math:`CCT_1` and :math:`CCT_2`
-    correlated colour temperatures to respectively :math:`M_1` and :math:`M_2`
+    correlated colour temperatures to respectively :math:`M_T` and :math:`M_R`
     colour matrices using given correlated colour temperature :math:`CCT`
     interpolation value.
 
@@ -154,9 +154,9 @@ def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
     CCT_2 : numeric
         Correlated colour temperature :math:`CCT_2`.
     M_1 : array_like
-        :math:`M_1` colour matrix.
+        :math:`M_T` colour matrix.
     M_2 : array_like
-        :math:`M_2` colour matrix.
+        :math:`M_R` colour matrix.
 
     Returns
     -------
@@ -173,15 +173,15 @@ def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
     >>> CCT = 5000
     >>> CCT_1 = 2850
     >>> CCT_2 = 6500
-    >>> M_1 = np.array([
+    >>> M_T = np.array([
     ...     [0.5309, -0.0229, -0.0336],
     ...     [-0.6241, 1.3265, 0.3337],
     ...     [-0.0817, 0.1215, 0.6664]])
-    >>> M_2 = np.array([
+    >>> M_R = np.array([
     ...     [0.4716, 0.0603, -0.0830],
     ...     [-0.7798, 1.5474, 0.2480],
     ...     [-0.1496, 0.1937, 0.6651]])
-    >>> interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2)  # doctest: +ELLIPSIS
+    >>> interpolated_matrix(CCT, CCT_1, CCT_2, M_T, M_R)  # doctest: +ELLIPSIS
     array([[ 0.4854908...,  0.0408106..., -0.0714282...],
            [-0.7433278...,  1.4956549...,  0.2680749...],
            [-0.1336946...,  0.1767874...,  0.6654045...]])

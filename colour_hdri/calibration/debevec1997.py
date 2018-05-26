@@ -168,7 +168,7 @@ def camera_response_functions_Debevec1997(image_stack,
     if normalise:
         # TODO: Investigate if the normalisation value should account for the
         # percentage of uncertain camera response functions values or be
-        # correlated to it and scaled accordingly. As an alternative of setting
+        # correlated to it and scaled according. As an alternative of setting
         # the uncertain camera response functions values to zero, it would be
         # interesting to explore extrapolation as the camera response functions
         # are essentially smooth. It is important to note that camera sensors
