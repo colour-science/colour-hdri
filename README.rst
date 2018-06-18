@@ -119,7 +119,7 @@ Contributing
 ------------
 
 If you would like to contribute to `Colour - HDRI <https://github.com/colour-science/colour-hdri>`_,
-please refer to the following `Contributing <http://colour-science.org/contributing/>`_
+please refer to the following `Contributing <https://www.colour-science.org/contributing/>`_
 guide for `Colour <https://github.com/colour-science/colour>`_.
 
 Bibliography
