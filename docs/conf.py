@@ -23,7 +23,7 @@ autosummary_generate = True
 
 autodoc_mock_imports = [
     'colour', 'colour.plotting', 'matplotlib', 'matplotlib.pyplot',
-    'matplotlib.ticker', 'pylab'
+    'matplotlib.ticker'
 ]
 
 # If extensions (or modules to document with autodoc) are in another directory,

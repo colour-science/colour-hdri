@@ -10,10 +10,11 @@ Defines the HDRI / radiance image plotting objects:
 
 from __future__ import division, unicode_literals
 
-import matplotlib.pyplot
+import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 
-from colour.plotting import DEFAULT_PLOTTING_COLOURSPACE, display
+from colour.plotting import COLOUR_STYLE_CONSTANTS, override_style, render
 
 from colour_hdri.utilities.exposure import adjust_exposure
 
@@ -27,11 +28,12 @@ __status__ = 'Production'
 __all__ = ['radiance_image_strip_plot']
 
 
+@override_style()
 def radiance_image_strip_plot(
         image,
         count=5,
         ev_steps=-2,
-        encoding_cctf=DEFAULT_PLOTTING_COLOURSPACE.encoding_cctf,
+        encoding_cctf=COLOUR_STYLE_CONSTANTS.colour.colourspace.encoding_cctf,
         **kwargs):
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
@@ -56,8 +58,8 @@ def radiance_image_strip_plot(
 
     Returns
     -------
-    Figure
-        Current figure or None.
+    tuple
+        Current figure and axes.
     """
 
     image = np.asarray(image)
@@ -68,7 +70,7 @@ def radiance_image_strip_plot(
     height, width, _channel = image.shape
     for i in range(count):
         ev = i * ev_steps
-        axis = matplotlib.pyplot.subplot(grid[i])
+        axis = plt.subplot(grid[i])
         axis.imshow(np.clip(encoding_cctf(adjust_exposure(image, ev)), 0, 1))
         axis.text(
             width * 0.05,
@@ -79,4 +81,4 @@ def radiance_image_strip_plot(
         axis.set_yticks([])
         axis.set_aspect('equal')
 
-    return display(**kwargs)
+    return render(**kwargs)
