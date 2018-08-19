@@ -113,7 +113,7 @@ def weighting_function_Debevec1997(a, domain_l=0.01, domain_h=0.99):
 
     References
     ----------
-    -   :cite:`Debevec1997a`
+    :cite:`Debevec1997a`
 
     Examples
     -------

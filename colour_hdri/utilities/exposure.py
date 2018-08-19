@@ -114,7 +114,7 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
 
     References
     ----------
-    -   :cite:`Wikipediabj`
+    :cite:`Wikipediabj`
 
     Examples
     --------

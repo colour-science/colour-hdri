@@ -54,8 +54,7 @@ def samples_Grossberg2003(image_stack, samples=1000, n=256):
 
     References
     ----------
-    -   :cite:`Banterle2014a`
-    -   :cite:`Grossberg2003g`
+    :cite:`Banterle2014a`, :cite:`Grossberg2003g`
     """
 
     image_stack = np.asarray(image_stack)

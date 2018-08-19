@@ -71,7 +71,7 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
 
     References
     ----------
-    -   :cite:`Debevec1997a`
+    :cite:`Debevec1997a`
     """
 
     Z = np.asarray(Z).astype(int)
@@ -151,7 +151,7 @@ def camera_response_functions_Debevec1997(image_stack,
 
     References
     ----------
-    -   :cite:`Debevec1997a`
+    :cite:`Debevec1997a`
     """
 
     s_o = s(image_stack.data, samples, n)

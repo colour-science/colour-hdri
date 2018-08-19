@@ -230,10 +230,8 @@ def xy_to_camera_neutral(xy, CCT_calibration_illuminant_1,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012d`
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012d`, :cite:`AdobeSystems2012f`,
+    :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -318,10 +316,8 @@ def camera_neutral_to_xy(camera_neutral,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012e`
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012e`, :cite:`AdobeSystems2012f`,
+    :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -409,9 +405,7 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012f`, :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -518,10 +512,8 @@ def camera_space_to_XYZ_matrix(xy,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2012g`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012f`, :cite:`AdobeSystems2012g`,
+    :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------

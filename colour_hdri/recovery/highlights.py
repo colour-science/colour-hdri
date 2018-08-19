@@ -58,7 +58,7 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
 
     References
     ----------
-    -   :cite:`Coffin2015a`
+    :cite:`Coffin2015a`
     """
 
     M = np.array(

@@ -77,7 +77,7 @@ def image_stack_to_radiance_image(
 
     References
     ----------
-    -   :cite:`Banterle2011n`
+    :cite:`Banterle2011n`
     """
 
     image_c = None

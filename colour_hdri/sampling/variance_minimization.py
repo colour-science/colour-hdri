@@ -210,7 +210,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
 
     References
     ----------
-    -   :cite:`Viriyothai2009`
+    :cite:`Viriyothai2009`
     """
 
     light_probe = np.asarray(light_probe)

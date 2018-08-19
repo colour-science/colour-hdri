@@ -58,7 +58,7 @@ def upper_hemisphere_illuminance_Lagarde2016(
 
     References
     ----------
-    -   :cite:`Lagarde2016b`
+    :cite:`Lagarde2016b`
 
     Examples
     --------
@@ -104,7 +104,7 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
 
     References
     ----------
-    -   :cite:`Lagarde2016b`
+    :cite:`Lagarde2016b`
 
     Examples
     --------

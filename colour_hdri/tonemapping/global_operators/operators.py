@@ -119,7 +119,7 @@ def tonemapping_operator_simple(RGB):
 
     References
     ----------
-    -   :cite:`Wikipediabn`
+    :cite:`Wikipediabn`
 
     Examples
     --------
@@ -159,7 +159,7 @@ def tonemapping_operator_normalisation(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -206,7 +206,7 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -256,7 +256,7 @@ def tonemapping_operator_logarithmic(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -312,7 +312,7 @@ def tonemapping_operator_exponential(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -367,7 +367,7 @@ def tonemapping_operator_logarithmic_mapping(
 
     References
     ----------
-    -   :cite:`Schlick1994`
+    :cite:`Schlick1994`
 
     Examples
     --------
@@ -419,7 +419,7 @@ def tonemapping_operator_exponentiation_mapping(
 
     References
     ----------
-    -   :cite:`Schlick1994`
+    :cite:`Schlick1994`
 
     Examples
     --------
@@ -468,8 +468,7 @@ def tonemapping_operator_Schlick1994(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
-    -   :cite:`Schlick1994`
+    :cite:`Banterle2011k`, :cite:`Schlick1994`
 
     Examples
     --------
@@ -527,7 +526,7 @@ def tonemapping_operator_Tumblin1999(RGB,
 
     References
     ----------
-    -   :cite:`Tumblin1999c`
+    :cite:`Tumblin1999c`
 
     Examples
     --------
@@ -598,7 +597,7 @@ def tonemapping_operator_Reinhard2004(RGB,
 
     References
     ----------
-    -   :cite:`Reinhard2005c`
+    :cite:`Reinhard2005c`
 
     Examples
     --------
@@ -680,8 +679,7 @@ def tonemapping_operator_filmic(RGB,
 
     References
     ----------
-    -   :cite:`Habble2010d`
-    -   :cite:`Habble2010e`
+    :cite:`Habble2010d`, :cite:`Habble2010e`
 
     Examples
     --------

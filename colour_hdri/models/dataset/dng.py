@@ -75,7 +75,7 @@ DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE = (CaseInsensitiveMapping({
 
 References
 ----------
--   :cite:`AdobeSystems2015c`
+:cite:`AdobeSystems2015c`
 
 Notes
 -----
@@ -113,7 +113,7 @@ LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS = {
 
 References
 ----------
--   :cite:`AdobeSystems2015e`
+:cite:`AdobeSystems2015e`
 
 LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS : CaseInsensitiveMapping
 """
