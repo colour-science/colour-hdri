@@ -123,6 +123,6 @@ def highlights_recovery_LCHab(RGB,
 
     return XYZ_to_RGB(
         Lab_to_XYZ(
-            LCHab_to_Lab(tstack((L, C_c, H))),
+            LCHab_to_Lab(tstack([L, C_c, H])),
             RGB_colourspace.whitepoint), RGB_colourspace.whitepoint,
         RGB_colourspace.whitepoint, RGB_colourspace.XYZ_to_RGB_matrix)

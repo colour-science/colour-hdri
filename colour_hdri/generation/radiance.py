@@ -120,7 +120,7 @@ def image_stack_to_radiance_image(
             R = np.interp(R, samples, camera_response_functions[..., 0])
             G = np.interp(G, samples, camera_response_functions[..., 1])
             B = np.interp(B, samples, camera_response_functions[..., 2])
-            image_data = tstack((R, G, B))
+            image_data = tstack([R, G, B])
 
         image_c += weights * image_data / L
         weight_c += weights

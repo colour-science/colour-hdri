@@ -193,7 +193,7 @@ def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
         return M_2
     else:
         return linear_conversion(1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2),
-                                 tstack((M_1, M_2)))
+                                 tstack([M_1, M_2]))
 
 
 def xy_to_camera_neutral(xy, CCT_calibration_illuminant_1,
