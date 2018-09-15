@@ -27,7 +27,7 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour.utilities import tstack
+from colour.utilities import as_float_array, as_int_array, tstack
 
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.sampling import samples_Grossberg2003
@@ -74,9 +74,9 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     :cite:`Debevec1997a`
     """
 
-    Z = np.asarray(Z).astype(int)
-    B = np.asarray(B)
-    l_s = np.asarray(l_s)
+    Z = as_int_array(Z)
+    B = as_float_array(B)
+    l_s = as_float_array(l_s)
 
     Z_x, Z_y = Z.shape
 

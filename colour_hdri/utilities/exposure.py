@@ -20,6 +20,8 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
+from colour.utilities import as_float_array
+
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
@@ -55,9 +57,9 @@ def exposure_value(f_number, exposure_time, iso):
     6.0
     """
 
-    N = np.asarray(f_number)
-    t = np.asarray(exposure_time)
-    S = np.asarray(iso)
+    N = as_float_array(f_number)
+    t = as_float_array(exposure_time)
+    S = as_float_array(iso)
 
     EV = np.log2(N ** 2) + np.log2(1 / t) - np.log2(100 / S)
 
@@ -86,7 +88,7 @@ def adjust_exposure(a, EV):
     array([ 0.5,  1. ,  1.5,  2. ])
     """
 
-    a = np.asarray(a)
+    a = as_float_array(a)
 
     return a * pow(2, EV)
 
@@ -122,9 +124,9 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
     0.125
     """
 
-    N = np.asarray(f_number)
-    t = np.asarray(exposure_time)
-    S = np.asarray(iso)
+    N = as_float_array(f_number)
+    t = as_float_array(exposure_time)
+    S = as_float_array(iso)
 
     L = (S * t) / (k * N ** 2)
 

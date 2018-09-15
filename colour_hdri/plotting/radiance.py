@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from colour.plotting import COLOUR_STYLE_CONSTANTS, override_style, render
+from colour.utilities import as_float_array
 
 from colour_hdri.utilities.exposure import adjust_exposure
 
@@ -62,7 +63,7 @@ def radiance_image_strip_plot(
         Current figure and axes.
     """
 
-    image = np.asarray(image)
+    image = as_float_array(image)
 
     grid = matplotlib.gridspec.GridSpec(1, count)
     grid.update(wspace=0, hspace=0)

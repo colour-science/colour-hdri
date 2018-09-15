@@ -21,7 +21,7 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour.utilities import tsplit, tstack
+from colour.utilities import as_float_array, tsplit, tstack
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
@@ -57,7 +57,7 @@ def samples_Grossberg2003(image_stack, samples=1000, n=256):
     :cite:`Banterle2014a`, :cite:`Grossberg2003g`
     """
 
-    image_stack = np.asarray(image_stack)
+    image_stack = as_float_array(image_stack)
 
     if image_stack.ndim == 3:
         channels_c = 1

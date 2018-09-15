@@ -23,6 +23,7 @@ from __future__ import division, unicode_literals
 import numpy as np
 
 from colour import RGB_COLOURSPACES, RGB_luminance
+from colour.utilities import as_float_array
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
@@ -67,7 +68,7 @@ def upper_hemisphere_illuminance_Lagarde2016(
     2.9344691...
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     height, width, _channels = RGB.shape
 
@@ -204,7 +205,7 @@ def absolute_luminance_calibration_Lagarde2016(
             [ 233.9912506...,  233.9912506...,  233.9912506...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     E_v = upper_hemisphere_illuminance_Lagarde2016(RGB, colourspace)
 

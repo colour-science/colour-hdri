@@ -54,6 +54,7 @@ import numpy as np
 
 from colour.constants import EPSILON
 from colour.models import RGB_COLOURSPACES, RGB_luminance
+from colour.utilities import as_float_array
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
@@ -95,7 +96,7 @@ def log_average(a, epsilon=EPSILON):
     0.1...
     """
 
-    a = np.asarray(a)
+    a = as_float_array(a)
 
     average = np.exp(np.average(np.log(a + epsilon)))
 
@@ -135,7 +136,7 @@ def tonemapping_operator_simple(RGB):
             [ 0.8683127...,  0.7746486...,  0.6893211...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     return RGB / (RGB + 1)
 
@@ -175,7 +176,7 @@ def tonemapping_operator_normalisation(RGB,
             [ 1.6399638...,  0.8549608...,  0.5518382...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
@@ -223,7 +224,7 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
             [ 0.8242187...,  0.4296892...,  0.2773447...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     exposure = 2 ** EV
     RGB = (exposure * RGB) ** (1 / gamma)
@@ -273,7 +274,7 @@ def tonemapping_operator_logarithmic(RGB,
             [ 0.5727396...,  0.2985858...,  0.1927235...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     q = 1 if q < 1 else q
     k = 1 if k < 1 else k
@@ -329,7 +330,7 @@ def tonemapping_operator_exponential(RGB,
             [ 0.1921684...,  0.1001830...,  0.0646635...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     q = 1 if q < 1 else q
     k = 1 if k < 1 else k
@@ -383,7 +384,7 @@ def tonemapping_operator_logarithmic_mapping(
             [ 1.6399638...,  0.8549608...,  0.5518382...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
@@ -435,7 +436,7 @@ def tonemapping_operator_exponentiation_mapping(
             [ 1.6399638...,  0.8549608...,  0.5518382...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
@@ -486,7 +487,7 @@ def tonemapping_operator_Schlick1994(RGB,
 
     # TODO: Implement automatic *p* and *non-uniform* computations support.
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
@@ -542,7 +543,7 @@ def tonemapping_operator_Tumblin1999(RGB,
             [ 0.3408366...,  0.1776880...,  0.1146895...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L_w = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
@@ -614,7 +615,7 @@ def tonemapping_operator_Reinhard2004(RGB,
             [ 0.2331935...,  0.1368456...,  0.0928316...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     C_av = np.array((np.average(RGB[..., 0]), np.average(RGB[..., 1]),
                      np.average(RGB[..., 2])))
@@ -695,7 +696,7 @@ def tonemapping_operator_filmic(RGB,
             [ 1.0158782...,  0.9382937...,  0.8615161...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     A = shoulder_strength
     B = linear_strength

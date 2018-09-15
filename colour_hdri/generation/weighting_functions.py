@@ -22,6 +22,8 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
+from colour.utilities import as_float_array
+
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
@@ -60,7 +62,7 @@ def normal_distribution_function(a, mu=0.5, sigma=0.15):
             0.93371212,  0.53940751,  0.18002174,  0.03470859,  0.00386592])
     """
 
-    a = np.asarray(a)
+    a = as_float_array(a)
 
     return np.exp(-np.power(a - mu, 2) / (2 * np.power(sigma, 2)))
 
@@ -86,7 +88,7 @@ def hat_function(a):
             1.        ,  0.99999812,  0.99913557,  0.95099207,  0.        ])
     """
 
-    a = np.asarray(a)
+    a = as_float_array(a)
 
     return 1 - (2 * a - 1) ** 12
 
@@ -122,7 +124,7 @@ def weighting_function_Debevec1997(a, domain_l=0.01, domain_h=0.99):
             1.        ,  0.74424552,  0.48849105,  0.23273657,  0.        ])
     """
 
-    a = np.asarray(a)
+    a = as_float_array(a)
 
     w = np.zeros(a.shape)
 
