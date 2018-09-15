@@ -87,7 +87,7 @@ class TestImage(unittest.TestCase):
 
         image = Image(self._test_jpg_image)
 
-        self.assertEqual(image.data, np.array(None))
+        np.testing.assert_array_equal(image.data, np.array(np.nan))
         self.assertTupleEqual(image.read_data().shape, (426, 640, 3))
 
     def test_read_metadata(self):
@@ -99,8 +99,8 @@ class TestImage(unittest.TestCase):
 
         self.assertEqual(image.metadata, None)
         self.assertTupleEqual(
-            tuple(image.read_metadata()), (8.0, 0.125, 100.0, None, None,
-                                           None))
+            tuple(image.read_metadata()),
+            (8.0, 0.125, 100.0, None, None, None))
 
 
 class TestImageStack(unittest.TestCase):
@@ -193,8 +193,8 @@ class TestImageStack(unittest.TestCase):
 
         self.assertEqual(self._image_stack[0].metadata.exposure_time, 0.125)
 
-        self.assertListEqual(
-            list(self._image_stack.black_level), [None, None, None])
+        np.testing.assert_array_equal(self._image_stack.black_level,
+                                      np.array([np.nan, np.nan, np.nan]))
 
         self.assertEqual(self._image_stack[0].metadata.black_level, None)
 
@@ -222,7 +222,8 @@ class TestImageStack(unittest.TestCase):
 
         self.assertEqual(image_stack[0].metadata.f_number, 1)
 
-        self.assertListEqual(list(image_stack.black_level), [None, None, None])
+        np.testing.assert_array_equal(image_stack.black_level,
+                                      np.array([np.nan, np.nan, np.nan]))
 
         image_stack.black_level = np.array([2048, 2048, 2048])
 
