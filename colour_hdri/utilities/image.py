@@ -235,9 +235,13 @@ class Image(object):
 
         LOGGER.info('Reading "{0}" image metadata.'.format(self._path))
         exif_data = read_exif_tags(self._path)
+
         if not exif_data.get('EXIF'):
-            raise RuntimeError(
-                '"{0}" file has no "Exif" data!'.format(self._path))
+            warning(
+                '"{0}" file has no "Exif" data, metadata will be undefined!'.
+                format(self._path))
+            self.metadata = Metadata(*[None] * 6)
+            return self.metadata
 
         f_number = exif_data['EXIF'].get('F Number')
         if f_number is not None:
