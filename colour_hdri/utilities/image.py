@@ -18,7 +18,6 @@ from collections import MutableSequence
 from recordclass import recordclass
 
 from colour import read_image
-from colour.constants import DEFAULT_FLOAT_DTYPE
 from colour.utilities import as_float_array, is_string, tsplit, tstack, warning
 
 from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
@@ -258,14 +257,12 @@ class Image(object):
         black_level = exif_data['EXIF'].get('Black Level')
         if black_level is not None:
             black_level = parse_exif_array(black_level[0])
-            black_level = as_float_array(
-                black_level, dtype=DEFAULT_FLOAT_DTYPE) / 65535
+            black_level = as_float_array(black_level) / 65535
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:
             white_level = parse_exif_array(white_level[0])
-            white_level = as_float_array(
-                white_level, dtype=DEFAULT_FLOAT_DTYPE) / 65535
+            white_level = as_float_array(white_level) / 65535
 
         white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
         if white_balance_multipliers is not None:
