@@ -239,7 +239,7 @@ def convert_dng_files_to_intermediate_files(dng_files,
 
     intermediate_files = []
     for dng_file in dng_files:
-        intermediate_file = re.sub('\.dng$', '.tiff', dng_file)
+        intermediate_file = re.sub('\\.dng$', '.tiff', dng_file)
 
         if path_exists(intermediate_file):
             os.remove(intermediate_file)

@@ -55,9 +55,9 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     Z : array_like
         Set of pixel values observed for several pixels in several images.
     B : array_like
-        Log :math:`\Delta t`, or log shutter speed for images.
+        Log :math:`\\Delta t`, or log shutter speed for images.
     l_s : numeric, optional
-        :math:`\lambda` smoothing term.
+        :math:`\\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
     n : int, optional
@@ -134,7 +134,7 @@ def camera_response_functions_Debevec1997(image_stack,
     samples : int, optional
         Samples count per images.
     l_s : numeric, optional
-        :math:`\lambda` smoothing term.
+        :math:`\\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
     n : int, optional

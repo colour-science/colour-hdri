@@ -53,7 +53,7 @@ def radiance_image_strip_plot(
 
     Other Parameters
     ----------------
-    \**kwargs : dict, optional
+    \\**kwargs : dict, optional
         {:func:`colour.plotting.display`},
         Please refer to the documentation of the previously listed definition.
 

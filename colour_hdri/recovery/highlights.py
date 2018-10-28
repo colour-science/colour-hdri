@@ -89,7 +89,7 @@ def highlights_recovery_LCHab(RGB,
                               threshold=None,
                               RGB_colourspace=sRGB_COLOURSPACE):
     """
-    Performs highlights recovery in *CIE L\*C\*Hab* colourspace.
+    Performs highlights recovery in *CIE L\\*C\\*Hab* colourspace.
 
     Parameters
     ----------
@@ -99,7 +99,7 @@ def highlights_recovery_LCHab(RGB,
         Threshold for highlights selection, automatically computed
         if not given.
     RGB_colourspace : RGB_Colourspace, optional
-        Working *RGB* colourspace to perform the *CIE L\*C\*Hab* to and from.
+        Working *RGB* colourspace to perform the *CIE L\\*C\\*Hab* to and from.
 
     Returns
     -------

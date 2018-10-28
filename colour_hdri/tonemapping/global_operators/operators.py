@@ -106,7 +106,7 @@ def log_average(a, epsilon=EPSILON):
 def tonemapping_operator_simple(RGB):
     """
     Performs given *RGB* array tonemapping using the simple method:
-    :math:`\cfrac{RGB}{RGB + 1}`.
+    :math:`\\cfrac{RGB}{RGB + 1}`.
 
     Parameters
     ----------
@@ -196,7 +196,7 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
     RGB : array_like
         *RGB* array to perform tonemapping onto.
     gamma : numeric, optional
-        :math:`\gamma` correction value.
+        :math:`\\gamma` correction value.
     EV : numeric, optional
         Exposure adjustment value.
 

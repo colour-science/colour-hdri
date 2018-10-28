@@ -51,7 +51,7 @@ def tonemapping_operator_image_plot(
 
     Other Parameters
     ----------------
-    \**kwargs : dict, optional
+    \\**kwargs : dict, optional
         {:func:`colour.plotting.render`},
         Please refer to the documentation of the previously listed definition.
 
