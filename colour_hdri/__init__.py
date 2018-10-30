@@ -24,6 +24,10 @@ from __future__ import absolute_import
 
 import numpy as np
 import os
+import recordclass
+import subprocess
+
+import colour
 
 from .utilities import (
     EXIF_EXECUTABLE, ExifTag, adjust_exposure, average_luminance,
@@ -125,6 +129,17 @@ __version__ = '.'.join(
     (__major_version__,
      __minor_version__,
      __change_version__))  # yapf: disable
+
+try:
+    version = subprocess.check_output(
+        ['git', 'describe'], cwd=os.path.dirname(__file__)).strip()
+    version = version.decode('utf-8')
+except subprocess.CalledProcessError:
+    version = __version__
+
+colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES['colour-hdri'] = version
+colour.utilities.ANCILLARY_RUNTIME_PACKAGES[
+    'recordclass'] = recordclass.__version__
 
 # TODO: Remove legacy printing support when deemed appropriate.
 try:
