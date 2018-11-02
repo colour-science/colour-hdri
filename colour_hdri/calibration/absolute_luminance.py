@@ -89,7 +89,7 @@ def upper_hemisphere_illuminance_Lagarde2016(
 def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
     """
     Computes upper hemisphere illuminance weights for use with applications
-    unable to perform the computation directly, i.e. *Adobe Photoshop*.
+    unable to perform the computation directly, i.e., *Adobe Photoshop*.
 
     Parameters
     ----------
