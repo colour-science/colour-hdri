@@ -8,6 +8,7 @@ Defines image exposure value computation objects:
 -   :func:`colour_hdri.exposure_value`
 -   :func:`colour_hdri.adjust_exposure`
 -   :func:`colour_hdri.average_luminance`
+-   :func:`colour_hdri.average_illuminance`
 
 References
 ----------
@@ -29,7 +30,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['exposure_value', 'adjust_exposure', 'average_luminance']
+__all__ = [
+    'exposure_value', 'adjust_exposure', 'average_luminance',
+    'average_illuminance'
+]
 
 
 def exposure_value(f_number, exposure_time, iso):
@@ -132,3 +136,44 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
     L = N ** 2 / t / S * k
 
     return L
+
+
+def average_illuminance(f_number, exposure_time, iso, c=250):
+    """
+    Computes the average illuminance in :math:`Lux` from given
+    image *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO* speed
+    :math:`S` and *incident light calibration constant* :math:`c`.
+
+    Parameters
+    ----------
+    f_number : array_like
+        Image *F-Number*  :math:`N`.
+    exposure_time : array_like
+        Image *Exposure Time* :math:`t`.
+    iso : array_like
+        Image *ISO* :math:`S`.
+    c : numeric, optional
+        Incident light calibration constant :math:`c`.
+
+    Returns
+    -------
+    ndarray
+        Image average illuminance in :math:`Lux`.
+
+    References
+    ----------
+    :cite:`Wikipediabj`
+
+    Examples
+    --------
+    >>> average_illuminance(8, 1, 100)
+    160.0
+    """
+
+    N = as_float_array(f_number)
+    t = as_float_array(exposure_time)
+    S = as_float_array(iso)
+
+    E = N ** 2 / t / S * c
+
+    return E

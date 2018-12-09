@@ -30,12 +30,12 @@ import subprocess
 import colour
 
 from .utilities import (
-    EXIF_EXECUTABLE, ExifTag, adjust_exposure, average_luminance,
-    copy_exif_tags, delete_exif_tags, exposure_value, filter_files, Image,
-    ImageStack, Metadata, parse_exif_array, parse_exif_data,
-    parse_exif_fraction, parse_exif_numeric, parse_exif_string, path_exists,
-    read_exif_tag, read_exif_tags, update_exif_tags, vivification,
-    vivified_to_dict, write_exif_tag)
+    EXIF_EXECUTABLE, ExifTag, adjust_exposure, average_illuminance,
+    average_luminance, copy_exif_tags, delete_exif_tags, exposure_value,
+    filter_files, Image, ImageStack, Metadata, parse_exif_array,
+    parse_exif_data, parse_exif_fraction, parse_exif_numeric,
+    parse_exif_string, path_exists, read_exif_tag, read_exif_tags,
+    update_exif_tags, vivification, vivified_to_dict, write_exif_tag)
 from .sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
     samples_Grossberg2003)
@@ -71,12 +71,13 @@ __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = [
-    'EXIF_EXECUTABLE', 'ExifTag', 'adjust_exposure', 'average_luminance',
-    'copy_exif_tags', 'delete_exif_tags', 'exposure_value', 'filter_files',
-    'Image', 'ImageStack', 'Metadata', 'parse_exif_array', 'parse_exif_data',
-    'parse_exif_fraction', 'parse_exif_numeric', 'parse_exif_string',
-    'path_exists', 'read_exif_tag', 'read_exif_tags', 'update_exif_tags',
-    'vivification', 'vivified_to_dict', 'write_exif_tag'
+    'EXIF_EXECUTABLE', 'ExifTag', 'adjust_exposure', 'average_illuminance',
+    'average_luminance', 'copy_exif_tags', 'delete_exif_tags',
+    'exposure_value', 'filter_files', 'Image', 'ImageStack', 'Metadata',
+    'parse_exif_array', 'parse_exif_data', 'parse_exif_fraction',
+    'parse_exif_numeric', 'parse_exif_string', 'path_exists', 'read_exif_tag',
+    'read_exif_tags', 'update_exif_tags', 'vivification', 'vivified_to_dict',
+    'write_exif_tag'
 ]
 __all__ += [
     'light_probe_sampling_variance_minimization_Viriyothai2009',

@@ -10,7 +10,7 @@ import numpy as np
 import unittest
 
 from colour_hdri.utilities import (exposure_value, adjust_exposure,
-                                   average_luminance)
+                                   average_luminance, average_illuminance)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
@@ -19,7 +19,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['TestExposureValue', 'TestAdjustExposure', 'TestAverageLuminance']
+__all__ = [
+    'TestExposureValue', 'TestAdjustExposure', 'TestAverageLuminance',
+    'TestAverageIlluminance'
+]
 
 
 class TestExposureValue(unittest.TestCase):
@@ -79,6 +82,28 @@ class TestAverageLuminance(unittest.TestCase):
                 np.array([100, 800, 16000]),
             ),
             np.array([7.84000000, 0.98000000, 0.05000000]),
+            decimal=7)
+
+
+class TestAverageIlluminance(unittest.TestCase):
+    """
+    Defines :func:`colour_hdri.utilities.exposure.average_illuminance`
+    definition unit tests methods.
+    """
+
+    def test_average_illuminance(self):
+        """
+        Tests :func:`colour_hdri.utilities.exposure.average_illuminance`
+        definition.
+        """
+
+        np.testing.assert_almost_equal(
+            average_illuminance(
+                np.array([2.8, 5.6, 8]),
+                np.array([0.125, 0.5, 1.0]),
+                np.array([100, 800, 16000]),
+            ),
+            np.array([156.80000000, 19.60000000, 1.00000000]),
             decimal=7)
 
 
