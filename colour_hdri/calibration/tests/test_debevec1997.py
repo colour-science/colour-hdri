@@ -49,9 +49,8 @@ class TestGSolve(unittest.TestCase):
         """
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
-        L_l = np.log(
-            average_luminance(image_stack.f_number, image_stack.exposure_time,
-                              image_stack.iso))
+        L_l = np.log(1 / average_luminance(
+            image_stack.f_number, image_stack.exposure_time, image_stack.iso))
         samples = samples_Grossberg2003(image_stack.data)
 
         for i in range(3):

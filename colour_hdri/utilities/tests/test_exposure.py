@@ -76,9 +76,10 @@ class TestAverageLuminance(unittest.TestCase):
             average_luminance(
                 np.array([2.8, 5.6, 8]),
                 np.array([0.125, 0.5, 1.0]),
-                np.array([100, 800, 16000])),
-            np.array([0.12755102, 1.02040816, 20.]),
-            decimal=7)  # yapf: disable
+                np.array([100, 800, 16000]),
+            ),
+            np.array([7.84000000, 0.98000000, 0.05000000]),
+            decimal=7)
 
 
 if __name__ == '__main__':

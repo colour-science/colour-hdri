@@ -40,7 +40,7 @@ def exposure_value(f_number, exposure_time, iso):
     Parameters
     ----------
     f_number : array_like
-        Image *FNumber*.
+        Image *F-Number*.
     exposure_time : array_like
         Image *Exposure Time*.
     iso : array_like
@@ -95,24 +95,25 @@ def adjust_exposure(a, EV):
 
 def average_luminance(f_number, exposure_time, iso, k=12.5):
     """
-    Computes the average luminance from given image *FNumber*, *Exposure Time*
-    and *ISO* values.
+    Computes the average luminance in :math:`cd\\cdot m^{-2}` from given
+    image *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO* speed
+    :math:`S` and *reflected light calibration constant* :math:`k`.
 
     Parameters
     ----------
     f_number : array_like
-        Image *FNumber*.
+        Image *F-Number*  :math:`N`.
     exposure_time : array_like
-        Image *Exposure Time*.
+        Image *Exposure Time* :math:`t`.
     iso : array_like
-        Image *ISO*.
+        Image *ISO* :math:`S`.
     k : numeric, optional
-        Reflected light calibration constant :math:`K`.
+        Reflected light calibration constant :math:`k`.
 
     Returns
     -------
     ndarray
-        Image average luminance.
+        Image average luminance in :math:`cd\\cdot m^{-2}`.
 
     References
     ----------
@@ -121,13 +122,13 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
     Examples
     --------
     >>> average_luminance(8, 1, 100)
-    0.125
+    8.0
     """
 
     N = as_float_array(f_number)
     t = as_float_array(exposure_time)
     S = as_float_array(iso)
 
-    L = (S * t) / (k * N ** 2)
+    L = N ** 2 / t / S * k
 
     return L

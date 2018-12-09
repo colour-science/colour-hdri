@@ -156,9 +156,8 @@ def camera_response_functions_Debevec1997(image_stack,
 
     s_o = s(image_stack.data, samples, n)
 
-    L_l = np.log(
-        average_luminance(image_stack.f_number, image_stack.exposure_time,
-                          image_stack.iso))
+    L_l = np.log(1 / average_luminance(
+        image_stack.f_number, image_stack.exposure_time, image_stack.iso))
 
     g_c = [
         g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])

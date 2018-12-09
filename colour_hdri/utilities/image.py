@@ -475,7 +475,7 @@ class ImageStack(MutableSequence):
                         'sorting is inapplicable!'.format(image.path))
                 return None
 
-            return average_luminance(f_number, exposure_time, iso)
+            return 1 / average_luminance(f_number, exposure_time, iso)
 
         image_stack.sort(luminance_average_key)
 
