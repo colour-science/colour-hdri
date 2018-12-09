@@ -53,7 +53,7 @@ from .process import (DNG_CONVERSION_ARGUMENTS, DNG_CONVERTER,
                       RAW_CONVERTER, RAW_D_CONVERSION_ARGUMENTS,
                       convert_dng_files_to_intermediate_files,
                       convert_raw_files_to_dng_files, read_dng_files_exif_tags)
-from .recovery import (highlights_recovery_blend, highlights_recovery_LCHab)
+from .recovery import highlights_recovery_blend, highlights_recovery_LCHab
 from .tonemapping import (
     tonemapping_operator_exponential,
     tonemapping_operator_exponentiation_mapping, tonemapping_operator_filmic,
