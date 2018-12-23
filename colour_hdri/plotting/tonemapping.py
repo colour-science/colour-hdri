@@ -5,7 +5,7 @@ Tonemapping Operators Plotting
 
 Defines the tonemapping operators plotting objects:
 
--   :func:`colour_hdri.plotting.tonemapping_operator_image_plot`
+-   :func:`colour_hdri.plotting.plot_tonemapping_operator_image`
 """
 
 from __future__ import division, unicode_literals
@@ -24,11 +24,11 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['tonemapping_operator_image_plot']
+__all__ = ['plot_tonemapping_operator_image']
 
 
 @override_style()
-def tonemapping_operator_image_plot(
+def plot_tonemapping_operator_image(
         image,
         luminance_function,
         log_scale=False,

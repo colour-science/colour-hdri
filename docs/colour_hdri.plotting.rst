@@ -25,4 +25,4 @@ Tonemapping Operators
 .. autosummary::
     :toctree: generated/
 
-    tonemapping_operator_image_plot
+    plot_tonemapping_operator_image
