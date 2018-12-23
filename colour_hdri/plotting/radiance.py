@@ -5,7 +5,7 @@ HDRI / Radiance Image Plotting
 
 Defines the HDRI / radiance image plotting objects:
 
--   :func:`colour_hdri.plotting.radiance_image_strip_plot`
+-   :func:`colour_hdri.plotting.plot_radiance_image_strip`
 """
 
 from __future__ import division, unicode_literals
@@ -26,11 +26,11 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['radiance_image_strip_plot']
+__all__ = ['plot_radiance_image_strip']
 
 
 @override_style()
-def radiance_image_strip_plot(
+def plot_radiance_image_strip(
         image,
         count=5,
         ev_steps=-2,

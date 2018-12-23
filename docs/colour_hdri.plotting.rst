@@ -13,7 +13,7 @@ HDRI / Radiance Image
 .. autosummary::
     :toctree: generated/
 
-    radiance_image_strip_plot
+    plot_radiance_image_strip
 
 Tonemapping Operators
 ---------------------
