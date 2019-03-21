@@ -87,8 +87,9 @@ def image_stack_to_radiance_image(
             image_c = np.zeros(image.data.shape)
             weight_c = np.zeros(image.data.shape)
 
-        L = 1 / average_luminance(image.metadata.f_number, image.metadata.
-                                  exposure_time, image.metadata.iso)
+        L = 1 / average_luminance(image.metadata.f_number,
+                                  image.metadata.exposure_time,
+                                  image.metadata.iso)
 
         if np.any(image.data <= 0):
             warning('"{0}" image channels contain negative or equal to zero '

@@ -561,8 +561,7 @@ def camera_space_to_XYZ_matrix(xy,
                 M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
                 M_camera_calibration_2, analog_balance))
         M_CAT = chromatic_adaptation_matrix_VonKries(
-            xy_to_XYZ(xy),
-            xy_to_XYZ(ADOBE_DNG_XYZ_ILLUMINANT),
+            xy_to_XYZ(xy), xy_to_XYZ(ADOBE_DNG_XYZ_ILLUMINANT),
             chromatic_adaptation_transform)
         M_camera_space_to_XYZ = dot_matrix(M_CAT, M_camera_to_XYZ)
     else:

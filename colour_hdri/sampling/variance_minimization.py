@@ -217,8 +217,9 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
 
     iterations = np.sqrt(lights_count).astype(np.int_)
     if iterations ** 2 != lights_count:
-        warning('{0} lights requested, {1} will be effectively computed!'.
-                format(lights_count, iterations ** 2))
+        warning(
+            '{0} lights requested, {1} will be effectively computed!'.format(
+                lights_count, iterations ** 2))
 
     Y = RGB_luminance(light_probe, colourspace.primaries,
                       colourspace.whitepoint)

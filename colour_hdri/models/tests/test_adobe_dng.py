@@ -130,17 +130,16 @@ xy_to_camera_neutral` definition.
         np.testing.assert_almost_equal(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3), np.identity(3), ANALOG_BALANCE),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
+                np.identity(3), ANALOG_BALANCE),
             np.array([0.41306999, 1.00000000, 0.64646500]),
             decimal=7)
 
         np.testing.assert_almost_equal(
             xy_to_camera_neutral(
-                np.array([0.32816244,
-                          0.34698169]), 2850, 6500, M_COLOR_MATRIX_1,
-                np.identity(3), np.identity(3), np.identity(3),
-                ANALOG_BALANCE),
+                np.array([0.32816244, 0.34698169]), 2850,
+                6500, M_COLOR_MATRIX_1, np.identity(3), np.identity(3),
+                np.identity(3), ANALOG_BALANCE),
             np.array([0.42696744, 1.00000000, 0.63712786]),
             decimal=7)
 
@@ -168,17 +167,16 @@ camera_neutral_to_xy` definition.
         np.testing.assert_almost_equal(
             camera_neutral_to_xy(
                 np.array([0.41306999, 1.00000000, 0.64646500]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3), np.identity(3), ANALOG_BALANCE),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
+                np.identity(3), ANALOG_BALANCE),
             np.array([0.32816244, 0.34698169]),
             decimal=7)
 
         np.testing.assert_almost_equal(
             camera_neutral_to_xy(
-                np.array([0.42696744, 1.00000000,
-                          0.63712786]), 2850, 6500, M_COLOR_MATRIX_1,
-                np.identity(3), np.identity(3), np.identity(3),
-                ANALOG_BALANCE),
+                np.array([0.42696744, 1.00000000, 0.63712786]), 2850,
+                6500, M_COLOR_MATRIX_1, np.identity(3), np.identity(3),
+                np.identity(3), ANALOG_BALANCE),
             np.array([0.32816244, 0.34698169]),
             decimal=7)
 
@@ -209,8 +207,8 @@ XYZ_to_camera_space_matrix` definition.
         np.testing.assert_almost_equal(
             XYZ_to_camera_space_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3), np.identity(3), ANALOG_BALANCE),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
+                np.identity(3), ANALOG_BALANCE),
             M_reference,
             decimal=7)
 
@@ -221,8 +219,8 @@ XYZ_to_camera_space_matrix` definition.
         np.testing.assert_almost_equal(
             XYZ_to_camera_space_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3), np.identity(3), ANALOG_BALANCE),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
+                np.identity(3), ANALOG_BALANCE),
             M_reference,
             decimal=7)
 
@@ -233,8 +231,8 @@ XYZ_to_camera_space_matrix` definition.
         np.testing.assert_almost_equal(
             XYZ_to_camera_space_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3), np.identity(3), ANALOG_BALANCE),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
+                np.identity(3), ANALOG_BALANCE),
             M_reference,
             decimal=7)
 
@@ -258,8 +256,7 @@ camera_space_to_XYZ_matrix` definition.
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
                 np.identity(3), ANALOG_BALANCE, M_FORWARD_MATRIX_1,
                 M_FORWARD_MATRIX_2),
             M_reference,
@@ -272,8 +269,7 @@ camera_space_to_XYZ_matrix` definition.
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
                 np.identity(3), ANALOG_BALANCE, M_FORWARD_MATRIX_1,
                 M_FORWARD_MATRIX_2),
             M_reference,
@@ -286,8 +282,7 @@ camera_space_to_XYZ_matrix` definition.
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
                 np.identity(3), ANALOG_BALANCE, M_FORWARD_MATRIX_1,
                 M_FORWARD_MATRIX_2),
             M_reference,
@@ -300,8 +295,7 @@ camera_space_to_XYZ_matrix` definition.
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
-                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2,
-                np.identity(3),
+                M_COLOR_MATRIX_1, M_COLOR_MATRIX_2, np.identity(3),
                 np.identity(3), ANALOG_BALANCE, np.identity(3),
                 np.identity(3)),
             M_reference,

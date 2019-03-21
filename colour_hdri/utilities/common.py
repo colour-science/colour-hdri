@@ -118,7 +118,7 @@ def filter_files(directory, extensions):
         Filtered files.
     """
 
-    return map(lambda x: os.path.join(directory, x),
-               filter(
-                   lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
-                   sorted(os.listdir(directory))))
+    return map(
+        lambda x: os.path.join(directory, x),
+        filter(lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
+               sorted(os.listdir(directory))))

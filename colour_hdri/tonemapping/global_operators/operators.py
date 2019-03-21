@@ -627,9 +627,8 @@ def tonemapping_operator_Reinhard2004(RGB,
 
     f = np.exp(-f)
 
-    m = (m
-         if m > 0 else (0.3 + 0.7 * ((np.log(L_max) - L_lav) /
-                                     (np.log(L_max) - np.log(L_min)) ** 1.4)))
+    m = (m if m > 0 else (0.3 + 0.7 * (
+        (np.log(L_max) - L_lav) / (np.log(L_max) - np.log(L_min)) ** 1.4)))
 
     I_l = (c * RGB + (1 - c)) * L[..., np.newaxis]
     I_g = c * C_av + (1 - c) * L_lav
@@ -706,8 +705,8 @@ def tonemapping_operator_filmic(RGB,
     F = toe_denominator
 
     def f(x, A, B, C, D, E, F):
-        return (((x * (A * x + C * B) + D * E) /
-                 (x * (A * x + B) + D * F)) - E / F)
+        return ((
+            (x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F)
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
     RGB = RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F))

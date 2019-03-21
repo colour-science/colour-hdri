@@ -234,8 +234,8 @@ def copy_exif_tags(source, target):
         Definition success.
     """
 
-    LOGGER.info(
-        "Copying '{0}' file exif data to '{1}' file.".format(source, target))
+    LOGGER.info("Copying '{0}' file exif data to '{1}' file.".format(
+        source, target))
 
     arguments = [EXIF_EXECUTABLE, '-overwrite_original', '-TagsFromFile']
     arguments += [source, target]

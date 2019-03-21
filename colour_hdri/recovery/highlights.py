@@ -110,16 +110,18 @@ def highlights_recovery_LCHab(RGB,
     L, _C, H = tsplit(
         Lab_to_LCHab(
             XYZ_to_Lab(
-                RGB_to_XYZ(RGB, RGB_colourspace.whitepoint, RGB_colourspace.
-                           whitepoint, RGB_colourspace.RGB_to_XYZ_matrix),
+                RGB_to_XYZ(RGB, RGB_colourspace.whitepoint,
+                           RGB_colourspace.whitepoint,
+                           RGB_colourspace.RGB_to_XYZ_matrix),
                 RGB_colourspace.whitepoint)))
     _L_c, C_c, _H_c = tsplit(
         Lab_to_LCHab(
             XYZ_to_Lab(
                 RGB_to_XYZ(
                     np.clip(RGB, 0, threshold), RGB_colourspace.whitepoint,
-                    RGB_colourspace.whitepoint, RGB_colourspace.
-                    RGB_to_XYZ_matrix), RGB_colourspace.whitepoint)))
+                    RGB_colourspace.whitepoint,
+                    RGB_colourspace.RGB_to_XYZ_matrix),
+                RGB_colourspace.whitepoint)))
 
     return XYZ_to_RGB(
         Lab_to_XYZ(

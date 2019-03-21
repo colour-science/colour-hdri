@@ -200,8 +200,8 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
         if path_exists(dng_file):
             os.remove(dng_file)
 
-        LOGGER.info(
-            'Converting "{0}" file to "{1}" file.'.format(raw_file, dng_file))
+        LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
+            raw_file, dng_file))
 
         command = [DNG_CONVERTER] + shlex.split(
             DNG_CONVERSION_ARGUMENTS.format(output_directory, raw_file),
@@ -298,8 +298,8 @@ def read_dng_files_exif_tags(dng_files,
                 if exif_tag is None:
                     default = binding[group][tag][1]
                     binding[group][tag] = (
-                        default if default is None else
-                        parser(ExifTag(value=binding[group][tag][1])))
+                        default if default is None else parser(
+                            ExifTag(value=binding[group][tag][1])))
                 else:
                     binding[group][tag] = parser(exif_tag[0])
 
