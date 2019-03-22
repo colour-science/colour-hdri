@@ -175,9 +175,11 @@ def parse_exif_data(data):
         r'\[(?P<group>\w+)\]\s*(?P<id>(\d+|-))?(?P<tag>.*?):(?P<value>.*$)',
         data)
 
-    return map(lambda x: x.strip() if x is not None else x,
-               (search.group('group'), search.group('id'), search.group('tag'),
-                search.group('value')))
+    return [
+        group.strip() if group is not None else group
+        for group in (search.group('group'), search.group('id'),
+                      search.group('tag'), search.group('value'))
+    ]
 
 
 def read_exif_tags(image):

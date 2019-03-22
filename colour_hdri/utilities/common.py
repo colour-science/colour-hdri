@@ -36,7 +36,7 @@ def vivification():
     --------
     >>> vivified = vivification()
     >>> vivified['my']['attribute'] = 1
-    >>> vivified['my']  # doctest: +ELLIPSIS
+    >>> vivified['my']  # doctest: +SKIP
     defaultdict(<function vivification at 0x...>, {u'attribute': 1})
     >>> vivified['my']['attribute']
     1
@@ -62,14 +62,14 @@ def vivified_to_dict(vivified):
     --------
     >>> vivified = vivification()
     >>> vivified['my']['attribute'] = 1
-    >>> vivified_to_dict(vivified)
+    >>> vivified_to_dict(vivified)  # doctest: +SKIP
     {u'my': {u'attribute': 1}}
     """
 
     if isinstance(vivified, defaultdict):
         vivified = {
             key: vivified_to_dict(value)
-            for key, value in vivified.iteritems()
+            for key, value in vivified.items()
         }
     return vivified
 
@@ -118,7 +118,8 @@ def filter_files(directory, extensions):
         Filtered files.
     """
 
-    return map(
-        lambda x: os.path.join(directory, x),
+    return [
+        os.path.join(directory, path) for path in
         filter(lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
-               sorted(os.listdir(directory))))
+               sorted(os.listdir(directory)))
+    ]
