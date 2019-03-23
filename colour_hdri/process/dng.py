@@ -19,7 +19,7 @@ import os
 import platform
 import re
 import shlex
-import subprocess
+import subprocess  # nosec
 from copy import deepcopy
 
 from colour.utilities import CaseInsensitiveMapping, warning
@@ -208,7 +208,7 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         dng_files.append(dng_file)
 
@@ -254,7 +254,7 @@ def convert_dng_files_to_intermediate_files(dng_files,
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         tiff_file = os.path.join(output_directory,
                                  os.path.basename(intermediate_file))

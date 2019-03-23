@@ -19,7 +19,7 @@ from __future__ import division, unicode_literals
 import logging
 import numpy as np
 import re
-import subprocess
+import subprocess  # nosec
 from collections import namedtuple
 from fractions import Fraction
 from six import text_type
@@ -201,8 +201,9 @@ def read_exif_tags(image):
 
     exif_tags = vivification()
     lines = text_type(
-        subprocess.check_output(
-            [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]), 'utf-8',
+        subprocess.check_output(  # nosec
+            [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
+        'utf-8',
         'ignore').split('\n')
 
     for line in lines:
@@ -241,7 +242,7 @@ def copy_exif_tags(source, target):
 
     arguments = [EXIF_EXECUTABLE, '-overwrite_original', '-TagsFromFile']
     arguments += [source, target]
-    subprocess.check_output(arguments)
+    subprocess.check_output(arguments)  # nosec
 
     return True
 
@@ -285,7 +286,7 @@ def delete_exif_tags(image):
 
     LOGGER.info("Deleting '{0}' image exif tags.".format(image))
 
-    subprocess.check_output(
+    subprocess.check_output(  # nosec
         [EXIF_EXECUTABLE, '-overwrite_original', '-all=', image])
 
     return True
@@ -309,8 +310,10 @@ def read_exif_tag(image, tag):
     """
 
     value = text_type(
-        subprocess.check_output([EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
-        'utf-8', 'ignore').split(':').pop().strip()
+        subprocess.check_output(  # nosec
+            [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
+        'utf-8',
+        'ignore').split(':').pop().strip()
 
     LOGGER.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
         image, tag, value))
@@ -342,6 +345,6 @@ def write_exif_tag(image, tag, value):
 
     arguments = [EXIF_EXECUTABLE, '-overwrite_original']
     arguments += ['-{0}={1}'.format(tag, value), image]
-    subprocess.check_output(arguments)
+    subprocess.check_output(arguments)  # nosec
 
     return True

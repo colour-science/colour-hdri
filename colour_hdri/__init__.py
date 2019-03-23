@@ -25,7 +25,7 @@ from __future__ import absolute_import
 import numpy as np
 import os
 import recordclass
-import subprocess
+import subprocess  # nosec
 
 import colour
 
@@ -132,7 +132,7 @@ __version__ = '.'.join(
      __change_version__))  # yapf: disable
 
 try:
-    version = subprocess.check_output(
+    version = subprocess.check_output(  # nosec
         ['git', 'describe'], cwd=os.path.dirname(__file__)).strip()
     version = version.decode('utf-8')
 except Exception:

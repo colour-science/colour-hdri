@@ -12,7 +12,7 @@ import platform
 import re
 import shlex
 import shutil
-import subprocess
+import subprocess  # nosec
 import tempfile
 import unittest
 
@@ -90,7 +90,7 @@ highlights_recovery_blend` definition unit tests methods.
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         test_tiff_file = read_image(
             str(re.sub('\\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
@@ -146,7 +146,7 @@ highlights_recovery_LCHab` definition unit tests methods.
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         test_tiff_file = read_image(
             str(re.sub('\\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
