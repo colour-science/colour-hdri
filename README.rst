@@ -108,7 +108,7 @@ API
 ^^^
 
 The main reference for `Colour - HDRI <https://github.com/colour-science/colour-hdri>`_
-is the Sphinx `API Reference <https://colour-hdri.readthedocs.io/en/latest/api.html>`_.
+is the `Colour - HDRI Manual <https://colour-hdri.readthedocs.io/en/latest/manual.html>`_.
 
 Examples
 ^^^^^^^^
