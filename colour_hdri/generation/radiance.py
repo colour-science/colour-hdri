@@ -31,7 +31,7 @@ from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -77,7 +77,7 @@ def image_stack_to_radiance_image(
 
     References
     ----------
-    -   :cite:`Banterle2011n`
+    :cite:`Banterle2011n`
     """
 
     image_c = None
@@ -87,8 +87,9 @@ def image_stack_to_radiance_image(
             image_c = np.zeros(image.data.shape)
             weight_c = np.zeros(image.data.shape)
 
-        L = average_luminance(image.metadata.f_number,
-                              image.metadata.exposure_time, image.metadata.iso)
+        L = 1 / average_luminance(image.metadata.f_number,
+                                  image.metadata.exposure_time,
+                                  image.metadata.iso)
 
         if np.any(image.data <= 0):
             warning('"{0}" image channels contain negative or equal to zero '
@@ -120,7 +121,7 @@ def image_stack_to_radiance_image(
             R = np.interp(R, samples, camera_response_functions[..., 0])
             G = np.interp(G, samples, camera_response_functions[..., 1])
             B = np.interp(B, samples, camera_response_functions[..., 2])
-            image_data = tstack((R, G, B))
+            image_data = tstack([R, G, B])
 
         image_c += weights * image_data / L
         weight_c += weights

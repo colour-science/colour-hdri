@@ -5,33 +5,37 @@ HDRI / Radiance Image Plotting
 
 Defines the HDRI / radiance image plotting objects:
 
--   :func:`colour_hdri.plotting.radiance_image_strip_plot`
+-   :func:`colour_hdri.plotting.plot_radiance_image_strip`
 """
 
 from __future__ import division, unicode_literals
 
-import matplotlib.pyplot
+import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 
-from colour.plotting import DEFAULT_PLOTTING_ENCODING_CCTF, display
+from colour.plotting import COLOUR_STYLE_CONSTANTS, override_style, render
+from colour.utilities import as_float_array
 
 from colour_hdri.utilities.exposure import adjust_exposure
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['radiance_image_strip_plot']
+__all__ = ['plot_radiance_image_strip']
 
 
-def radiance_image_strip_plot(image,
-                              count=5,
-                              ev_steps=-2,
-                              encoding_cctf=DEFAULT_PLOTTING_ENCODING_CCTF,
-                              **kwargs):
+@override_style()
+def plot_radiance_image_strip(
+        image,
+        count=5,
+        ev_steps=-2,
+        encoding_cctf=COLOUR_STYLE_CONSTANTS.colour.colourspace.encoding_cctf,
+        **kwargs):
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
 
@@ -49,17 +53,17 @@ def radiance_image_strip_plot(image,
 
     Other Parameters
     ----------------
-    \**kwargs : dict, optional
+    \\**kwargs : dict, optional
         {:func:`colour.plotting.display`},
         Please refer to the documentation of the previously listed definition.
 
     Returns
     -------
-    Figure
-        Current figure or None.
+    tuple
+        Current figure and axes.
     """
 
-    image = np.asarray(image)
+    image = as_float_array(image)
 
     grid = matplotlib.gridspec.GridSpec(1, count)
     grid.update(wspace=0, hspace=0)
@@ -67,7 +71,7 @@ def radiance_image_strip_plot(image,
     height, width, _channel = image.shape
     for i in range(count):
         ev = i * ev_steps
-        axis = matplotlib.pyplot.subplot(grid[i])
+        axis = plt.subplot(grid[i])
         axis.imshow(np.clip(encoding_cctf(adjust_exposure(image, ev)), 0, 1))
         axis.text(
             width * 0.05,
@@ -78,4 +82,4 @@ def radiance_image_strip_plot(image,
         axis.set_yticks([])
         axis.set_aspect('equal')
 
-    return display(**kwargs)
+    return render(**kwargs)

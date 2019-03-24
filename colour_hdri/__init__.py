@@ -22,15 +22,20 @@ Subpackages
 
 from __future__ import absolute_import
 
+import numpy as np
 import os
+import recordclass
+import subprocess  # nosec
+
+import colour
 
 from .utilities import (
-    EXIF_EXECUTABLE, ExifTag, adjust_exposure, average_luminance,
-    copy_exif_tags, delete_exif_tags, exposure_value, filter_files, Image,
-    ImageStack, Metadata, parse_exif_array, parse_exif_data,
-    parse_exif_fraction, parse_exif_numeric, parse_exif_string, path_exists,
-    read_exif_tag, read_exif_tags, update_exif_tags, vivification,
-    vivified_to_dict, write_exif_tag)
+    EXIF_EXECUTABLE, ExifTag, adjust_exposure, average_illuminance,
+    average_luminance, copy_exif_tags, delete_exif_tags, exposure_value,
+    filter_files, Image, ImageStack, Metadata, parse_exif_array,
+    parse_exif_data, parse_exif_fraction, parse_exif_numeric,
+    parse_exif_string, path_exists, read_exif_tag, read_exif_tags,
+    update_exif_tags, vivification, vivified_to_dict, write_exif_tag)
 from .sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
     samples_Grossberg2003)
@@ -48,7 +53,7 @@ from .process import (DNG_CONVERSION_ARGUMENTS, DNG_CONVERTER,
                       RAW_CONVERTER, RAW_D_CONVERSION_ARGUMENTS,
                       convert_dng_files_to_intermediate_files,
                       convert_raw_files_to_dng_files, read_dng_files_exif_tags)
-from .recovery import (highlights_recovery_blend, highlights_recovery_LCHab)
+from .recovery import highlights_recovery_blend, highlights_recovery_LCHab
 from .tonemapping import (
     tonemapping_operator_exponential,
     tonemapping_operator_exponentiation_mapping, tonemapping_operator_filmic,
@@ -59,19 +64,20 @@ from .tonemapping import (
     tonemapping_operator_Tumblin1999)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = [
-    'EXIF_EXECUTABLE', 'ExifTag', 'adjust_exposure', 'average_luminance',
-    'copy_exif_tags', 'delete_exif_tags', 'exposure_value', 'filter_files',
-    'Image', 'ImageStack', 'Metadata', 'parse_exif_array', 'parse_exif_data',
-    'parse_exif_fraction', 'parse_exif_numeric', 'parse_exif_string',
-    'path_exists', 'read_exif_tag', 'read_exif_tags', 'update_exif_tags',
-    'vivification', 'vivified_to_dict', 'write_exif_tag'
+    'EXIF_EXECUTABLE', 'ExifTag', 'adjust_exposure', 'average_illuminance',
+    'average_luminance', 'copy_exif_tags', 'delete_exif_tags',
+    'exposure_value', 'filter_files', 'Image', 'ImageStack', 'Metadata',
+    'parse_exif_array', 'parse_exif_data', 'parse_exif_fraction',
+    'parse_exif_numeric', 'parse_exif_string', 'path_exists', 'read_exif_tag',
+    'read_exif_tags', 'update_exif_tags', 'vivification', 'vivified_to_dict',
+    'write_exif_tag'
 ]
 __all__ += [
     'light_probe_sampling_variance_minimization_Viriyothai2009',
@@ -124,3 +130,20 @@ __version__ = '.'.join(
     (__major_version__,
      __minor_version__,
      __change_version__))  # yapf: disable
+
+try:
+    version = subprocess.check_output(  # nosec
+        ['git', 'describe'], cwd=os.path.dirname(__file__)).strip()
+    version = version.decode('utf-8')
+except Exception:
+    version = __version__
+
+colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES['colour-hdri'] = version
+colour.utilities.ANCILLARY_RUNTIME_PACKAGES[
+    'recordclass'] = recordclass.__version__
+
+# TODO: Remove legacy printing support when deemed appropriate.
+try:
+    np.set_printoptions(legacy='1.13')
+except TypeError:
+    pass

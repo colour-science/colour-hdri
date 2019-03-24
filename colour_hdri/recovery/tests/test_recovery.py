@@ -12,7 +12,7 @@ import platform
 import re
 import shlex
 import shutil
-import subprocess
+import subprocess  # nosec
 import tempfile
 import unittest
 
@@ -26,7 +26,7 @@ from colour_hdri.models import camera_space_to_sRGB
 from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -90,10 +90,10 @@ highlights_recovery_blend` definition unit tests methods.
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         test_tiff_file = read_image(
-            str(re.sub('\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
+            str(re.sub('\\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
 
         test_tiff_file *= multipliers
         test_tiff_file = highlights_recovery_blend(test_tiff_file, multipliers)
@@ -101,7 +101,7 @@ highlights_recovery_blend` definition unit tests methods.
                                               XYZ_TO_CAMERA_SPACE_MATRIX)
         reference_exr_path = os.path.join(
             RECOVERY_DIRECTORY,
-            os.path.basename(re.sub('\.CR2$', '_Blend.exr', test_raw_file)))
+            os.path.basename(re.sub('\\.CR2$', '_Blend.exr', test_raw_file)))
         reference_exr_file = read_image(str(reference_exr_path))
 
         np.testing.assert_allclose(
@@ -146,10 +146,10 @@ highlights_recovery_LCHab` definition unit tests methods.
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         test_tiff_file = read_image(
-            str(re.sub('\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
+            str(re.sub('\\.CR2$', '.tiff', test_raw_file)))[::10, ::10, :]
 
         test_tiff_file *= multipliers
         test_tiff_file = highlights_recovery_LCHab(test_tiff_file,
@@ -159,7 +159,7 @@ highlights_recovery_LCHab` definition unit tests methods.
 
         reference_exr_path = os.path.join(
             RECOVERY_DIRECTORY,
-            os.path.basename(re.sub('\.CR2$', '_LCHab.exr', test_raw_file)))
+            os.path.basename(re.sub('\\.CR2$', '_LCHab.exr', test_raw_file)))
         reference_exr_file = read_image(str(reference_exr_path))
 
         np.testing.assert_allclose(

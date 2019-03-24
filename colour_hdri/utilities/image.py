@@ -17,16 +17,15 @@ import numpy as np
 from collections import MutableSequence
 from recordclass import recordclass
 
-from colour.constants import DEFAULT_FLOAT_DTYPE
-from colour.io import read_image
-from colour.utilities import is_string, tsplit, tstack, warning
+from colour import read_image
+from colour.utilities import as_float_array, is_string, tsplit, tstack, warning
 
 from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
                                         parse_exif_numeric, read_exif_tags)
 from colour_hdri.utilities.exposure import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -167,7 +166,7 @@ class Image(object):
                 '"{0}" attribute: "{1}" is not a "tuple", "list", "ndarray" '
                 'or "matrix" instance!').format('data', value))
 
-        self._data = np.asarray(value)
+        self._data = as_float_array(value)
 
     @property
     def metadata(self):
@@ -235,9 +234,13 @@ class Image(object):
 
         LOGGER.info('Reading "{0}" image metadata.'.format(self._path))
         exif_data = read_exif_tags(self._path)
+
         if not exif_data.get('EXIF'):
-            raise RuntimeError(
-                '"{0}" file has no "Exif" data!'.format(self._path))
+            warning(
+                '"{0}" file has no "Exif" data, metadata will be undefined!'.
+                format(self._path))
+            self.metadata = Metadata(*[None] * 6)
+            return self.metadata
 
         f_number = exif_data['EXIF'].get('F Number')
         if f_number is not None:
@@ -254,20 +257,18 @@ class Image(object):
         black_level = exif_data['EXIF'].get('Black Level')
         if black_level is not None:
             black_level = parse_exif_array(black_level[0])
-            black_level = np.asarray(
-                black_level, dtype=DEFAULT_FLOAT_DTYPE) / 65535
+            black_level = as_float_array(black_level) / 65535
 
         white_level = exif_data['EXIF'].get('White Level')
         if white_level is not None:
             white_level = parse_exif_array(white_level[0])
-            white_level = np.asarray(
-                white_level, dtype=DEFAULT_FLOAT_DTYPE) / 65535
+            white_level = as_float_array(white_level) / 65535
 
         white_balance_multipliers = exif_data['EXIF'].get('As Shot Neutral')
         if white_balance_multipliers is not None:
             white_balance_multipliers = parse_exif_array(
                 white_balance_multipliers[0])
-            white_balance_multipliers = np.asarray(
+            white_balance_multipliers = as_float_array(
                 white_balance_multipliers) / white_balance_multipliers[1]
 
         self.metadata = Metadata(f_number, exposure_time, iso, black_level,
@@ -375,7 +376,7 @@ class ImageStack(MutableSequence):
                     return tuple(value)
             elif hasattr(Metadata, attribute):
                 value = [getattr(image.metadata, attribute) for image in self]
-                return np.asarray(value)
+                return as_float_array(value)
             else:
                 raise AttributeError(
                     "'{0}' object has no attribute '{1}'".format(
@@ -474,7 +475,7 @@ class ImageStack(MutableSequence):
                         'sorting is inapplicable!'.format(image.path))
                 return None
 
-            return average_luminance(f_number, exposure_time, iso)
+            return 1 / average_luminance(f_number, exposure_time, iso)
 
         image_stack.sort(luminance_average_key)
 

@@ -126,7 +126,7 @@ from colour.temperature import uv_to_CCT_Robertson1968
 from colour_hdri.models import ADOBE_DNG_XYZ_ILLUMINANT
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -141,7 +141,7 @@ __all__ = [
 def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
     """
     Computes the matrix interpolated from :math:`CCT_1` and :math:`CCT_2`
-    correlated colour temperatures to respectively :math:`M_1` and :math:`M_2`
+    correlated colour temperatures to respectively :math:`M_T` and :math:`M_R`
     colour matrices using given correlated colour temperature :math:`CCT`
     interpolation value.
 
@@ -154,9 +154,9 @@ def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
     CCT_2 : numeric
         Correlated colour temperature :math:`CCT_2`.
     M_1 : array_like
-        :math:`M_1` colour matrix.
+        :math:`M_T` colour matrix.
     M_2 : array_like
-        :math:`M_2` colour matrix.
+        :math:`M_R` colour matrix.
 
     Returns
     -------
@@ -173,15 +173,15 @@ def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
     >>> CCT = 5000
     >>> CCT_1 = 2850
     >>> CCT_2 = 6500
-    >>> M_1 = np.array([
+    >>> M_T = np.array([
     ...     [0.5309, -0.0229, -0.0336],
     ...     [-0.6241, 1.3265, 0.3337],
     ...     [-0.0817, 0.1215, 0.6664]])
-    >>> M_2 = np.array([
+    >>> M_R = np.array([
     ...     [0.4716, 0.0603, -0.0830],
     ...     [-0.7798, 1.5474, 0.2480],
     ...     [-0.1496, 0.1937, 0.6651]])
-    >>> interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2)  # doctest: +ELLIPSIS
+    >>> interpolated_matrix(CCT, CCT_1, CCT_2, M_T, M_R)  # doctest: +ELLIPSIS
     array([[ 0.4854908...,  0.0408106..., -0.0714282...],
            [-0.7433278...,  1.4956549...,  0.2680749...],
            [-0.1336946...,  0.1767874...,  0.6654045...]])
@@ -193,7 +193,7 @@ def interpolated_matrix(CCT, CCT_1, CCT_2, M_1, M_2):
         return M_2
     else:
         return linear_conversion(1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2),
-                                 tstack((M_1, M_2)))
+                                 tstack([M_1, M_2]))
 
 
 def xy_to_camera_neutral(xy, CCT_calibration_illuminant_1,
@@ -230,10 +230,8 @@ def xy_to_camera_neutral(xy, CCT_calibration_illuminant_1,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012d`
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012d`, :cite:`AdobeSystems2012f`,
+    :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -318,10 +316,8 @@ def camera_neutral_to_xy(camera_neutral,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012e`
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012e`, :cite:`AdobeSystems2012f`,
+    :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -409,9 +405,7 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012f`, :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -518,10 +512,8 @@ def camera_space_to_XYZ_matrix(xy,
 
     References
     ----------
-    -   :cite:`AdobeSystems2012f`
-    -   :cite:`AdobeSystems2012g`
-    -   :cite:`AdobeSystems2015d`
-    -   :cite:`McGuffog2012a`
+    :cite:`AdobeSystems2012f`, :cite:`AdobeSystems2012g`,
+    :cite:`AdobeSystems2015d`, :cite:`McGuffog2012a`
 
     Examples
     --------
@@ -569,8 +561,7 @@ def camera_space_to_XYZ_matrix(xy,
                 M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
                 M_camera_calibration_2, analog_balance))
         M_CAT = chromatic_adaptation_matrix_VonKries(
-            xy_to_XYZ(xy),
-            xy_to_XYZ(ADOBE_DNG_XYZ_ILLUMINANT),
+            xy_to_XYZ(xy), xy_to_XYZ(ADOBE_DNG_XYZ_ILLUMINANT),
             chromatic_adaptation_transform)
         M_camera_space_to_XYZ = dot_matrix(M_CAT, M_camera_to_XYZ)
     else:

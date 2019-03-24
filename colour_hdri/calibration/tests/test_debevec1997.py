@@ -17,7 +17,7 @@ from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import ImageStack, average_luminance, filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -49,9 +49,8 @@ class TestGSolve(unittest.TestCase):
         """
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
-        L_l = np.log(
-            average_luminance(image_stack.f_number, image_stack.exposure_time,
-                              image_stack.iso))
+        L_l = np.log(1 / average_luminance(
+            image_stack.f_number, image_stack.exposure_time, image_stack.iso))
         samples = samples_Grossberg2003(image_stack.data)
 
         for i in range(3):
