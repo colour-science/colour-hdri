@@ -5,35 +5,34 @@ Tonemapping Operators Plotting
 
 Defines the tonemapping operators plotting objects:
 
--   :func:`colour_hdri.plotting.tonemapping_operator_image_plot`
+-   :func:`colour_hdri.plotting.plot_tonemapping_operator_image`
 """
 
 from __future__ import division, unicode_literals
 
 import matplotlib
-import matplotlib.pyplot
 import matplotlib.ticker
 import numpy as np
-import pylab
 
-from colour.plotting import (DEFAULT_PLOTTING_ENCODING_CCTF, boundaries,
-                             canvas, display, decorate)
+from colour.plotting import (COLOUR_STYLE_CONSTANTS, artist, override_style,
+                             render)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
-__all__ = ['tonemapping_operator_image_plot']
+__all__ = ['plot_tonemapping_operator_image']
 
 
-def tonemapping_operator_image_plot(
+@override_style()
+def plot_tonemapping_operator_image(
         image,
         luminance_function,
         log_scale=False,
-        encoding_cctf=DEFAULT_PLOTTING_ENCODING_CCTF,
+        encoding_cctf=COLOUR_STYLE_CONSTANTS.colour.colourspace.encoding_cctf,
         **kwargs):
     """
     Plots given tonemapped image with superimposed luminance mapping function.
@@ -52,41 +51,43 @@ def tonemapping_operator_image_plot(
 
     Other Parameters
     ----------------
-    \**kwargs : dict, optional
+    \\**kwargs : dict, optional
         {:func:`colour.plotting.render`},
         Please refer to the documentation of the previously listed definition.
 
     Returns
     -------
-    bool
-        Definition success.
+    tuple
+        Current figure and axes.
     """
 
+    settings = {'uniform': True}
+    settings.update(kwargs)
+
+    figure, axes = artist(**settings)
+
     shape = image.shape
-    limits = [0, 1, 0, 1]
+    bounding_box = [0, 1, 0, 1]
 
     image = np.clip(encoding_cctf(image), 0, 1)
-    pylab.imshow(
+    axes.imshow(
         image,
         aspect=shape[0] / shape[1],
-        extent=limits,
+        extent=bounding_box,
         interpolation='nearest')
 
-    pylab.plot(
+    axes.plot(
         np.linspace(0, 1, len(luminance_function)),
         luminance_function,
         color='red')
 
     settings = {
-        'figure_size': (8, 8),
-        'x_label': 'Input Luminance',
-        'y_label': 'Output Luminance',
+        'axes': axes,
+        'bounding_box': bounding_box,
         'x_ticker': True,
         'y_ticker': True,
-        'grid': True,
-        'x_tighten': True,
-        'y_tighten': True,
-        'limits': limits
+        'x_label': 'Input Luminance',
+        'y_label': 'Output Luminance',
     }
     settings.update(kwargs)
 
@@ -99,8 +100,4 @@ def tonemapping_operator_image_plot(
         matplotlib.pyplot.gca().xaxis.set_major_formatter(
             matplotlib.ticker.ScalarFormatter())
 
-    canvas(**settings)
-    decorate(**settings)
-    boundaries(**settings)
-
-    return display(**settings)
+    return render(**settings)

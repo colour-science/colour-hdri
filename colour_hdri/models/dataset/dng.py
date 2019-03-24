@@ -28,7 +28,7 @@ from colour.colorimetry import ILLUMINANTS
 from colour.utilities import CaseInsensitiveMapping
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -75,7 +75,7 @@ DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE = (CaseInsensitiveMapping({
 
 References
 ----------
--   :cite:`AdobeSystems2015c`
+:cite:`AdobeSystems2015c`
 
 Notes
 -----
@@ -113,7 +113,7 @@ LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS = {
 
 References
 ----------
--   :cite:`AdobeSystems2015e`
+:cite:`AdobeSystems2015e`
 
 LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS : CaseInsensitiveMapping
 """

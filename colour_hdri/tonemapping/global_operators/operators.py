@@ -54,9 +54,10 @@ import numpy as np
 
 from colour.constants import EPSILON
 from colour.models import RGB_COLOURSPACES, RGB_luminance
+from colour.utilities import as_float_array
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -95,7 +96,7 @@ def log_average(a, epsilon=EPSILON):
     0.1...
     """
 
-    a = np.asarray(a)
+    a = as_float_array(a)
 
     average = np.exp(np.average(np.log(a + epsilon)))
 
@@ -105,7 +106,7 @@ def log_average(a, epsilon=EPSILON):
 def tonemapping_operator_simple(RGB):
     """
     Performs given *RGB* array tonemapping using the simple method:
-    :math:`\cfrac{RGB}{RGB + 1}`.
+    :math:`\\cfrac{RGB}{RGB + 1}`.
 
     Parameters
     ----------
@@ -119,7 +120,7 @@ def tonemapping_operator_simple(RGB):
 
     References
     ----------
-    -   :cite:`Wikipediabn`
+    :cite:`Wikipediabn`
 
     Examples
     --------
@@ -135,7 +136,7 @@ def tonemapping_operator_simple(RGB):
             [ 0.8683127...,  0.7746486...,  0.6893211...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     return RGB / (RGB + 1)
 
@@ -159,7 +160,7 @@ def tonemapping_operator_normalisation(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -175,7 +176,7 @@ def tonemapping_operator_normalisation(RGB,
             [ 1.6399638...,  0.8549608...,  0.5518382...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
@@ -195,7 +196,7 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
     RGB : array_like
         *RGB* array to perform tonemapping onto.
     gamma : numeric, optional
-        :math:`\gamma` correction value.
+        :math:`\\gamma` correction value.
     EV : numeric, optional
         Exposure adjustment value.
 
@@ -206,7 +207,7 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -223,7 +224,7 @@ def tonemapping_operator_gamma(RGB, gamma=1, EV=0):
             [ 0.8242187...,  0.4296892...,  0.2773447...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     exposure = 2 ** EV
     RGB = (exposure * RGB) ** (1 / gamma)
@@ -256,7 +257,7 @@ def tonemapping_operator_logarithmic(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -273,7 +274,7 @@ def tonemapping_operator_logarithmic(RGB,
             [ 0.5727396...,  0.2985858...,  0.1927235...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     q = 1 if q < 1 else q
     k = 1 if k < 1 else k
@@ -312,7 +313,7 @@ def tonemapping_operator_exponential(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
+    :cite:`Banterle2011k`
 
     Examples
     --------
@@ -329,7 +330,7 @@ def tonemapping_operator_exponential(RGB,
             [ 0.1921684...,  0.1001830...,  0.0646635...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     q = 1 if q < 1 else q
     k = 1 if k < 1 else k
@@ -367,7 +368,7 @@ def tonemapping_operator_logarithmic_mapping(
 
     References
     ----------
-    -   :cite:`Schlick1994`
+    :cite:`Schlick1994`
 
     Examples
     --------
@@ -383,7 +384,7 @@ def tonemapping_operator_logarithmic_mapping(
             [ 1.6399638...,  0.8549608...,  0.5518382...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
@@ -419,7 +420,7 @@ def tonemapping_operator_exponentiation_mapping(
 
     References
     ----------
-    -   :cite:`Schlick1994`
+    :cite:`Schlick1994`
 
     Examples
     --------
@@ -435,7 +436,7 @@ def tonemapping_operator_exponentiation_mapping(
             [ 1.6399638...,  0.8549608...,  0.5518382...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
@@ -468,8 +469,7 @@ def tonemapping_operator_Schlick1994(RGB,
 
     References
     ----------
-    -   :cite:`Banterle2011k`
-    -   :cite:`Schlick1994`
+    :cite:`Banterle2011k`, :cite:`Schlick1994`
 
     Examples
     --------
@@ -487,7 +487,7 @@ def tonemapping_operator_Schlick1994(RGB,
 
     # TODO: Implement automatic *p* and *non-uniform* computations support.
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     L_max = np.max(L)
@@ -527,7 +527,7 @@ def tonemapping_operator_Tumblin1999(RGB,
 
     References
     ----------
-    -   :cite:`Tumblin1999c`
+    :cite:`Tumblin1999c`
 
     Examples
     --------
@@ -543,7 +543,7 @@ def tonemapping_operator_Tumblin1999(RGB,
             [ 0.3408366...,  0.1776880...,  0.1146895...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     L_w = RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
 
@@ -598,7 +598,7 @@ def tonemapping_operator_Reinhard2004(RGB,
 
     References
     ----------
-    -   :cite:`Reinhard2005c`
+    :cite:`Reinhard2005c`
 
     Examples
     --------
@@ -615,7 +615,7 @@ def tonemapping_operator_Reinhard2004(RGB,
             [ 0.2331935...,  0.1368456...,  0.0928316...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     C_av = np.array((np.average(RGB[..., 0]), np.average(RGB[..., 1]),
                      np.average(RGB[..., 2])))
@@ -627,9 +627,8 @@ def tonemapping_operator_Reinhard2004(RGB,
 
     f = np.exp(-f)
 
-    m = (m
-         if m > 0 else (0.3 + 0.7 * ((np.log(L_max) - L_lav) /
-                                     (np.log(L_max) - np.log(L_min)) ** 1.4)))
+    m = (m if m > 0 else (0.3 + 0.7 * (
+        (np.log(L_max) - L_lav) / (np.log(L_max) - np.log(L_min)) ** 1.4)))
 
     I_l = (c * RGB + (1 - c)) * L[..., np.newaxis]
     I_g = c * C_av + (1 - c) * L_lav
@@ -680,8 +679,7 @@ def tonemapping_operator_filmic(RGB,
 
     References
     ----------
-    -   :cite:`Habble2010d`
-    -   :cite:`Habble2010e`
+    :cite:`Habble2010d`, :cite:`Habble2010e`
 
     Examples
     --------
@@ -697,7 +695,7 @@ def tonemapping_operator_filmic(RGB,
             [ 1.0158782...,  0.9382937...,  0.8615161...]]])
     """
 
-    RGB = np.asarray(RGB)
+    RGB = as_float_array(RGB)
 
     A = shoulder_strength
     B = linear_strength
@@ -707,8 +705,8 @@ def tonemapping_operator_filmic(RGB,
     F = toe_denominator
 
     def f(x, A, B, C, D, E, F):
-        return (((x * (A * x + C * B) + D * E) /
-                 (x * (A * x + B) + D * F)) - E / F)
+        return ((
+            (x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F)
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
     RGB = RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F))

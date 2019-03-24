@@ -22,10 +22,10 @@ import numpy as np
 from collections import namedtuple
 
 from colour.models import RGB_COLOURSPACES, RGB_luminance
-from colour.utilities import centroid, warning
+from colour.utilities import as_float_array, centroid, warning
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -104,7 +104,7 @@ def find_regions_variance_minimization_Viriyothai2009(a, n=4):
         Regions with variance minimized.
     """
 
-    a = np.asarray(a)
+    a = as_float_array(a)
 
     regions = [(0, a.shape[0], 0, a.shape[1])]
 
@@ -210,15 +210,16 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
 
     References
     ----------
-    -   :cite:`Viriyothai2009`
+    :cite:`Viriyothai2009`
     """
 
-    light_probe = np.asarray(light_probe)
+    light_probe = as_float_array(light_probe)
 
     iterations = np.sqrt(lights_count).astype(np.int_)
     if iterations ** 2 != lights_count:
-        warning('{0} lights requested, {1} will be effectively computed!'.
-                format(lights_count, iterations ** 2))
+        warning(
+            '{0} lights requested, {1} will be effectively computed!'.format(
+                lights_count, iterations ** 2))
 
     Y = RGB_luminance(light_probe, colourspace.primaries,
                       colourspace.whitepoint)

@@ -27,14 +27,14 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour.utilities import tstack
+from colour.utilities import as_float_array, as_int_array, tstack
 
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -55,9 +55,9 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     Z : array_like
         Set of pixel values observed for several pixels in several images.
     B : array_like
-        Log :math:`\Delta t`, or log shutter speed for images.
+        Log :math:`\\Delta t`, or log shutter speed for images.
     l_s : numeric, optional
-        :math:`\lambda` smoothing term.
+        :math:`\\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
     n : int, optional
@@ -71,12 +71,12 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
 
     References
     ----------
-    -   :cite:`Debevec1997a`
+    :cite:`Debevec1997a`
     """
 
-    Z = np.asarray(Z).astype(int)
-    B = np.asarray(B)
-    l_s = np.asarray(l_s)
+    Z = as_int_array(Z)
+    B = as_float_array(B)
+    l_s = as_float_array(l_s)
 
     Z_x, Z_y = Z.shape
 
@@ -134,7 +134,7 @@ def camera_response_functions_Debevec1997(image_stack,
     samples : int, optional
         Samples count per images.
     l_s : numeric, optional
-        :math:`\lambda` smoothing term.
+        :math:`\\lambda` smoothing term.
     w : callable, optional
         Weighting function :math:`w`.
     n : int, optional
@@ -151,14 +151,13 @@ def camera_response_functions_Debevec1997(image_stack,
 
     References
     ----------
-    -   :cite:`Debevec1997a`
+    :cite:`Debevec1997a`
     """
 
     s_o = s(image_stack.data, samples, n)
 
-    L_l = np.log(
-        average_luminance(image_stack.f_number, image_stack.exposure_time,
-                          image_stack.iso))
+    L_l = np.log(1 / average_luminance(
+        image_stack.f_number, image_stack.exposure_time, image_stack.iso))
 
     g_c = [
         g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])
@@ -168,7 +167,7 @@ def camera_response_functions_Debevec1997(image_stack,
     if normalise:
         # TODO: Investigate if the normalisation value should account for the
         # percentage of uncertain camera response functions values or be
-        # correlated to it and scaled accordingly. As an alternative of setting
+        # correlated to it and scaled according. As an alternative of setting
         # the uncertain camera response functions values to zero, it would be
         # interesting to explore extrapolation as the camera response functions
         # are essentially smooth. It is important to note that camera sensors

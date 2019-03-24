@@ -19,7 +19,7 @@ import os
 import platform
 import re
 import shlex
-import subprocess
+import subprocess  # nosec
 from copy import deepcopy
 
 from colour.utilities import CaseInsensitiveMapping, warning
@@ -30,7 +30,7 @@ from colour_hdri.utilities import (ExifTag, parse_exif_array,
                                    path_exists, read_exif_tags)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2018 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
 __license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
@@ -54,7 +54,8 @@ RAW_CONVERTER : unicode
 
 RAW_CONVERSION_ARGUMENTS = DocstringText('-t 0 -D -W -4 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
-    RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', '')
+    RAW_CONVERSION_ARGUMENTS = DocstringText(
+        RAW_CONVERSION_ARGUMENTS.replace('"', ''))
 RAW_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for non demosaiced
 linear *tiff* file format output.
@@ -65,7 +66,8 @@ RAW_CONVERSION_ARGUMENTS : unicode
 RAW_D_CONVERSION_ARGUMENTS = DocstringText(
     '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"')
 if platform.system() in ('Windows', 'Microsoft'):
-    RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', '')
+    RAW_D_CONVERSION_ARGUMENTS = DocstringText(
+        RAW_D_CONVERSION_ARGUMENTS.replace('"', ''))
 RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
@@ -93,7 +95,8 @@ DNG_CONVERTER : unicode
 
 DNG_CONVERSION_ARGUMENTS = DocstringText('-l -d "{0}" "{1}"')
 if platform.system() in ('Windows', 'Microsoft'):
-    DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
+    DNG_CONVERSION_ARGUMENTS = DocstringText(
+        DNG_CONVERSION_ARGUMENTS.replace('"', ''))
 DNG_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line *dng* conversion application.
 
@@ -197,15 +200,15 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
         if path_exists(dng_file):
             os.remove(dng_file)
 
-        LOGGER.info(
-            'Converting "{0}" file to "{1}" file.'.format(raw_file, dng_file))
+        LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
+            raw_file, dng_file))
 
         command = [DNG_CONVERTER] + shlex.split(
             DNG_CONVERSION_ARGUMENTS.format(output_directory, raw_file),
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         dng_files.append(dng_file)
 
@@ -236,7 +239,7 @@ def convert_dng_files_to_intermediate_files(dng_files,
 
     intermediate_files = []
     for dng_file in dng_files:
-        intermediate_file = re.sub('\.dng$', '.tiff', dng_file)
+        intermediate_file = re.sub('\\.dng$', '.tiff', dng_file)
 
         if path_exists(intermediate_file):
             os.remove(intermediate_file)
@@ -251,7 +254,7 @@ def convert_dng_files_to_intermediate_files(dng_files,
             posix=(False
                    if platform.system() in ('Windows', 'Microsoft') else True))
 
-        subprocess.call(command)
+        subprocess.call(command)  # nosec
 
         tiff_file = os.path.join(output_directory,
                                  os.path.basename(intermediate_file))
@@ -295,8 +298,8 @@ def read_dng_files_exif_tags(dng_files,
                 if exif_tag is None:
                     default = binding[group][tag][1]
                     binding[group][tag] = (
-                        default if default is None else
-                        parser(ExifTag(value=binding[group][tag][1])))
+                        default if default is None else parser(
+                            ExifTag(value=binding[group][tag][1])))
                 else:
                     binding[group][tag] = parser(exif_tag[0])
 
