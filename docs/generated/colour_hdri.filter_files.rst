@@ -1,5 +1,5 @@
-colour\_hdri\.filter\_files
-===========================
+colour\_hdri.filter\_files
+==========================
 
 .. currentmodule:: colour_hdri
 

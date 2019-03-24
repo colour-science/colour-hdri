@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_Schlick1994
-================================================
+colour\_hdri.tonemapping\_operator\_Schlick1994
+===============================================
 
 .. currentmodule:: colour_hdri
 

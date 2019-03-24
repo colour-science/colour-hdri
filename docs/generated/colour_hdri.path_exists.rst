@@ -1,5 +1,5 @@
-colour\_hdri\.path\_exists
-==========================
+colour\_hdri.path\_exists
+=========================
 
 .. currentmodule:: colour_hdri
 

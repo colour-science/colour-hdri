@@ -1,5 +1,5 @@
-colour\_hdri\.xy\_to\_camera\_neutral
-=====================================
+colour\_hdri.xy\_to\_camera\_neutral
+====================================
 
 .. currentmodule:: colour_hdri
 

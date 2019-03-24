@@ -1,5 +1,5 @@
-colour\_hdri\.camera\_response\_functions\_Debevec1997
-======================================================
+colour\_hdri.camera\_response\_functions\_Debevec1997
+=====================================================
 
 .. currentmodule:: colour_hdri
 

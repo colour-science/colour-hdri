@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_gamma
-==========================================
+colour\_hdri.tonemapping\_operator\_gamma
+=========================================
 
 .. currentmodule:: colour_hdri
 

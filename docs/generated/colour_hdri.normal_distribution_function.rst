@@ -1,5 +1,5 @@
-colour\_hdri\.normal\_distribution\_function
-============================================
+colour\_hdri.normal\_distribution\_function
+===========================================
 
 .. currentmodule:: colour_hdri
 

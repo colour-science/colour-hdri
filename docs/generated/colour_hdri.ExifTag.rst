@@ -1,5 +1,5 @@
-colour\_hdri\.ExifTag
-=====================
+colour\_hdri.ExifTag
+====================
 
 .. currentmodule:: colour_hdri
 
@@ -19,5 +19,14 @@ colour\_hdri\.ExifTag
    
 
    
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~ExifTag.group
+      ~ExifTag.identifier
+      ~ExifTag.name
+      ~ExifTag.value
    
    

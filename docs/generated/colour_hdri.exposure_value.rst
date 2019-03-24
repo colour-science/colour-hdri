@@ -1,5 +1,5 @@
-colour\_hdri\.exposure\_value
-=============================
+colour\_hdri.exposure\_value
+============================
 
 .. currentmodule:: colour_hdri
 

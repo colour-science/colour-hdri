@@ -1,5 +1,5 @@
-colour\_hdri\.delete\_exif\_tags
-================================
+colour\_hdri.delete\_exif\_tags
+===============================
 
 .. currentmodule:: colour_hdri
 

@@ -1,5 +1,5 @@
-colour\_hdri\.read\_dng\_files\_exif\_tags
-==========================================
+colour\_hdri.read\_dng\_files\_exif\_tags
+=========================================
 
 .. currentmodule:: colour_hdri
 

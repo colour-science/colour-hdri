@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_logarithmic\_mapping
-=========================================================
+colour\_hdri.tonemapping\_operator\_logarithmic\_mapping
+========================================================
 
 .. currentmodule:: colour_hdri
 

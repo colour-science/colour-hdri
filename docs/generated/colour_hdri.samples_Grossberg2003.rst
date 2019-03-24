@@ -1,5 +1,5 @@
-colour\_hdri\.samples\_Grossberg2003
-====================================
+colour\_hdri.samples\_Grossberg2003
+===================================
 
 .. currentmodule:: colour_hdri
 

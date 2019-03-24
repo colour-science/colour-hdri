@@ -1,5 +1,5 @@
-colour\_hdri\.EXIF\_EXECUTABLE
-==============================
+colour\_hdri.EXIF\_EXECUTABLE
+=============================
 
 .. currentmodule:: colour_hdri
 

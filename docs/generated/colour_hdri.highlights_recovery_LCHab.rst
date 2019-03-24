@@ -1,5 +1,5 @@
-colour\_hdri\.highlights\_recovery\_LCHab
-=========================================
+colour\_hdri.highlights\_recovery\_LCHab
+========================================
 
 .. currentmodule:: colour_hdri
 

@@ -1,5 +1,5 @@
-colour\_hdri\.DNG\_EXIF\_TAGS\_BINDING
-======================================
+colour\_hdri.DNG\_EXIF\_TAGS\_BINDING
+=====================================
 
 .. currentmodule:: colour_hdri
 

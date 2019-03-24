@@ -1,5 +1,5 @@
-colour\_hdri\.copy\_exif\_tags
-==============================
+colour\_hdri.copy\_exif\_tags
+=============================
 
 .. currentmodule:: colour_hdri
 

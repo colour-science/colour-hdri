@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_exponentiation\_mapping
-============================================================
+colour\_hdri.tonemapping\_operator\_exponentiation\_mapping
+===========================================================
 
 .. currentmodule:: colour_hdri
 
