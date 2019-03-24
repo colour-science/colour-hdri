@@ -58,7 +58,7 @@ Primary Dependencies
 **Colour - HDRI** requires various dependencies in order to run:
 
 -  `Python 2.7 <https://www.python.org/download/releases/>`_ or
-   `Python 3.5 <https://www.python.org/download/releases/>`_
+   `Python 3.7 <https://www.python.org/download/releases/>`_
 -  `Colour Science <https://www.colour-science.org>`_
 -  `NumPy <http://www.numpy.org/>`_
 -  `OpenImageIO <https://github.com/OpenImageIO/oiio>`_
