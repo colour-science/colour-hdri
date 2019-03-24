@@ -1,8 +1,8 @@
 Contributors
 ============
 
-Colour - HDRI
--------------
+Development & Technical Support
+-------------------------------
 
 -   **Thomas Mansencal**, *Visual Effects Artist @ Weta Digital*
 
