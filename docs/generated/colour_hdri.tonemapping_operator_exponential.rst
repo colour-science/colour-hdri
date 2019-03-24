@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_exponential
-================================================
+colour\_hdri.tonemapping\_operator\_exponential
+===============================================
 
 .. currentmodule:: colour_hdri
 

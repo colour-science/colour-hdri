@@ -1,5 +1,5 @@
-colour\_hdri\.camera\_space\_to\_RGB
-====================================
+colour\_hdri.camera\_space\_to\_RGB
+===================================
 
 .. currentmodule:: colour_hdri
 

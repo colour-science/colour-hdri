@@ -1,5 +1,5 @@
-colour\_hdri\.g\_solve
-======================
+colour\_hdri.g\_solve
+=====================
 
 .. currentmodule:: colour_hdri
 

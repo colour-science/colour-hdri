@@ -1,5 +1,5 @@
-colour\_hdri\.upper\_hemisphere\_illuminance\_weights\_Lagarde2016
-==================================================================
+colour\_hdri.upper\_hemisphere\_illuminance\_weights\_Lagarde2016
+=================================================================
 
 .. currentmodule:: colour_hdri
 

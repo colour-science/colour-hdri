@@ -1,5 +1,5 @@
-colour\_hdri\.Image
-===================
+colour\_hdri.Image
+==================
 
 .. currentmodule:: colour_hdri
 
@@ -20,5 +20,13 @@ colour\_hdri\.Image
    
 
    
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Image.data
+      ~Image.metadata
+      ~Image.path
    
    

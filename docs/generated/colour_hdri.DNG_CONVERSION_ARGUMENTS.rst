@@ -1,5 +1,5 @@
-colour\_hdri\.DNG\_CONVERSION\_ARGUMENTS
-========================================
+colour\_hdri.DNG\_CONVERSION\_ARGUMENTS
+=======================================
 
 .. currentmodule:: colour_hdri
 

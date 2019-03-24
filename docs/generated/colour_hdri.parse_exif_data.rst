@@ -1,5 +1,5 @@
-colour\_hdri\.parse\_exif\_data
-===============================
+colour\_hdri.parse\_exif\_data
+==============================
 
 .. currentmodule:: colour_hdri
 

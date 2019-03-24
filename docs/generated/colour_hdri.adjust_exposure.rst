@@ -1,5 +1,5 @@
-colour\_hdri\.adjust\_exposure
-==============================
+colour\_hdri.adjust\_exposure
+=============================
 
 .. currentmodule:: colour_hdri
 

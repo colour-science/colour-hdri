@@ -1,5 +1,5 @@
-colour\_hdri\.camera\_space\_to\_XYZ\_matrix
-============================================
+colour\_hdri.camera\_space\_to\_XYZ\_matrix
+===========================================
 
 .. currentmodule:: colour_hdri
 

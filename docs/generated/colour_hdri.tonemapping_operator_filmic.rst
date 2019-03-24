@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_filmic
-===========================================
+colour\_hdri.tonemapping\_operator\_filmic
+==========================================
 
 .. currentmodule:: colour_hdri
 

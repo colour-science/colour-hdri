@@ -1,5 +1,5 @@
-colour\_hdri\.light\_probe\_sampling\_variance\_minimization\_Viriyothai2009
-============================================================================
+colour\_hdri.light\_probe\_sampling\_variance\_minimization\_Viriyothai2009
+===========================================================================
 
 .. currentmodule:: colour_hdri
 

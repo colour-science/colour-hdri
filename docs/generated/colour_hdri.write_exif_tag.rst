@@ -1,5 +1,5 @@
-colour\_hdri\.write\_exif\_tag
-==============================
+colour\_hdri.write\_exif\_tag
+=============================
 
 .. currentmodule:: colour_hdri
 

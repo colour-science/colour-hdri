@@ -1,5 +1,5 @@
-colour\_hdri\.highlights\_recovery\_blend
-=========================================
+colour\_hdri.highlights\_recovery\_blend
+========================================
 
 .. currentmodule:: colour_hdri
 

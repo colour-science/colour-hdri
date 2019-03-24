@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_normalisation
-==================================================
+colour\_hdri.tonemapping\_operator\_normalisation
+=================================================
 
 .. currentmodule:: colour_hdri
 

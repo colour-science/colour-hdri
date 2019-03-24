@@ -1,5 +1,5 @@
-colour\_hdri\.vivification
-==========================
+colour\_hdri.vivification
+=========================
 
 .. currentmodule:: colour_hdri
 

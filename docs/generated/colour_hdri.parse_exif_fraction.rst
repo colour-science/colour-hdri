@@ -1,5 +1,5 @@
-colour\_hdri\.parse\_exif\_fraction
-===================================
+colour\_hdri.parse\_exif\_fraction
+==================================
 
 .. currentmodule:: colour_hdri
 

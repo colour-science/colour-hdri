@@ -1,5 +1,5 @@
-colour\_hdri\.tonemapping\_operator\_Tumblin1999
-================================================
+colour\_hdri.tonemapping\_operator\_Tumblin1999
+===============================================
 
 .. currentmodule:: colour_hdri
 

@@ -1,5 +1,5 @@
-colour\_hdri\.absolute\_luminance\_calibration\_Lagarde2016
-===========================================================
+colour\_hdri.absolute\_luminance\_calibration\_Lagarde2016
+==========================================================
 
 .. currentmodule:: colour_hdri
 

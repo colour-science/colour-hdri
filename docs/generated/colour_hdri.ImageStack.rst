@@ -1,5 +1,5 @@
-colour\_hdri\.ImageStack
-========================
+colour\_hdri.ImageStack
+=======================
 
 .. currentmodule:: colour_hdri
 
@@ -15,6 +15,7 @@ colour\_hdri\.ImageStack
    
       ~ImageStack.__init__
       ~ImageStack.append
+      ~ImageStack.clear
       ~ImageStack.count
       ~ImageStack.extend
       ~ImageStack.from_files

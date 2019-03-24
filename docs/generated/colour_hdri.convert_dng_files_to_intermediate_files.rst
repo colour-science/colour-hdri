@@ -1,5 +1,5 @@
-colour\_hdri\.convert\_dng\_files\_to\_intermediate\_files
-==========================================================
+colour\_hdri.convert\_dng\_files\_to\_intermediate\_files
+=========================================================
 
 .. currentmodule:: colour_hdri
 

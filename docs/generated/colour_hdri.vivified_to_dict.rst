@@ -1,5 +1,5 @@
-colour\_hdri\.vivified\_to\_dict
-================================
+colour\_hdri.vivified\_to\_dict
+===============================
 
 .. currentmodule:: colour_hdri
 

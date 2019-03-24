@@ -1,5 +1,5 @@
-colour\_hdri\.RAW\_CONVERTER
-============================
+colour\_hdri.RAW\_CONVERTER
+===========================
 
 .. currentmodule:: colour_hdri
 
