@@ -400,7 +400,7 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
         attribute.
 
     References
@@ -507,7 +507,7 @@ def camera_space_to_XYZ_matrix(xy,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
         attribute.
 
     References

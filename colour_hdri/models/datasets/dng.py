@@ -3,12 +3,12 @@
 Adobe DNG SDK Dataset
 =====================
 
-Defines various dataset objects for *Adobe DNG SDK*:
+Defines various datasets objects for *Adobe DNG SDK*:
 
--   :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
--   :attr:`colour_hdri.models.dataset.dng.\
+-   :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+-   :attr:`colour_hdri.models.datasets.dng.\
 DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE`
--   :attr:`colour_hdri.models.dataset.dng.\
+-   :attr:`colour_hdri.models.datasets.dng.\
 LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS`
 
 References
