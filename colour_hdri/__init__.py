@@ -117,9 +117,9 @@ __all__ += [
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'resources')
 EXAMPLES_RESOURCES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY,
-                                            'colour-hdri-examples-dataset')
+                                            'colour-hdri-examples-datasets')
 TESTS_RESOURCES_DIRECTORY = os.path.join(RESOURCES_DIRECTORY,
-                                         'colour-hdri-tests-dataset')
+                                         'colour-hdri-tests-datasets')
 
 __application_name__ = 'Colour - HDRI'
 
