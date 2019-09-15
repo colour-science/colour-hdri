@@ -22,15 +22,6 @@ addons:
       - libimage-exiftool-perl
 
 before_install:
-  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
-  - chmod +x miniconda.sh
-  - ./miniconda.sh -b -p /home/travis/miniconda
-  - export PATH=/home/travis/miniconda/bin:$PATH
-  - conda update --yes --quiet conda
-  - PACKAGES="python=${PYTHON_VERSION}"
-  - PACKAGES="${PACKAGES} numpy"; if [ ${NUMPY_VERSION} ]; then PACKAGES="${PACKAGES}=${NUMPY_VERSION}"; fi
-  - PACKAGES="${PACKAGES} matplotlib"; if [ ${MATPLOTLIB_VERSION} ]; then PACKAGES="${PACKAGES}=${MATPLOTLIB_VERSION}"; fi
-  - PACKAGES="${PACKAGES} scipy"; if [ ${SCIPY_VERSION} ]; then PACKAGES="${PACKAGES}=${SCIPY_VERSION}"; fi
   # TODO: Investigate reason why *dcraw* cannot be installed along other packages.
   - sudo apt-get install dcraw
   - wget https://github.com/OpenImageIO/oiio/archive/Release-1.5.21.tar.gz -O /tmp/OpenImageIO-1.5.21.tar.gz
@@ -38,14 +29,20 @@ before_install:
   - cd oiio-Release-1.5.21
   - make
   - cd /home/travis/build/colour-science/colour-hdri
+  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - chmod +x miniconda.sh
+  - ./miniconda.sh -b -p /home/travis/miniconda
+  - export PATH=/home/travis/miniconda/bin:$PATH
+  - conda update --yes --quiet conda
 
 install:
-  - conda create --yes --quiet -n colour-hdri-test ${PACKAGES} pip setuptools nose
-  - source activate colour-hdri-test
-  - pip install colour-science six recordclass coverage coveralls flake8 mock==1.0.1
+  - conda create --yes --quiet -n colour-hdri-ci python=${PYTHON_VERSION} coverage coveralls flake8 matplotlib mock nose pip six
+  - source activate colour-hdri-ci
+  - conda install -y -c conda-forge colour-science
+  - pip install recordclass
   - sudo cp /home/travis/build/colour-science/colour-hdri/oiio-Release-1.5.21/dist/linux64/bin/* /usr/local/bin/
   - sudo cp /home/travis/build/colour-science/colour-hdri/oiio-Release-1.5.21/dist/linux64/lib/* /usr/local/lib/
-  - cp /home/travis/build/colour-science/colour-hdri/oiio-Release-1.5.21/dist/linux64/python/OpenImageIO.so /home/travis/miniconda/envs/colour-hdri-test/lib/python2.7/site-packages/
+  - cp /home/travis/build/colour-science/colour-hdri/oiio-Release-1.5.21/dist/linux64/python/OpenImageIO.so /home/travis/miniconda/envs/colour-hdri-ci/lib/python2.7/site-packages/
 
 script:
   - flake8 colour_hdri
