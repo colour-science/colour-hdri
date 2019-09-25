@@ -35,15 +35,15 @@ INSTALLATION_REQUIREMENTS = ['colour-science>=0.3.12', 'recordclass>=0.4']
 if os.environ.get('READTHEDOCS') == 'True':
     INSTALLATION_REQUIREMENTS += ['mock', 'sphinxcontrib-bibtex']
 
-OPTIONAL_REQUIREMENTS = ['rawpy>=0.5.0']
+OPTIONAL_REQUIREMENTS = ['rawpy']
 
-PLOTTING_REQUIREMENTS = ['matplotlib>=1.3.1']
+PLOTTING_REQUIREMENTS = ['matplotlib>=2.2.*']
 
 DOCS_REQUIREMENTS = [
-    'sphinx>=1.6.6', 'sphinxcontrib-bibtex', 'sphinx_rtd_theme'
+    'sphinx>=1.6.*', 'sphinxcontrib-bibtex', 'sphinx_rtd_theme'
 ]
 
-TESTS_REQUIREMENTS = ['coverage>=3.7.1', 'flake8>=2.1.0', 'nose>=1.3.4']
+TESTS_REQUIREMENTS = ['coverage', 'flake8', 'nose']
 
 DEVELOPMENT_REQUIREMENTS = DOCS_REQUIREMENTS + TESTS_REQUIREMENTS + [
     'invoke', 'restructuredtext-lint', 'twine', 'yapf==0.23.0'
