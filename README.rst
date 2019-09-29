@@ -63,9 +63,10 @@ Primary Dependencies
 
 **Colour - HDRI** requires various dependencies in order to run:
 
--  `Python 2.7 <https://www.python.org/download/releases/>`_ or
-   `Python 3.7 <https://www.python.org/download/releases/>`_
+-  `Python >= 2.7 <https://www.python.org/download/releases/>`_ or
+   `Python >= 3.5 <https://www.python.org/download/releases/>`_
 -  `Colour Science <https://www.colour-science.org>`_
+-  `Recordclass <https://pypi.org/project/recordclass/>`_
 
 Optional Features Dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -92,14 +93,6 @@ The optional features dependencies are installed as follows::
 The figures plotting dependencies are installed as follows::
 
     pip install 'colour-hdri[plotting]'
-
-The tests suite dependencies are installed as follows::
-
-    pip install 'colour-hdri[tests]'
-
-The documentation building dependencies are installed as follows::
-
-    pip install 'colour-hdri[docs]'
 
 The overall development dependencies are installed as follows::
 
