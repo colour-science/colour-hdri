@@ -15,7 +15,7 @@ Colour - HDRI
     :target: https://www.codacy.com/app/colour-science/colour-hdri
     :alt: Code Grade
 .. |version| image:: https://img.shields.io/pypi/v/colour-hdri.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/colour-hdri
+    :target: https://pypi.org/project/colour-hdri
     :alt: Package Version
 
 .. end-badges
