@@ -5,7 +5,7 @@ A `Python <https://www.python.org/>`_ package implementing various
 HDRI / Radiance image processing algorithms.
 
 It is open source and freely available under the
-`New BSD License <http://opensource.org/licenses/BSD-3-Clause>`_ terms.
+`New BSD License <https://opensource.org/licenses/BSD-3-Clause>`_ terms.
 
 ..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/master/docs/_static/Radiance_001.png
 
@@ -47,8 +47,6 @@ Primary Dependencies
 -  `Python 2.7 <https://www.python.org/download/releases/>`_ or
    `Python 3.7 <https://www.python.org/download/releases/>`_
 -  `Colour Science <https://www.colour-science.org>`_
--  `NumPy <http://www.numpy.org/>`_
--  `OpenImageIO <https://github.com/OpenImageIO/oiio>`_
 
 Optional Features Dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -122,10 +120,16 @@ The bibliography is available in the repository in
 `BibTeX <https://github.com/colour-science/colour-hdri/blob/develop/BIBLIOGRAPHY.bib>`_
 format.
 
+Code of Conduct
+---------------
+
+The *Code of Conduct*, adapted from the `Contributor Covenant 1.4 <https://www.contributor-covenant.org/version/1/4/code-of-conduct.html>`_,
+is available on the `Code of Conduct <https://www.colour-science.org/code-of-conduct/>`_ page.
+
 About
 -----
 
 | **Colour - HDRI** by Colour Developers
 | Copyright © 2015-2019 – Colour Developers – `colour-science@googlegroups.com <colour-science@googlegroups.com>`_
-| This software is released under terms of New BSD License: http://opensource.org/licenses/BSD-3-Clause
-| `http://github.com/colour-science/colour-hdri <http://github.com/colour-science/colour-hdri>`_
+| This software is released under terms of New BSD License: https://opensource.org/licenses/BSD-3-Clause
+| `https://github.com/colour-science/colour-hdri <https://github.com/colour-science/colour-hdri>`_

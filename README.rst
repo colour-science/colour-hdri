@@ -15,7 +15,7 @@ Colour - HDRI
     :target: https://www.codacy.com/app/colour-science/colour-hdri
     :alt: Code Grade
 .. |version| image:: https://img.shields.io/pypi/v/colour-hdri.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/colour-hdri
+    :target: https://pypi.org/project/colour-hdri
     :alt: Package Version
 
 .. end-badges
@@ -24,7 +24,7 @@ A `Python <https://www.python.org/>`_ package implementing various
 HDRI / Radiance image processing algorithms.
 
 It is open source and freely available under the
-`New BSD License <http://opensource.org/licenses/BSD-3-Clause>`_ terms.
+`New BSD License <https://opensource.org/licenses/BSD-3-Clause>`_ terms.
 
 ..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/master/docs/_static/Radiance_001.png
 
@@ -63,11 +63,10 @@ Primary Dependencies
 
 **Colour - HDRI** requires various dependencies in order to run:
 
--  `Python 2.7 <https://www.python.org/download/releases/>`_ or
-   `Python 3.7 <https://www.python.org/download/releases/>`_
+-  `Python >= 2.7 <https://www.python.org/download/releases/>`_ or
+   `Python >= 3.5 <https://www.python.org/download/releases/>`_
 -  `Colour Science <https://www.colour-science.org>`_
--  `NumPy <http://www.numpy.org/>`_
--  `OpenImageIO <https://github.com/OpenImageIO/oiio>`_
+-  `Recordclass <https://pypi.org/project/recordclass/>`_
 
 Optional Features Dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -94,14 +93,6 @@ The optional features dependencies are installed as follows::
 The figures plotting dependencies are installed as follows::
 
     pip install 'colour-hdri[plotting]'
-
-The tests suite dependencies are installed as follows::
-
-    pip install 'colour-hdri[tests]'
-
-The documentation building dependencies are installed as follows::
-
-    pip install 'colour-hdri[docs]'
 
 The overall development dependencies are installed as follows::
 
@@ -136,10 +127,16 @@ The bibliography is available in the repository in
 `BibTeX <https://github.com/colour-science/colour-hdri/blob/develop/BIBLIOGRAPHY.bib>`_
 format.
 
+Code of Conduct
+---------------
+
+The *Code of Conduct*, adapted from the `Contributor Covenant 1.4 <https://www.contributor-covenant.org/version/1/4/code-of-conduct.html>`_,
+is available on the `Code of Conduct <https://www.colour-science.org/code-of-conduct/>`_ page.
+
 About
 -----
 
 | **Colour - HDRI** by Colour Developers
 | Copyright © 2015-2019 – Colour Developers – `colour-science@googlegroups.com <colour-science@googlegroups.com>`_
-| This software is released under terms of New BSD License: http://opensource.org/licenses/BSD-3-Clause
-| `http://github.com/colour-science/colour-hdri <http://github.com/colour-science/colour-hdri>`_
+| This software is released under terms of New BSD License: https://opensource.org/licenses/BSD-3-Clause
+| `https://github.com/colour-science/colour-hdri <https://github.com/colour-science/colour-hdri>`_

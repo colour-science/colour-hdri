@@ -1,6 +1,6 @@
-[submodule "colour_hdri/resources/colour-hdri-examples-dataset"]
-	path = colour_hdri/resources/colour-hdri-examples-dataset
-	url = https://github.com/colour-science/colour-hdri-examples-dataset.git
-[submodule "colour_hdri/resources/colour-hdri-tests-dataset"]
-	path = colour_hdri/resources/colour-hdri-tests-dataset
-	url = https://github.com/colour-science/colour-hdri-tests-dataset.git
+[submodule "colour_hdri/resources/colour-hdri-examples-datasets"]
+	path = colour_hdri/resources/colour-hdri-examples-datasets
+	url = https://github.com/colour-science/colour-hdri-examples-datasets.git
+[submodule "colour_hdri/resources/colour-hdri-tests-datasets"]
+	path = colour_hdri/resources/colour-hdri-tests-datasets
+	url = https://github.com/colour-science/colour-hdri-tests-datasets.git
