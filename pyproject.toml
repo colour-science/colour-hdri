@@ -64,6 +64,7 @@ matplotlib = { version = "*", optional = true }
 mock = { version = "*", optional = true }  # Development dependency.
 nose = { version = "*", optional = true }  # Development dependency.
 numpy = { version = "*", optional = true }
+pre-commit = { version = "*", optional = true }  # Development dependency.
 pytest = { version = "*", optional = true }  # Development dependency.
 rawpy = { version = "*", optional = true }
 restructuredtext-lint = { version = "*", optional = true }  # Development dependency.
@@ -83,6 +84,7 @@ invoke = "*"
 jupyter = "*"
 mock = "*"
 nose = "*"
+pre-commit = "*"
 pytest = "*"
 restructuredtext-lint = "*"
 sphinx = "*"
@@ -102,6 +104,7 @@ development = [
     "jupyter",
     "mock",
     "nose",
+    "pre-commit",
     "pytest",
     "restructuredtext-lint",
     "sphinx",
