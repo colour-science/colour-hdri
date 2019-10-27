@@ -19,7 +19,7 @@ from colour.plotting import (COLOUR_STYLE_CONSTANTS, artist, override_style,
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
@@ -32,7 +32,7 @@ def plot_tonemapping_operator_image(
         image,
         luminance_function,
         log_scale=False,
-        encoding_cctf=COLOUR_STYLE_CONSTANTS.colour.colourspace.encoding_cctf,
+        cctf_encoding=COLOUR_STYLE_CONSTANTS.colour.colourspace.cctf_encoding,
         **kwargs):
     """
     Plots given tonemapped image with superimposed luminance mapping function.
@@ -45,7 +45,7 @@ def plot_tonemapping_operator_image(
         Luminance mapping function.
     log_scale : bool, optional
         Use a log scale for plotting the luminance mapping function.
-    encoding_cctf : callable, optional
+    cctf_encoding : callable, optional
         Encoding colour component transfer function / opto-electronic
         transfer function used for plotting.
 
@@ -69,7 +69,7 @@ def plot_tonemapping_operator_image(
     shape = image.shape
     bounding_box = [0, 1, 0, 1]
 
-    image = np.clip(encoding_cctf(image), 0, 1)
+    image = np.clip(cctf_encoding(image), 0, 1)
     axes.imshow(
         image,
         aspect=shape[0] / shape[1],

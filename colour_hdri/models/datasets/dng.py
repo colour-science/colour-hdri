@@ -3,12 +3,12 @@
 Adobe DNG SDK Dataset
 =====================
 
-Defines various dataset objects for *Adobe DNG SDK*:
+Defines various datasets objects for *Adobe DNG SDK*:
 
--   :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
--   :attr:`colour_hdri.models.dataset.dng.\
+-   :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+-   :attr:`colour_hdri.models.datasets.dng.\
 DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE`
--   :attr:`colour_hdri.models.dataset.dng.\
+-   :attr:`colour_hdri.models.datasets.dng.\
 LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS`
 
 References
@@ -29,7 +29,7 @@ from colour.utilities import CaseInsensitiveMapping
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'

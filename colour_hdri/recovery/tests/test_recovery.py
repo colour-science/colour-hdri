@@ -27,7 +27,7 @@ from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
@@ -37,6 +37,11 @@ __all__ = [
     'XYZ_TO_CAMERA_SPACE_MATRIX', 'TestHighlightsRecoveryBlend',
     'TestHighlightsRecoveryLCHab'
 ]
+
+_IS_WINDOWS_PLATFORM = platform.system() in ('Windows', 'Microsoft')
+"""
+Whether the current platform is *Windows*.
+"""
 
 FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
                                        'frobisher_001')
@@ -87,8 +92,7 @@ highlights_recovery_blend` definition unit tests methods.
         shutil.copyfile(reference_raw_file, test_raw_file)
         command = [RAW_CONVERTER] + shlex.split(
             RAW_D_CONVERSION_ARGUMENTS.format(test_raw_file),
-            posix=(False
-                   if platform.system() in ('Windows', 'Microsoft') else True))
+            posix=not _IS_WINDOWS_PLATFORM)
 
         subprocess.call(command)  # nosec
 
@@ -143,8 +147,7 @@ highlights_recovery_LCHab` definition unit tests methods.
         shutil.copyfile(reference_raw_file, test_raw_file)
         command = [RAW_CONVERTER] + shlex.split(
             RAW_D_CONVERSION_ARGUMENTS.format(test_raw_file),
-            posix=(False
-                   if platform.system() in ('Windows', 'Microsoft') else True))
+            posix=not _IS_WINDOWS_PLATFORM)
 
         subprocess.call(command)  # nosec
 

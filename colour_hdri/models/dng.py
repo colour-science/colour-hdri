@@ -127,7 +127,7 @@ from colour_hdri.models import ADOBE_DNG_XYZ_ILLUMINANT
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
@@ -400,7 +400,7 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
         attribute.
 
     References
@@ -507,7 +507,7 @@ def camera_space_to_XYZ_matrix(xy,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`colour_hdri.models.dataset.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
         attribute.
 
     References

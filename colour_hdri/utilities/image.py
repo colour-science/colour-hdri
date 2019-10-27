@@ -26,14 +26,12 @@ from colour_hdri.utilities.exposure import average_luminance
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
 
 __all__ = ['Metadata', 'Image', 'ImageStack']
-
-LOGGER = logging.getLogger(__name__)
 
 
 class Metadata(
@@ -199,13 +197,13 @@ class Image(object):
 
         self._metadata = value
 
-    def read_data(self, decoding_cctf=None):
+    def read_data(self, cctf_decoding=None):
         """
         Reads image pixel data at :attr:`Image.path` attribute.
 
         Parameters
         ----------
-        decoding_cctf : object, optional
+        cctf_decoding : object, optional
             Decoding colour component transfer function (Decoding CCTF) or
             electro-optical transfer function (EOTF / EOCF).
 
@@ -215,10 +213,10 @@ class Image(object):
             Image pixel data.
         """
 
-        LOGGER.info('Reading "{0}" image.'.format(self._path))
+        logging.info('Reading "{0}" image.'.format(self._path))
         self.data = read_image(str(self._path))
-        if decoding_cctf is not None:
-            self.data = decoding_cctf(self.data)
+        if cctf_decoding is not None:
+            self.data = cctf_decoding(self.data)
 
         return self.data
 
@@ -232,7 +230,7 @@ class Image(object):
             Image relevant exif metadata.
         """
 
-        LOGGER.info('Reading "{0}" image metadata.'.format(self._path))
+        logging.info('Reading "{0}" image metadata.'.format(self._path))
         exif_data = read_exif_tags(self._path)
 
         if not exif_data.get('EXIF'):
@@ -436,7 +434,7 @@ class ImageStack(MutableSequence):
         self._list = sorted(self._list, key=key)
 
     @staticmethod
-    def from_files(image_files, decoding_cctf=None):
+    def from_files(image_files, cctf_decoding=None):
         """
         Returns a :class:`colour_hdri.ImageStack` instance with given image
         files.
@@ -445,7 +443,7 @@ class ImageStack(MutableSequence):
         ----------
         image_files : array_like
             Image files.
-        decoding_cctf : object, optional
+        cctf_decoding : object, optional
             Decoding colour component transfer function (Decoding CCTF) or
             electro-optical transfer function (EOTF / EOCF).
 
@@ -457,7 +455,7 @@ class ImageStack(MutableSequence):
         image_stack = ImageStack()
         for image_file in image_files:
             image = Image(image_file)
-            image.read_data(decoding_cctf)
+            image.read_data(cctf_decoding)
             image.read_metadata()
             image_stack.append(image)
 

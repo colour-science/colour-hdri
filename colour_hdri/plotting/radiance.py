@@ -21,7 +21,7 @@ from colour_hdri.utilities.exposure import adjust_exposure
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
@@ -34,7 +34,7 @@ def plot_radiance_image_strip(
         image,
         count=5,
         ev_steps=-2,
-        encoding_cctf=COLOUR_STYLE_CONSTANTS.colour.colourspace.encoding_cctf,
+        cctf_encoding=COLOUR_STYLE_CONSTANTS.colour.colourspace.cctf_encoding,
         **kwargs):
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
@@ -47,7 +47,7 @@ def plot_radiance_image_strip(
         Strip images count.
     ev_steps : numeric, optional
         Exposure variation for each image of the strip.
-    encoding_cctf : callable, optional
+    cctf_encoding : callable, optional
         Encoding colour component transfer function / opto-electronic
         transfer function used for plotting.
 
@@ -72,7 +72,7 @@ def plot_radiance_image_strip(
     for i in range(count):
         ev = i * ev_steps
         axis = plt.subplot(grid[i])
-        axis.imshow(np.clip(encoding_cctf(adjust_exposure(image, ev)), 0, 1))
+        axis.imshow(np.clip(cctf_encoding(adjust_exposure(image, ev)), 0, 1))
         axis.text(
             width * 0.05,
             height - height * 0.05,

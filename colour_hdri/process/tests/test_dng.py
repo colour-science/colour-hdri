@@ -24,7 +24,7 @@ from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
@@ -69,9 +69,9 @@ convert_raw_files_to_dng_files` definition unit tests methods.
 convert_raw_files_to_dng_files` definition.
         """
 
-        if platform.system() not in ('Windows', 'Microsoft', 'Darwin'):
-            # *Adobe DNG Converter* is not available on Linux, thus we skip
-            # that unit test.
+        if platform.system() not in ('Windows', 'Microsoft'):
+            # *Adobe DNG Converter* is not available on *Linux*, and is not
+            # reproducible on *macOS* thus we skip this unit test.
             return
 
         reference_dng_files = sorted(

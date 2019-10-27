@@ -19,7 +19,7 @@ from colour_hdri.utilities import ImageStack, filter_files
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
-__license__ = 'New BSD License - http://opensource.org/licenses/BSD-3-Clause'
+__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-science@googlegroups.com'
 __status__ = 'Production'
@@ -51,7 +51,7 @@ radiance.image_stack_to_radiance_image` definition.
         """
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
-        image_stack.data = RGB_COLOURSPACES['sRGB'].decoding_cctf(
+        image_stack.data = RGB_COLOURSPACES['sRGB'].cctf_decoding(
             image_stack.data)
 
         # Lower precision for unit tests under *travis-ci*.
