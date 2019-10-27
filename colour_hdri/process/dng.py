@@ -92,7 +92,7 @@ Command line *DNG* conversion application, usually *Adobe DNG Converter*.
 DNG_CONVERTER : unicode
 """
 
-DNG_CONVERSION_ARGUMENTS = DocstringText('-l -d "{0}" "{1}"')
+DNG_CONVERSION_ARGUMENTS = DocstringText('-cr7.1 -l -d "{0}" "{1}"')
 if platform.system() in ('Windows', 'Microsoft'):
     DNG_CONVERSION_ARGUMENTS = DocstringText(
         DNG_CONVERSION_ARGUMENTS.replace('"', ''))
