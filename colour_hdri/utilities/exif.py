@@ -42,8 +42,6 @@ __all__ = [
     'read_exif_tag', 'write_exif_tag'
 ]
 
-LOGGER = logging.getLogger(__name__)
-
 EXIF_EXECUTABLE = DocstringText('exiftool')
 EXIF_EXECUTABLE.__doc__ = """
 Command line exif manipulation application, usually Phil Harvey's *ExifTool*.
@@ -197,7 +195,7 @@ def read_exif_tags(image):
         Exif tags.
     """
 
-    LOGGER.info("Reading '{0}' image exif data.".format(image))
+    logging.info("Reading '{0}' image exif data.".format(image))
 
     exif_tags = vivification()
     lines = text_type(
@@ -237,7 +235,7 @@ def copy_exif_tags(source, target):
         Definition success.
     """
 
-    LOGGER.info("Copying '{0}' file exif data to '{1}' file.".format(
+    logging.info("Copying '{0}' file exif data to '{1}' file.".format(
         source, target))
 
     arguments = [EXIF_EXECUTABLE, '-overwrite_original', '-TagsFromFile']
@@ -284,7 +282,7 @@ def delete_exif_tags(image):
         Definition success.
     """
 
-    LOGGER.info("Deleting '{0}' image exif tags.".format(image))
+    logging.info("Deleting '{0}' image exif tags.".format(image))
 
     subprocess.check_output(  # nosec
         [EXIF_EXECUTABLE, '-overwrite_original', '-all=', image])
@@ -315,7 +313,7 @@ def read_exif_tag(image, tag):
         'utf-8',
         'ignore').split(':').pop().strip()
 
-    LOGGER.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
+    logging.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
         image, tag, value))
 
     return value
@@ -340,7 +338,7 @@ def write_exif_tag(image, tag, value):
         Definition success.
     """
 
-    LOGGER.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
+    logging.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
         image, tag, value))
 
     arguments = [EXIF_EXECUTABLE, '-overwrite_original']

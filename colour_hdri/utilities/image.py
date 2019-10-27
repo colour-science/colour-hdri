@@ -33,8 +33,6 @@ __status__ = 'Production'
 
 __all__ = ['Metadata', 'Image', 'ImageStack']
 
-LOGGER = logging.getLogger(__name__)
-
 
 class Metadata(
         recordclass('Metadata',
@@ -215,7 +213,7 @@ class Image(object):
             Image pixel data.
         """
 
-        LOGGER.info('Reading "{0}" image.'.format(self._path))
+        logging.info('Reading "{0}" image.'.format(self._path))
         self.data = read_image(str(self._path))
         if cctf_decoding is not None:
             self.data = cctf_decoding(self.data)
@@ -232,7 +230,7 @@ class Image(object):
             Image relevant exif metadata.
         """
 
-        LOGGER.info('Reading "{0}" image metadata.'.format(self._path))
+        logging.info('Reading "{0}" image metadata.'.format(self._path))
         exif_data = read_exif_tags(self._path)
 
         if not exif_data.get('EXIF'):

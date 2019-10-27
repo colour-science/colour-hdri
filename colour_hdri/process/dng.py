@@ -53,8 +53,6 @@ _IS_WINDOWS_PLATFORM = platform.system() in ('Windows', 'Microsoft')
 Whether the current platform is *Windows*.
 """
 
-LOGGER = logging.getLogger(__name__)
-
 RAW_CONVERTER = DocstringText('dcraw')
 RAW_CONVERTER.__doc__ = """
 Command line raw conversion application, usually Dave Coffin's *dcraw*.
@@ -209,7 +207,7 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
         if path_exists(dng_file):
             os.remove(dng_file)
 
-        LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
+        logging.info('Converting "{0}" file to "{1}" file.'.format(
             raw_file, dng_file))
 
         command = [DNG_CONVERTER] + shlex.split(
@@ -252,7 +250,7 @@ def convert_dng_files_to_intermediate_files(dng_files,
         if path_exists(intermediate_file):
             os.remove(intermediate_file)
 
-        LOGGER.info('Converting "{0}" file to "{1}" file.'.format(
+        logging.info('Converting "{0}" file to "{1}" file.'.format(
             dng_file, intermediate_file))
 
         raw_conversion_arguments = (RAW_D_CONVERSION_ARGUMENTS if demosaicing
