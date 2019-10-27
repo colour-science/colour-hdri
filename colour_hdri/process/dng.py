@@ -43,6 +43,16 @@ __all__ = [
     'convert_dng_files_to_intermediate_files', 'read_dng_files_exif_tags'
 ]
 
+_IS_MACOS_PLATFORM = platform.system() == 'Darwin'
+"""
+Whether the current platform is *macOS*.
+"""
+
+_IS_WINDOWS_PLATFORM = platform.system() in ('Windows', 'Microsoft')
+"""
+Whether the current platform is *Windows*.
+"""
+
 LOGGER = logging.getLogger(__name__)
 
 RAW_CONVERTER = DocstringText('dcraw')
@@ -53,7 +63,7 @@ RAW_CONVERTER : unicode
 """
 
 RAW_CONVERSION_ARGUMENTS = DocstringText('-t 0 -D -W -4 -T "{0}"')
-if platform.system() in ('Windows', 'Microsoft'):
+if _IS_WINDOWS_PLATFORM:
     RAW_CONVERSION_ARGUMENTS = DocstringText(
         RAW_CONVERSION_ARGUMENTS.replace('"', ''))
 RAW_CONVERSION_ARGUMENTS.__doc__ = """
@@ -65,7 +75,7 @@ RAW_CONVERSION_ARGUMENTS : unicode
 
 RAW_D_CONVERSION_ARGUMENTS = DocstringText(
     '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"')
-if platform.system() in ('Windows', 'Microsoft'):
+if _IS_WINDOWS_PLATFORM:
     RAW_D_CONVERSION_ARGUMENTS = DocstringText(
         RAW_D_CONVERSION_ARGUMENTS.replace('"', ''))
 RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
@@ -75,11 +85,11 @@ linear *tiff* file format output.
 RAW_D_CONVERSION_ARGUMENTS : unicode
 """
 
-if platform.system() == 'Darwin':
+if _IS_MACOS_PLATFORM:
     DNG_CONVERTER = DocstringText(
         '/Applications/Adobe DNG Converter.app/Contents/'
         'MacOS/Adobe DNG Converter')
-elif platform.system() in ('Windows', 'Microsoft'):
+elif _IS_WINDOWS_PLATFORM:
     DNG_CONVERTER = DocstringText('Adobe DNG Converter')
 else:
     DNG_CONVERTER = None
@@ -93,7 +103,7 @@ DNG_CONVERTER : unicode
 """
 
 DNG_CONVERSION_ARGUMENTS = DocstringText('-cr7.1 -l -d "{0}" "{1}"')
-if platform.system() in ('Windows', 'Microsoft'):
+if _IS_WINDOWS_PLATFORM:
     DNG_CONVERSION_ARGUMENTS = DocstringText(
         DNG_CONVERSION_ARGUMENTS.replace('"', ''))
 DNG_CONVERSION_ARGUMENTS.__doc__ = """
@@ -204,10 +214,9 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
 
         command = [DNG_CONVERTER] + shlex.split(
             DNG_CONVERSION_ARGUMENTS.format(output_directory, raw_file),
-            posix=(False
-                   if platform.system() in ('Windows', 'Microsoft') else True))
+            posix=not _IS_WINDOWS_PLATFORM)
 
-        subprocess.call(command)  # nosec
+        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
         dng_files.append(dng_file)
 
@@ -250,10 +259,9 @@ def convert_dng_files_to_intermediate_files(dng_files,
                                     else RAW_CONVERSION_ARGUMENTS)
         command = [RAW_CONVERTER] + shlex.split(
             raw_conversion_arguments.format(dng_file),
-            posix=(False
-                   if platform.system() in ('Windows', 'Microsoft') else True))
+            posix=not _IS_WINDOWS_PLATFORM)
 
-        subprocess.call(command)  # nosec
+        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
         tiff_file = os.path.join(output_directory,
                                  os.path.basename(intermediate_file))
