@@ -153,11 +153,14 @@ def tests(ctx, nose=True):
         message_box('Running "Nosetests"...')
         ctx.run(
             'nosetests --with-doctest --with-coverage --cover-package={0} {0}'.
-            format(PYTHON_PACKAGE_NAME))
+            format(PYTHON_PACKAGE_NAME),
+            env={'MPLBACKEND': 'AGG'})
     else:
         message_box('Running "Pytest"...')
-        ctx.run('py.test --disable-warnings --doctest-modules '
-                '--ignore={0}/examples {0}'.format(PYTHON_PACKAGE_NAME))
+        ctx.run(
+            'py.test --disable-warnings --doctest-modules '
+            '--ignore={0}/examples {0}'.format(PYTHON_PACKAGE_NAME),
+            env={'MPLBACKEND': 'AGG'})
 
 
 @task
@@ -353,6 +356,11 @@ def virtualise(ctx, tests=True):
                                                  APPLICATION_VERSION))
         ctx.run('mv {0}-{1} {2}'.format(PYPI_PACKAGE_NAME, APPLICATION_VERSION,
                                         unique_name))
+        ctx.run('rm -rf {0}/{1}/resources'.format(unique_name,
+                                                  PYTHON_PACKAGE_NAME))
+        ctx.run('ln -s ../../../{0}/resources {1}/{0}'.format(
+            PYTHON_PACKAGE_NAME, unique_name))
+
         with ctx.cd(unique_name):
             ctx.run('poetry env use 3')
             ctx.run('poetry install --extras "optional plotting"')
@@ -360,7 +368,7 @@ def virtualise(ctx, tests=True):
             ctx.run('python -c "import imageio;'
                     'imageio.plugins.freeimage.download()"')
             if tests:
-                ctx.run('poetry run nosetests')
+                ctx.run('poetry run nosetests', env={'MPLBACKEND': 'AGG'})
 
 
 @task
@@ -380,7 +388,8 @@ def tag(ctx):
     """
 
     message_box('Tagging...')
-    result = ctx.run('git reverse-parse --abbrev-ref HEAD', hide='both')
+    result = ctx.run('git rev-parse --abbrev-ref HEAD', hide='both')
+
     assert result.stdout.strip() == 'develop', (
         'Are you still on a feature or master branch?')
 

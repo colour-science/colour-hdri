@@ -51,7 +51,7 @@ radiance.image_stack_to_radiance_image` definition.
         """
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
-        image_stack.data = RGB_COLOURSPACES['sRGB'].decoding_cctf(
+        image_stack.data = RGB_COLOURSPACES['sRGB'].cctf_decoding(
             image_stack.data)
 
         # Lower precision for unit tests under *travis-ci*.

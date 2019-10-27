@@ -6,7 +6,7 @@ TODO
 
 -   colour_hdri/__init__.py
 
-    -   Line 144 : # TODO: Remove legacy printing support when deemed appropriate.
+    -   Line 146 : # TODO: Remove legacy printing support when deemed appropriate.
 
 
 -   colour_hdri/calibration/debevec1997.py

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "colour-hdri"
-version = "0.1.5"
+version = "0.1.6"
 description = "HDRI / Radiance image processing algorithms for Python"
 license = "BSD-3-Clause"
 authors = [ "Colour Developers" ]
@@ -43,13 +43,23 @@ classifiers = [
     "Topic :: Software Development"
 ]
 exclude = [
-    "colour_hdri/resources"
+    "colour_hdri/resources/colour-hdri-examples-datasets/*",
+    "colour_hdri/resources/colour-hdri-examples-datasets/frobisher_001/*",
+    "colour_hdri/resources/colour-hdri-examples-datasets/radiance/*",
+    "colour_hdri/resources/colour-hdri-examples-datasets/unity_001/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/calibration/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/generation/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/process/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/recovery/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/sampling/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/frobisher_001/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/frobisher_001/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/unity_001/*",
 ]
 
 [tool.poetry.dependencies]
 python = "~2.7 || ^3.5"
-colour-science = "^0.3.12"
-imageio = "*"  # TODO: Remove when "colour-science-0.3.13" is released.
+colour-science = "^0.3.14"
 recordclass = "*"
 
 "backports.functools_lru_cache" = { version = "*", optional = true }
