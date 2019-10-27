@@ -35,6 +35,16 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Ubuntu - Update OS & Install APT Dependencies
+      if: matrix.os == 'ubuntu-18.04'
+      run: |
+        sudo apt-get update
+        sudo apt-get --yes install dcraw libimage-exiftool-perl
+    - name: macOS - Install Homebrew Dependencies
+      if: matrix.os == 'macOS-10.14'
+      run: |
+        brew install dcraw exiftool
+        brew cask install adobe-dng-converter
     - name: Ubuntu - Set up Matplotlib Backend
       if: matrix.os == 'ubuntu-18.04'
       run: |
@@ -51,7 +61,18 @@ jobs:
         python get-poetry.py --preview
         PATH=$HOME/.poetry/bin:$PATH
         echo ::set-env name=PATH::$PATH
-    - name: Install Package Dependencies
+    # - "rawpy" raises a "UnicodeEncodeError" exception on Python 2.7 during installation thus skipping the "optional" packages.
+    # - "pathlib" is missing from "Imageio".
+    - name: Python 2.7 - Install Package Dependencies
+      if: matrix.python-version == '2.7'
+      run: |
+        poetry install --extras "plotting"
+        poetry env use $CI_PYTHON_VERSION
+        source $(poetry env info -p)/bin/activate
+        pip install pathlib
+        python -c "import imageio;imageio.plugins.freeimage.download()"
+    - name: Python 3.x - Install Package Dependencies
+      if: matrix.python-version != '2.7'
       run: |
         poetry install --extras "optional plotting"
         poetry env use $CI_PYTHON_VERSION
@@ -108,6 +129,19 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Install Command Line Dependencies
+      run: |
+        curl -L https://sourceforge.net/projects/exiftool/files/exiftool-11.73.zip/download -o exiftool-11.73.zip
+        powershell -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('exiftool-11.73.zip', 'exiftool'); }"
+        copy %CD%\exiftool\"exiftool(-k).exe" %CD%\exiftool\exiftool.exe
+        dir %CD%\exiftool\
+        curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
+        powershell -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('dcraw.zip', 'dcraw'); }"
+        curl -L  https://download.adobe.com/pub/adobe/dng/win/DNGConverter_11_4.exe -o DNGConverter_11_4.exe
+        DNGConverter_11_4.exe /S
+        set PATH=%CD%\exiftool;%CD%\dcraw;"C:\Program Files\Adobe\Adobe DNG Converter";%PATH%
+        echo ::set-env name=PATH::%PATH%
+      shell: cmd
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
@@ -115,7 +149,19 @@ jobs:
         set PATH=%USERPROFILE%\.poetry\bin;%PATH%
         echo ::set-env name=PATH::%PATH%
       shell: cmd
-    - name: Install Package Dependencies
+    # - "pathlib" is missing from "Imageio".
+    - name: Python 2.7 - Install Package Dependencies
+      if: matrix.python-version == '2.7'
+      run: |
+        call poetry install --extras "optional plotting"
+        FOR /F %%a IN ('poetry env info -p') DO SET CI_VIRTUAL_ENVIRONMENT=%%a
+        echo ::set-env name=CI_VIRTUAL_ENVIRONMENT::%CI_VIRTUAL_ENVIRONMENT%
+        call %CI_VIRTUAL_ENVIRONMENT%\scripts\activate
+        pip install pathlib
+        python -c "import imageio;imageio.plugins.freeimage.download()"
+      shell: cmd
+    - name: Python 3.x - Install Package Dependencies
+      if: matrix.python-version != '2.7'
       run: |
         call poetry install --extras "optional plotting"
         FOR /F %%a IN ('poetry env info -p') DO SET CI_VIRTUAL_ENVIRONMENT=%%a
