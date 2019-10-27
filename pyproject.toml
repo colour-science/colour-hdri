@@ -43,7 +43,18 @@ classifiers = [
     "Topic :: Software Development"
 ]
 exclude = [
-    "colour_hdri/resources"
+    "colour_hdri/resources/colour-hdri-examples-datasets/*",
+    "colour_hdri/resources/colour-hdri-examples-datasets/frobisher_001/*",
+    "colour_hdri/resources/colour-hdri-examples-datasets/radiance/*",
+    "colour_hdri/resources/colour-hdri-examples-datasets/unity_001/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/calibration/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/generation/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/process/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/recovery/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/colour_hdri/sampling/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/frobisher_001/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/frobisher_001/*",
+    "colour_hdri/resources/colour-hdri-tests-datasets/unity_001/*",
 ]
 
 [tool.poetry.dependencies]
