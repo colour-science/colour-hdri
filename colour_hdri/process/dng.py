@@ -80,8 +80,7 @@ if platform.system() == 'Darwin':
         '/Applications/Adobe DNG Converter.app/Contents/'
         'MacOS/Adobe DNG Converter')
 elif platform.system() in ('Windows', 'Microsoft'):
-    DNG_CONVERTER = DocstringText(
-        'C:\\Program Files (x86)\\Adobe\\Adobe DNG Converter.exe')
+    DNG_CONVERTER = DocstringText('Adobe DNG Converter')
 else:
     DNG_CONVERTER = None
     warning('"Adobe DNG Converter" is not available on your platform!')
