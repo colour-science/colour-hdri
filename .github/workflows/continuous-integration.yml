@@ -67,7 +67,6 @@ jobs:
       if: matrix.python-version == '2.7'
       run: |
         poetry install --extras "plotting"
-        poetry env use $CI_PYTHON_VERSION
         source $(poetry env info -p)/bin/activate
         pip install pathlib
         python -c "import imageio;imageio.plugins.freeimage.download()"
@@ -75,7 +74,6 @@ jobs:
       if: matrix.python-version != '2.7'
       run: |
         poetry install --extras "optional plotting"
-        poetry env use $CI_PYTHON_VERSION
         source $(poetry env info -p)/bin/activate
         python -c "import imageio;imageio.plugins.freeimage.download()"
     - name: Lint with flake8
