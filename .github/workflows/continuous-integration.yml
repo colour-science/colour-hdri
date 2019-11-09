@@ -129,8 +129,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Command Line Dependencies
       run: |
-        curl -L https://sourceforge.net/projects/exiftool/files/exiftool-11.73.zip/download -o exiftool-11.73.zip
-        powershell -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('exiftool-11.73.zip', 'exiftool'); }"
+        curl -L https://www.sno.phy.queensu.ca/~phil/exiftool/exiftool-11.75.zip -o exiftool-11.75.zip
+        powershell -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('exiftool-11.75.zip', 'exiftool'); }"
         copy %CD%\exiftool\"exiftool(-k).exe" %CD%\exiftool\exiftool.exe
         dir %CD%\exiftool\
         curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
