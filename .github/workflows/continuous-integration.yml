@@ -7,7 +7,7 @@ jobs:
     name: Unix Build
     strategy:
       matrix:
-        os: [ubuntu-18.04, macOS-10.14]
+        os: [ubuntu-18.04, macOS-latest]
         python-version: [2.7, 3.6, 3.7]
     runs-on: ${{ matrix.os }}
     steps:
@@ -41,7 +41,7 @@ jobs:
         sudo apt-get update
         sudo apt-get --yes install dcraw libimage-exiftool-perl
     - name: macOS - Install Homebrew Dependencies
-      if: matrix.os == 'macOS-10.14'
+      if: matrix.os == 'macOS-latest'
       run: |
         brew install dcraw exiftool
         brew cask install adobe-dng-converter
@@ -51,14 +51,14 @@ jobs:
         mkdir -p ~/.config/matplotlib
         echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc
     - name: macOS - Set up Matplotlib Backend
-      if: matrix.os == 'macOS-10.14'
+      if: matrix.os == 'macOS-latest'
       run: |
         mkdir -p ~/.matplotlib
         echo "backend: Agg" > ~/.matplotlib/matplotlibrc
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
-        python get-poetry.py --preview
+        python get-poetry.py --preview --version 1.0.0b3
         PATH=$HOME/.poetry/bin:$PATH
         echo ::set-env name=PATH::$PATH
     # - "rawpy" raises a "UnicodeEncodeError" exception on Python 2.7 during installation thus skipping the "optional" packages.
@@ -67,7 +67,6 @@ jobs:
       if: matrix.python-version == '2.7'
       run: |
         poetry install --extras "plotting"
-        poetry env use $CI_PYTHON_VERSION
         source $(poetry env info -p)/bin/activate
         pip install pathlib
         python -c "import imageio;imageio.plugins.freeimage.download()"
@@ -75,7 +74,6 @@ jobs:
       if: matrix.python-version != '2.7'
       run: |
         poetry install --extras "optional plotting"
-        poetry env use $CI_PYTHON_VERSION
         source $(poetry env info -p)/bin/activate
         python -c "import imageio;imageio.plugins.freeimage.download()"
     - name: Lint with flake8
@@ -131,8 +129,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Command Line Dependencies
       run: |
-        curl -L https://sourceforge.net/projects/exiftool/files/exiftool-11.73.zip/download -o exiftool-11.73.zip
-        powershell -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('exiftool-11.73.zip', 'exiftool'); }"
+        curl -L https://www.sno.phy.queensu.ca/~phil/exiftool/exiftool-11.75.zip -o exiftool-11.75.zip
+        powershell -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('exiftool-11.75.zip', 'exiftool'); }"
         copy %CD%\exiftool\"exiftool(-k).exe" %CD%\exiftool\exiftool.exe
         dir %CD%\exiftool\
         curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
@@ -145,7 +143,7 @@ jobs:
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
-        python get-poetry.py --preview
+        python get-poetry.py --preview --version 1.0.0b3
         set PATH=%USERPROFILE%\.poetry\bin;%PATH%
         echo ::set-env name=PATH::%PATH%
       shell: cmd

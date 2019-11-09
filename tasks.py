@@ -80,9 +80,10 @@ def clean(ctx, docs=True, bytecode=False):
 
 
 @task
-def formatting(ctx, yapf=False, asciify=True, bibtex=True):
+def formatting(ctx, yapf=True, asciify=True, bibtex=True):
     """
-    Formats the codebase with *Yapf* and converts unicode characters to ASCII.
+    Formats the codebase with *Yapf*, converts unicode characters to ASCII and
+    cleanup the "BibTeX" file.
 
     Parameters
     ----------
@@ -307,7 +308,8 @@ def requirements(ctx):
     """
 
     message_box('Exporting "requirements.txt" file...')
-    ctx.run('poetry run pip freeze | grep -v "github.com/colour-science" '
+    ctx.run('poetry run pip freeze | '
+            'egrep -v "github.com/colour-science|enum34" '
             '> requirements.txt')
 
 
