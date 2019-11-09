@@ -7,7 +7,7 @@ jobs:
     name: Unix Build
     strategy:
       matrix:
-        os: [ubuntu-18.04, macOS-10.14]
+        os: [ubuntu-18.04, macOS-latest]
         python-version: [2.7, 3.6, 3.7]
     runs-on: ${{ matrix.os }}
     steps:
@@ -41,7 +41,7 @@ jobs:
         sudo apt-get update
         sudo apt-get --yes install dcraw libimage-exiftool-perl
     - name: macOS - Install Homebrew Dependencies
-      if: matrix.os == 'macOS-10.14'
+      if: matrix.os == 'macOS-latest'
       run: |
         brew install dcraw exiftool
         brew cask install adobe-dng-converter
@@ -51,7 +51,7 @@ jobs:
         mkdir -p ~/.config/matplotlib
         echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc
     - name: macOS - Set up Matplotlib Backend
-      if: matrix.os == 'macOS-10.14'
+      if: matrix.os == 'macOS-latest'
       run: |
         mkdir -p ~/.matplotlib
         echo "backend: Agg" > ~/.matplotlib/matplotlibrc
