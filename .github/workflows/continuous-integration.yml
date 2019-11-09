@@ -58,7 +58,7 @@ jobs:
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
-        python get-poetry.py --preview
+        python get-poetry.py --preview --version 1.0.0b3
         PATH=$HOME/.poetry/bin:$PATH
         echo ::set-env name=PATH::$PATH
     # - "rawpy" raises a "UnicodeEncodeError" exception on Python 2.7 during installation thus skipping the "optional" packages.
@@ -143,7 +143,7 @@ jobs:
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
-        python get-poetry.py --preview
+        python get-poetry.py --preview --version 1.0.0b3
         set PATH=%USERPROFILE%\.poetry\bin;%PATH%
         echo ::set-env name=PATH::%PATH%
       shell: cmd
