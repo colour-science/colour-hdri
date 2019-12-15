@@ -119,7 +119,7 @@ def filter_files(directory, extensions):
     """
 
     return [
-        os.path.join(directory, path) for path in
-        filter(lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
-               sorted(os.listdir(directory)))
+        os.path.join(directory, path) for path in filter(
+            lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
+            sorted(os.listdir(directory)))
     ]
