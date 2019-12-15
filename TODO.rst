@@ -22,6 +22,6 @@ About
 -----
 
 | **Colour - HDRI** by Colour Developers
-| Copyright © 2015-2019 – Colour Developers – `colour-science@googlegroups.com <colour-science@googlegroups.com>`_
+| Copyright © 2015-2019 – Colour Developers – `colour-developers@colour-science.org <colour-developers@colour-science.org>`_
 | This software is released under terms of New BSD License: https://opensource.org/licenses/BSD-3-Clause
 | `https://github.com/colour-science/colour-hdri <https://github.com/colour-science/colour-hdri>`_
