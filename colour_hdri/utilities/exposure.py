@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Image Exposure Value Computation
-================================
+Exposure Value Computation
+==========================
 
-Defines image exposure value computation objects:
+Defines exposure value computation objects:
 
 -   :func:`colour_hdri.average_luminance`
 -   :func:`colour_hdri.average_illuminance`
--   :func:`colour_hdri.exposure_value`
+-   :func:`colour_hdri.luminance_to_exposure_value`
+-   :func:`colour_hdri.illuminance_to_exposure_value`
 -   :func:`colour_hdri.adjust_exposure`
 
 References
@@ -31,32 +32,37 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'average_luminance', 'average_illuminance', 'exposure_value',
-    'adjust_exposure'
+    'average_luminance', 'average_illuminance', 'luminance_to_exposure_value',
+    'illuminance_to_exposure_value', 'adjust_exposure'
 ]
 
 
 def average_luminance(f_number, exposure_time, iso, k=12.5):
     """
-    Computes the average luminance in :math:`cd\\cdot m^{-2}` from given
-    image *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO* speed
-    :math:`S` and *reflected light calibration constant* :math:`k`.
+    Computes the average luminance :math:`L` in :math:`cd\\cdot m^{-2}` from
+    given relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`,
+    *ISO* arithmetic speed :math:`S` and *reflected light calibration constant*
+    :math:`k`.
 
     Parameters
     ----------
     f_number : array_like
-        Image *F-Number*  :math:`N`.
+        Relative aperture *F-Number* :math:`N`.
     exposure_time : array_like
-        Image *Exposure Time* :math:`t`.
+       *Exposure Time* :math:`t`.
     iso : array_like
-        Image *ISO* :math:`S`.
+        *ISO* arithmetic speed :math:`S`.
     k : numeric, optional
-        Reflected light calibration constant :math:`k`.
+        *Reflected light calibration constant* :math:`k`.
+        *ISO 2720:1974* recommends a range for :math:`k` of 10.6 to 13.4 with
+        luminance in :math:`cd\\cdot m^{-2}`. Two values for :math:`k` are in
+        common use: 12.5 (Canon, Nikon, and Sekonic) and 14 (Minolta, Kenko,
+        and Pentax).
 
     Returns
     -------
     ndarray
-        Image average luminance in :math:`cd\\cdot m^{-2}`.
+        Average luminance :math:`L` in :math:`cd\\cdot m^{-2}`.
 
     References
     ----------
@@ -79,25 +85,32 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
 
 def average_illuminance(f_number, exposure_time, iso, c=250):
     """
-    Computes the average illuminance in :math:`Lux` from given
-    image *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO* speed
-    :math:`S` and *incident light calibration constant* :math:`c`.
+    Computes the average illuminance :math:`E` in :math:`Lux` from given
+    relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO*
+    arithmetic speed :math:`S` and *incident light calibration constant*
+    :math:`c`.
 
     Parameters
     ----------
     f_number : array_like
-        Image *F-Number*  :math:`N`.
+        Relative aperture *F-Number* :math:`N`.
     exposure_time : array_like
-        Image *Exposure Time* :math:`t`.
+       *Exposure Time* :math:`t`.
     iso : array_like
-        Image *ISO* :math:`S`.
+        *ISO* arithmetic speed :math:`S`.
     c : numeric, optional
-        Incident light calibration constant :math:`c`.
+        *Incident light calibration constant* :math:`c`.
+        With a flat receptor, *ISO 2720:1974* recommends a range for
+        :math:`c`. of 240 to 400 with illuminance in :math:`Lux`; a value of
+        250 is commonly used. With a hemispherical receptor, *ISO 2720:1974*
+        recommends a range for :math:`c` of 320 to 540 with illuminance in
+        :math:`Lux`; in practice, values typically are between 320 (Minolta)
+        and 340 (Sekonic).
 
     Returns
     -------
     ndarray
-        Image average illuminance in :math:`Lux`.
+        Average illuminance :math:`E` in :math:`Lux`.
 
     References
     ----------
@@ -118,38 +131,82 @@ def average_illuminance(f_number, exposure_time, iso, c=250):
     return E
 
 
-def exposure_value(f_number, exposure_time, iso, k=12.5):
+def luminance_to_exposure_value(L, iso, k=12.5):
     """
-    Computes the average illuminance in :math:`Lux` from given
-    image *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* speed
-    :math:`S` and *reflected light calibration constant* :math:`k`.
+    Computes the exposure value :math:`EV` from given scene luminance
+    :math:`L` in :math:`cd\\cdot m^{-2}`, *ISO* arithmetic speed :math:`S` and
+    *reflected light calibration constant* :math:`k`.
 
     Parameters
     ----------
-    f_number : array_like
-        Image *F-Number*  :math:`N`.
-    exposure_time : array_like
-        Image *Exposure Time* :math:`t`.
+    L : array_like
+        Scene luminance :math:`L` in :math:`cd\\cdot m^{-2}`.
     iso : array_like
-        Image *ISO* :math:`S`.
+        *ISO* arithmetic speed :math:`S`.
     k : numeric, optional
-        Reflected light calibration constant :math:`k`.
+        *Reflected light calibration constant* :math:`k`.
+        *ISO 2720:1974* recommends a range for :math:`k` of 10.6 to 13.4 with
+        luminance in :math:`cd\\cdot m^{-2}`. Two values for :math:`k` are in
+        common use: 12.5 (Canon, Nikon, and Sekonic) and 14 (Minolta, Kenko,
+        and Pentax).
 
     Returns
     -------
     ndarray
-        Image exposure value.
+        Exposure value :math:`EV`.
 
     Examples
     --------
-    >>> exposure_value(8, 1, 100)
-    6.0
+    >>> luminance_to_exposure_value(0.125, 100)
+    0.0
     """
 
-    L = average_luminance(f_number, exposure_time, iso, k)
+    L = as_float_array(L)
     S = as_float_array(iso)
+    k = as_float_array(k)
 
     EV = np.log2(L * S / k)
+
+    return EV
+
+
+def illuminance_to_exposure_value(E, iso, c=250):
+    """
+    Computes the exposure value :math:`EV` from given scene illuminance
+    :math:`E` in :math:`Lux`, *ISO* arithmetic speed :math:`S` and
+    *incident light calibration constant* :math:`c`.
+
+    Parameters
+    ----------
+    E : array_like
+        Scene illuminance :math:`E` in :math:`Lux`.
+    iso : array_like
+        *ISO* arithmetic speed :math:`S`.
+    c : numeric, optional
+        *Incident light calibration constant* :math:`c`.
+        With a flat receptor, *ISO 2720:1974* recommends a range for
+        :math:`c`. of 240 to 400 with illuminance in :math:`Lux`; a value of
+        250 is commonly used. With a hemispherical receptor, *ISO 2720:1974*
+        recommends a range for :math:`c` of 320 to 540 with illuminance in
+        :math:`Lux`; in practice, values typically are between 320 (Minolta)
+        and 340 (Sekonic).
+
+    Returns
+    -------
+    ndarray
+        Exposure value :math:`EV`.
+
+    Examples
+    --------
+    >>> illuminance_to_exposure_value(2.5, 100)
+    0.0
+    """
+
+    E = as_float_array(E)
+    S = as_float_array(iso)
+    c = as_float_array(c)
+
+    EV = np.log2(E * S / c)
 
     return EV
 
