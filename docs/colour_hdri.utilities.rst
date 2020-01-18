@@ -67,6 +67,7 @@ Image Data & Metadata Utilities
 
 .. autosummary::
     :toctree: generated/
+    :template: class.rst
 
     Metadata
     Image
