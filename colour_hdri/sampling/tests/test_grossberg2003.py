@@ -15,7 +15,7 @@ from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import ImageStack, filter_files
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'

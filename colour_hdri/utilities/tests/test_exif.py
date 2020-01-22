@@ -20,7 +20,7 @@ from colour_hdri.utilities import (
     update_exif_tags, delete_exif_tags, read_exif_tag, write_exif_tag)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
