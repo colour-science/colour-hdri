@@ -5,7 +5,7 @@ Colour - HDRI
 
 |actions| |coveralls| |codacy| |version|
 
-.. |actions| image:: https://github.com/colour-science/colour-hdri/workflows/Continuous%20Integration/badge.svg
+.. |actions| image:: https://img.shields.io/github/workflow/status/colour-science/colour-hdri/Continuous%20Integration?label=actions&logo=github&style=flat-square
     :target: https://github.com/colour-science/colour-hdri/actions
     :alt: Develop Build Status
 .. |coveralls| image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg?style=flat-square
