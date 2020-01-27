@@ -78,7 +78,7 @@ nose = { version = "*", optional = true }  # Development dependency.
 numpy = { version = "*", optional = true }
 pre-commit = { version = "*", optional = true }  # Development dependency.
 pytest = { version = "*", optional = true }  # Development dependency.
-rawpy = { version = "*", optional = true }
+rawpy = { version = "^0.13", optional = true }  # Fixed dependency for Python 2.7 support only.
 restructuredtext-lint = { version = "*", optional = true }  # Development dependency.
 sphinx = { version = "*", optional = true }  # Development dependency.
 sphinx_rtd_theme = { version = "*", optional = true }  # Development dependency.
