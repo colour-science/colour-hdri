@@ -14,10 +14,10 @@ import re
 from collections import defaultdict
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
-__email__ = 'colour-science@googlegroups.com'
+__email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = ['vivification', 'vivified_to_dict', 'path_exists', 'filter_files']
@@ -119,7 +119,7 @@ def filter_files(directory, extensions):
     """
 
     return [
-        os.path.join(directory, path) for path in
-        filter(lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
-               sorted(os.listdir(directory)))
+        os.path.join(directory, path) for path in filter(
+            lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
+            sorted(os.listdir(directory)))
     ]

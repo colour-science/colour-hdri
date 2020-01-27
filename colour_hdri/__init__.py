@@ -30,10 +30,10 @@ import subprocess  # nosec
 import colour
 
 from .utilities import (
-    EXIF_EXECUTABLE, ExifTag, adjust_exposure, average_illuminance,
-    average_luminance, copy_exif_tags, delete_exif_tags, exposure_value,
-    filter_files, Image, ImageStack, Metadata, parse_exif_array,
-    parse_exif_data, parse_exif_fraction, parse_exif_numeric,
+    EXIF_EXECUTABLE, ExifTag, Image, ImageStack, Metadata, adjust_exposure,
+    average_illuminance, average_luminance, copy_exif_tags, delete_exif_tags,
+    filter_files, illuminance_to_exposure_value, luminance_to_exposure_value,
+    parse_exif_array, parse_exif_data, parse_exif_fraction, parse_exif_numeric,
     parse_exif_string, path_exists, read_exif_tag, read_exif_tags,
     update_exif_tags, vivification, vivified_to_dict, write_exif_tag)
 from .sampling import (
@@ -64,16 +64,17 @@ from .tonemapping import (
     tonemapping_operator_Tumblin1999)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
-__email__ = 'colour-science@googlegroups.com'
+__email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'EXIF_EXECUTABLE', 'ExifTag', 'adjust_exposure', 'average_illuminance',
-    'average_luminance', 'copy_exif_tags', 'delete_exif_tags',
-    'exposure_value', 'filter_files', 'Image', 'ImageStack', 'Metadata',
+    'EXIF_EXECUTABLE', 'ExifTag', 'Image', 'ImageStack', 'Metadata',
+    'adjust_exposure', 'average_illuminance', 'average_luminance',
+    'copy_exif_tags', 'delete_exif_tags', 'filter_files',
+    'illuminance_to_exposure_value', 'luminance_to_exposure_value',
     'parse_exif_array', 'parse_exif_data', 'parse_exif_fraction',
     'parse_exif_numeric', 'parse_exif_string', 'path_exists', 'read_exif_tag',
     'read_exif_tags', 'update_exif_tags', 'vivification', 'vivified_to_dict',

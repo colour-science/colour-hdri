@@ -25,10 +25,10 @@ from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
 from colour_hdri.utilities.exposure import average_luminance
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
-__email__ = 'colour-science@googlegroups.com'
+__email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = ['Metadata', 'Image', 'ImageStack']

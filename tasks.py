@@ -21,10 +21,10 @@ import colour_hdri
 from colour.utilities import message_box
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
-__email__ = 'colour-science@googlegroups.com'
+__email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
@@ -313,7 +313,7 @@ def requirements(ctx):
             '> requirements.txt')
 
 
-@task(preflight, docs, todo, requirements)
+@task(clean, preflight, docs, todo, requirements)
 def build(ctx):
     """
     Builds the project and runs dependency tasks, i.e. *docs*, *todo*, and
@@ -332,9 +332,10 @@ def build(ctx):
 
     message_box('Building...')
     ctx.run('poetry build')
+    ctx.run('twine check dist/*')
 
 
-@task(clean, build)
+@task
 def virtualise(ctx, tests=True):
     """
     Create a virtual environment for the project build.
@@ -421,7 +422,7 @@ def tag(ctx):
         ctx.run('git flow release finish v{0}'.format(version))
 
 
-@task(clean, build)
+@task(build)
 def release(ctx):
     """
     Releases the project to *Pypi* with *Twine*.
