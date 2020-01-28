@@ -27,6 +27,7 @@ The following features are available:
 -   Global Tonemapping Operators
 -   Adobe DNG SDK Colour Processing
 -   Absolute Luminance Calibration
+-   Digital Still Camera (DSC) Exposure Model
 -   Raw Processing Helpers
 
 Installation

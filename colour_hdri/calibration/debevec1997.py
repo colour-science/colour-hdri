@@ -29,9 +29,9 @@ import numpy as np
 
 from colour.utilities import as_float_array, as_int_array, tstack
 
+from colour_hdri.exposure import average_luminance
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.sampling import samples_Grossberg2003
-from colour_hdri.utilities import average_luminance
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'

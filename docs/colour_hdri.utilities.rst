@@ -42,22 +42,6 @@ EXIF Data Manipulation
     read_exif_tag
     write_exif_tag
 
-Exposure Value Computation
---------------------------
-
-``colour_hdri``
-
-.. currentmodule:: colour_hdri
-
-.. autosummary::
-    :toctree: generated/
-
-    average_luminance
-    average_illuminance
-    luminance_to_exposure_value
-    illuminance_to_exposure_value
-    adjust_exposure
-
 Image Data & Metadata Utilities
 -------------------------------
 

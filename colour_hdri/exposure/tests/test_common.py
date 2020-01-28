@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Defines unit tests for :mod:`colour_hdri.utilities.exposure` module.
+Defines unit tests for :mod:`colour_hdri.exposure.common` module.
 """
 
 from __future__ import division, unicode_literals
@@ -9,7 +9,7 @@ from __future__ import division, unicode_literals
 import numpy as np
 import unittest
 
-from colour_hdri.utilities import (
+from colour_hdri.exposure import (
     average_luminance, average_illuminance, luminance_to_exposure_value,
     illuminance_to_exposure_value, adjust_exposure)
 
@@ -28,14 +28,13 @@ __all__ = [
 
 class TestAverageLuminance(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exposure.average_luminance` definition
+    Defines :func:`colour_hdri.exposure.common.average_luminance` definition
     unit tests methods.
     """
 
     def test_average_luminance(self):
         """
-        Tests :func:`colour_hdri.utilities.exposure.average_luminance`
-        definition.
+        Tests :func:`colour_hdri.exposure.common.average_luminance` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -50,13 +49,13 @@ class TestAverageLuminance(unittest.TestCase):
 
 class TestAverageIlluminance(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exposure.average_illuminance`
-    definition unit tests methods.
+    Defines :func:`colour_hdri.exposure.common.average_illuminance` definition
+    unit tests methods.
     """
 
     def test_average_illuminance(self):
         """
-        Tests :func:`colour_hdri.utilities.exposure.average_illuminance`
+        Tests :func:`colour_hdri.exposure.common.average_illuminance`
         definition.
         """
 
@@ -72,14 +71,14 @@ class TestAverageIlluminance(unittest.TestCase):
 
 class TestLuminanceToExposureValue(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exposure.luminance_to_exposure_value`
+    Defines :func:`colour_hdri.exposure.common.luminance_to_exposure_value`
     definition unit tests methods.
     """
 
     def test_luminance_to_exposure_value(self):
         """
-        Tests :func:`colour_hdri.utilities.exposure.\
-luminance_to_exposure_value` definition.
+        Tests :func:`colour_hdri.exposure.common.luminance_to_exposure_value`
+        definition.
         """
 
         np.testing.assert_almost_equal(
@@ -94,14 +93,14 @@ luminance_to_exposure_value` definition.
 
 class TestIlluminanceToExposureValue(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exposure.\
-illuminance_to_exposure_value` definition unit tests methods.
+    Defines :func:`colour_hdri.exposure.common.illuminance_to_exposure_value`
+    definition unit tests methods.
     """
 
     def test_illuminance_to_exposure_value(self):
         """
-        Tests :func:`colour_hdri.utilities.exposure.\
-illuminance_to_exposure_value` definition.
+        Tests :func:`colour_hdri.exposure.common.illuminance_to_exposure_value`
+        definition.
         """
 
         np.testing.assert_almost_equal(
@@ -116,14 +115,13 @@ illuminance_to_exposure_value` definition.
 
 class TestAdjustExposure(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exposure.adjust_exposure` definition
+    Defines :func:`colour_hdri.exposure.common.adjust_exposure` definition
     unit tests methods.
     """
 
     def test_adjust_exposure(self):
         """
-        Tests :func:`colour_hdri.utilities.exposure.adjust_exposure`
-        definition.
+        Tests :func:`colour_hdri.exposure.common.adjust_exposure` definition.
         """
 
         np.testing.assert_almost_equal(
