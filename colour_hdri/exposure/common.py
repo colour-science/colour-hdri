@@ -37,7 +37,7 @@ __all__ = [
 ]
 
 
-def average_luminance(f_number, exposure_time, iso, k=12.5):
+def average_luminance(N, t, S, k=12.5):
     """
     Computes the average luminance :math:`L` in :math:`cd\\cdot m^{-2}` from
     given relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`,
@@ -46,11 +46,11 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
 
     Parameters
     ----------
-    f_number : array_like
+    N : array_like
         Relative aperture *F-Number* :math:`N`.
-    exposure_time : array_like
+    t : array_like
        *Exposure Time* :math:`t`.
-    iso : array_like
+    S : array_like
         *ISO* arithmetic speed :math:`S`.
     k : numeric, optional
         *Reflected light calibration constant* :math:`k`.
@@ -74,16 +74,16 @@ def average_luminance(f_number, exposure_time, iso, k=12.5):
     8.0
     """
 
-    N = as_float_array(f_number)
-    t = as_float_array(exposure_time)
-    S = as_float_array(iso)
+    N = as_float_array(N)
+    t = as_float_array(t)
+    S = as_float_array(S)
 
     L = N ** 2 / t / S * k
 
     return L
 
 
-def average_illuminance(f_number, exposure_time, iso, c=250):
+def average_illuminance(N, t, S, c=250):
     """
     Computes the average illuminance :math:`E` in :math:`Lux` from given
     relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO*
@@ -92,11 +92,11 @@ def average_illuminance(f_number, exposure_time, iso, c=250):
 
     Parameters
     ----------
-    f_number : array_like
+    N : array_like
         Relative aperture *F-Number* :math:`N`.
-    exposure_time : array_like
+    t : array_like
        *Exposure Time* :math:`t`.
-    iso : array_like
+    S : array_like
         *ISO* arithmetic speed :math:`S`.
     c : numeric, optional
         *Incident light calibration constant* :math:`c`.
@@ -122,16 +122,16 @@ def average_illuminance(f_number, exposure_time, iso, c=250):
     160.0
     """
 
-    N = as_float_array(f_number)
-    t = as_float_array(exposure_time)
-    S = as_float_array(iso)
+    N = as_float_array(N)
+    t = as_float_array(t)
+    S = as_float_array(S)
 
     E = N ** 2 / t / S * c
 
     return E
 
 
-def luminance_to_exposure_value(L, iso, k=12.5):
+def luminance_to_exposure_value(L, S, k=12.5):
     """
     Computes the exposure value :math:`EV` from given scene luminance
     :math:`L` in :math:`cd\\cdot m^{-2}`, *ISO* arithmetic speed :math:`S` and
@@ -141,7 +141,7 @@ def luminance_to_exposure_value(L, iso, k=12.5):
     ----------
     L : array_like
         Scene luminance :math:`L` in :math:`cd\\cdot m^{-2}`.
-    iso : array_like
+    S : array_like
         *ISO* arithmetic speed :math:`S`.
     k : numeric, optional
         *Reflected light calibration constant* :math:`k`.
@@ -155,6 +155,13 @@ def luminance_to_exposure_value(L, iso, k=12.5):
     ndarray
         Exposure value :math:`EV`.
 
+    Notes
+    -----
+    -   The exposure value :math:`EV` indicates a combination of camera
+        settings rather than the focal plane exposure, i.e. luminous exposure,
+        photometric exposure, :math:`H`. The focal plane exposure is
+        time-integrated illuminance.
+
     Examples
     --------
     >>> luminance_to_exposure_value(0.125, 100)
@@ -162,7 +169,7 @@ def luminance_to_exposure_value(L, iso, k=12.5):
     """
 
     L = as_float_array(L)
-    S = as_float_array(iso)
+    S = as_float_array(S)
     k = as_float_array(k)
 
     EV = np.log2(L * S / k)
@@ -170,7 +177,7 @@ def luminance_to_exposure_value(L, iso, k=12.5):
     return EV
 
 
-def illuminance_to_exposure_value(E, iso, c=250):
+def illuminance_to_exposure_value(E, S, c=250):
     """
     Computes the exposure value :math:`EV` from given scene illuminance
     :math:`E` in :math:`Lux`, *ISO* arithmetic speed :math:`S` and
@@ -180,7 +187,7 @@ def illuminance_to_exposure_value(E, iso, c=250):
     ----------
     E : array_like
         Scene illuminance :math:`E` in :math:`Lux`.
-    iso : array_like
+    S : array_like
         *ISO* arithmetic speed :math:`S`.
     c : numeric, optional
         *Incident light calibration constant* :math:`c`.
@@ -196,6 +203,13 @@ def illuminance_to_exposure_value(E, iso, c=250):
     ndarray
         Exposure value :math:`EV`.
 
+    Notes
+    -----
+    -   The exposure value :math:`EV` indicates a combination of camera
+        settings rather than the focal plane exposure, i.e. luminous exposure,
+        photometric exposure, :math:`H`. The focal plane exposure is
+        time-integrated illuminance.
+
     Examples
     --------
     >>> illuminance_to_exposure_value(2.5, 100)
@@ -203,7 +217,7 @@ def illuminance_to_exposure_value(E, iso, c=250):
     """
 
     E = as_float_array(E)
-    S = as_float_array(iso)
+    S = as_float_array(S)
     c = as_float_array(c)
 
     EV = np.log2(E * S / c)

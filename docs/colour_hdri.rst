@@ -5,6 +5,7 @@ Colour - HDRI
     :maxdepth: 3
 
     colour_hdri.calibration
+    colour_hdri.exposure
     colour_hdri.generation
     colour_hdri.models
     colour_hdri.plotting
