@@ -162,6 +162,10 @@ def luminance_to_exposure_value(L, S, k=12.5):
         photometric exposure, :math:`H`. The focal plane exposure is
         time-integrated illuminance.
 
+    References
+    ----------
+    :cite:`Wikipediabj`
+
     Examples
     --------
     >>> luminance_to_exposure_value(0.125, 100)
@@ -209,6 +213,10 @@ def illuminance_to_exposure_value(E, S, c=250):
         settings rather than the focal plane exposure, i.e. luminous exposure,
         photometric exposure, :math:`H`. The focal plane exposure is
         time-integrated illuminance.
+
+    References
+    ----------
+    :cite:`Wikipediabj`
 
     Examples
     --------

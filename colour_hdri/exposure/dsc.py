@@ -247,11 +247,11 @@ def saturation_based_speed_focal_plane_exposure(
     -   Object distance :math:`o`, focal length :math:`F`, and image distance
         :math:`i` are related by the thin-lens equation:
         :math:`\\cfrac{1}{f}=\\cfrac{1}{o}+\\cfrac{1}{i}`
-    -   The current image distance default value is that an object located at
-        5m and imaged with a 50mm lens.
+    -   The image distance default value is that of an object located at 5m and
+        imaged with a 50mm lens.
     -   The saturation based speed, :math:`S_{sat}`, of an electronic still
-        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{Hsat}` where
-        :math:`H_{sat}` is the minimum focal plane exposure, expressed in
+        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{H_{sat}}`
+        where :math:`H_{sat}` is the minimum focal plane exposure, expressed in
         lux-seconds (:math:`lx.s`), that produces the maximum valid (not
         clipped or bloomed) camera output signal. This provides :math:`1/2`
         "stop" of headroom (41% additional headroom) for specular highlights
@@ -386,8 +386,8 @@ def photometric_exposure_scale_factor_Lagarde2014(EV100,
     Notes
     -----
     -   The saturation based speed, :math:`S_{sat}`, of an electronic still
-        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{Hsat}` where
-        :math:`H_{sat}` is the minimum focal plane exposure, expressed in
+        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{H_{sat}}`
+        where :math:`H_{sat}` is the minimum focal plane exposure, expressed in
         lux-seconds (:math:`lx.s`), that produces the maximum valid (not
         clipped or bloomed) camera output signal. This provides :math:`1/2`
         "stop" of headroom (41% additional headroom) for specular highlights
