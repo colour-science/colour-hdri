@@ -17,10 +17,10 @@ from colour.models import RGB_COLOURSPACES
 from colour.utilities import dot_matrix, dot_vector
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
-__email__ = 'colour-science@googlegroups.com'
+__email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = ['camera_space_to_RGB', 'camera_space_to_sRGB']
@@ -34,7 +34,7 @@ def camera_space_to_RGB(RGB, M_XYZ_to_camera_space, RGB_to_XYZ_matrix):
     ----------
     RGB : array_like
         Camera space *RGB* colourspace array.
-    XYZ_to_camera_matrix : array_like
+    M_XYZ_to_camera_space : array_like
         Matrix converting from *CIE XYZ* tristimulus values to *camera space*.
     RGB_to_XYZ_matrix : array_like
         Matrix converting from *RGB* colourspace to *CIE XYZ* tristimulus

@@ -7,8 +7,6 @@ from .exif import (EXIF_EXECUTABLE, ExifTag, parse_exif_string,
                    parse_exif_data, read_exif_tags, copy_exif_tags,
                    update_exif_tags, delete_exif_tags, read_exif_tag,
                    write_exif_tag)
-from .exposure import (average_luminance, average_illuminance, exposure_value,
-                       adjust_exposure)
 from .image import Metadata, Image, ImageStack
 
 __all__ = []
@@ -18,9 +16,5 @@ __all__ += [
     'parse_exif_fraction', 'parse_exif_array', 'parse_exif_data',
     'read_exif_tags', 'copy_exif_tags', 'update_exif_tags', 'delete_exif_tags',
     'read_exif_tag', 'write_exif_tag'
-]
-__all__ += [
-    'average_luminance', 'average_illuminance', 'exposure_value',
-    'adjust_exposure'
 ]
 __all__ += ['Metadata', 'Image', 'ImageStack']

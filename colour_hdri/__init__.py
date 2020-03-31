@@ -8,6 +8,7 @@ HDRI - Radiance image processing algorithms for *Python*.
 Subpackages
 -----------
 -   calibration: Camera calibration computations.
+-   exposure: Exposure computations.
 -   examples: Examples for the sub-packages.
 -   generation: HDRI / radiance image generation.
 -   models: Colour models conversion.
@@ -29,16 +30,21 @@ import subprocess  # nosec
 
 import colour
 
-from .utilities import (
-    EXIF_EXECUTABLE, ExifTag, adjust_exposure, average_illuminance,
-    average_luminance, copy_exif_tags, delete_exif_tags, exposure_value,
-    filter_files, Image, ImageStack, Metadata, parse_exif_array,
-    parse_exif_data, parse_exif_fraction, parse_exif_numeric,
-    parse_exif_string, path_exists, read_exif_tag, read_exif_tags,
-    update_exif_tags, vivification, vivified_to_dict, write_exif_tag)
+from .utilities import (EXIF_EXECUTABLE, ExifTag, Image, ImageStack, Metadata,
+                        copy_exif_tags, delete_exif_tags, filter_files,
+                        parse_exif_array, parse_exif_data, parse_exif_fraction,
+                        parse_exif_numeric, parse_exif_string, path_exists,
+                        read_exif_tag, read_exif_tags, update_exif_tags,
+                        vivification, vivified_to_dict, write_exif_tag)
 from .sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
     samples_Grossberg2003)
+from .exposure import (
+    adjust_exposure, arithmetic_mean_focal_plane_exposure, average_illuminance,
+    average_luminance, exposure_index_values, exposure_value_100,
+    photometric_exposure_scale_factor_Lagarde2014, focal_plane_exposure,
+    illuminance_to_exposure_value, luminance_to_exposure_value,
+    saturation_based_speed_focal_plane_exposure)
 from .generation import (normal_distribution_function, hat_function,
                          weighting_function_Debevec1997,
                          image_stack_to_radiance_image)
@@ -64,24 +70,30 @@ from .tonemapping import (
     tonemapping_operator_Tumblin1999)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
-__email__ = 'colour-science@googlegroups.com'
+__email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'EXIF_EXECUTABLE', 'ExifTag', 'adjust_exposure', 'average_illuminance',
-    'average_luminance', 'copy_exif_tags', 'delete_exif_tags',
-    'exposure_value', 'filter_files', 'Image', 'ImageStack', 'Metadata',
-    'parse_exif_array', 'parse_exif_data', 'parse_exif_fraction',
-    'parse_exif_numeric', 'parse_exif_string', 'path_exists', 'read_exif_tag',
-    'read_exif_tags', 'update_exif_tags', 'vivification', 'vivified_to_dict',
-    'write_exif_tag'
+    'EXIF_EXECUTABLE', 'ExifTag', 'Image', 'ImageStack', 'Metadata',
+    'copy_exif_tags', 'delete_exif_tags', 'filter_files', 'parse_exif_array',
+    'parse_exif_data', 'parse_exif_fraction', 'parse_exif_numeric',
+    'parse_exif_string', 'path_exists', 'read_exif_tag', 'read_exif_tags',
+    'update_exif_tags', 'vivification', 'vivified_to_dict', 'write_exif_tag'
 ]
 __all__ += [
     'light_probe_sampling_variance_minimization_Viriyothai2009',
     'samples_Grossberg2003'
+]
+__all__ += [
+    'adjust_exposure', 'arithmetic_mean_focal_plane_exposure',
+    'average_illuminance', 'average_luminance', 'exposure_index_values',
+    'exposure_value_100', 'photometric_exposure_scale_factor_Lagarde2014',
+    'focal_plane_exposure', 'illuminance_to_exposure_value',
+    'luminance_to_exposure_value',
+    'saturation_based_speed_focal_plane_exposure'
 ]
 __all__ += [
     'normal_distribution_function', 'hat_function',
@@ -125,7 +137,7 @@ __application_name__ = 'Colour - HDRI'
 
 __major_version__ = '0'
 __minor_version__ = '1'
-__change_version__ = '6'
+__change_version__ = '7'
 __version__ = '.'.join(
     (__major_version__,
      __minor_version__,

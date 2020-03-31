@@ -17,13 +17,13 @@ import numpy as np
 from colour.plotting import COLOUR_STYLE_CONSTANTS, override_style, render
 from colour.utilities import as_float_array
 
-from colour_hdri.utilities.exposure import adjust_exposure
+from colour_hdri.exposure import adjust_exposure
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2019 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
-__email__ = 'colour-science@googlegroups.com'
+__email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = ['plot_radiance_image_strip']
