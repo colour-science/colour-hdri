@@ -205,8 +205,8 @@ def saturation_based_speed_focal_plane_exposure(
         f_v=98 / 100,
         theta=10):
     """
-    Computes the Saturation-Based Speed (SBS) focal plane exposure :math:`H` in
-    lux-seconds (:math:`lx.s`).
+    Computes the Saturation-Based Speed (SBS) focal plane exposure
+    :math:`H_{SBS}` in lux-seconds (:math:`lx.s`).
 
     The model implemented by this definition is appropriate to simulate a
     physical camera in an offline or realtime renderer.
@@ -238,7 +238,8 @@ def saturation_based_speed_focal_plane_exposure(
     Returns
     -------
     ndarray
-        Focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
+        Saturation-Based Speed focal plane exposure :math:`H_{SBS}` in
+        lux-seconds (:math:`lx.s`).
 
     Notes
     -----
@@ -247,11 +248,11 @@ def saturation_based_speed_focal_plane_exposure(
     -   Object distance :math:`o`, focal length :math:`F`, and image distance
         :math:`i` are related by the thin-lens equation:
         :math:`\\cfrac{1}{f}=\\cfrac{1}{o}+\\cfrac{1}{i}`
-    -   The current image distance default value is that an object located at
-        5m and imaged with a 50mm lens.
+    -   The image distance default value is that of an object located at 5m and
+        imaged with a 50mm lens.
     -   The saturation based speed, :math:`S_{sat}`, of an electronic still
-        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{Hsat}` where
-        :math:`H_{sat}` is the minimum focal plane exposure, expressed in
+        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{H_{sat}}`
+        where :math:`H_{sat}` is the minimum focal plane exposure, expressed in
         lux-seconds (:math:`lx.s`), that produces the maximum valid (not
         clipped or bloomed) camera output signal. This provides :math:`1/2`
         "stop" of headroom (41% additional headroom) for specular highlights
@@ -259,7 +260,7 @@ def saturation_based_speed_focal_plane_exposure(
         reflectance object in the scene, so that a theoretical 141% reflectance
         object in the scene would produce a focal plane exposure of
         :math:`H_{sat}`.
-    -   The focal plane exposure :math:`H` computed by this definition is
+    -   The focal plane exposure :math:`H_{SBS}` computed by this definition is
         almost equal to that given by scene luminance :math:`L` scaled with
         the output of :func:`colour_hdri.\
 photometric_exposure_scale_factor_Lagarde2014` definition.
@@ -279,9 +280,9 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
 
     H = focal_plane_exposure(L, A, t, F, i, H_f, T, f_v, theta)
 
-    H *= (S / 100) * (100 / 78)
+    H_SBS = H * S / 78
 
-    return H
+    return H_SBS
 
 
 def exposure_index_values(H_a):
@@ -386,8 +387,8 @@ def photometric_exposure_scale_factor_Lagarde2014(EV100,
     Notes
     -----
     -   The saturation based speed, :math:`S_{sat}`, of an electronic still
-        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{Hsat}` where
-        :math:`H_{sat}` is the minimum focal plane exposure, expressed in
+        picture camera is defined as: :math:`S_{sat}=\\cfrac{78}{H_{sat}}`
+        where :math:`H_{sat}` is the minimum focal plane exposure, expressed in
         lux-seconds (:math:`lx.s`), that produces the maximum valid (not
         clipped or bloomed) camera output signal. This provides :math:`1/2`
         "stop" of headroom (41% additional headroom) for specular highlights

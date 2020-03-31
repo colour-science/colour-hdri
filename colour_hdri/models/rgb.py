@@ -34,7 +34,7 @@ def camera_space_to_RGB(RGB, M_XYZ_to_camera_space, RGB_to_XYZ_matrix):
     ----------
     RGB : array_like
         Camera space *RGB* colourspace array.
-    XYZ_to_camera_matrix : array_like
+    M_XYZ_to_camera_space : array_like
         Matrix converting from *CIE XYZ* tristimulus values to *camera space*.
     RGB_to_XYZ_matrix : array_like
         Matrix converting from *RGB* colourspace to *CIE XYZ* tristimulus
