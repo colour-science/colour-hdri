@@ -11,7 +11,7 @@ See Also
 --------
 `Colour - HDRI - Examples Jupyter Notebooks
 <https://github.com/colour-science/colour-hdri/\
-blob/master/colour_hdri/examples>`_
+blob/master/colour_hdri/examples>`__
 
 References
 ----------
