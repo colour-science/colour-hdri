@@ -12,10 +12,9 @@ Defines weighting function objects used when generating radiance images:
 References
 ----------
 -   :cite:`Debevec1997a` : Debevec, P. E., & Malik, J. (1997). Recovering high
-    dynamic range radiance maps from photographs. In Proceedings of the 24th
-    annual conference on Computer graphics and interactive techniques -
-    SIGGRAPH '97 (pp. 369-378). New York, New York, USA: ACM Press.
-    doi:10.1145/258734.258884
+    dynamic range radiance maps from photographs. Proceedings of the 24th
+    Annual Conference on Computer Graphics and Interactive Techniques -
+    SIGGRAPH "97, August, 369-378. doi:10.1145/258734.258884
 """
 
 from __future__ import division, unicode_literals

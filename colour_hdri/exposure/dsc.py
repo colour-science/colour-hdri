@@ -17,7 +17,7 @@ References
 -   :cite:`ISO2006` : ISO. (2006). INTERNATIONAL STANDARD ISO12232-2006 -
     Photography - Digital still cameras - Determination of exposure index, ISO
     speed ratings, standard output sensitivity, and recommended exposure index.
--   :cite:`Lagarde2014` : Lagarde, S., & de Rousiers, C. (2014). Moving
+-   :cite:`Lagarde2014` : Lagarde, Sébastian, & de Rousiers, C. (2014). Moving
     Frostbite to Physically Based Rendering 3.0. Siggraph 2014, 119.
 """
 

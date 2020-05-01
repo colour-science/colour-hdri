@@ -13,8 +13,8 @@ Defines various objects implementing *Adobe DNG SDK* colour processing:
 The *Adobe DNG SDK* defines the following tags relevant for the current
 implementation:
 
--   *CalibrationIlluminant1* : The illuminant used for the first set of
-    colour calibration tags.
+-   *CalibrationIlluminant1* : The illuminant used for the first set of colour
+    calibration tags.
 -   *CalibrationIlluminant2* : The illuminant used for an optional second set
     of colour calibration tags.
 -   *ColorMatrix1* : *ColorMatrix1* defines a transformation matrix that
@@ -25,34 +25,33 @@ implementation:
     the second calibration illuminant.
 -   *CameraCalibration1* : *CameraCalibration1* defines a calibration matrix
     that transforms reference camera native space values to individual camera
-    native space values under the first calibration illuminant.
-    This matrix is stored separately from the matrix specified by the
-    *ColorMatrix1* tag to allow raw converters to swap in replacement colour
-    matrices based on *UniqueCameraModel* tag, while still taking advantage of
-    any per-individual camera calibration performed by the camera manufacturer.
+    native space values under the first calibration illuminant. This matrix is
+    stored separately from the matrix specified by the *ColorMatrix1* tag to
+    allow raw converters to swap in replacement colour matrices based on
+    *UniqueCameraModel* tag, while still taking advantage of any per-individual
+    camera calibration performed by the camera manufacturer.
 -   *CameraCalibration2* : *CameraCalibration2* defines a calibration matrix
     that transforms reference camera native space values to individual camera
-    native space values under the second calibration illuminant.
-    This matrix is stored separately from the matrix specified by the
-    *ColorMatrix2* tag to allow raw converters to swap in replacement colour
-    matrices based on *UniqueCameraModel* tag, while still taking advantage of
-    any per-individual camera calibration performed by the camera manufacturer.
+    native space values under the second calibration illuminant. This matrix is
+    stored separately from the matrix specified by the *ColorMatrix2* tag to
+    allow raw converters to swap in replacement colour matrices based on
+    *UniqueCameraModel* tag, while still taking advantage of any per-individual
+    camera calibration performed by the camera manufacturer.
 -   *ReductionMatrix1* : *ReductionMatrix1* defines a dimensionality reduction
     matrix for use as the first stage in converting colour camera native space
     values to XYZ values, under the first calibration illuminant. This tag may
     only be used if *ColorPlanes* is greater than 3.
 -   *ReductionMatrix2* : *ReductionMatrix2* defines a dimensionality reduction
     matrix for use as the first stage in converting colour camera native space
-    values to XYZ values, under the second calibration illuminant. This tag
-    may only be used if *ColorPlanes* is greater than 3.
+    values to XYZ values, under the second calibration illuminant. This tag may
+    only be used if *ColorPlanes* is greater than 3.
 -   *AnalogBalance* : Normally the stored raw values are not white balanced,
     since any digital white balancing will reduce the dynamic range of the
-    final image if the user decides to later adjust the white balance;
-    however, if camera hardware is capable of white balancing the colour
-    channels before the signal is digitized, it can improve the dynamic range
-    of the final image.
-    *AnalogBalance* defines the gain, either analog (recommended) or digital
-    (not recommended) that has been applied the stored raw values.
+    final image if the user decides to later adjust the white balance; however,
+    if camera hardware is capable of white balancing the colour channels before
+    the signal is digitized, it can improve the dynamic range of the final
+    image. *AnalogBalance* defines the gain, either analog (recommended) or
+    digital (not recommended) that has been applied the stored raw values.
 -   *AsShotNeutral* : *AsShotNeutral* specifies the selected white balance at
     time of capture, encoded as the coordinates of a perfectly neutral colour
     in linear reference space values. The inclusion of this tag precludes the
@@ -76,39 +75,38 @@ Notes
 -   The *ReductionMatrix1* and *ReductionMatrix2* tags are ignored by the
     current implementation which expects cameras with 3 colour planes.
 -   *DNG 1.2.0.0* and later supports different companies creating the camera
-    calibration tags using different reference cameras.
-    When rendering a *DNG* file using a camera profile, it is important to
-    know if the selected camera profile was designed using the same reference
-    camera used to create the camera calibration tags. If so, then the camera
-    calibration tags should be used. If not, then it is preferable to ignore
-    the camera calibration tags and use identity matrices instead in order to
-    minimize the worse case calibration mismatch error.
-    This matching is done by comparing the *CameraCalibrationSignature* tag
-    and the *ProfileCalibrationSignature* tag for the selected camera profile.
-    If they match, then use the camera calibration tags. If not, then use
-    identity matrices.
+    calibration tags using different reference cameras. When rendering a *DNG*
+    file using a camera profile, it is important to know if the selected camera
+    profile was designed using the same reference camera used to create the
+    camera calibration tags. If so, then the camera calibration tags should be
+    used. If not, then it is preferable to ignore the camera calibration tags
+    and use identity matrices instead in order to minimize the worse case
+    calibration mismatch error. This matching is done by comparing the
+    *CameraCalibrationSignature* tag and the *ProfileCalibrationSignature* tag
+    for the selected camera profile. If they match, then use the camera
+    calibration tags. If not, then use identity matrices.
 -   The Hue/Saturation/Value Mapping Table is ignored by the current
     implementation because deemed unsuitable :cite:`McGuffog2012a`.
--   The various matrices used in this module are extracted from a
-    *Canon EOS 5D Mark II* camera.
+-   The various matrices used in this module are extracted from a *Canon EOS 5D
+    Mark II* camera.
 
 References
 ----------
--   :cite:`AdobeSystems2012d` : Adobe Systems. (2012). Translating White
+-   :cite:`AdobeSystems2012d` : Adobe Systems. (2012d). Translating White
     Balance xy Coordinates to Camera Neutral Coordinates. In Digital Negative
     (DNG) Specification (p. 80).
--   :cite:`AdobeSystems2012d` : Adobe Systems. (2012). Translating Camera
+-   :cite:`AdobeSystems2012e` : Adobe Systems. (2012c). Translating Camera
     Neutral Coordinates to White Balance xy Coordinates. In Digital Negative
     (DNG) Specification (pp. 80-81).
--   :cite:`AdobeSystems2012f` : Adobe Systems. (2012). Digital Negative (DNG)
-    Specification.
--   :cite:`AdobeSystems2012g` : Adobe Systems. (2012). Camera to XYZ (D50)
+-   :cite:`AdobeSystems2012f` : Adobe Systems. (2012b). Digital Negative (DNG)
+    Specification (pp. 1-101).
+-   :cite:`AdobeSystems2012g` : Adobe Systems. (2012a). Camera to XYZ (D50)
     Transform. In Digital Negative (DNG) Specification (p. 81).
--   :cite:`AdobeSystems2015d` : Adobe Systems. (2015). Adobe DNG SDK 1.4.
-    Retrieved from http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015d` : Adobe Systems. (2015a). Adobe DNG SDK 1.4.
+    http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
 -   :cite:`McGuffog2012a` : McGuffog, S. (2012). Hue Twists in DNG Camera
     Profiles. Retrieved October 29, 2016, from
-    http://dcptool.sourceforge.net/Hue Twists.html
+    http://dcptool.sourceforge.net/Hue%20Twists.html
 """
 
 from __future__ import division, unicode_literals

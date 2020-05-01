@@ -13,13 +13,15 @@ LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS`
 
 References
 ----------
--   :cite:`AdobeSystems2015c` : Adobe Systems. (2015). Adobe DNG SDK 1.4 -
+-   :cite:`AdobeSystems2015c` : Adobe Systems. (2015b). Adobe DNG SDK 1.4 -
     dng_sdk_1_4/dng_sdk/source/dng_camera_profile.cpp -
-    dng_camera_profile::IlluminantToTemperature. Retrieved from
+    dng_camera_profile::IlluminantToTemperature.
     http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
--   :cite:`AdobeSystems2015d` : Adobe Systems. (2015). Adobe DNG SDK 1.4 -
-    dng_sdk_1_4/dng_sdk/source/dng_tag_values.h - LightSource tag. Retrieved
-    from http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015d` : Adobe Systems. (2015a). Adobe DNG SDK 1.4.
+    http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015e` : Adobe Systems. (2015c). Adobe DNG SDK 1.4 -
+    dng_sdk_1_4/dng_sdk/source/dng_tag_values.h - LightSource tag.
+    http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
 """
 
 from __future__ import division, unicode_literals
