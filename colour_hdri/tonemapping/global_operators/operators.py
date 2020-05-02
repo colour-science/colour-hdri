@@ -27,12 +27,12 @@ examples/examples_global_tonemapping_operators.ipynb>`__
 References
 ----------
 -   :cite:`Banterle2011k` : Banterle, F., Artusi, A., Debattista, K., &
-    Chalmers, A. (2011b). 3.2.1 Simple Mapping Methods. In Advanced High
+    Chalmers, A. (2011). 3.2.1 Simple Mapping Methods. In Advanced High
     Dynamic Range Imaging (pp. 38-41). A K Peters/CRC Press.
     ISBN:978-1-56881-719-4
--   :cite:`Habble2010d` : Habble, J. (2010a). Filmic Tonemapping Operators.
+-   :cite:`Habble2010d` : Habble, J. (2010). Filmic Tonemapping Operators.
     Retrieved March 15, 2015, from http://filmicgames.com/archives/75
--   :cite:`Habble2010e` : Habble, J. (2010b). Uncharted 2: HDR Lighting.
+-   :cite:`Habble2010e` : Habble, J. (2010). Uncharted 2: HDR Lighting.
     Retrieved March 15, 2015, from
     http://www.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting
 -   :cite:`Reinhard2005c` : Reinhard, E., & Devlin, K. (2005). Dynamic Range
@@ -44,7 +44,7 @@ References
 -   :cite:`Tumblin1999c` : Tumblin, J., Hodgins, J. K., & Guenter, B. K.
     (1999). Two methods for display of high contrast images. ACM Transactions
     on Graphics, 18(1), 56-94. doi:10.1145/300776.300783
--   :cite:`Wikipediabn` : Wikipedia. (n.d.-b). Tonemapping - Purpose and
+-   :cite:`Wikipediabn` : Wikipedia. (n.d.). Tonemapping - Purpose and
     methods. Retrieved March 15, 2015, from
     http://en.wikipedia.org/wiki/Tone_mapping#Purpose_and_methods
 """

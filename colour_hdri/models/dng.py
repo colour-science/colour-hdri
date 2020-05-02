@@ -92,17 +92,17 @@ Notes
 
 References
 ----------
--   :cite:`AdobeSystems2012d` : Adobe Systems. (2012d). Translating White
+-   :cite:`AdobeSystems2012d` : Adobe Systems. (2012). Translating White
     Balance xy Coordinates to Camera Neutral Coordinates. In Digital Negative
     (DNG) Specification (p. 80).
--   :cite:`AdobeSystems2012e` : Adobe Systems. (2012c). Translating Camera
+-   :cite:`AdobeSystems2012e` : Adobe Systems. (2012). Translating Camera
     Neutral Coordinates to White Balance xy Coordinates. In Digital Negative
     (DNG) Specification (pp. 80-81).
--   :cite:`AdobeSystems2012f` : Adobe Systems. (2012b). Digital Negative (DNG)
+-   :cite:`AdobeSystems2012f` : Adobe Systems. (2012). Digital Negative (DNG)
     Specification (pp. 1-101).
--   :cite:`AdobeSystems2012g` : Adobe Systems. (2012a). Camera to XYZ (D50)
+-   :cite:`AdobeSystems2012g` : Adobe Systems. (2012). Camera to XYZ (D50)
     Transform. In Digital Negative (DNG) Specification (p. 81).
--   :cite:`AdobeSystems2015d` : Adobe Systems. (2015a). Adobe DNG SDK 1.4.
+-   :cite:`AdobeSystems2015d` : Adobe Systems. (2015). Adobe DNG SDK 1.4.
     http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
 -   :cite:`McGuffog2012a` : McGuffog, S. (2012). Hue Twists in DNG Camera
     Profiles. Retrieved October 29, 2016, from

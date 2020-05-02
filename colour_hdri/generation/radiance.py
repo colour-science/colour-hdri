@@ -16,7 +16,7 @@ blob/master/colour_hdri/examples>`__
 References
 ----------
 -   :cite:`Banterle2011n` : Banterle, F., Artusi, A., Debattista, K., &
-    Chalmers, A. (2011a). 2.1.1 Generating HDR Content by Combining Multiple
+    Chalmers, A. (2011). 2.1.1 Generating HDR Content by Combining Multiple
     Exposures. In Advanced High Dynamic Range Imaging. A K Peters/CRC Press.
     ISBN:978-1-56881-719-4
 """

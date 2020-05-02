@@ -13,7 +13,7 @@ Defines exposure value computation objects:
 
 References
 ----------
--   :cite:`Wikipediabj` : Wikipedia. (n.d.-a). EV as a measure of luminance and
+-   :cite:`Wikipediabj` : Wikipedia. (n.d.). EV as a measure of luminance and
     illuminance. Retrieved November 14, 2015, from
     https://en.wikipedia.org/wiki/Exposure_value#\
 EV_as_a_measure_of_luminance_and_illuminance
