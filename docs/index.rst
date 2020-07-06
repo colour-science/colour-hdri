@@ -45,18 +45,19 @@ Primary Dependencies
 
 **Colour - HDRI** requires various dependencies in order to run:
 
--  `Python 2.7 <https://www.python.org/download/releases/>`__ or
-   `Python 3.7 <https://www.python.org/download/releases/>`__
--  `Colour Science <https://www.colour-science.org>`__
+-   `python>=2.7 <https://www.python.org/download/releases/>`__ or
+    `python>=3.5 <https://www.python.org/download/releases/>`__
+-   `colour-science <https://pypi.org/project/colour-science/>`__
+-   `recordclass <https://pypi.org/project/recordclass/>`__
 
 Optional Features Dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
--   `colour-demosaicing <https://github.com/colour-science/colour-demosaicing>`__
+-   `colour-demosaicing <https://pypi.org/project/colour-demosaicing/>`__
 -   `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
 -   `dcraw <https://www.cybercom.net/~dcoffin/dcraw/>`__
 -   `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool/>`__
--   `rawpy <https://github.com/neothemachine/rawpy>`__
+-   `rawpy <https://pypi.org/project/rawpy/>`__
 
 Pypi
 ^^^^
