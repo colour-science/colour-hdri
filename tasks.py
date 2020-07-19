@@ -313,8 +313,7 @@ def requirements(ctx):
             '> requirements.txt')
 
 
-# @task(clean, preflight, docs, todo, requirements)
-@task
+@task(clean, preflight, docs, todo, requirements)
 def build(ctx):
     """
     Builds the project and runs dependency tasks, i.e. *docs*, *todo*, and
@@ -354,9 +353,9 @@ def build(ctx):
         return ''
 
     template = """
-    setup({0}
-    )
-    """
+setup({0}
+)
+"""
 
     source = re.sub('from setuptools import setup',
                     'import codecs\nfrom setuptools import setup', source)
