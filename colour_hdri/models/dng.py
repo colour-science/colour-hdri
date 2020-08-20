@@ -121,7 +121,7 @@ from colour.utilities import (dot_matrix, dot_vector, linear_conversion,
                               tstack)
 from colour.temperature import uv_to_CCT_Robertson1968
 
-from colour_hdri.models import ADOBE_DNG_XYZ_ILLUMINANT
+from colour_hdri.models import CCS_ILLUMINANT_ADOBEDNG
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
@@ -398,7 +398,7 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        :attr:`colour_hdri.models.datasets.dng.CCS_ILLUMINANT_ADOBEDNG`
         attribute.
 
     References
@@ -505,7 +505,7 @@ def camera_space_to_XYZ_matrix(xy,
     Notes
     -----
     -   The reference illuminant is D50 as defined per
-        :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+        :attr:`colour_hdri.models.datasets.dng.CCS_ILLUMINANT_ADOBEDNG`
         attribute.
 
     References
@@ -559,7 +559,7 @@ def camera_space_to_XYZ_matrix(xy,
                 M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
                 M_camera_calibration_2, analog_balance))
         M_CAT = chromatic_adaptation_matrix_VonKries(
-            xy_to_XYZ(xy), xy_to_XYZ(ADOBE_DNG_XYZ_ILLUMINANT),
+            xy_to_XYZ(xy), xy_to_XYZ(CCS_ILLUMINANT_ADOBEDNG),
             chromatic_adaptation_transform)
         M_camera_space_to_XYZ = dot_matrix(M_CAT, M_camera_to_XYZ)
     else:
