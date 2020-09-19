@@ -68,8 +68,8 @@ def image_stack_to_radiance_image(
     ndarray
         Radiance image.
 
-    Warning
-    -------
+    Warnings
+    --------
     If the image stack contains images with negative or equal to zero values,
     unpredictable results may occur and NaNs might be generated. It is
     thus recommended to encode the images in a wider RGB colourspace or clamp
