@@ -85,19 +85,19 @@ Once the dependencies satisfied, **Colour - HDRI** can be installed from
 the `Python Package Index <http://pypi.python.org/pypi/colour-hdri>`__ by
 issuing this command in a shell::
 
-	pip install colour-hdri
+	pip install --user colour-hdri
 
 The optional features dependencies are installed as follows::
 
-    pip install 'colour-hdri[optional]'
+    pip install --user 'colour-hdri[optional]'
 
 The figures plotting dependencies are installed as follows::
 
-    pip install 'colour-hdri[plotting]'
+    pip install --user 'colour-hdri[plotting]'
 
 The overall development dependencies are installed as follows::
 
-    pip install 'colour-hdri[development]'
+    pip install --user 'colour-hdri[development]'
 
 Usage
 -----
