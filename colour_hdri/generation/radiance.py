@@ -11,14 +11,14 @@ See Also
 --------
 `Colour - HDRI - Examples Jupyter Notebooks
 <https://github.com/colour-science/colour-hdri/\
-blob/master/colour_hdri/examples>`_
+blob/master/colour_hdri/examples>`__
 
 References
 ----------
 -   :cite:`Banterle2011n` : Banterle, F., Artusi, A., Debattista, K., &
     Chalmers, A. (2011). 2.1.1 Generating HDR Content by Combining Multiple
-    Exposures. Advanced High Dynamic Range Imaging. A K Peters/CRC Press.
-    ISBN:978-1568817194
+    Exposures. In Advanced High Dynamic Range Imaging. A K Peters/CRC Press.
+    ISBN:978-1-56881-719-4
 """
 
 from __future__ import division, unicode_literals
@@ -68,8 +68,8 @@ def image_stack_to_radiance_image(
     ndarray
         Radiance image.
 
-    Warning
-    -------
+    Warnings
+    --------
     If the image stack contains images with negative or equal to zero values,
     unpredictable results may occur and NaNs might be generated. It is
     thus recommended to encode the images in a wider RGB colourspace or clamp

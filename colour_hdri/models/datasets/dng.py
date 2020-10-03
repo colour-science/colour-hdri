@@ -5,9 +5,9 @@ Adobe DNG SDK Dataset
 
 Defines various datasets objects for *Adobe DNG SDK*:
 
--   :attr:`colour_hdri.models.datasets.dng.ADOBE_DNG_XYZ_ILLUMINANT`
+-   :attr:`colour_hdri.models.datasets.dng.CCS_ILLUMINANT_ADOBEDNG`
 -   :attr:`colour_hdri.models.datasets.dng.\
-DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE`
+CCT_ILLUMINANTS_ADOBEDNG`
 -   :attr:`colour_hdri.models.datasets.dng.\
 LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS`
 
@@ -15,11 +15,13 @@ References
 ----------
 -   :cite:`AdobeSystems2015c` : Adobe Systems. (2015). Adobe DNG SDK 1.4 -
     dng_sdk_1_4/dng_sdk/source/dng_camera_profile.cpp -
-    dng_camera_profile::IlluminantToTemperature. Retrieved from
+    dng_camera_profile::IlluminantToTemperature.
     http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
--   :cite:`AdobeSystems2015d` : Adobe Systems. (2015). Adobe DNG SDK 1.4 -
-    dng_sdk_1_4/dng_sdk/source/dng_tag_values.h - LightSource tag. Retrieved
-    from http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015d` : Adobe Systems. (2015). Adobe DNG SDK 1.4.
+    http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
+-   :cite:`AdobeSystems2015e` : Adobe Systems. (2015). Adobe DNG SDK 1.4 -
+    dng_sdk_1_4/dng_sdk/source/dng_tag_values.h - LightSource tag.
+    http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
 """
 
 from __future__ import division, unicode_literals
@@ -35,20 +37,19 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'ADOBE_DNG_XYZ_ILLUMINANT',
-    'DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE',
+    'CCS_ILLUMINANT_ADOBEDNG', 'CCT_ILLUMINANTS_ADOBEDNG',
     'LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS'
 ]
 
-ADOBE_DNG_XYZ_ILLUMINANT = (
+CCS_ILLUMINANT_ADOBEDNG = (
     ILLUMINANTS['CIE 1931 2 Degree Standard Observer']['D50'])
 """
 *Adobe DNG SDK* default illuminant for *CIE XYZ* colourspace.
 
-ADOBE_DNG_XYZ_ILLUMINANT : tuple
+CCS_ILLUMINANT_ADOBEDNG : tuple
 """
 
-DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE = (CaseInsensitiveMapping({
+CCT_ILLUMINANTS_ADOBEDNG = (CaseInsensitiveMapping({
     'Standard light A': 2850,
     'Tungsten (incandescent light)': 2850,
     'ISO studio tungsten': 3200,
@@ -82,7 +83,7 @@ Notes
 -   The correlated colour temperature are given for the
     *CIE 1931 2 Degree Standard Observer*.
 
-DNG_ILLUMINANTS_CORRELATED_COLOUR_TEMPERATURE : CaseInsensitiveMapping
+CCT_ILLUMINANTS_ADOBEDNG : CaseInsensitiveMapping
 """
 
 LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS = {

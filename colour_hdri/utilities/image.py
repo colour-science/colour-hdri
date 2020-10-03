@@ -86,14 +86,15 @@ class Image(object):
 
     Attributes
     ----------
-    path
-    data
-    metadata
+    -   :attr:`colour_hdri.Image.path`
+    -   :attr:`colour_hdri.Image.data`
+    -   :attr:`colour_hdri.Image.metadata`
 
     Methods
     -------
-    read_data
-    read_metadata
+    -   :meth:`colour_hdri.Image.__init__`
+    -   :meth:`colour_hdri.Image.read_data`
+    -   :meth:`colour_hdri.Image.read_metadata`
     """
 
     def __init__(self, path=None, data=None, metadata=None):
@@ -282,17 +283,16 @@ class ImageStack(MutableSequence):
 
     Methods
     -------
-    ImageStack
-    __init__
-    __getitem__
-    __setitem__
-    __delitem__
-    __len__
-    __getattr__
-    __setattr__
-    sort
-    insert
-    from_files
+    -   :meth:`colour_hdri.ImageStack.__init__`
+    -   :meth:`colour_hdri.ImageStack.__getitem__`
+    -   :meth:`colour_hdri.ImageStack.__setitem__`
+    -   :meth:`colour_hdri.ImageStack.__delitem__`
+    -   :meth:`colour_hdri.ImageStack.__len__`
+    -   :meth:`colour_hdri.ImageStack.__getattr__`
+    -   :meth:`colour_hdri.ImageStack.__setattr__`
+    -   :meth:`colour_hdri.ImageStack.sort`
+    -   :meth:`colour_hdri.ImageStack.insert`
+    -   :meth:`colour_hdri.ImageStack.from_files`
     """
 
     def __init__(self):

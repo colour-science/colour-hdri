@@ -24,7 +24,8 @@ from collections import namedtuple
 from fractions import Fraction
 from six import text_type
 
-from colour.utilities.documentation import DocstringText
+from colour.utilities.documentation import (DocstringText,
+                                            is_documentation_building)
 
 from colour_hdri.utilities import vivification
 
@@ -42,8 +43,10 @@ __all__ = [
     'read_exif_tag', 'write_exif_tag'
 ]
 
-EXIF_EXECUTABLE = DocstringText('exiftool')
-EXIF_EXECUTABLE.__doc__ = """
+EXIF_EXECUTABLE = 'exiftool'
+if is_documentation_building():  # pragma: no cover
+    EXIF_EXECUTABLE = DocstringText(EXIF_EXECUTABLE)
+    EXIF_EXECUTABLE.__doc__ = """
 Command line exif manipulation application, usually Phil Harvey's *ExifTool*.
 
 EXIF_EXECUTABLE : unicode

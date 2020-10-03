@@ -19,12 +19,15 @@ import colour_hdri as package
 basename = re.sub('_(\\w)', lambda x: x.group(1).upper(),
                   package.__name__.title()).replace('Hdri', 'HDRI')
 
-autosummary_generate = True
-
+autodoc_member_order = 'bysource'
 autodoc_mock_imports = [
     'colour', 'colour.plotting', 'matplotlib', 'matplotlib.pyplot',
     'matplotlib.ticker'
 ]
+
+autosummary_generate = True
+
+napoleon_custom_sections = ['Attributes', 'Methods']
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -40,9 +43,9 @@ autodoc_mock_imports = [
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo',
-    'sphinx.ext.coverage', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode',
-    'sphinx.ext.autosummary', 'sphinx.ext.napoleon', 'sphinx.ext.mathjax',
+    'sphinx.ext.autodoc', 'sphinx.ext.autosummary', 'sphinx.ext.coverage',
+    'sphinx.ext.ifconfig', 'sphinx.ext.intersphinx', 'sphinx.ext.mathjax',
+    'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode',
     'sphinxcontrib.bibtex'
 ]
 

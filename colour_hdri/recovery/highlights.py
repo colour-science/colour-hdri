@@ -12,11 +12,11 @@ See Also
 --------
 `Colour - HDRI - Examples: Merge from Raw Files Jupyter Notebook
 <https://github.com/colour-science/colour-hdri/\
-blob/master/colour_hdri/examples/examples_merge_from_raw_files.ipynb>`_
+blob/master/colour_hdri/examples/examples_merge_from_raw_files.ipynb>`__
 
 References
 ----------
--   :cite:`Coffin2015a` : Coffin, D. (2015). dcraw. Retrieved from
+-   :cite:`Coffin2015a` : Coffin, D. (2015). dcraw.
     https://www.cybercom.net/~dcoffin/dcraw/
 """
 

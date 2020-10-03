@@ -75,7 +75,7 @@ class TestImage(unittest.TestCase):
         Tests presence of required methods.
         """
 
-        required_methods = ('read_data', 'read_metadata')
+        required_methods = ('__init__', 'read_data', 'read_metadata')
 
         for method in required_methods:
             self.assertIn(method, dir(Image))
