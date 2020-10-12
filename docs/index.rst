@@ -62,7 +62,7 @@ Optional Features Dependencies
 Pypi
 ^^^^
 
-Once the dependencies satisfied, **Colour - HDRI** can be installed from
+Once the dependencies are satisfied, **Colour - HDRI** can be installed from
 the `Python Package Index <http://pypi.python.org/pypi/colour-hdri>`__ by
 issuing this command in a shell::
 
