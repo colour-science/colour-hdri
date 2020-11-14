@@ -59,7 +59,7 @@ exclude = [
 ]
 
 [tool.poetry.dependencies]
-python = "~2.7 || ^3.5"
+python = "~2.7 || ^3.6"
 colour-science = "^0.3.14"
 recordclass = "0.12.0.1"  # Fixed dependency for Python 2.7 support only.
 
