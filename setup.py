@@ -123,7 +123,7 @@ extras_require = \
 
 setup(
     name='colour-hdri',
-    version='0.1.7',
+    version='0.1.8',
     description='HDRI / Radiance image processing algorithms for Python',
     long_description=codecs.open('README.rst', encoding='utf8').read(),
     author='Colour Developers',
