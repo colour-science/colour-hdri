@@ -60,8 +60,8 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = "~2.7 || ^3.6"
-colour-science = "^0.3.14"
-recordclass = "0.12.0.1"  # Fixed dependency for Python 2.7 support only.
+colour-science = "^0.3.16"
+recordclass = "*"
 
 "backports.functools_lru_cache" = { version = "*", optional = true }
 biblib-simple = { version = "*", optional = true }  # Development dependency.
@@ -78,9 +78,9 @@ nose = { version = "*", optional = true }  # Development dependency.
 numpy = { version = "*", optional = true }
 pre-commit = { version = "*", optional = true }  # Development dependency.
 pytest = { version = "*", optional = true }  # Development dependency.
-rawpy = { version = "^0.13", optional = true }  # Fixed dependency for Python 2.7 support only.
+rawpy = { version = "*", optional = true }
 restructuredtext-lint = { version = "*", optional = true }  # Development dependency.
-sphinx = { version = "*", optional = true }  # Development dependency.
+sphinx = { version = "<=3.1.2", optional = true }  # Development dependency.
 sphinx_rtd_theme = { version = "*", optional = true }  # Development dependency.
 sphinxcontrib-bibtex = { version = "*", optional = true }  # Development dependency.
 toml = { version = "*", optional = true }  # Development dependency.
@@ -100,7 +100,7 @@ nose = "*"
 pre-commit = "*"
 pytest = "*"
 restructuredtext-lint = "*"
-sphinx = "*"
+sphinx = "<=3.1.2"
 sphinx_rtd_theme = "*"
 sphinxcontrib-bibtex = "*"
 toml = "*"
