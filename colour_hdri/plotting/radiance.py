@@ -14,7 +14,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-from colour.plotting import COLOUR_STYLE_CONSTANTS, override_style, render
+from colour.plotting import CONSTANTS_COLOUR_STYLE, override_style, render
 from colour.utilities import as_float_array
 
 from colour_hdri.exposure import adjust_exposure
@@ -34,7 +34,7 @@ def plot_radiance_image_strip(
         image,
         count=5,
         ev_steps=-2,
-        cctf_encoding=COLOUR_STYLE_CONSTANTS.colour.colourspace.cctf_encoding,
+        cctf_encoding=CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
         **kwargs):
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.

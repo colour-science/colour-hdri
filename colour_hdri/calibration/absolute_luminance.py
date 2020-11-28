@@ -12,8 +12,8 @@ objects:
 
 References
 ----------
--   :cite:`Lagarde2016b` : Lagarde, S., Lachambre, S., & Jover, C. (2016). An
-    Artist-Friendly Workflow for Panoramic HDRI. Retrieved from
+-   :cite:`Lagarde2016b` : Lagarde, Sebastien, Lachambre, S., & Jover, C.
+    (2016). An Artist-Friendly Workflow for Panoramic HDRI.
     http://blog.selfshadow.com/publications/s2016-shading-course/unity/\
 s2016_pbs_unity_hdri_notes.pdf
 """

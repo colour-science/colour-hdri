@@ -23,7 +23,8 @@ import subprocess  # nosec
 from copy import deepcopy
 
 from colour.utilities import CaseInsensitiveMapping, warning
-from colour.utilities.documentation import DocstringText
+from colour.utilities.documentation import (DocstringText,
+                                            is_documentation_building)
 
 from colour_hdri.utilities import (ExifTag, parse_exif_array,
                                    parse_exif_numeric, parse_exif_string,
@@ -53,30 +54,33 @@ _IS_WINDOWS_PLATFORM = platform.system() in ('Windows', 'Microsoft')
 Whether the current platform is *Windows*.
 """
 
-RAW_CONVERTER = DocstringText('dcraw')
-RAW_CONVERTER.__doc__ = """
+RAW_CONVERTER = 'dcraw'
+if is_documentation_building():  # pragma: no cover
+    RAW_CONVERTER = DocstringText(RAW_CONVERTER)
+    RAW_CONVERTER.__doc__ = """
 Command line raw conversion application, usually Dave Coffin's *dcraw*.
 
 RAW_CONVERTER : unicode
 """
 
-RAW_CONVERSION_ARGUMENTS = DocstringText('-t 0 -D -W -4 -T "{0}"')
+RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
 if _IS_WINDOWS_PLATFORM:
-    RAW_CONVERSION_ARGUMENTS = DocstringText(
-        RAW_CONVERSION_ARGUMENTS.replace('"', ''))
-RAW_CONVERSION_ARGUMENTS.__doc__ = """
-Arguments for the command line raw conversion application for non demosaiced
-linear *tiff* file format output.
+    RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', '')
+if is_documentation_building():  # pragma: no cover
+    RAW_CONVERSION_ARGUMENTS = DocstringText(RAW_CONVERSION_ARGUMENTS)
+    RAW_CONVERSION_ARGUMENTS.__doc__ = """
+Arguments for the command line raw conversion application for non
+demosaiced linear *tiff* file format output.
 
 RAW_CONVERSION_ARGUMENTS : unicode
 """
 
-RAW_D_CONVERSION_ARGUMENTS = DocstringText(
-    '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"')
+RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
 if _IS_WINDOWS_PLATFORM:
-    RAW_D_CONVERSION_ARGUMENTS = DocstringText(
-        RAW_D_CONVERSION_ARGUMENTS.replace('"', ''))
-RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
+    RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', '')
+if is_documentation_building():  # pragma: no cover
+    RAW_D_CONVERSION_ARGUMENTS = DocstringText(RAW_D_CONVERSION_ARGUMENTS)
+    RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
 
@@ -84,27 +88,29 @@ RAW_D_CONVERSION_ARGUMENTS : unicode
 """
 
 if _IS_MACOS_PLATFORM:
-    DNG_CONVERTER = DocstringText(
-        '/Applications/Adobe DNG Converter.app/Contents/'
-        'MacOS/Adobe DNG Converter')
+    DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
+                     'MacOS/Adobe DNG Converter')
 elif _IS_WINDOWS_PLATFORM:
-    DNG_CONVERTER = DocstringText('Adobe DNG Converter')
+    DNG_CONVERTER = 'Adobe DNG Converter'
 else:
-    DNG_CONVERTER = None
     warning('"Adobe DNG Converter" is not available on your platform!')
+    DNG_CONVERTER = None
 
 if DNG_CONVERTER is not None:
-    DNG_CONVERTER.__doc__ = """
+    if is_documentation_building():  # pragma: no cover
+        DNG_CONVERTER = DocstringText(DNG_CONVERTER)
+        DNG_CONVERTER.__doc__ = """
 Command line *DNG* conversion application, usually *Adobe DNG Converter*.
 
 DNG_CONVERTER : unicode
 """
 
-DNG_CONVERSION_ARGUMENTS = DocstringText('-cr7.1 -l -d "{0}" "{1}"')
+DNG_CONVERSION_ARGUMENTS = '-cr7.1 -l -d "{0}" "{1}"'
 if _IS_WINDOWS_PLATFORM:
-    DNG_CONVERSION_ARGUMENTS = DocstringText(
-        DNG_CONVERSION_ARGUMENTS.replace('"', ''))
-DNG_CONVERSION_ARGUMENTS.__doc__ = """
+    DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
+if is_documentation_building():  # pragma: no cover
+    DNG_CONVERSION_ARGUMENTS = DocstringText(DNG_CONVERSION_ARGUMENTS)
+    DNG_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line *dng* conversion application.
 
 DNG_CONVERSION_ARGUMENTS : unicode

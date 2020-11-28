@@ -11,12 +11,12 @@ TODO
 
 -   colour_hdri/calibration/debevec1997.py
 
-    -   Line 167 : # TODO: Investigate if the normalisation value should account for the percentage of uncertain camera response functions values or be correlated to it and scaled according. As an alternative of setting the uncertain camera response functions values to zero, it would be interesting to explore extrapolation as the camera response functions are essentially smooth. It is important to note that camera sensors are usually acting non linearly when reaching saturation level.
+    -   Line 166 : # TODO: Investigate if the normalisation value should account for the percentage of uncertain camera response functions values or be correlated to it and scaled according. As an alternative of setting the uncertain camera response functions values to zero, it would be interesting to explore extrapolation as the camera response functions are essentially smooth. It is important to note that camera sensors are usually acting non linearly when reaching saturation level.
 
 
 -   colour_hdri/tonemapping/global_operators/operators.py
 
-    -   Line 487 : # TODO: Implement automatic *p* and *non-uniform* computations support.
+    -   Line 488 : # TODO: Implement automatic *p* and *non-uniform* computations support.
 
 About
 -----
