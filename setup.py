@@ -96,7 +96,7 @@ package_data = \
                  'resources/colour-hdri-tests-datasets/*']}
 
 install_requires = \
-['colour-science>=0.3.14,<0.4.0', 'recordclass==0.12.0.1']
+['colour-science>=0.3.16,<0.4.0', 'recordclass']
 
 extras_require = \
 {'development': ['biblib-simple',
@@ -111,13 +111,13 @@ extras_require = \
                  'pre-commit',
                  'pytest',
                  'restructuredtext-lint',
-                 'sphinx',
+                 'sphinx<=3.1.2',
                  'sphinx_rtd_theme',
                  'sphinxcontrib-bibtex',
                  'toml',
                  'twine',
                  'yapf==0.23'],
- 'optional': ['colour-demosaicing', 'rawpy>=0.13,<0.14'],
+ 'optional': ['colour-demosaicing', 'rawpy'],
  'plotting': ['backports.functools_lru_cache', 'matplotlib'],
  'read-the-docs': ['mock', 'numpy', 'sphinxcontrib-bibtex']}
 
@@ -135,5 +135,5 @@ setup(
     package_data=package_data,
     install_requires=install_requires,
     extras_require=extras_require,
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
 )

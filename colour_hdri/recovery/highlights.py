@@ -25,8 +25,8 @@ from __future__ import division, unicode_literals
 import numpy as np
 
 from colour.models import (LCHab_to_Lab, Lab_to_LCHab, Lab_to_XYZ, RGB_to_XYZ,
-                           XYZ_to_Lab, XYZ_to_RGB, sRGB_COLOURSPACE)
-from colour.utilities import dot_vector, tsplit, tstack
+                           XYZ_to_Lab, XYZ_to_RGB, RGB_COLOURSPACE_sRGB)
+from colour.utilities import vector_dot, tsplit, tstack
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
@@ -68,9 +68,9 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
 
     clipping_level = np.min(multipliers) * threshold
 
-    Lab = dot_vector(M, RGB)
+    Lab = vector_dot(M, RGB)
 
-    Lab_c = dot_vector(M, np.minimum(RGB, clipping_level))
+    Lab_c = vector_dot(M, np.minimum(RGB, clipping_level))
 
     s = np.sum((Lab * Lab)[..., 1:3], axis=2)
     s_c = np.sum((Lab_c * Lab_c)[..., 1:3], axis=2)
@@ -80,14 +80,14 @@ def highlights_recovery_blend(RGB, multipliers, threshold=0.99):
 
     Lab[:, :, 1:3] *= np.rollaxis(ratio[np.newaxis], 0, 3)
 
-    RGB_o = dot_vector(np.linalg.inv(M), Lab)
+    RGB_o = vector_dot(np.linalg.inv(M), Lab)
 
     return RGB_o
 
 
 def highlights_recovery_LCHab(RGB,
                               threshold=None,
-                              RGB_colourspace=sRGB_COLOURSPACE):
+                              RGB_colourspace=RGB_COLOURSPACE_sRGB):
     """
     Performs highlights recovery in *CIE L\\*C\\*Hab* colourspace.
 
@@ -112,7 +112,7 @@ def highlights_recovery_LCHab(RGB,
             XYZ_to_Lab(
                 RGB_to_XYZ(RGB, RGB_colourspace.whitepoint,
                            RGB_colourspace.whitepoint,
-                           RGB_colourspace.RGB_to_XYZ_matrix),
+                           RGB_colourspace.matrix_RGB_to_XYZ),
                 RGB_colourspace.whitepoint)))
     _L_c, C_c, _H_c = tsplit(
         Lab_to_LCHab(
@@ -120,11 +120,11 @@ def highlights_recovery_LCHab(RGB,
                 RGB_to_XYZ(
                     np.clip(RGB, 0, threshold), RGB_colourspace.whitepoint,
                     RGB_colourspace.whitepoint,
-                    RGB_colourspace.RGB_to_XYZ_matrix),
+                    RGB_colourspace.matrix_RGB_to_XYZ),
                 RGB_colourspace.whitepoint)))
 
     return XYZ_to_RGB(
         Lab_to_XYZ(
             LCHab_to_Lab(tstack([L, C_c, H])),
             RGB_colourspace.whitepoint), RGB_colourspace.whitepoint,
-        RGB_colourspace.whitepoint, RGB_colourspace.XYZ_to_RGB_matrix)
+        RGB_colourspace.whitepoint, RGB_colourspace.matrix_XYZ_to_RGB)

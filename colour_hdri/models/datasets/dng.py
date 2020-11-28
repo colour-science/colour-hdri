@@ -26,7 +26,7 @@ References
 
 from __future__ import division, unicode_literals
 
-from colour.colorimetry import ILLUMINANTS
+from colour.colorimetry import CCS_ILLUMINANTS
 from colour.utilities import CaseInsensitiveMapping
 
 __author__ = 'Colour Developers'
@@ -42,7 +42,7 @@ __all__ = [
 ]
 
 CCS_ILLUMINANT_ADOBEDNG = (
-    ILLUMINANTS['CIE 1931 2 Degree Standard Observer']['D50'])
+    CCS_ILLUMINANTS['CIE 1931 2 Degree Standard Observer']['D50'])
 """
 *Adobe DNG SDK* default illuminant for *CIE XYZ* colourspace.
 

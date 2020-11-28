@@ -14,7 +14,7 @@ import matplotlib
 import matplotlib.ticker
 import numpy as np
 
-from colour.plotting import (COLOUR_STYLE_CONSTANTS, artist, override_style,
+from colour.plotting import (CONSTANTS_COLOUR_STYLE, artist, override_style,
                              render)
 
 __author__ = 'Colour Developers'
@@ -32,7 +32,7 @@ def plot_tonemapping_operator_image(
         image,
         luminance_function,
         log_scale=False,
-        cctf_encoding=COLOUR_STYLE_CONSTANTS.colour.colourspace.cctf_encoding,
+        cctf_encoding=CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
         **kwargs):
     """
     Plots given tonemapped image with superimposed luminance mapping function.

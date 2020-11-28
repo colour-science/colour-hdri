@@ -113,11 +113,11 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 
-from colour.adaptation import chromatic_adaptation_matrix_VonKries
+from colour.adaptation import matrix_chromatic_adaptation_VonKries
 from colour.algebra import is_identity
 from colour.constants import EPSILON
 from colour.models import UCS_to_uv, XYZ_to_UCS, XYZ_to_xy, xy_to_XYZ
-from colour.utilities import (dot_matrix, dot_vector, linear_conversion,
+from colour.utilities import (matrix_dot, vector_dot, linear_conversion,
                               tstack)
 from colour.temperature import uv_to_CCT_Robertson1968
 
@@ -261,7 +261,7 @@ def xy_to_camera_neutral(xy, CCT_calibration_illuminant_1,
         M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
         M_camera_calibration_2, analog_balance)
 
-    camera_neutral = dot_vector(M_XYZ_to_camera, xy_to_XYZ(xy))
+    camera_neutral = vector_dot(M_XYZ_to_camera, xy_to_XYZ(xy))
     camera_neutral /= camera_neutral[1]
 
     return camera_neutral
@@ -352,7 +352,7 @@ def camera_neutral_to_xy(camera_neutral,
             M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
             M_camera_calibration_2, analog_balance)
 
-        XYZ = dot_vector(np.linalg.inv(M_XYZ_to_camera), camera_neutral)
+        XYZ = vector_dot(np.linalg.inv(M_XYZ_to_camera), camera_neutral)
         xy = XYZ_to_xy(XYZ)
 
         if np.abs(np.sum(xy_p - xy)) <= epsilon:
@@ -449,7 +449,7 @@ def XYZ_to_camera_space_matrix(xy, CCT_calibration_illuminant_1,
                                CCT_calibration_illuminant_2,
                                M_camera_calibration_1, M_camera_calibration_2)
 
-    M_XYZ_to_camera_space = dot_matrix(dot_matrix(M_AB, M_CC), M_CM)
+    M_XYZ_to_camera_space = matrix_dot(matrix_dot(M_AB, M_CC), M_CM)
 
     return M_XYZ_to_camera_space
 
@@ -558,10 +558,10 @@ def camera_space_to_XYZ_matrix(xy,
                 xy, CCT_calibration_illuminant_1, CCT_calibration_illuminant_2,
                 M_color_matrix_1, M_color_matrix_2, M_camera_calibration_1,
                 M_camera_calibration_2, analog_balance))
-        M_CAT = chromatic_adaptation_matrix_VonKries(
+        M_CAT = matrix_chromatic_adaptation_VonKries(
             xy_to_XYZ(xy), xy_to_XYZ(CCS_ILLUMINANT_ADOBEDNG),
             chromatic_adaptation_transform)
-        M_camera_space_to_XYZ = dot_matrix(M_CAT, M_camera_to_XYZ)
+        M_camera_space_to_XYZ = matrix_dot(M_CAT, M_camera_to_XYZ)
     else:
         uv = UCS_to_uv(XYZ_to_UCS(xy_to_XYZ(xy)))
         CCT, _D_uv = uv_to_CCT_Robertson1968(uv)
@@ -586,13 +586,13 @@ def camera_space_to_XYZ_matrix(xy,
 
         M_AB = np.diagflat(analog_balance)
 
-        M_reference_neutral = dot_vector(
-            np.linalg.inv(dot_matrix(M_AB, M_CC)), camera_neutral)
+        M_reference_neutral = vector_dot(
+            np.linalg.inv(matrix_dot(M_AB, M_CC)), camera_neutral)
         M_D = np.linalg.inv(np.diagflat(M_reference_neutral))
         M_FM = interpolated_matrix(CCT, CCT_calibration_illuminant_1,
                                    CCT_calibration_illuminant_2,
                                    M_forward_matrix_1, M_forward_matrix_2)
-        M_camera_space_to_XYZ = dot_matrix(
-            dot_matrix(M_FM, M_D), np.linalg.inv(dot_matrix(M_AB, M_CC)))
+        M_camera_space_to_XYZ = matrix_dot(
+            matrix_dot(M_FM, M_D), np.linalg.inv(matrix_dot(M_AB, M_CC)))
 
     return M_camera_space_to_XYZ
