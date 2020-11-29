@@ -21,6 +21,7 @@ jobs:
         echo "CI_PACKAGE=colour_hdri" >> $GITHUB_ENV
         echo "CI_SHA=${{ github.sha }}" >> $GITHUB_ENV
         echo "COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}" >> $GITHUB_ENV
+        echo "MPLBACKEND=AGG" >> $GITHUB_ENV
       shell: bash
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
@@ -62,11 +63,6 @@ jobs:
       run: |
         echo "C:\Program Files\Adobe\Adobe DNG Converter" >> $GITHUB_PATH
       shell: bash
-    - name: Set Matplotlib Backend (macOS)
-      if: matrix.os == 'macOS-latest'
-      run: |
-        mkdir -p ~/.matplotlib
-        echo "backend: Agg" > ~/.matplotlib/matplotlibrc
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
