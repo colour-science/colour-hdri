@@ -21,8 +21,6 @@ References
     ISBN:978-1-56881-719-4
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.utilities import tsplit, tstack, warning

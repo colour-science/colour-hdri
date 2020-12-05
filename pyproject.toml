@@ -38,7 +38,6 @@ classifiers = [
     "License :: OSI Approved",
     "Natural Language :: English",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 2.7",
     "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development"
@@ -59,11 +58,10 @@ exclude = [
 ]
 
 [tool.poetry.dependencies]
-python = "~2.7 || ^3.6"
+python = "^3.6"
 colour-science = "^0.3.16"
 recordclass = "*"
 
-"backports.functools_lru_cache" = { version = "*", optional = true }
 biblib-simple = { version = "*", optional = true }  # Development dependency.
 colour-demosaicing = { version = "*", optional = true }
 coverage = { version = "*", optional = true }  # Development dependency.
@@ -73,7 +71,6 @@ invoke = { version = "*", optional = true }  # Development dependency.
 jupyter = { version = "*", optional = true }  # Development dependency.
 matplotlib = { version = "*", optional = true }
 mock = { version = "*", optional = true }  # Development dependency.
-nbformat = { version = "^4", optional = true }  # Fixed development dependency for Python 2.7 support only.
 nose = { version = "*", optional = true }  # Development dependency.
 numpy = { version = "*", optional = true }
 pre-commit = { version = "*", optional = true }  # Development dependency.
@@ -95,7 +92,6 @@ flake8 = "*"
 invoke = "*"
 jupyter = "*"
 mock = "*"
-nbformat = "^4"
 nose = "*"
 pre-commit = "*"
 pytest = "*"
@@ -116,7 +112,6 @@ development = [
     "invoke",
     "jupyter",
     "mock",
-    "nbformat",
     "nose",
     "pre-commit",
     "pytest",
@@ -129,7 +124,7 @@ development = [
     "yapf"
 ]
 optional = [ "colour-demosaicing", "rawpy" ]
-plotting = [ "backports.functools_lru_cache", "matplotlib" ]
+plotting = [ "matplotlib" ]
 read-the-docs = [ "mock", "numpy", "sphinxcontrib-bibtex" ]
 
 [build-system]

@@ -20,8 +20,6 @@ References
     https://www.cybercom.net/~dcoffin/dcraw/
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.models import (LCHab_to_Lab, Lab_to_LCHab, Lab_to_XYZ, RGB_to_XYZ,

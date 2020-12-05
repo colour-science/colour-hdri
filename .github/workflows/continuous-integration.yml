@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-18.04, windows-latest]
-        python-version: [2.7, 3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -21,6 +21,7 @@ jobs:
         echo "CI_PACKAGE=colour_hdri" >> $GITHUB_ENV
         echo "CI_SHA=${{ github.sha }}" >> $GITHUB_ENV
         echo "COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}" >> $GITHUB_ENV
+        echo "MPLBACKEND=AGG" >> $GITHUB_ENV
       shell: bash
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
@@ -62,33 +63,11 @@ jobs:
       run: |
         echo "C:\Program Files\Adobe\Adobe DNG Converter" >> $GITHUB_PATH
       shell: bash
-    - name: Set Matplotlib Backend (macOS)
-      if: matrix.os == 'macOS-latest'
-      run: |
-        mkdir -p ~/.matplotlib
-        echo "backend: Agg" > ~/.matplotlib/matplotlibrc
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
         python get-poetry.py --version 1.0.10
         echo "$HOME/.poetry/bin" >> $GITHUB_PATH
-      shell: bash
-    - name: Update pyproject.toml file (Python 2.7)
-      if: matrix.python-version == '2.7'
-      run: |
-        sed -i.bak 's/python = "~2.7 || ^3.6"/python = "~2.7"/g' pyproject.toml
-        sed -i.bak '/colour-science = "\^0\.3\.16"/ a pathlib = "*"' pyproject.toml
-        sed -i.bak '/colour-science = "\^0\.3\.16"/ a qtconsole = "4.7.7"' pyproject.toml
-      shell: bash
-    - name: Update pyproject.toml file (Windows, Python 2.7)
-      if: matrix.os == 'windows-latest' && matrix.python-version == '2.7'
-      run: |
-        sed -i.bak '/colour-science = "\^0\.3\.16"/ a pywin32 = "228"' pyproject.toml
-      shell: bash
-    - name: Update pyproject.toml file (Python 3.x)
-      if: matrix.python-version != '2.7'
-      run: |
-        sed -i.bak 's/python = "~2.7 || ^3.6"/python = "^3.6"/g' pyproject.toml
       shell: bash
     - name: Install Package Dependencies
       run: |
@@ -104,7 +83,6 @@ jobs:
         poetry run python -W ignore -m nose -q -v --with-doctest --doctest-options=+ELLIPSIS --with-coverage --cover-package=$CI_PACKAGE $CI_PACKAGE
       shell: bash
     - name: Upload Coverage to coveralls.io
-      if: matrix.python-version == '3.6' || matrix.python-version == '3.7'
       run: |
         if [ -z "$COVERALLS_REPO_TOKEN" ]; then echo \"COVERALLS_REPO_TOKEN\" secret is undefined!; else poetry run coveralls; fi
       shell: bash

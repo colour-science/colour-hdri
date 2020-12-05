@@ -11,8 +11,6 @@ and *dcraw*:
 -   :func:`colour_hdri.read_dng_files_exif_tags`
 """
 
-from __future__ import division, unicode_literals
-
 import logging
 import numpy as np
 import os

@@ -8,8 +8,6 @@ Defines the tonemapping operators plotting objects:
 -   :func:`colour_hdri.plotting.plot_tonemapping_operator_image`
 """
 
-from __future__ import division, unicode_literals
-
 import matplotlib
 import matplotlib.ticker
 import numpy as np

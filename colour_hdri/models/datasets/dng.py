@@ -24,8 +24,6 @@ References
     http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
 """
 
-from __future__ import division, unicode_literals
-
 from colour.colorimetry import CCS_ILLUMINANTS
 from colour.utilities import CaseInsensitiveMapping
 

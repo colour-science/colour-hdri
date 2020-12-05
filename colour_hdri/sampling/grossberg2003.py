@@ -17,8 +17,6 @@ References
     1455-1467. doi:10.1109/TPAMI.2003.1240119
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.utilities import as_float_array, tsplit, tstack

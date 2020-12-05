@@ -109,8 +109,6 @@ References
     http://dcptool.sourceforge.net/Hue%20Twists.html
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.adaptation import matrix_chromatic_adaptation_VonKries

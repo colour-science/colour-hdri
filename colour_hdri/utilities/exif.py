@@ -14,15 +14,12 @@ Exif data manipulation routines based on *exiftool*:
 -   :func:`colour_hdri.write_exif_tag`
 """
 
-from __future__ import division, unicode_literals
-
 import logging
 import numpy as np
 import re
 import subprocess  # nosec
 from collections import namedtuple
 from fractions import Fraction
-from six import text_type
 
 from colour.utilities.documentation import (DocstringText,
                                             is_documentation_building)
@@ -92,7 +89,7 @@ def parse_exif_string(exif_tag):
         Parsed exif tag value.
     """
 
-    return text_type(exif_tag.value)
+    return str(exif_tag.value)
 
 
 def parse_exif_numeric(exif_tag, dtype=np.float_):
@@ -201,7 +198,7 @@ def read_exif_tags(image):
     logging.info("Reading '{0}' image exif data.".format(image))
 
     exif_tags = vivification()
-    lines = text_type(
+    lines = str(
         subprocess.check_output(  # nosec
             [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
         'utf-8',
@@ -310,7 +307,7 @@ def read_exif_tag(image, tag):
         Tag value.
     """
 
-    value = text_type(
+    value = str(
         subprocess.check_output(  # nosec
             [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
         'utf-8',
