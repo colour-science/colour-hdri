@@ -9,8 +9,6 @@ Defines the following *RGB* colourspace transformations:
 -   :func:`colour_hdri.camera_space_to_sRGB`
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.models import RGB_COLOURSPACES

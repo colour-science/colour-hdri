@@ -5,8 +5,6 @@ Defines unit tests for :mod:`colour_hdri.generation.weighting_functions`
 module.
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 import unittest
 

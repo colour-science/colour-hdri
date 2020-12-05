@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import
-
 from .datasets import *  # noqa
 from . import datasets
 from .dng import (xy_to_camera_neutral, camera_neutral_to_xy,

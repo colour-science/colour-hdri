@@ -21,8 +21,6 @@ References
     Frostbite to Physically Based Rendering 3.0. Siggraph 2014, 119.
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.utilities import as_float_array

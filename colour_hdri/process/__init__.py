@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import
-
 from .dng import (
     RAW_CONVERTER, RAW_CONVERSION_ARGUMENTS, RAW_D_CONVERSION_ARGUMENTS,
     DNG_CONVERTER, DNG_CONVERSION_ARGUMENTS, DNG_EXIF_TAGS_BINDING,

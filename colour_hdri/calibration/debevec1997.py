@@ -22,8 +22,6 @@ References
     SIGGRAPH "97, August, 369-378. doi:10.1145/258734.258884
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.utilities import as_float_array, as_int_array, tstack

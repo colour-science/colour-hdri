@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import
-
 from .operators import (
     tonemapping_operator_simple, tonemapping_operator_normalisation,
     tonemapping_operator_gamma, tonemapping_operator_logarithmic,

@@ -15,8 +15,6 @@ References
     Egsr, 1-1. doi:10.1145/1599301.1599393
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 from collections import namedtuple
 

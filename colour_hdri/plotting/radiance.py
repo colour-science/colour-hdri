@@ -8,8 +8,6 @@ Defines the HDRI / radiance image plotting objects:
 -   :func:`colour_hdri.plotting.plot_radiance_image_strip`
 """
 
-from __future__ import division, unicode_literals
-
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np

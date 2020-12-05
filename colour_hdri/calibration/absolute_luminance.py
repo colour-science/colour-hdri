@@ -18,8 +18,6 @@ References
 s2016_pbs_unity_hdri_notes.pdf
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour import RGB_COLOURSPACES, RGB_luminance

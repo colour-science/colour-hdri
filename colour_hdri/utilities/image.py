@@ -10,8 +10,6 @@ Defines various image data and metadata utilities classes:
 -   :class:`colour_hdri.ImageStack`
 """
 
-from __future__ import division, unicode_literals
-
 import logging
 import numpy as np
 from collections import MutableSequence

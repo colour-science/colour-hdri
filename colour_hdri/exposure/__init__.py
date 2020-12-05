@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import
-
 from .common import (average_luminance, average_illuminance,
                      luminance_to_exposure_value,
                      illuminance_to_exposure_value, adjust_exposure)

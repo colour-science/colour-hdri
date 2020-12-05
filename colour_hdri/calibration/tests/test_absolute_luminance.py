@@ -5,8 +5,6 @@ Defines unit tests for :mod:`colour_hdri.calibration.absolute_luminance`
 module.
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 import os
 import unittest

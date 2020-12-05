@@ -49,8 +49,6 @@ References
     http://en.wikipedia.org/wiki/Tone_mapping#Purpose_and_methods
 """
 
-from __future__ import division, unicode_literals
-
 import numpy as np
 
 from colour.constants import EPSILON
