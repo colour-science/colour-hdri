@@ -68,7 +68,7 @@ class Metadata(
                                             white_balance_multipliers)
 
 
-class Image(object):
+class Image:
     """
     Defines the base object for storing an image along its path, pixel data and
     metadata needed for HDRI / radiance images generation.
