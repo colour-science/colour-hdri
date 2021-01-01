@@ -14,7 +14,7 @@ from colour_hdri.exposure import (
     exposure_value_100, photometric_exposure_scale_factor_Lagarde2014)
 
 __author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
+__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
 __license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
 __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
