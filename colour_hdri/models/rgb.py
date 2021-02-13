@@ -11,8 +11,8 @@ Defines the following *RGB* colourspace transformations:
 
 import numpy as np
 
+from colour.algebra import matrix_dot, vector_dot
 from colour.models import RGB_COLOURSPACES
-from colour.utilities import matrix_dot, vector_dot
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
