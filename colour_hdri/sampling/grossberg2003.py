@@ -3,7 +3,7 @@
 Grossberg (2003) Histogram Based Image Sampling
 ===============================================
 
-Defines *Grossberg (2003)* histogram based image sampling objects:
+Defines the *Grossberg (2003)* histogram based image sampling objects:
 
 -   :func:`colour_hdri.samples_Grossberg2003`
 

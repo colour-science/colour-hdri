@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Defines unit tests for :mod:`colour_hdri.generation.radiance` module.
+Defines the unit tests for the :mod:`colour_hdri.generation.radiance` module.
 """
 
 import numpy as np

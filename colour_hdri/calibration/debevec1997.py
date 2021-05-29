@@ -3,7 +3,7 @@
 Debevec (1997) Camera Response Function Computation
 ===================================================
 
-Defines *Debevec (1997)* camera responses computation objects:
+Defines the *Debevec (1997)* camera responses computation objects:
 
 -   :func:`colour_hdri.g_solve`
 -   :func:`colour_hdri.camera_response_functions_Debevec1997`

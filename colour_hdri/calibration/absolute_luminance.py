@@ -3,7 +3,7 @@
 Absolute Luminance Calibration - Lagarde (2016)
 ===============================================
 
-Defines *Lagarde (2016)* panoramic images absolute *Luminance* calibration
+Defines the *Lagarde (2016)* panoramic images absolute *Luminance* calibration
 objects:
 
 -   :func:`colour_hdri.absolute_luminance_calibration_Lagarde2016`

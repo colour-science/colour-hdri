@@ -3,7 +3,7 @@
 Exposure Value Computation
 ==========================
 
-Defines exposure value computation objects:
+Defines the exposure value computation objects:
 
 -   :func:`colour_hdri.average_luminance`
 -   :func:`colour_hdri.average_illuminance`
