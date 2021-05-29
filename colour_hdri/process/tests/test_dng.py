@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Defines unit tests for :mod:`colour_hdri.process.adobe_dng` module.
+Defines the unit tests for the :mod:`colour_hdri.process.adobe_dng` module.
 """
 
 import numpy as np

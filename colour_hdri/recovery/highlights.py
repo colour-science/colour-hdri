@@ -22,9 +22,10 @@ References
 
 import numpy as np
 
+from colour.algebra import vector_dot
 from colour.models import (LCHab_to_Lab, Lab_to_LCHab, Lab_to_XYZ, RGB_to_XYZ,
                            XYZ_to_Lab, XYZ_to_RGB, RGB_COLOURSPACE_sRGB)
-from colour.utilities import vector_dot, tsplit, tstack
+from colour.utilities import tsplit, tstack
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

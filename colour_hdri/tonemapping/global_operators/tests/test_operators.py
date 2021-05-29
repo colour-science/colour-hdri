@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Defines unit tests for
+Defines the unit tests for the
 :mod:`colour_hdri.tonemapping.global_operators.operators` module.
 """
 

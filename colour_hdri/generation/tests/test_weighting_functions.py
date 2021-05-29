@@ -1,8 +1,8 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Defines unit tests for :mod:`colour_hdri.generation.weighting_functions`
-module.
+Defines the unit tests for the
+:mod:`colour_hdri.generation.weighting_functions` module.
 """
 
 import numpy as np

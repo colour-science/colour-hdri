@@ -3,7 +3,7 @@
 HDRI / Radiance Image Generation
 ================================
 
-Defines HDRI / radiance image generation objects:
+Defines the HDRI / radiance image generation objects:
 
 -   :func:`colour_hdri.image_stack_to_radiance_image`
 

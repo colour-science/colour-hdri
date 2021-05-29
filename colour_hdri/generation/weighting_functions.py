@@ -3,7 +3,7 @@
 Weighting Functions
 ===================
 
-Defines weighting function objects used when generating radiance images:
+Defines the weighting function objects used when generating radiance images:
 
 -   :func:`colour_hdri.normal_distribution_function`
 -   :func:`colour_hdri.hat_function`
