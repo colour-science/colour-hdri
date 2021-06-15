@@ -77,7 +77,7 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
 
     Z_x, Z_y = Z.shape
 
-    A = np.zeros((Z_x * Z_y + n - 1, n + Z_x))
+    A = np.zeros((Z_x * Z_y + n + 1, n + Z_x))
     b = np.zeros((A.shape[0], 1))
     w = w(np.linspace(0, 1, n))
 
@@ -100,7 +100,7 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
         A[k, i + 1] = l_s * w[i]
         k += 1
 
-    x = np.squeeze(np.linalg.lstsq(A, b)[0])
+    x = np.squeeze(np.linalg.lstsq(A, b, rcond=None)[0])
 
     g = x[0:n]
     lE = x[n:x.shape[0]]
