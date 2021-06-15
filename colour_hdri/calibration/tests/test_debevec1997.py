@@ -56,7 +56,7 @@ class TestGSolve(unittest.TestCase):
         for i in range(3):
             g, lE = g_solve(samples[..., i], L_l)
 
-            # Lower precision for unit tests under *travis-ci*.
+            # Lower precision for unit tests under *Github Actions*.
             np.testing.assert_allclose(
                 g[0:-2],
                 np.load(
@@ -65,7 +65,7 @@ class TestGSolve(unittest.TestCase):
                 rtol=0.001,
                 atol=0.001)
 
-            # Lower precision for unit tests under *travis-ci*.
+            # Lower precision for unit tests under *Github Actions*.
             np.testing.assert_allclose(
                 lE[1:],
                 np.load(
@@ -87,7 +87,7 @@ camera_response_functions_Debevec1997` definition unit tests methods.
 camera_response_functions_Debevec1997` definition.
         """
 
-        # Lower precision for unit tests under *travis-ci*.
+        # Lower precision for unit tests under *Github Actions*.
         np.testing.assert_allclose(
             camera_response_functions_Debevec1997(
                 ImageStack.from_files(JPG_IMAGES)),
