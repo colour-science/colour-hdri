@@ -23,6 +23,7 @@ References
 """
 
 import numpy as np
+from functools import partial
 
 from colour.utilities import as_float_array, as_int_array, tstack
 
@@ -37,7 +38,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['g_solve', 'camera_response_functions_Debevec1997']
+__all__ = [
+    'g_solve', 'extrapolating_function_polynomial',
+    'camera_response_functions_Debevec1997'
+]
 
 
 def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
@@ -108,13 +112,59 @@ def g_solve(Z, B, l_s=30, w=weighting_function_Debevec1997, n=256):
     return g, lE
 
 
-def camera_response_functions_Debevec1997(image_stack,
-                                          s=samples_Grossberg2003,
-                                          samples=1000,
-                                          l_s=30,
-                                          w=weighting_function_Debevec1997,
-                                          n=256,
-                                          normalise=True):
+def extrapolating_function_polynomial(crfs,
+                                      weighting_function,
+                                      degree=3,
+                                      **kwargs):
+    """
+    Polynomial extrapolating function used to handle zero-weighted data of
+    given camera response functions.
+
+    The extrapolation occurs where the weighting function masks fully the
+    camera response functions, e.g. at both ends for *Debevec (1997)*.
+
+    Parameters
+    ----------
+    crfs : array_like
+        Camera response functions :math:`g(z)`.
+    weighting_function : callable, optional
+        Weighting function :math:`w`.
+    degree : int
+        Degree of the extrapolating function polynomial.
+
+    Other Parameters
+    ----------------
+    \\**kwargs : dict, optional
+        Keyword arguments.
+
+    Returns
+    -------
+    ndarray
+        Extrapolated camera response functions :math:`g(z)`.
+    """
+
+    samples = np.linspace(0, 1, crfs.shape[0])
+    mask = ~(weighting_function(samples) == 0)
+
+    for x in range(crfs.shape[-1]):
+        coefficients = np.polyfit(samples[mask], crfs[mask, x], degree)
+        polynomial = np.poly1d(coefficients)
+        crfs[~mask, x] = polynomial(samples[~mask])
+
+    return crfs
+
+
+def camera_response_functions_Debevec1997(
+        image_stack,
+        sampling_function=samples_Grossberg2003,
+        sampling_function_kwargs=None,
+        weighting_function=weighting_function_Debevec1997,
+        weighting_function_kwargs=None,
+        extrapolating_function=extrapolating_function_polynomial,
+        extrapolating_function_kwargs=None,
+        l_s=30,
+        n=256,
+        normalise=True):
     """
     Returns the camera response functions for given image stack using
     *Debevec (1997)* method.
@@ -126,20 +176,24 @@ def camera_response_functions_Debevec1997(image_stack,
     ----------
     image_stack : colour_hdri.ImageStack
         Stack of single channel or multi-channel floating point images.
-    s : callable, optional
+    sampling_function : callable, optional
         Sampling function :math:`s`.
-    samples : int, optional
-        Samples count per images.
+    sampling_function_kwargs : dict_like, optional
+        Arguments to use when calling the sampling function.
+    weighting_function : callable, optional
+        Weighting function :math:`w`.
+    weighting_function_kwargs : dict_like, optional
+        Arguments to use when calling the weighting function.
+    extrapolating_function : callable, optional
+        Extrapolating function used to handle zero-weighted data.
+    extrapolating_function_kwargs : dict_like, optional
+        Arguments to use when calling the extrapolating function.
     l_s : numeric, optional
         :math:`\\lambda` smoothing term.
-    w : callable, optional
-        Weighting function :math:`w`.
     n : int, optional
         :math:`n` constant.
     normalise : bool, optional
-        Enables the camera response functions normalisation. Uncertain camera
-        response functions values resulting from :math:`w` function are
-        set to zero.
+        Enables the camera response functions normalisation.
 
     Returns
     -------
@@ -151,25 +205,31 @@ def camera_response_functions_Debevec1997(image_stack,
     :cite:`Debevec1997a`
     """
 
-    s_o = s(image_stack.data, samples, n)
+    if sampling_function_kwargs is None:
+        sampling_function_kwargs = {}
+
+    if weighting_function_kwargs is None:
+        weighting_function_kwargs = {}
+
+    if extrapolating_function_kwargs is None:
+        extrapolating_function_kwargs = {}
+
+    s_o = sampling_function(image_stack.data, **sampling_function_kwargs)
 
     L_l = np.log(1 / average_luminance(
         image_stack.f_number, image_stack.exposure_time, image_stack.iso))
+
+    w = partial(weighting_function, **weighting_function_kwargs)
 
     g_c = [
         g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])
     ]
     crfs = np.exp(tstack(np.array(g_c)))
 
+    if extrapolating_function is not None:
+        crfs = extrapolating_function(crfs, w, **extrapolating_function_kwargs)
+
     if normalise:
-        # TODO: Investigate if the normalisation value should account for the
-        # percentage of uncertain camera response functions values or be
-        # correlated to it and scaled according. As an alternative of setting
-        # the uncertain camera response functions values to zero, it would be
-        # interesting to explore extrapolation as the camera response functions
-        # are essentially smooth. It is important to note that camera sensors
-        # are usually acting non linearly when reaching saturation level.
-        crfs[w(np.linspace(0, 1, crfs.shape[0])) == 0] = 0
         crfs /= np.max(crfs, axis=0)
 
     return crfs
