@@ -134,7 +134,7 @@ See Also
 Publications
 ^^^^^^^^^^^^
 
-- `Advanced High Dynamic Range Imaging: Theory and Practice <https://dl.acm.org/doi/book/10.5555/1996408>`__ by Banterle, L. et al.
+- `Advanced High Dynamic Range Imaging: Theory and Practice <https://dl.acm.org/doi/book/10.5555/1996408>`__ by Banterle, F. et al.
 
 *Advanced High Dynamic Range Imaging: Theory and Practice* was used as a
 reference for some of the algorithms of **Colour - HDRI**.
@@ -151,7 +151,7 @@ Software
 
 **Matlab**
 
-- `HDR Toolbox <https://github.com/banterle/HDR_Toolbox>`__ by Banterle, L. et al.
+- `HDR Toolbox <https://github.com/banterle/HDR_Toolbox>`__ by Banterle, F. et al.
 
 Code of Conduct
 ---------------
