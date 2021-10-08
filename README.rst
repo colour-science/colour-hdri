@@ -85,7 +85,7 @@ Once the dependencies are satisfied, **Colour - HDRI** can be installed from
 the `Python Package Index <http://pypi.python.org/pypi/colour-hdri>`__ by
 issuing this command in a shell::
 
-	pip install --user colour-hdri
+    pip install --user colour-hdri
 
 The optional features dependencies are installed as follows::
 
@@ -127,6 +127,31 @@ Bibliography
 The bibliography is available in the repository in
 `BibTeX <https://github.com/colour-science/colour-hdri/blob/develop/BIBLIOGRAPHY.bib>`__
 format.
+
+See Also
+--------
+
+Publications
+^^^^^^^^^^^^
+
+- `Advanced High Dynamic Range Imaging: Theory and Practice <https://dl.acm.org/doi/book/10.5555/1996408>`__ by Banterle, L. et al.
+
+*Advanced High Dynamic Range Imaging: Theory and Practice* was used as a
+reference for some of the algorithms of **Colour - HDRI**.
+
+Software
+^^^^^^^^
+
+**C/C++**
+
+- `OpenCV <https://opencv.org/>`__ by Bradski, G.
+- `Piccante <https://github.com/cnr-isti-vclab/piccante>`__ by Banterle, F. and Benedetti, L.,
+
+*Piccante* was used to verify the Grossberg (2003) Histogram Based Image Sampling.
+
+**Matlab**
+
+- `HDR Toolbox <https://github.com/banterle/HDR_Toolbox>`__ by Banterle, L. et al.
 
 Code of Conduct
 ---------------
