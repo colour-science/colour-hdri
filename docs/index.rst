@@ -20,15 +20,15 @@ Features
 
 The following features are available:
 
--   HDRI / Radiance Image Generation
--   Debevec (1997) Camera Response Function Computation
--   Grossberg (2003) Histogram Based Image Sampling
--   Variance Minimization Light Probe Sampling
--   Global Tonemapping Operators
--   Adobe DNG SDK Colour Processing
--   Absolute Luminance Calibration
--   Digital Still Camera (DSC) Exposure Model
--   Raw Processing Helpers
+- HDRI / Radiance Image Generation
+- Debevec (1997) Camera Response Function Computation
+- Grossberg (2003) Histogram Based Image Sampling
+- Variance Minimization Light Probe Sampling
+- Global Tonemapping Operators
+- Adobe DNG SDK Colour Processing
+- Absolute Luminance Calibration
+- Digital Still Camera (DSC) Exposure Model
+- Raw Processing Helpers
 
 Installation
 ------------
@@ -45,19 +45,18 @@ Primary Dependencies
 
 **Colour - HDRI** requires various dependencies in order to run:
 
--   `python>=2.7 <https://www.python.org/download/releases/>`__ or
-    `python>=3.5 <https://www.python.org/download/releases/>`__
--   `colour-science <https://pypi.org/project/colour-science/>`__
--   `recordclass <https://pypi.org/project/recordclass/>`__
+- `python>=3.5 <https://www.python.org/download/releases/>`__
+- `colour-science <https://pypi.org/project/colour-science/>`__
+- `recordclass <https://pypi.org/project/recordclass/>`__
 
 Optional Features Dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
--   `colour-demosaicing <https://pypi.org/project/colour-demosaicing/>`__
--   `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
--   `dcraw <https://www.cybercom.net/~dcoffin/dcraw/>`__
--   `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool/>`__
--   `rawpy <https://pypi.org/project/rawpy/>`__
+- `colour-demosaicing <https://pypi.org/project/colour-demosaicing/>`__
+- `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
+- `dcraw <https://www.cybercom.net/~dcoffin/dcraw/>`__
+- `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool/>`__
+- `rawpy <https://pypi.org/project/rawpy/>`__
 
 Pypi
 ^^^^
