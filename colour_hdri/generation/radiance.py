@@ -56,10 +56,10 @@ def image_stack_to_radiance_image(
         Weighting function :math:`w`.
     weighting_average : bool, optional
          Enables weighting function :math:`w` computation on channels average
-         instead of on a per channel basis.
+         instead of on a per-channel basis.
     camera_response_functions : array_like, optional
         Camera response functions :math:`g(z)` of the imaging system / camera
-        if the stack is representing non linear values.
+        if the stack is representing non-linear values.
 
     Returns
     -------
