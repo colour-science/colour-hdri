@@ -489,7 +489,7 @@ def camera_space_to_XYZ_matrix(xy,
         *ForwardMatrix1* tag matrix.
     M_forward_matrix_2 : array_like
         *ForwardMatrix2* tag matrix.
-    chromatic_adaptation_transform : unicode, optional
+    chromatic_adaptation_transform : str, optional
         **{'CAT02', 'XYZ Scaling', 'Von Kries', 'Bradford', 'Sharp',
         'Fairchild', 'CMCCAT97', 'CMCCAT2000', 'CAT02_BRILL_CAT', 'Bianco',
         'Bianco PC'}**,

@@ -78,7 +78,7 @@ def path_exists(path):
 
     Parameters
     ----------
-    path : unicode
+    path : str
         Path to check the existence.
 
     Returns
@@ -105,7 +105,7 @@ def filter_files(directory, extensions):
 
     Parameters
     ----------
-    directory : unicode
+    directory : str
         Directory to filter.
     extensions : tuple or list
         Extensions to filter on.

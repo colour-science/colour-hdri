@@ -46,7 +46,7 @@ if is_documentation_building():  # pragma: no cover
     EXIF_EXECUTABLE.__doc__ = """
 Command line exif manipulation application, usually Phil Harvey's *ExifTool*.
 
-EXIF_EXECUTABLE : unicode
+EXIF_EXECUTABLE : str
 """
 
 
@@ -56,9 +56,9 @@ class ExifTag(namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
 
     Parameters
     ----------
-    group : unicode, optional
+    group : str, optional
         Exif tag group name.
-    name : unicode, optional
+    name : str, optional
         Exif tag name.
     value : object, optional
         Exif tag value.
@@ -85,7 +85,7 @@ def parse_exif_string(exif_tag):
 
     Returns
     -------
-    unicode
+    str
         Parsed exif tag value.
     """
 
@@ -160,7 +160,7 @@ def parse_exif_data(data):
 
     Parameters
     ----------
-    data : unicode
+    data : str
         Exif data.
 
     Returns
@@ -186,7 +186,7 @@ def read_exif_tags(image):
 
     Parameters
     ----------
-    image : unicode
+    image : str
         Image file.
 
     Returns
@@ -224,9 +224,9 @@ def copy_exif_tags(source, target):
 
     Parameters
     ----------
-    source : unicode
+    source : str
         Source image file.
-    target : unicode
+    target : str
         Target image file.
 
     Returns
@@ -273,7 +273,7 @@ def delete_exif_tags(image):
 
     Parameters
     ----------
-    image : unicode
+    image : str
         Image file.
 
     Returns
@@ -296,14 +296,14 @@ def read_exif_tag(image, tag):
 
     Parameters
     ----------
-    image : unicode
+    image : str
         Image file.
-    tag : unicode
+    tag : str
         Tag.
 
     Returns
     -------
-    unicode
+    str
         Tag value.
     """
 
@@ -325,11 +325,11 @@ def write_exif_tag(image, tag, value):
 
     Parameters
     ----------
-    image : unicode
+    image : str
         Image file.
-    tag : unicode
+    tag : str
         Tag.
-    value : unicode
+    value : str
         Value.
 
     Returns
