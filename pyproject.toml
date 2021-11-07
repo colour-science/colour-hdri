@@ -70,7 +70,6 @@ flake8 = { version = "*", optional = true }  # Development dependency.
 invoke = { version = "*", optional = true }  # Development dependency.
 jupyter = { version = "*", optional = true }  # Development dependency.
 matplotlib = { version = "*", optional = true }
-mock = { version = "*", optional = true }  # Development dependency.
 nose = { version = "*", optional = true }  # Development dependency.
 numpy = { version = "*", optional = true }
 pre-commit = { version = "*", optional = true }  # Development dependency.
@@ -91,7 +90,6 @@ coveralls = "*"
 flake8 = "*"
 invoke = "*"
 jupyter = "*"
-mock = "*"
 nose = "*"
 pre-commit = "*"
 pytest = "*"
@@ -111,7 +109,6 @@ development = [
     "flake8",
     "invoke",
     "jupyter",
-    "mock",
     "nose",
     "pre-commit",
     "pytest",
@@ -125,7 +122,7 @@ development = [
 ]
 optional = [ "colour-demosaicing", "rawpy" ]
 plotting = [ "matplotlib" ]
-read-the-docs = [ "mock", "numpy", "sphinxcontrib-bibtex" ]
+read-the-docs = [ "matplotlib", "numpy", "sphinxcontrib-bibtex" ]
 
 [build-system]
 requires = [ "poetry>=0.12" ]
