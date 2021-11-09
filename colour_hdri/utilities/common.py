@@ -18,7 +18,12 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['vivification', 'vivified_to_dict', 'path_exists', 'filter_files']
+__all__ = [
+    'vivification',
+    'vivified_to_dict',
+    'path_exists',
+    'filter_files',
+]
 
 
 def vivification():
@@ -78,7 +83,7 @@ def path_exists(path):
 
     Parameters
     ----------
-    path : unicode
+    path : str
         Path to check the existence.
 
     Returns
@@ -105,7 +110,7 @@ def filter_files(directory, extensions):
 
     Parameters
     ----------
-    directory : unicode
+    directory : str
         Directory to filter.
     extensions : tuple or list
         Extensions to filter on.

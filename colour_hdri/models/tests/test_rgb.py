@@ -16,7 +16,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['TestCameraSpaceToRGB', 'TestCameraSpaceTosRGB']
+__all__ = [
+    'TestCameraSpaceToRGB',
+    'TestCameraSpaceTosRGB',
+]
 
 
 class TestCameraSpaceToRGB(unittest.TestCase):

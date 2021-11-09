@@ -25,13 +25,18 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'TestLogAverage', 'TestTonemappingOperatorSimple',
-    'TestTonemappingOperatorNormalisation', 'TestTonemappingOperatorGamma',
-    'TestTonemappingOperatorLogarithmic', 'TestTonemappingOperatorExponential',
+    'TestLogAverage',
+    'TestTonemappingOperatorSimple',
+    'TestTonemappingOperatorNormalisation',
+    'TestTonemappingOperatorGamma',
+    'TestTonemappingOperatorLogarithmic',
+    'TestTonemappingOperatorExponential',
     'TestTonemappingOperatorLogarithmicMapping',
     'TestTonemappingOperatorExponentiationMapping',
-    'TestTonemappingOperatorSchlick1994', 'TestTonemappingOperatorTumblin1999',
-    'TestTonemappingOperatorReinhard2004', 'TestTonemappingOperatorFilmic'
+    'TestTonemappingOperatorSchlick1994',
+    'TestTonemappingOperatorTumblin1999',
+    'TestTonemappingOperatorReinhard2004',
+    'TestTonemappingOperatorFilmic',
 ]
 
 

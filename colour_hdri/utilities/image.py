@@ -29,7 +29,11 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['Metadata', 'Image', 'ImageStack']
+__all__ = [
+    'Metadata',
+    'Image',
+    'ImageStack',
+]
 
 
 class Metadata(
@@ -75,7 +79,7 @@ class Image:
 
     Parameters
     ----------
-    path : unicode, optional
+    path : str, optional
         Image path.
     data : array_like, optional
         Image pixel data array.
@@ -110,7 +114,7 @@ class Image:
 
         Returns
         -------
-        unicode
+        str
             self._path.
         """
 
@@ -123,7 +127,7 @@ class Image:
 
         Parameters
         ----------
-        value : unicode
+        value : str
             Attribute value.
         """
 
@@ -141,7 +145,7 @@ class Image:
 
         Returns
         -------
-        unicode
+        str
             self._data.
         """
 
@@ -154,7 +158,7 @@ class Image:
 
         Parameters
         ----------
-        value : unicode
+        value : str
             Attribute value.
         """
 
@@ -172,7 +176,7 @@ class Image:
 
         Returns
         -------
-        unicode
+        str
             self._metadata.
         """
 
@@ -185,7 +189,7 @@ class Image:
 
         Parameters
         ----------
-        value : unicode
+        value : str
             Attribute value.
         """
 
@@ -352,7 +356,7 @@ class ImageStack(MutableSequence):
 
         Parameters
         ----------
-        attribute : unicode
+        attribute : str
             Attribute to retrieve the value.
 
         Returns
@@ -384,7 +388,7 @@ class ImageStack(MutableSequence):
 
         Parameters
         ----------
-        attribute : unicode
+        attribute : str
             Attribute to set the value.
         value : object
             Value to set.

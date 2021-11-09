@@ -21,10 +21,13 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'TestQFactor', 'TestQFactor', 'TestFocalPlaneExposure',
+    'TestQFactor',
+    'TestQFactor',
+    'TestFocalPlaneExposure',
     'TestArithmeticMeanFocalPlaneExposure',
-    'TestSaturationBasedSpeedFocalPlaneExposure', 'TestExposureValue100',
-    'TestPhotometricExposureScaleFactorLagarde2014'
+    'TestSaturationBasedSpeedFocalPlaneExposure',
+    'TestExposureValue100',
+    'TestPhotometricExposureScaleFactorLagarde2014',
 ]
 
 

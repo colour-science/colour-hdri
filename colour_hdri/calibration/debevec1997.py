@@ -39,8 +39,9 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'g_solve', 'extrapolating_function_polynomial',
-    'camera_response_functions_Debevec1997'
+    'g_solve',
+    'extrapolating_function_polynomial',
+    'camera_response_functions_Debevec1997',
 ]
 
 

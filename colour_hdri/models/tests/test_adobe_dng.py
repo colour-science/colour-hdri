@@ -25,12 +25,20 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'CCT_CALIBRATION_ILLUMINANT_1', 'CCT_CALIBRATION_ILLUMINANT_2',
-    'M_COLOR_MATRIX_1', 'M_COLOR_MATRIX_2', 'M_CAMERA_CALIBRATION_1',
-    'M_CAMERA_CALIBRATION_2', 'ANALOG_BALANCE', 'M_FORWARD_MATRIX_1',
-    'M_FORWARD_MATRIX_2', 'TestInterpolatedMatrix', 'TestXy_to_camera_neutral',
-    'TestCamera_neutral_to_xy', 'TestXYZ_to_camera_space_matrix',
-    'TestCamera_space_to_XYZ_matrix'
+    'CCT_CALIBRATION_ILLUMINANT_1',
+    'CCT_CALIBRATION_ILLUMINANT_2',
+    'M_COLOR_MATRIX_1',
+    'M_COLOR_MATRIX_2',
+    'M_CAMERA_CALIBRATION_1',
+    'M_CAMERA_CALIBRATION_2',
+    'ANALOG_BALANCE',
+    'M_FORWARD_MATRIX_1',
+    'M_FORWARD_MATRIX_2',
+    'TestInterpolatedMatrix',
+    'TestXy_to_camera_neutral',
+    'TestCamera_neutral_to_xy',
+    'TestXYZ_to_camera_space_matrix',
+    'TestCamera_space_to_XYZ_matrix',
 ]
 
 CCT_CALIBRATION_ILLUMINANT_1 = 2850

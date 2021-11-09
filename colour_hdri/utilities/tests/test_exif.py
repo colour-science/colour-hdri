@@ -25,10 +25,18 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'FROBISHER_001_DIRECTORY', 'TestParseExifString', 'TestParseExifNumeric',
-    'TestParseExifFraction', 'TestParseExifArray', 'TestParseExifData',
-    'TestReadExifTags', 'TestCopyExifTags', 'TestUpdateExifTags',
-    'TestDeleteExifTags', 'TestReadExifTag', 'TestWriteExifTag'
+    'FROBISHER_001_DIRECTORY',
+    'TestParseExifString',
+    'TestParseExifNumeric',
+    'TestParseExifFraction',
+    'TestParseExifArray',
+    'TestParseExifData',
+    'TestReadExifTags',
+    'TestCopyExifTags',
+    'TestUpdateExifTags',
+    'TestDeleteExifTags',
+    'TestReadExifTag',
+    'TestWriteExifTag',
 ]
 
 FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,

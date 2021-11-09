@@ -75,54 +75,91 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'EXIF_EXECUTABLE', 'ExifTag', 'Image', 'ImageStack', 'Metadata',
-    'copy_exif_tags', 'delete_exif_tags', 'filter_files', 'parse_exif_array',
-    'parse_exif_data', 'parse_exif_fraction', 'parse_exif_numeric',
-    'parse_exif_string', 'path_exists', 'read_exif_tag', 'read_exif_tags',
-    'update_exif_tags', 'vivification', 'vivified_to_dict', 'write_exif_tag'
+    'EXIF_EXECUTABLE',
+    'ExifTag',
+    'Image',
+    'ImageStack',
+    'Metadata',
+    'copy_exif_tags',
+    'delete_exif_tags',
+    'filter_files',
+    'parse_exif_array',
+    'parse_exif_data',
+    'parse_exif_fraction',
+    'parse_exif_numeric',
+    'parse_exif_string',
+    'path_exists',
+    'read_exif_tag',
+    'read_exif_tags',
+    'update_exif_tags',
+    'vivification',
+    'vivified_to_dict',
+    'write_exif_tag',
 ]
 __all__ += [
     'light_probe_sampling_variance_minimization_Viriyothai2009',
-    'samples_Grossberg2003'
+    'samples_Grossberg2003',
 ]
 __all__ += [
-    'adjust_exposure', 'arithmetic_mean_focal_plane_exposure',
-    'average_illuminance', 'average_luminance', 'exposure_index_values',
-    'exposure_value_100', 'photometric_exposure_scale_factor_Lagarde2014',
-    'focal_plane_exposure', 'illuminance_to_exposure_value',
+    'adjust_exposure',
+    'arithmetic_mean_focal_plane_exposure',
+    'average_illuminance',
+    'average_luminance',
+    'exposure_index_values',
+    'exposure_value_100',
+    'photometric_exposure_scale_factor_Lagarde2014',
+    'focal_plane_exposure',
+    'illuminance_to_exposure_value',
     'luminance_to_exposure_value',
-    'saturation_based_speed_focal_plane_exposure'
+    'saturation_based_speed_focal_plane_exposure',
 ]
 __all__ += [
-    'normal_distribution_function', 'hat_function',
-    'weighting_function_Debevec1997', 'image_stack_to_radiance_image'
+    'normal_distribution_function',
+    'hat_function',
+    'weighting_function_Debevec1997',
+    'image_stack_to_radiance_image',
 ]
 __all__ += [
     'absolute_luminance_calibration_Lagarde2016',
-    'camera_response_functions_Debevec1997', 'g_solve',
-    'upper_hemisphere_illuminance_weights_Lagarde2016'
+    'camera_response_functions_Debevec1997',
+    'g_solve',
+    'upper_hemisphere_illuminance_weights_Lagarde2016',
 ]
 __all__ += [
-    'camera_neutral_to_xy', 'camera_space_to_RGB', 'camera_space_to_sRGB',
-    'camera_space_to_XYZ_matrix', 'xy_to_camera_neutral',
-    'XYZ_to_camera_space_matrix'
+    'camera_neutral_to_xy',
+    'camera_space_to_RGB',
+    'camera_space_to_sRGB',
+    'camera_space_to_XYZ_matrix',
+    'xy_to_camera_neutral',
+    'XYZ_to_camera_space_matrix',
 ]
 __all__ += [
-    'DNG_CONVERSION_ARGUMENTS', 'DNG_CONVERTER', 'DNG_EXIF_TAGS_BINDING',
-    'RAW_CONVERSION_ARGUMENTS', 'RAW_CONVERTER', 'RAW_D_CONVERSION_ARGUMENTS',
+    'DNG_CONVERSION_ARGUMENTS',
+    'DNG_CONVERTER',
+    'DNG_EXIF_TAGS_BINDING',
+    'RAW_CONVERSION_ARGUMENTS',
+    'RAW_CONVERTER',
+    'RAW_D_CONVERSION_ARGUMENTS',
     'convert_dng_files_to_intermediate_files',
-    'convert_raw_files_to_dng_files', 'read_dng_files_exif_tags'
+    'convert_raw_files_to_dng_files',
+    'read_dng_files_exif_tags',
 ]
-__all__ += ['highlights_recovery_blend', 'highlights_recovery_LCHab']
+__all__ += [
+    'highlights_recovery_blend',
+    'highlights_recovery_LCHab',
+]
 __all__ += [
     'tonemapping_operator_exponential',
     'tonemapping_operator_exponentiation_mapping',
-    'tonemapping_operator_filmic', 'tonemapping_operator_gamma',
+    'tonemapping_operator_filmic',
+    'tonemapping_operator_gamma',
     'tonemapping_operator_logarithmic',
     'tonemapping_operator_logarithmic_mapping',
-    'tonemapping_operator_normalisation', 'tonemapping_operator_Reinhard2004',
-    'tonemapping_operator_Schlick1994', 'tonemapping_operator_simple',
-    'tonemapping_operator_Tumblin1999'
+    'tonemapping_operator_normalisation',
+    'tonemapping_operator_Reinhard2004',
+    'tonemapping_operator_Schlick1994',
+    'tonemapping_operator_simple',
+    'tonemapping_operator_Tumblin1999',
 ]
 
 RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'resources')

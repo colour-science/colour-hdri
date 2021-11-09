@@ -19,7 +19,9 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['TestMetadata']
+__all__ = [
+    'TestMetadata',
+]
 
 FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
                                        'frobisher_001')

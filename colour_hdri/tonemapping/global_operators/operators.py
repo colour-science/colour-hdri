@@ -63,13 +63,18 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'log_average', 'tonemapping_operator_simple',
-    'tonemapping_operator_normalisation', 'tonemapping_operator_gamma',
-    'tonemapping_operator_logarithmic', 'tonemapping_operator_exponential',
+    'log_average',
+    'tonemapping_operator_simple',
+    'tonemapping_operator_normalisation',
+    'tonemapping_operator_gamma',
+    'tonemapping_operator_logarithmic',
+    'tonemapping_operator_exponential',
     'tonemapping_operator_logarithmic_mapping',
     'tonemapping_operator_exponentiation_mapping',
-    'tonemapping_operator_Schlick1994', 'tonemapping_operator_Tumblin1999',
-    'tonemapping_operator_Reinhard2004', 'tonemapping_operator_filmic'
+    'tonemapping_operator_Schlick1994',
+    'tonemapping_operator_Tumblin1999',
+    'tonemapping_operator_Reinhard2004',
+    'tonemapping_operator_filmic',
 ]
 
 

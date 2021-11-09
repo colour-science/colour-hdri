@@ -24,7 +24,9 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['plot_radiance_image_strip']
+__all__ = [
+    'plot_radiance_image_strip',
+]
 
 
 @override_style()

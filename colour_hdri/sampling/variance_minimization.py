@@ -30,10 +30,11 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'Light_Specification', 'luminance_variance',
+    'Light_Specification',
+    'luminance_variance',
     'find_regions_variance_minimization_Viriyothai2009',
     'highlight_regions_variance_minimization',
-    'light_probe_sampling_variance_minimization_Viriyothai2009'
+    'light_probe_sampling_variance_minimization_Viriyothai2009',
 ]
 
 

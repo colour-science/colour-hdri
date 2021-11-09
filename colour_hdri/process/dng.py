@@ -36,10 +36,15 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'RAW_CONVERTER', 'RAW_CONVERSION_ARGUMENTS', 'RAW_D_CONVERSION_ARGUMENTS',
-    'DNG_CONVERTER', 'DNG_CONVERSION_ARGUMENTS', 'DNG_EXIF_TAGS_BINDING',
+    'RAW_CONVERTER',
+    'RAW_CONVERSION_ARGUMENTS',
+    'RAW_D_CONVERSION_ARGUMENTS',
+    'DNG_CONVERTER',
+    'DNG_CONVERSION_ARGUMENTS',
+    'DNG_EXIF_TAGS_BINDING',
     'convert_raw_files_to_dng_files',
-    'convert_dng_files_to_intermediate_files', 'read_dng_files_exif_tags'
+    'convert_dng_files_to_intermediate_files',
+    'read_dng_files_exif_tags',
 ]
 
 _IS_MACOS_PLATFORM = platform.system() == 'Darwin'
@@ -58,7 +63,7 @@ if is_documentation_building():  # pragma: no cover
     RAW_CONVERTER.__doc__ = """
 Command line raw conversion application, usually Dave Coffin's *dcraw*.
 
-RAW_CONVERTER : unicode
+RAW_CONVERTER : str
 """
 
 RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
@@ -70,7 +75,7 @@ if is_documentation_building():  # pragma: no cover
 Arguments for the command line raw conversion application for non
 demosaiced linear *tiff* file format output.
 
-RAW_CONVERSION_ARGUMENTS : unicode
+RAW_CONVERSION_ARGUMENTS : str
 """
 
 RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
@@ -82,7 +87,7 @@ if is_documentation_building():  # pragma: no cover
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
 
-RAW_D_CONVERSION_ARGUMENTS : unicode
+RAW_D_CONVERSION_ARGUMENTS : str
 """
 
 if _IS_MACOS_PLATFORM:
@@ -100,7 +105,7 @@ if DNG_CONVERTER is not None:
         DNG_CONVERTER.__doc__ = """
 Command line *DNG* conversion application, usually *Adobe DNG Converter*.
 
-DNG_CONVERTER : unicode
+DNG_CONVERTER : str
 """
 
 DNG_CONVERSION_ARGUMENTS = '-cr7.1 -l -d "{0}" "{1}"'
@@ -111,7 +116,7 @@ if is_documentation_building():  # pragma: no cover
     DNG_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line *dng* conversion application.
 
-DNG_CONVERSION_ARGUMENTS : unicode
+DNG_CONVERSION_ARGUMENTS : str
 """
 
 DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
@@ -191,7 +196,7 @@ def convert_raw_files_to_dng_files(raw_files, output_directory):
     ----------
     raw_files : array_like
         Raw files to convert to *dng* files.
-    output_directory : unicode
+    output_directory : str
         Output directory.
 
     Returns

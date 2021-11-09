@@ -31,8 +31,11 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'average_luminance', 'average_illuminance', 'luminance_to_exposure_value',
-    'illuminance_to_exposure_value', 'adjust_exposure'
+    'average_luminance',
+    'average_illuminance',
+    'luminance_to_exposure_value',
+    'illuminance_to_exposure_value',
+    'adjust_exposure',
 ]
 
 

@@ -34,7 +34,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['highlights_recovery_blend', 'highlights_recovery_LCHab']
+__all__ = [
+    'highlights_recovery_blend',
+    'highlights_recovery_LCHab',
+]
 
 
 def highlights_recovery_blend(RGB, multipliers, threshold=0.99):

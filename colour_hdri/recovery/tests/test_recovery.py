@@ -31,9 +31,12 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'FROBISHER_001_DIRECTORY', 'RECOVERY_DIRECTORY', 'RAW_IMAGES',
-    'XYZ_TO_CAMERA_SPACE_MATRIX', 'TestHighlightsRecoveryBlend',
-    'TestHighlightsRecoveryLCHab'
+    'FROBISHER_001_DIRECTORY',
+    'RECOVERY_DIRECTORY',
+    'RAW_IMAGES',
+    'XYZ_TO_CAMERA_SPACE_MATRIX',
+    'TestHighlightsRecoveryBlend',
+    'TestHighlightsRecoveryLCHab',
 ]
 
 _IS_WINDOWS_PLATFORM = platform.system() in ('Windows', 'Microsoft')
