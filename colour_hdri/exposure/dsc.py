@@ -24,8 +24,10 @@ References
 import numpy as np
 
 from colour.utilities import as_float_array
-from colour_hdri.exposure import (average_luminance,
-                                  luminance_to_exposure_value)
+from colour_hdri.exposure import (
+    average_luminance,
+    luminance_to_exposure_value,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

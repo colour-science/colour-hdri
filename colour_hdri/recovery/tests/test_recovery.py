@@ -18,8 +18,10 @@ from colour import read_image
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.process import RAW_CONVERTER, RAW_D_CONVERSION_ARGUMENTS
-from colour_hdri.recovery import (highlights_recovery_blend,
-                                  highlights_recovery_LCHab)
+from colour_hdri.recovery import (
+    highlights_recovery_blend,
+    highlights_recovery_LCHab,
+)
 from colour_hdri.models import camera_space_to_sRGB
 from colour_hdri.utilities import filter_files
 

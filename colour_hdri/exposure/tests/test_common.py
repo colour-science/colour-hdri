@@ -8,8 +8,12 @@ import numpy as np
 import unittest
 
 from colour_hdri.exposure import (
-    average_luminance, average_illuminance, luminance_to_exposure_value,
-    illuminance_to_exposure_value, adjust_exposure)
+    average_luminance,
+    average_illuminance,
+    luminance_to_exposure_value,
+    illuminance_to_exposure_value,
+    adjust_exposure,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

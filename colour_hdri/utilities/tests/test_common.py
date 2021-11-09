@@ -8,8 +8,12 @@ import os
 import unittest
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
-from colour_hdri.utilities import (vivification, vivified_to_dict, path_exists,
-                                   filter_files)
+from colour_hdri.utilities import (
+    vivification,
+    vivified_to_dict,
+    path_exists,
+    filter_files,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

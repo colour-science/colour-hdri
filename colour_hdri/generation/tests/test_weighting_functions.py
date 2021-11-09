@@ -8,8 +8,11 @@ Defines the unit tests for the
 import numpy as np
 import unittest
 
-from colour_hdri.generation import (normal_distribution_function, hat_function,
-                                    weighting_function_Debevec1997)
+from colour_hdri.generation import (
+    normal_distribution_function,
+    hat_function,
+    weighting_function_Debevec1997,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
