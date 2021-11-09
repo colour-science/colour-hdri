@@ -28,7 +28,9 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['samples_Grossberg2003']
+__all__ = [
+    'samples_Grossberg2003',
+]
 
 
 def samples_Grossberg2003(image_stack, samples=1000, n=256):

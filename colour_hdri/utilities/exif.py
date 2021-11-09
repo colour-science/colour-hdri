@@ -34,10 +34,19 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'EXIF_EXECUTABLE', 'ExifTag', 'parse_exif_string', 'parse_exif_numeric',
-    'parse_exif_fraction', 'parse_exif_array', 'parse_exif_data',
-    'read_exif_tags', 'copy_exif_tags', 'update_exif_tags', 'delete_exif_tags',
-    'read_exif_tag', 'write_exif_tag'
+    'EXIF_EXECUTABLE',
+    'ExifTag',
+    'parse_exif_string',
+    'parse_exif_numeric',
+    'parse_exif_fraction',
+    'parse_exif_array',
+    'parse_exif_data',
+    'read_exif_tags',
+    'copy_exif_tags',
+    'update_exif_tags',
+    'delete_exif_tags',
+    'read_exif_tag',
+    'write_exif_tag',
 ]
 
 EXIF_EXECUTABLE = 'exiftool'

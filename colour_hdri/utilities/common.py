@@ -18,7 +18,12 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['vivification', 'vivified_to_dict', 'path_exists', 'filter_files']
+__all__ = [
+    'vivification',
+    'vivified_to_dict',
+    'path_exists',
+    'filter_files',
+]
 
 
 def vivification():

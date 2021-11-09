@@ -33,7 +33,7 @@ __status__ = 'Production'
 __all__ = [
     'upper_hemisphere_illuminance_Lagarde2016',
     'upper_hemisphere_illuminance_weights_Lagarde2016',
-    'absolute_luminance_calibration_Lagarde2016'
+    'absolute_luminance_calibration_Lagarde2016',
 ]
 
 

@@ -19,8 +19,9 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'TestNormalDistributionFunction', 'TestHatFunction',
-    'TestWeightingFunctionDebevec1997'
+    'TestNormalDistributionFunction',
+    'TestHatFunction',
+    'TestWeightingFunctionDebevec1997',
 ]
 
 

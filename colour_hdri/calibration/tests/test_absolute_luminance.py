@@ -28,7 +28,7 @@ __status__ = 'Production'
 __all__ = [
     'TestUpperHemisphereIlluminanceLagarde2016',
     'TestUpperHemisphereIlluminanceWeightsLagarde2016',
-    'TestAbsoluteLuminanceCalibrationLagarde2016'
+    'TestAbsoluteLuminanceCalibrationLagarde2016',
 ]
 
 UNITY_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'unity_001')

@@ -26,9 +26,10 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'SAMPLING_DIRECTORY', 'TestLuminanceVariance',
+    'SAMPLING_DIRECTORY',
+    'TestLuminanceVariance',
     'TestFindRegionsVarianceMinimizationViriyothai2009',
-    'TestLightProbeSamplingVarianceMinimizationViriyothai2009'
+    'TestLightProbeSamplingVarianceMinimizationViriyothai2009',
 ]
 
 SAMPLING_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',

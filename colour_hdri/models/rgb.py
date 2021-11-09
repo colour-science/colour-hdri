@@ -21,7 +21,10 @@ __maintainer__ = 'Colour Developers'
 __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
-__all__ = ['camera_space_to_RGB', 'camera_space_to_sRGB']
+__all__ = [
+    'camera_space_to_RGB',
+    'camera_space_to_sRGB',
+]
 
 
 def camera_space_to_RGB(RGB, M_XYZ_to_camera_space, matrix_RGB_to_XYZ):

@@ -21,8 +21,10 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'FROBISHER_001_DIRECTORY', 'SAMPLING_DIRECTORY', 'JPG_IMAGES',
-    'TestSamplesGrossberg2003'
+    'FROBISHER_001_DIRECTORY',
+    'SAMPLING_DIRECTORY',
+    'JPG_IMAGES',
+    'TestSamplesGrossberg2003',
 ]
 
 FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,

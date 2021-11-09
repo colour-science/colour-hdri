@@ -129,8 +129,11 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'interpolated_matrix', 'xy_to_camera_neutral', 'camera_neutral_to_xy',
-    'XYZ_to_camera_space_matrix', 'camera_space_to_XYZ_matrix'
+    'interpolated_matrix',
+    'xy_to_camera_neutral',
+    'camera_neutral_to_xy',
+    'XYZ_to_camera_space_matrix',
+    'camera_space_to_XYZ_matrix',
 ]
 
 

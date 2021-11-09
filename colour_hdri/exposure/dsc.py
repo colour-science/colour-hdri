@@ -35,9 +35,13 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'q_factor', 'focal_plane_exposure', 'arithmetic_mean_focal_plane_exposure',
-    'saturation_based_speed_focal_plane_exposure', 'exposure_index_values',
-    'exposure_value_100', 'photometric_exposure_scale_factor_Lagarde2014'
+    'q_factor',
+    'focal_plane_exposure',
+    'arithmetic_mean_focal_plane_exposure',
+    'saturation_based_speed_focal_plane_exposure',
+    'exposure_index_values',
+    'exposure_value_100',
+    'photometric_exposure_scale_factor_Lagarde2014',
 ]
 
 
