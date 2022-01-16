@@ -14,9 +14,10 @@ from colour import read_image
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.calibration import (
     upper_hemisphere_illuminance_weights_Lagarde2016,
-    absolute_luminance_calibration_Lagarde2016)
+    absolute_luminance_calibration_Lagarde2016,
+)
 from colour_hdri.calibration.absolute_luminance import (
-    upper_hemisphere_illuminance_Lagarde2016)
+    upper_hemisphere_illuminance_Lagarde2016, )
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

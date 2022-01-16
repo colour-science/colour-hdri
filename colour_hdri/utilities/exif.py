@@ -21,8 +21,10 @@ import subprocess  # nosec
 from collections import namedtuple
 from fractions import Fraction
 
-from colour.utilities.documentation import (DocstringText,
-                                            is_documentation_building)
+from colour.utilities.documentation import (
+    DocstringText,
+    is_documentation_building,
+)
 
 from colour_hdri.utilities import vivification
 

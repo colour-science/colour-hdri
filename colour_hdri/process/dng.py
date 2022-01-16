@@ -21,12 +21,19 @@ import subprocess  # nosec
 from copy import deepcopy
 
 from colour.utilities import CaseInsensitiveMapping, warning
-from colour.utilities.documentation import (DocstringText,
-                                            is_documentation_building)
+from colour.utilities.documentation import (
+    DocstringText,
+    is_documentation_building,
+)
 
-from colour_hdri.utilities import (ExifTag, parse_exif_array,
-                                   parse_exif_numeric, parse_exif_string,
-                                   path_exists, read_exif_tags)
+from colour_hdri.utilities import (
+    ExifTag,
+    parse_exif_array,
+    parse_exif_numeric,
+    parse_exif_string,
+    path_exists,
+    read_exif_tags,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

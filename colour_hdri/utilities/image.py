@@ -19,8 +19,12 @@ from colour import read_image
 from colour.utilities import as_float_array, is_string, tsplit, tstack, warning
 
 from colour_hdri.exposure import average_luminance
-from colour_hdri.utilities.exif import (parse_exif_array, parse_exif_fraction,
-                                        parse_exif_numeric, read_exif_tags)
+from colour_hdri.utilities.exif import (
+    parse_exif_array,
+    parse_exif_fraction,
+    parse_exif_numeric,
+    read_exif_tags,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

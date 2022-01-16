@@ -112,8 +112,12 @@ References
 import numpy as np
 
 from colour.adaptation import matrix_chromatic_adaptation_VonKries
-from colour.algebra import (is_identity, linear_conversion, matrix_dot,
-                            vector_dot)
+from colour.algebra import (
+    is_identity,
+    linear_conversion,
+    matrix_dot,
+    vector_dot,
+)
 from colour.constants import EPSILON
 from colour.models import UCS_to_uv, XYZ_to_UCS, XYZ_to_xy, xy_to_XYZ
 from colour.utilities import tstack

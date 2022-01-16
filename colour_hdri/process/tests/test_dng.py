@@ -15,9 +15,11 @@ import zipfile
 from colour import read_image
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
-from colour_hdri.process import (convert_raw_files_to_dng_files,
-                                 convert_dng_files_to_intermediate_files,
-                                 read_dng_files_exif_tags)
+from colour_hdri.process import (
+    convert_raw_files_to_dng_files,
+    convert_dng_files_to_intermediate_files,
+    read_dng_files_exif_tags,
+)
 from colour_hdri.utilities import filter_files
 
 __author__ = 'Colour Developers'

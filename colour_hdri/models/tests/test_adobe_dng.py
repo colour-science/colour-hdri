@@ -13,9 +13,12 @@ import numpy as np
 import unittest
 
 from colour_hdri.models.dng import interpolated_matrix
-from colour_hdri.models import (xy_to_camera_neutral, camera_neutral_to_xy,
-                                XYZ_to_camera_space_matrix,
-                                camera_space_to_XYZ_matrix)
+from colour_hdri.models import (
+    xy_to_camera_neutral,
+    camera_neutral_to_xy,
+    XYZ_to_camera_space_matrix,
+    camera_space_to_XYZ_matrix,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

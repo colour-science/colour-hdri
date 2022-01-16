@@ -12,8 +12,12 @@ import matplotlib
 import matplotlib.ticker
 import numpy as np
 
-from colour.plotting import (CONSTANTS_COLOUR_STYLE, artist, override_style,
-                             render)
+from colour.plotting import (
+    CONSTANTS_COLOUR_STYLE,
+    artist,
+    override_style,
+    render,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

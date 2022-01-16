@@ -9,9 +9,13 @@ import unittest
 
 from colour_hdri.exposure.dsc import q_factor
 from colour_hdri.exposure import (
-    focal_plane_exposure, arithmetic_mean_focal_plane_exposure,
-    saturation_based_speed_focal_plane_exposure, exposure_index_values,
-    exposure_value_100, photometric_exposure_scale_factor_Lagarde2014)
+    focal_plane_exposure,
+    arithmetic_mean_focal_plane_exposure,
+    saturation_based_speed_focal_plane_exposure,
+    exposure_index_values,
+    exposure_value_100,
+    photometric_exposure_scale_factor_Lagarde2014,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

@@ -13,10 +13,12 @@ from colour import RGB_COLOURSPACES, RGB_luminance, read_image
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.sampling import (
-    light_probe_sampling_variance_minimization_Viriyothai2009)
+    light_probe_sampling_variance_minimization_Viriyothai2009, )
 from colour_hdri.sampling.variance_minimization import (
-    luminance_variance, find_regions_variance_minimization_Viriyothai2009,
-    highlight_regions_variance_minimization)
+    luminance_variance,
+    find_regions_variance_minimization_Viriyothai2009,
+    highlight_regions_variance_minimization,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'

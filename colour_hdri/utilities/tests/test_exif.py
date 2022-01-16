@@ -13,9 +13,19 @@ import unittest
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.utilities import filter_files, vivified_to_dict
 from colour_hdri.utilities import (
-    ExifTag, parse_exif_string, parse_exif_numeric, parse_exif_fraction,
-    parse_exif_array, parse_exif_data, read_exif_tags, copy_exif_tags,
-    update_exif_tags, delete_exif_tags, read_exif_tag, write_exif_tag)
+    ExifTag,
+    parse_exif_string,
+    parse_exif_numeric,
+    parse_exif_fraction,
+    parse_exif_array,
+    parse_exif_data,
+    read_exif_tags,
+    copy_exif_tags,
+    update_exif_tags,
+    delete_exif_tags,
+    read_exif_tag,
+    write_exif_tag,
+)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
