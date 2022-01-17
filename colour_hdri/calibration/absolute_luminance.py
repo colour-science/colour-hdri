@@ -18,9 +18,12 @@ References
 s2016_pbs_unity_hdri_notes.pdf
 """
 
+from __future__ import annotations
+
 import numpy as np
 
-from colour import RGB_COLOURSPACES, RGB_luminance
+from colour import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
+from colour.hints import ArrayLike, Floating, Integer, NDArray
 from colour.utilities import as_float_array
 
 __author__ = 'Colour Developers'
@@ -38,21 +41,22 @@ __all__ = [
 
 
 def upper_hemisphere_illuminance_Lagarde2016(
-        RGB, colourspace=RGB_COLOURSPACES['sRGB']):
+        RGB: ArrayLike,
+        colourspace: RGB_Colourspace = RGB_COLOURSPACES['sRGB']) -> Floating:
     """
     Computes upper hemisphere illuminance :math:`E_v` of given RGB panoramic
     image.
 
     Parameters
     ----------
-    RGB : array_like
+    RGB
         *RGB* panoramic image array.
-    colourspace : `colour.RGB_Colourspace`, optional
+    colourspace
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
     -------
-    numeric
+    :class:`numpy.floating`
         Upper hemisphere illuminance :math:`E_v`.
 
     References
@@ -84,21 +88,22 @@ def upper_hemisphere_illuminance_Lagarde2016(
     return E_v
 
 
-def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
+def upper_hemisphere_illuminance_weights_Lagarde2016(
+        height: Integer, width: Integer) -> NDArray:
     """
     Computes upper hemisphere illuminance weights for use with applications
     unable to perform the computation directly, i.e. *Adobe Photoshop*.
 
     Parameters
     ----------
-    height : int
+    height
         Output array height.
-    width : int
+    width
         Output array width.
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
         Upper hemisphere illuminance weights.
 
     References
@@ -142,23 +147,25 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(height, width):
 
 
 def absolute_luminance_calibration_Lagarde2016(
-        RGB, measured_illuminance, colourspace=RGB_COLOURSPACES['sRGB']):
+        RGB: ArrayLike,
+        measured_illuminance: Floating,
+        colourspace: RGB_Colourspace = RGB_COLOURSPACES['sRGB']) -> NDArray:
     """
     Performs absolute *Luminance* calibration of given *RGB* panoramic image
     using *Lagarde (2016)* method.
 
     Parameters
     ----------
-    RGB : array_like
+    RGB
         *RGB* panoramic image to calibrate.
-    measured_illuminance : numeric
+    measured_illuminance
         Measured illuminance :math:`E_v`.
-    colourspace : `colour.RGB_Colourspace`, optional
+    colourspace
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
          Absolute *Luminance* calibrated *RGB* panoramic image.
 
     Examples

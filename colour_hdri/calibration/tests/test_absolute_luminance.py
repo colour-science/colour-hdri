@@ -5,6 +5,8 @@ Defines the unit tests for the
 :mod:`colour_hdri.calibration.absolute_luminance` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import unittest
@@ -32,10 +34,10 @@ __all__ = [
     'TestAbsoluteLuminanceCalibrationLagarde2016',
 ]
 
-UNITY_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'unity_001')
+UNITY_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY, 'unity_001')
 
-CALIBRATION_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
-                                     'calibration')
+CALIBRATION_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                          'colour_hdri', 'calibration')
 
 
 class TestUpperHemisphereIlluminanceLagarde2016(unittest.TestCase):

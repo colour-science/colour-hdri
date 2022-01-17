@@ -5,9 +5,13 @@ Defines the unit tests for the :mod:`colour_hdri.calibration.debevec1997`
 module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import unittest
+
+from colour.hints import List
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.calibration import (
@@ -33,13 +37,13 @@ __all__ = [
     'TestCameraResponseFunctionsDebevec1997',
 ]
 
-FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                       'frobisher_001')
+FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                            'frobisher_001')
 
-CALIBRATION_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
-                                     'calibration')
+CALIBRATION_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                          'colour_hdri', 'calibration')
 
-JPG_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('jpg', ))
+JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ('jpg', ))
 
 
 class TestGSolve(unittest.TestCase):
