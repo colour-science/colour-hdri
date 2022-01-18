@@ -19,9 +19,13 @@ References
 EV_as_a_measure_of_luminance_and_illuminance
 """
 
+from __future__ import annotations
+
 import numpy as np
 
-from colour.utilities import as_float_array
+from colour.hints import FloatingOrArrayLike, FloatingOrNDArray
+
+from colour.utilities import as_float, as_float_array
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
@@ -39,7 +43,10 @@ __all__ = [
 ]
 
 
-def average_luminance(N, t, S, k=12.5):
+def average_luminance(N: FloatingOrArrayLike,
+                      t: FloatingOrArrayLike,
+                      S: FloatingOrArrayLike,
+                      k: FloatingOrArrayLike = 12.5) -> FloatingOrNDArray:
     """
     Computes the average luminance :math:`L` in :math:`cd\\cdot m^{-2}` from
     given relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`,
@@ -48,13 +55,13 @@ def average_luminance(N, t, S, k=12.5):
 
     Parameters
     ----------
-    N : array_like
+    N
         Relative aperture *F-Number* :math:`N`.
-    t : array_like
+    t
        *Exposure Time* :math:`t`.
-    S : array_like
+    S
         *ISO* arithmetic speed :math:`S`.
-    k : numeric, optional
+    k
         *Reflected light calibration constant* :math:`k`.
         *ISO 2720:1974* recommends a range for :math:`k` of 10.6 to 13.4 with
         luminance in :math:`cd\\cdot m^{-2}`. Two values for :math:`k` are in
@@ -63,7 +70,7 @@ def average_luminance(N, t, S, k=12.5):
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Average luminance :math:`L` in :math:`cd\\cdot m^{-2}`.
 
     References
@@ -79,13 +86,17 @@ def average_luminance(N, t, S, k=12.5):
     N = as_float_array(N)
     t = as_float_array(t)
     S = as_float_array(S)
+    k = as_float_array(k)
 
     L = N ** 2 / t / S * k
 
-    return L
+    return as_float(L)
 
 
-def average_illuminance(N, t, S, c=250):
+def average_illuminance(N: FloatingOrArrayLike,
+                        t: FloatingOrArrayLike,
+                        S: FloatingOrArrayLike,
+                        c: FloatingOrArrayLike = 250) -> FloatingOrNDArray:
     """
     Computes the average illuminance :math:`E` in :math:`Lux` from given
     relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO*
@@ -94,13 +105,13 @@ def average_illuminance(N, t, S, c=250):
 
     Parameters
     ----------
-    N : array_like
+    N
         Relative aperture *F-Number* :math:`N`.
-    t : array_like
+    t
        *Exposure Time* :math:`t`.
-    S : array_like
+    S
         *ISO* arithmetic speed :math:`S`.
-    c : numeric, optional
+    c
         *Incident light calibration constant* :math:`c`.
         With a flat receptor, *ISO 2720:1974* recommends a range for
         :math:`c`. of 240 to 400 with illuminance in :math:`Lux`; a value of
@@ -111,7 +122,7 @@ def average_illuminance(N, t, S, c=250):
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Average illuminance :math:`E` in :math:`Lux`.
 
     References
@@ -127,13 +138,17 @@ def average_illuminance(N, t, S, c=250):
     N = as_float_array(N)
     t = as_float_array(t)
     S = as_float_array(S)
+    c = as_float_array(c)
 
     E = N ** 2 / t / S * c
 
-    return E
+    return as_float(E)
 
 
-def luminance_to_exposure_value(L, S, k=12.5):
+def luminance_to_exposure_value(
+        L: FloatingOrArrayLike,
+        S: FloatingOrArrayLike,
+        k: FloatingOrArrayLike = 12.5) -> FloatingOrNDArray:
     """
     Computes the exposure value :math:`EV` from given scene luminance
     :math:`L` in :math:`cd\\cdot m^{-2}`, *ISO* arithmetic speed :math:`S` and
@@ -141,11 +156,11 @@ def luminance_to_exposure_value(L, S, k=12.5):
 
     Parameters
     ----------
-    L : array_like
+    L
         Scene luminance :math:`L` in :math:`cd\\cdot m^{-2}`.
-    S : array_like
+    S
         *ISO* arithmetic speed :math:`S`.
-    k : numeric, optional
+    k
         *Reflected light calibration constant* :math:`k`.
         *ISO 2720:1974* recommends a range for :math:`k` of 10.6 to 13.4 with
         luminance in :math:`cd\\cdot m^{-2}`. Two values for :math:`k` are in
@@ -154,7 +169,7 @@ def luminance_to_exposure_value(L, S, k=12.5):
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Exposure value :math:`EV`.
 
     Notes
@@ -180,10 +195,13 @@ def luminance_to_exposure_value(L, S, k=12.5):
 
     EV = np.log2(L * S / k)
 
-    return EV
+    return as_float(EV)
 
 
-def illuminance_to_exposure_value(E, S, c=250):
+def illuminance_to_exposure_value(
+        E: FloatingOrArrayLike,
+        S: FloatingOrArrayLike,
+        c: FloatingOrArrayLike = 250) -> FloatingOrNDArray:
     """
     Computes the exposure value :math:`EV` from given scene illuminance
     :math:`E` in :math:`Lux`, *ISO* arithmetic speed :math:`S` and
@@ -191,11 +209,11 @@ def illuminance_to_exposure_value(E, S, c=250):
 
     Parameters
     ----------
-    E : array_like
+    E
         Scene illuminance :math:`E` in :math:`Lux`.
-    S : array_like
+    S
         *ISO* arithmetic speed :math:`S`.
-    c : numeric, optional
+    c
         *Incident light calibration constant* :math:`c`.
         With a flat receptor, *ISO 2720:1974* recommends a range for
         :math:`c`. of 240 to 400 with illuminance in :math:`Lux`; a value of
@@ -206,7 +224,7 @@ def illuminance_to_exposure_value(E, S, c=250):
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Exposure value :math:`EV`.
 
     Notes
@@ -232,23 +250,24 @@ def illuminance_to_exposure_value(E, S, c=250):
 
     EV = np.log2(E * S / c)
 
-    return EV
+    return as_float(EV)
 
 
-def adjust_exposure(a, EV):
+def adjust_exposure(a: FloatingOrArrayLike,
+                    EV: FloatingOrArrayLike) -> FloatingOrNDArray:
     """
     Adjusts given array exposure using given :math:`EV` exposure value.
 
     Parameters
     ----------
-    a : array_like
+    a
         Array to adjust the exposure.
-    EV : numeric
+    EV
         Exposure adjustment value.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Exposure adjusted array.
 
     Examples
@@ -258,5 +277,6 @@ def adjust_exposure(a, EV):
     """
 
     a = as_float_array(a)
+    EV = as_float_array(EV)
 
-    return a * pow(2, EV)
+    return as_float(a * pow(2, EV))

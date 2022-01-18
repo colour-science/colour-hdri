@@ -21,9 +21,13 @@ References
     Frostbite to Physically Based Rendering 3.0. Siggraph 2014, 119.
 """
 
+from __future__ import annotations
+
 import numpy as np
 
-from colour.utilities import as_float_array
+from colour.hints import FloatingOrArrayLike, FloatingOrNDArray
+
+from colour.utilities import as_float, as_float_array
 from colour_hdri.exposure import (
     average_luminance,
     luminance_to_exposure_value,
@@ -47,23 +51,25 @@ __all__ = [
 ]
 
 
-def q_factor(T=9 / 10, f_v=98 / 100, theta=10):
+def q_factor(T: FloatingOrArrayLike = 9 / 10,
+             f_v: FloatingOrArrayLike = 98 / 100,
+             theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
     """
     Computes the :math:`q` factor modeling the total lens vignetting and
     transmission attenuation.
 
     Parameters
     ----------
-    T : array_like, optional
+    T
         Transmission factor of the lens :math:`T`.
-    f_v : array_like, optional
+    f_v
         Vignetting factor :math:`f_v`.
-    theta : array_like, optional
+    theta
         Angle of image point off axis :math:`\\theta`.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         :math:`q` factor.
 
     References
@@ -80,38 +86,46 @@ def q_factor(T=9 / 10, f_v=98 / 100, theta=10):
     f_v = as_float_array(f_v)
     theta = as_float_array(theta)
 
-    return np.pi / 4 * T * f_v * np.cos(np.radians(theta)) ** 4
+    return as_float(np.pi / 4 * T * f_v * np.cos(np.radians(theta)) ** 4)
 
 
-def focal_plane_exposure(L, A, t, F, i, H_f, T=9 / 10, f_v=98 / 100, theta=10):
+def focal_plane_exposure(L: FloatingOrArrayLike,
+                         A: FloatingOrArrayLike,
+                         t: FloatingOrArrayLike,
+                         F: FloatingOrArrayLike,
+                         i: FloatingOrArrayLike,
+                         H_f: FloatingOrArrayLike,
+                         T: FloatingOrArrayLike = 9 / 10,
+                         f_v: FloatingOrArrayLike = 98 / 100,
+                         theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
     """
     Computes the focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
 
     Parameters
     ----------
-    L : array_like
+    L
         Scene luminance :math:`L`, expressed in :math:`cd/m^2`.
-    A : array_like
+    A
         Lens *F-Number* :math:`A`.
-    t : array_like
+    t
         *Exposure Time* :math:`t`, expressed in seconds.
-    F : array_like
+    F
         Lens focal length :math:`F`, expressed in meters.
-    i : array_like
+    i
         Image distance :math:`i`, expressed in meters.
-    H_f : array_like
+    H_f
         Focal plane flare exposure :math:`H_f`, expressed in lux-seconds
         (:math:`lx.s`).
-    T : array_like, optional
+    T
         Transmission factor of the lens :math:`T`.
-    f_v : array_like, optional
+    f_v
         Vignetting factor :math:`f_v`.
-    theta : array_like, optional
+    theta
         Angle of image point off axis :math:`\\theta`.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
 
     Notes
@@ -147,10 +161,12 @@ def focal_plane_exposure(L, A, t, F, i, H_f, T=9 / 10, f_v=98 / 100, theta=10):
 
     H = q * (L * t * F ** 2) / (A ** 2 * i ** 2) + H_f
 
-    return H
+    return as_float(H)
 
 
-def arithmetic_mean_focal_plane_exposure(L_a, A, t):
+def arithmetic_mean_focal_plane_exposure(
+        L_a: FloatingOrArrayLike, A: FloatingOrArrayLike,
+        t: FloatingOrArrayLike) -> FloatingOrNDArray:
     """
     Computes the arithmetic mean focal plane exposure :math:`H_a` for a camera
     focused on infinity, :math:`H_f << H`, :math:`T=9/10`,
@@ -158,16 +174,16 @@ def arithmetic_mean_focal_plane_exposure(L_a, A, t):
 
     Parameters
     ----------
-    L_a : array_like
+    L_a
         Arithmetic scene luminance :math:`L_a`, expressed in :math:`cd/m^2`.
-    A : array_like
+    A
         Lens *F-Number* :math:`A`.
-    t : array_like
+    t
         *Exposure Time* :math:`t`, expressed in seconds.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Focal plane exposure :math:`H_a`.
 
     Notes
@@ -198,16 +214,16 @@ def arithmetic_mean_focal_plane_exposure(L_a, A, t):
 
 
 def saturation_based_speed_focal_plane_exposure(
-        L,
-        A,
-        t,
-        S,
-        F=50 / 1000,
-        i=1 / (-1 / 5 + 1 / (50 / 1000)),
-        H_f=0,
-        T=9 / 10,
-        f_v=98 / 100,
-        theta=10):
+        L: FloatingOrArrayLike,
+        A: FloatingOrArrayLike,
+        t: FloatingOrArrayLike,
+        S: FloatingOrArrayLike,
+        F: FloatingOrArrayLike = 50 / 1000,
+        i: FloatingOrArrayLike = 1 / (-1 / 5 + 1 / (50 / 1000)),
+        H_f: FloatingOrArrayLike = 0,
+        T: FloatingOrArrayLike = 9 / 10,
+        f_v: FloatingOrArrayLike = 98 / 100,
+        theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
     """
     Computes the Saturation-Based Speed (SBS) focal plane exposure
     :math:`H_{SBS}` in lux-seconds (:math:`lx.s`).
@@ -217,31 +233,31 @@ def saturation_based_speed_focal_plane_exposure(
 
     Parameters
     ----------
-    L : array_like
+    L
         Scene luminance :math:`L`, expressed in :math:`cd/m^2`.
-    A : array_like
+    A
         Lens *F-Number* :math:`A`.
-    t : array_like
+    t
         *Exposure Time* :math:`t`, expressed in seconds.
-    S : array_like
+    S
         *ISO* arithmetic speed :math:`S`.
-    F : array_like
+    F
         Lens focal length :math:`F`, expressed in meters.
-    i : array_like
+    i
         Image distance :math:`i`, expressed in meters.
-    H_f : array_like
+    H_f
         Focal plane flare exposure :math:`H_f`, expressed in lux-seconds
         (:math:`lx.s`).
-    T : array_like, optional
+    T
         Transmission factor of the lens :math:`T`.
-    f_v : array_like, optional
+    f_v
         Vignetting factor :math:`f_v`.
-    theta : array_like, optional
+    theta
         Angle of image point off axis :math:`\\theta`.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Saturation-Based Speed focal plane exposure :math:`H_{SBS}` in
         lux-seconds (:math:`lx.s`).
 
@@ -286,22 +302,22 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
 
     H_SBS = H * S / 78
 
-    return H_SBS
+    return as_float(H_SBS)
 
 
-def exposure_index_values(H_a):
+def exposure_index_values(H_a: FloatingOrArrayLike) -> FloatingOrNDArray:
     """
     Computes the exposure index values :math:`I_{EI}` from given focal plane
     exposure :math:`H_a`.
 
     Parameters
     ----------
-    H_a : array_like
+    H_a
         Focal plane exposure :math:`H_a`.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Exposure index values :math:`I_{EI}`.
 
     References
@@ -314,10 +330,11 @@ def exposure_index_values(H_a):
     61.3897251...
     """
 
-    return 10 / H_a
+    return as_float(10 / as_float_array(H_a))
 
 
-def exposure_value_100(N, t, S):
+def exposure_value_100(N: FloatingOrArrayLike, t: FloatingOrArrayLike,
+                       S: FloatingOrArrayLike) -> FloatingOrNDArray:
     """
     Computes the exposure value :math:`EV100` from given relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic
@@ -325,16 +342,16 @@ def exposure_value_100(N, t, S):
 
     Parameters
     ----------
-    N : array_like
+    N
         Relative aperture *F-Number* :math:`N`.
-    t : array_like
+    t
        *Exposure Time* :math:`t`.
-    S : array_like
+    S
         *ISO* arithmetic speed :math:`S`.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Exposure value :math:`EV100`.
 
     References
@@ -360,10 +377,11 @@ def exposure_value_100(N, t, S):
     return luminance_to_exposure_value(average_luminance(N, t, S), 100)
 
 
-def photometric_exposure_scale_factor_Lagarde2014(EV100,
-                                                  T=9 / 10,
-                                                  f_v=98 / 100,
-                                                  theta=10):
+def photometric_exposure_scale_factor_Lagarde2014(
+        EV100: FloatingOrArrayLike,
+        T: FloatingOrArrayLike = 9 / 10,
+        f_v: FloatingOrArrayLike = 98 / 100,
+        theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
     """
     Converts the exposure value :math:`EV100` to photometric exposure scale
     factor using *Lagarde and de Rousiers (2014)* formulation derived from the
@@ -374,18 +392,18 @@ def photometric_exposure_scale_factor_Lagarde2014(EV100,
 
     Parameters
     ----------
-    T : array_like, optional
+    T
         Exposure value :math:`EV100`.
-    T : array_like, optional
+    T
         Transmission factor of the lens :math:`T`.
-    f_v : array_like, optional
+    f_v
         Vignetting factor :math:`f_v`.
-    theta : array_like, optional
+    theta
         Angle of image point off axis :math:`\\theta`.
 
     Returns
     -------
-    ndarray
+    :class:`np.floating` or :class:`numpy.ndarray`
         Photometric exposure in lux-seconds (:math:`lx.s`).
 
     Notes
@@ -418,7 +436,8 @@ def photometric_exposure_scale_factor_Lagarde2014(EV100,
     >>> H * 4000  # doctest: +ELLIPSIS
     0.8353523...
     """
+    EV100 = as_float_array(EV100)
 
     q = q_factor(T, f_v, theta)
 
-    return 1 / (78 / (100 * q) * 2 ** EV100)
+    return as_float(1 / (78 / (100 * q) * 2 ** EV100))
