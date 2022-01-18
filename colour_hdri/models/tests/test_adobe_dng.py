@@ -9,8 +9,12 @@ Notes
     *Canon EOS 5D Mark II* camera.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import unittest
+
+from colour.hints import Floating, NDArray
 
 from colour_hdri.models.dng import interpolated_matrix
 from colour_hdri.models import (
@@ -44,37 +48,43 @@ __all__ = [
     'TestCamera_space_to_XYZ_matrix',
 ]
 
-CCT_CALIBRATION_ILLUMINANT_1 = 2850
-CCT_CALIBRATION_ILLUMINANT_2 = 6500
+CCT_CALIBRATION_ILLUMINANT_1: Floating = 2850
+CCT_CALIBRATION_ILLUMINANT_2: Floating = 6500
 
-M_COLOR_MATRIX_1 = np.array(
-    [[0.5309, -0.0229, -0.0336],
-     [-0.6241, 1.3265, 0.3337],
-     [-0.0817, 0.1215, 0.6664]])  # yapf: disable
-M_COLOR_MATRIX_2 = np.array(
-    [[0.4716, 0.0603, -0.0830],
-     [-0.7798, 1.5474, 0.2480],
-     [-0.1496, 0.1937, 0.6651]])  # yapf: disable
+M_COLOR_MATRIX_1: NDArray = np.array([
+    [0.5309, -0.0229, -0.0336],
+    [-0.6241, 1.3265, 0.3337],
+    [-0.0817, 0.1215, 0.6664],
+])
+M_COLOR_MATRIX_2: NDArray = np.array([
+    [0.4716, 0.0603, -0.0830],
+    [-0.7798, 1.5474, 0.2480],
+    [-0.1496, 0.1937, 0.6651],
+])
 
-M_CAMERA_CALIBRATION_1 = np.array(
-    [[0.9603, 0.0000, 0.0000],
-     [0.0000, 1.0000, 0.0000],
-     [0.0000, 0.0000, 0.9664]])  # yapf: disable
-M_CAMERA_CALIBRATION_2 = np.array(
-    [[0.9603, 0.0000, 0.0000],
-     [0.0000, 1.0000, 0.0000],
-     [0.0000, 0.0000, 0.9664]])  # yapf: disable
+M_CAMERA_CALIBRATION_1: NDArray = np.array([
+    [0.9603, 0.0000, 0.0000],
+    [0.0000, 1.0000, 0.0000],
+    [0.0000, 0.0000, 0.9664],
+])
+M_CAMERA_CALIBRATION_2: NDArray = np.array([
+    [0.9603, 0.0000, 0.0000],
+    [0.0000, 1.0000, 0.0000],
+    [0.0000, 0.0000, 0.9664],
+])
 
-ANALOG_BALANCE = np.ones(3)
+ANALOG_BALANCE: NDArray = np.ones(3)
 
-M_FORWARD_MATRIX_1 = np.array(
-    [[0.8924, -0.1041, 0.1760],
-     [0.4351, 0.6621, -0.0972],
-     [0.0505, -0.1562, 0.9308]])  # yapf: disable
-M_FORWARD_MATRIX_2 = np.array(
-    [[0.8924, -0.1041, 0.1760],
-     [0.4351, 0.6621, -0.0972],
-     [0.0505, -0.1562, 0.9308]])  # yapf: disable
+M_FORWARD_MATRIX_1: NDArray = np.array([
+    [0.8924, -0.1041, 0.1760],
+    [0.4351, 0.6621, -0.0972],
+    [0.0505, -0.1562, 0.9308],
+])
+M_FORWARD_MATRIX_2: NDArray = np.array([
+    [0.8924, -0.1041, 0.1760],
+    [0.4351, 0.6621, -0.0972],
+    [0.0505, -0.1562, 0.9308],
+])
 
 
 class TestInterpolatedMatrix(unittest.TestCase):
@@ -89,10 +99,11 @@ interpolated_matrix` definition unit tests methods.
 interpolated_matrix` definition.
         """
 
-        M_reference = np.array(
-            [[0.48549082, 0.04081068, -0.07142822],
-             [-0.74332781, 1.49565493, 0.26807493],
-             [-0.13369466, 0.17678740, 0.66540452]])  # yapf: disable
+        M_reference = np.array([
+            [0.48549082, 0.04081068, -0.07142822],
+            [-0.74332781, 1.49565493, 0.26807493],
+            [-0.13369466, 0.17678740, 0.66540452],
+        ])
         np.testing.assert_almost_equal(
             interpolated_matrix(5000, 2850, 6500, M_COLOR_MATRIX_1,
                                 M_COLOR_MATRIX_2),
@@ -209,10 +220,11 @@ XYZ_to_camera_space_matrix` definition unit tests methods.
         Tests :func:`colour_hdri.models.adobe_dng.\
 XYZ_to_camera_space_matrix` definition.
         """
-        M_reference = np.array(
-            [[0.47823951, 0.05098453, -0.07746894],
-             [-0.76236708, 1.52266698, 0.25759538],
-             [-0.14199759, 0.18561614, 0.66524555]])  # yapf: disable
+        M_reference = np.array([
+            [0.47823951, 0.05098453, -0.07746894],
+            [-0.76236708, 1.52266698, 0.25759538],
+            [-0.14199759, 0.18561614, 0.66524555],
+        ])
         np.testing.assert_almost_equal(
             XYZ_to_camera_space_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
@@ -221,10 +233,11 @@ XYZ_to_camera_space_matrix` definition.
             M_reference,
             decimal=7)
 
-        M_reference = np.array(
-            [[0.47823951, 0.05098453, -0.07746894],
-             [-0.76236708, 1.52266698, 0.25759538],
-             [-0.14199759, 0.18561614, 0.66524555]])  # yapf: disable
+        M_reference = np.array([
+            [0.47823951, 0.05098453, -0.07746894],
+            [-0.76236708, 1.52266698, 0.25759538],
+            [-0.14199759, 0.18561614, 0.66524555],
+        ])
         np.testing.assert_almost_equal(
             XYZ_to_camera_space_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
@@ -233,10 +246,11 @@ XYZ_to_camera_space_matrix` definition.
             M_reference,
             decimal=7)
 
-        M_reference = np.array(
-            [[0.47823951, 0.05098453, -0.07746894],
-             [-0.76236708, 1.52266698, 0.25759538],
-             [-0.14199759, 0.18561614, 0.66524555]])  # yapf: disable
+        M_reference = np.array([
+            [0.47823951, 0.05098453, -0.07746894],
+            [-0.76236708, 1.52266698, 0.25759538],
+            [-0.14199759, 0.18561614, 0.66524555],
+        ])
         np.testing.assert_almost_equal(
             XYZ_to_camera_space_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
@@ -258,10 +272,11 @@ camera_space_to_XYZ_matrix` definition unit tests methods.
 camera_space_to_XYZ_matrix` definition.
         """
 
-        M_reference = np.array(
-            [[2.16040871, -0.10410000, 0.27224985],
-             [1.05333240, 0.66210000, -0.15035617],
-             [0.12225531, -0.15620000, 1.43983046]])  # yapf: disable
+        M_reference = np.array([
+            [2.16040871, -0.10410000, 0.27224985],
+            [1.05333240, 0.66210000, -0.15035617],
+            [0.12225531, -0.15620000, 1.43983046],
+        ])
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
@@ -271,10 +286,11 @@ camera_space_to_XYZ_matrix` definition.
             M_reference,
             decimal=7)
 
-        M_reference = np.array(
-            [[2.16040871, -0.10410000, 0.27224985],
-             [1.05333240, 0.66210000, -0.15035617],
-             [0.12225531, -0.15620000, 1.43983046]])  # yapf: disable
+        M_reference = np.array([
+            [2.16040871, -0.10410000, 0.27224985],
+            [1.05333240, 0.66210000, -0.15035617],
+            [0.12225531, -0.15620000, 1.43983046],
+        ])
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
@@ -284,10 +300,11 @@ camera_space_to_XYZ_matrix` definition.
             M_reference,
             decimal=7)
 
-        M_reference = np.array(
-            [[2.16040871, -0.10410000, 0.27224985],
-             [1.05333240, 0.66210000, -0.15035617],
-             [0.12225531, -0.15620000, 1.43983046]])  # yapf: disable
+        M_reference = np.array([
+            [2.16040871, -0.10410000, 0.27224985],
+            [1.05333240, 0.66210000, -0.15035617],
+            [0.12225531, -0.15620000, 1.43983046],
+        ])
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,
@@ -297,10 +314,11 @@ camera_space_to_XYZ_matrix` definition.
             M_reference,
             decimal=7)
 
-        M_reference = np.array(
-            [[2.08092549, -0.08875351, 0.23804475],
-             [1.00983630, 0.63301091, -0.14108066],
-             [0.13472434, -0.17097714, 1.40232276]])  # yapf: disable
+        M_reference = np.array([
+            [2.08092549, -0.08875351, 0.23804475],
+            [1.00983630, 0.63301091, -0.14108066],
+            [0.13472434, -0.17097714, 1.40232276],
+        ])
         np.testing.assert_almost_equal(
             camera_space_to_XYZ_matrix(
                 np.array([0.32816244, 0.34698169]), 2850, 6500,

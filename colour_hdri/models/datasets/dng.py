@@ -24,7 +24,10 @@ References
     http://download.adobe.com/pub/adobe/dng/dng_sdk_1_4.zip
 """
 
+from __future__ import annotations
+
 from colour.colorimetry import CCS_ILLUMINANTS
+from colour.hints import Dict, NDArray
 from colour.utilities import CaseInsensitiveMapping
 
 __author__ = 'Colour Developers'
@@ -40,15 +43,13 @@ __all__ = [
     'LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS',
 ]
 
-CCS_ILLUMINANT_ADOBEDNG = (
+CCS_ILLUMINANT_ADOBEDNG: NDArray = (
     CCS_ILLUMINANTS['CIE 1931 2 Degree Standard Observer']['D50'])
 """
 *Adobe DNG SDK* default illuminant for *CIE XYZ* colourspace.
-
-CCS_ILLUMINANT_ADOBEDNG : tuple
 """
 
-CCT_ILLUMINANTS_ADOBEDNG = (CaseInsensitiveMapping({
+CCT_ILLUMINANTS_ADOBEDNG: CaseInsensitiveMapping = CaseInsensitiveMapping({
     'Standard light A': 2850,
     'Tungsten (incandescent light)': 2850,
     'ISO studio tungsten': 3200,
@@ -69,7 +70,7 @@ CCT_ILLUMINANTS_ADOBEDNG = (CaseInsensitiveMapping({
     'Fluorescent': (3900 + 4500) * 0.5,
     'White fluorescent (WW 3250 - 3800K)': (3200 + 3700) * 0.5,
     'Warm white fluorescent (L 2600 - 3250K)': (2600 + 3250) * 0.5
-}))
+})
 """
 *Adobe DNG SDK* illuminants correlated colour temperature.
 
@@ -81,11 +82,9 @@ Notes
 -----
 -   The correlated colour temperature are given for the
     *CIE 1931 2 Degree Standard Observer*.
-
-CCT_ILLUMINANTS_ADOBEDNG : CaseInsensitiveMapping
 """
 
-LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS = {
+LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS: Dict = {
     1: 'Daylight',
     2: 'Fluorescent',
     3: 'Tungsten (incandescent light)',
@@ -114,6 +113,4 @@ LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS = {
 References
 ----------
 :cite:`AdobeSystems2015e`
-
-LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS : CaseInsensitiveMapping
 """
