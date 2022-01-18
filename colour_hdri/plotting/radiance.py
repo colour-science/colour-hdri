@@ -8,10 +8,13 @@ Defines the HDRI / radiance image plotting objects:
 -   :func:`colour_hdri.plotting.plot_radiance_image_strip`
 """
 
+from __future__ import annotations
+
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+from colour.hints import Any, ArrayLike, Callable, Floating, Integer, Tuple
 from colour.plotting import CONSTANTS_COLOUR_STYLE, override_style, render
 from colour.utilities import as_float_array
 
@@ -30,36 +33,36 @@ __all__ = [
 
 
 @override_style()
-def plot_radiance_image_strip(
-        image,
-        count=5,
-        ev_steps=-2,
-        cctf_encoding=CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
-        **kwargs):
+def plot_radiance_image_strip(image: ArrayLike,
+                              count: Integer = 5,
+                              ev_steps: Floating = -2,
+                              cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.
+                              colour.colourspace.cctf_encoding,
+                              **kwargs: Any) -> Tuple[plt.Figure, plt.Axes]:
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
 
     Parameters
     ----------
-    image : array_like
+    image
          HDRI / radiance image to plot.
-    count : int, optional
+    count
         Strip images count.
-    ev_steps : numeric, optional
+    ev_steps
         Exposure variation for each image of the strip.
-    cctf_encoding : callable, optional
+    cctf_encoding
         Encoding colour component transfer function / opto-electronic
         transfer function used for plotting.
 
     Other Parameters
     ----------------
-    \\**kwargs : dict, optional
+    kwargs
         {:func:`colour.plotting.display`},
         Please refer to the documentation of the previously listed definition.
 
     Returns
     -------
-    tuple
+    :class:`tuple`
         Current figure and axes.
     """
 
