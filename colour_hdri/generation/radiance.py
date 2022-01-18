@@ -21,12 +21,16 @@ References
     ISBN:978-1-56881-719-4
 """
 
+from __future__ import annotations
+
 import numpy as np
 
-from colour.utilities import tsplit, tstack, warning
+from colour.utilities import as_float_array, tsplit, tstack, warning
+from colour.hints import ArrayLike, Boolean, Callable, NDArray, Optional
 
 from colour_hdri.exposure import average_luminance
 from colour_hdri.generation import weighting_function_Debevec1997
+from colour_hdri.utilities import ImageStack
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
@@ -41,38 +45,39 @@ __all__ = [
 
 
 def image_stack_to_radiance_image(
-        image_stack,
-        weighting_function=weighting_function_Debevec1997,
-        weighting_average=False,
-        camera_response_functions=None):
+        image_stack: ImageStack,
+        weighting_function: Callable = weighting_function_Debevec1997,
+        weighting_average: Boolean = False,
+        camera_response_functions: Optional[ArrayLike] = None
+) -> Optional[NDArray]:
     """
     Generates a HDRI / radiance image from given image stack.
 
     Parameters
     ----------
-    image_stack : colour_hdri.ImageStack
+    image_stack
         Stack of single channel or multi-channel floating point images. The
         stack is assumed to be representing linear values except if
         ``camera_response_functions`` argument is provided.
-    weighting_function : callable, optional
+    weighting_function
         Weighting function :math:`w`.
-    weighting_average : bool, optional
+    weighting_average
          Enables weighting function :math:`w` computation on channels average
          instead of on a per-channel basis.
-    camera_response_functions : array_like, optional
+    camera_response_functions
         Camera response functions :math:`g(z)` of the imaging system / camera
         if the stack is representing non-linear values.
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
         Radiance image.
 
     Warnings
     --------
     If the image stack contains images with negative or equal to zero values,
     unpredictable results may occur and NaNs might be generated. It is
-    thus recommended to encode the images in a wider RGB colourspace or clamp
+    thus recommended encoding the images in a wider RGB colourspace or clamp
     negative values.
 
     References
@@ -80,53 +85,57 @@ def image_stack_to_radiance_image(
     :cite:`Banterle2011n`
     """
 
-    image_c = None
-    weight_c = None
+    image_c: Optional[NDArray] = None
+    weight_c: Optional[NDArray] = None
     for i, image in enumerate(image_stack):
-        if image_c is None:
-            image_c = np.zeros(image.data.shape)
-            weight_c = np.zeros(image.data.shape)
+        if image.data is not None and image.metadata is not None:
+            if image_c is None:
+                image_c = np.zeros(image.data.shape)
+                weight_c = np.zeros(image.data.shape)
 
-        L = 1 / average_luminance(image.metadata.f_number,
-                                  image.metadata.exposure_time,
-                                  image.metadata.iso)
+            L = 1 / average_luminance(image.metadata.f_number,
+                                      image.metadata.exposure_time,
+                                      image.metadata.iso)
 
-        if np.any(image.data <= 0):
-            warning('"{0}" image channels contain negative or equal to zero '
+            if np.any(image.data <= 0):
+                warning(
+                    '"{0}" image channels contain negative or equal to zero '
                     'values, unpredictable results may occur! Please consider '
                     'encoding your images in a wider gamut RGB colourspace or '
                     'clamp negative values.'.format(image.path))
 
-        if weighting_average and image.data.ndim == 3:
-            average = np.average(image.data, axis=-1)
+            if weighting_average and image.data.ndim == 3:
+                average = np.average(image.data, axis=-1)
 
-            weights = weighting_function(average)
-            weights = np.rollaxis(weights[np.newaxis], 0, 3)
-            if i == 0:
-                weights[average >= 0.5] = 1
-            if i == len(image_stack) - 1:
-                weights[average <= 0.5] = 1
-        else:
-            weights = weighting_function(image.data)
-            if i == 0:
-                weights[image.data >= 0.5] = 1
-            if i == len(image_stack) - 1:
-                weights[image.data <= 0.5] = 1
+                weights = weighting_function(average)
+                weights = np.rollaxis(weights[np.newaxis], 0, 3)
+                if i == 0:
+                    weights[average >= 0.5] = 1
+                if i == len(image_stack) - 1:
+                    weights[average <= 0.5] = 1
+            else:
+                weights = weighting_function(image.data)
+                if i == 0:
+                    weights[image.data >= 0.5] = 1
+                if i == len(image_stack) - 1:
+                    weights[image.data <= 0.5] = 1
 
-        image_data = image.data
-        if camera_response_functions is not None:
-            samples = np.linspace(0, 1, camera_response_functions.shape[0])
+            image_data = image.data
+            if camera_response_functions is not None:
+                camera_response_functions = as_float_array(
+                    camera_response_functions)
+                samples = np.linspace(0, 1, camera_response_functions.shape[0])
 
-            R, G, B = tsplit(image.data)
-            R = np.interp(R, samples, camera_response_functions[..., 0])
-            G = np.interp(G, samples, camera_response_functions[..., 1])
-            B = np.interp(B, samples, camera_response_functions[..., 2])
-            image_data = tstack([R, G, B])
+                R, G, B = tsplit(image.data)
+                R = np.interp(R, samples, camera_response_functions[..., 0])
+                G = np.interp(G, samples, camera_response_functions[..., 1])
+                B = np.interp(B, samples, camera_response_functions[..., 2])
+                image_data = tstack([R, G, B])
 
-        image_c += weights * image_data / L
-        weight_c += weights
+            image_c += weights * image_data / L
+            weight_c += weights
 
-    if image_c is not None:
+    if image_c is not None and weight_c is not None:
         image_c /= weight_c
 
     return image_c

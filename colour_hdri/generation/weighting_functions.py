@@ -17,7 +17,11 @@ References
     SIGGRAPH "97, August, 369-378. doi:10.1145/258734.258884
 """
 
+from __future__ import annotations
+
 import numpy as np
+
+from colour.hints import ArrayLike, Floating, NDArray
 
 from colour.utilities import as_float_array
 
@@ -35,22 +39,24 @@ __all__ = [
 ]
 
 
-def normal_distribution_function(a, mu=0.5, sigma=0.15):
+def normal_distribution_function(a: ArrayLike,
+                                 mu: Floating = 0.5,
+                                 sigma: Floating = 0.15) -> NDArray:
     """
     Returns given array weighted by a normal distribution function.
 
     Parameters
     ----------
-    a : array_like
+    a
         Array to apply the weighting function onto.
-    mu : numeric, optional
+    mu
         Mean or expectation.
-    sigma : numeric, optional
+    sigma
         Standard deviation.
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
         Weighted array.
 
     Examples
@@ -65,18 +71,18 @@ def normal_distribution_function(a, mu=0.5, sigma=0.15):
     return np.exp(-np.power(a - mu, 2) / (2 * np.power(sigma, 2)))
 
 
-def hat_function(a):
+def hat_function(a: ArrayLike) -> NDArray:
     """
     Returns given array weighted by a hat function.
 
     Parameters
     ----------
-    a : array_like
+    a
         Array to apply the weighting function onto.
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
         Weighted array.
 
     Examples
@@ -91,24 +97,26 @@ def hat_function(a):
     return 1 - (2 * a - 1) ** 12
 
 
-def weighting_function_Debevec1997(a, domain_l=0.01, domain_h=0.99):
+def weighting_function_Debevec1997(a: ArrayLike,
+                                   domain_l: Floating = 0.01,
+                                   domain_h: Floating = 0.99) -> NDArray:
     """
     Returns given array weighted by *Debevec (1997)* function.
 
     Parameters
     ----------
-    a : array_like
+    a
         Array to apply the weighting function onto.
-    domain_l : numeric, optional
+    domain_l
         Domain lowest possible value, values less than ``domain_l`` will be set
         to zero.
-    domain_h : numeric, optional
+    domain_h
         Domain highest possible value, values greater than ``domain_h`` will be
         set to zero.
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
         Weighted array.
 
     References
