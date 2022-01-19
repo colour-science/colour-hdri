@@ -29,9 +29,9 @@ EXIF Data Manipulation
     :toctree: generated/
 
     EXIF_EXECUTABLE
-    ExifTag
+    EXIFTag
     parse_exif_string
-    parse_exif_numeric
+    parse_exif_number
     parse_exif_fraction
     parse_exif_array
     parse_exif_data

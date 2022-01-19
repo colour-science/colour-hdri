@@ -3,9 +3,9 @@
 from .common import vivification, vivified_to_dict, path_exists, filter_files
 from .exif import (
     EXIF_EXECUTABLE,
-    ExifTag,
+    EXIFTag,
     parse_exif_string,
-    parse_exif_numeric,
+    parse_exif_number,
     parse_exif_fraction,
     parse_exif_array,
     parse_exif_data,
@@ -27,9 +27,9 @@ __all__ += [
 ]
 __all__ += [
     'EXIF_EXECUTABLE',
-    'ExifTag',
+    'EXIFTag',
     'parse_exif_string',
-    'parse_exif_numeric',
+    'parse_exif_number',
     'parse_exif_fraction',
     'parse_exif_array',
     'parse_exif_data',

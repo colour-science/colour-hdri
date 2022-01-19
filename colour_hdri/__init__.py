@@ -30,7 +30,7 @@ import colour
 
 from .utilities import (
     EXIF_EXECUTABLE,
-    ExifTag,
+    EXIFTag,
     Image,
     ImageStack,
     Metadata,
@@ -40,7 +40,7 @@ from .utilities import (
     parse_exif_array,
     parse_exif_data,
     parse_exif_fraction,
-    parse_exif_numeric,
+    parse_exif_number,
     parse_exif_string,
     path_exists,
     read_exif_tag,
@@ -122,7 +122,7 @@ __status__ = 'Production'
 
 __all__ = [
     'EXIF_EXECUTABLE',
-    'ExifTag',
+    'EXIFTag',
     'Image',
     'ImageStack',
     'Metadata',
@@ -132,7 +132,7 @@ __all__ = [
     'parse_exif_array',
     'parse_exif_data',
     'parse_exif_fraction',
-    'parse_exif_numeric',
+    'parse_exif_number',
     'parse_exif_string',
     'path_exists',
     'read_exif_tag',

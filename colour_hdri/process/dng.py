@@ -27,9 +27,9 @@ from colour.utilities.documentation import (
 )
 
 from colour_hdri.utilities import (
-    ExifTag,
+    EXIFTag,
     parse_exif_array,
-    parse_exif_numeric,
+    parse_exif_number,
     parse_exif_string,
     path_exists,
     read_exif_tags,
@@ -134,26 +134,26 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
             'Camera Serial Number': (parse_exif_string, None),
             'Lens Model': (parse_exif_string, None),
             'DNG Lens Info': (parse_exif_string, None),
-            'Focal Length': (parse_exif_numeric, None),
-            'Exposure Time': (parse_exif_numeric, None),
-            'F Number': (parse_exif_numeric, None),
-            'ISO': (parse_exif_numeric, None),
+            'Focal Length': (parse_exif_number, None),
+            'Exposure Time': (parse_exif_number, None),
+            'F Number': (parse_exif_number, None),
+            'ISO': (parse_exif_number, None),
             'CFA Pattern 2': (lambda x: parse_exif_array(x, np.int_), None),
             'CFA Plane Color': (lambda x: parse_exif_array(x, np.int_), None),
             'Black Level Repeat Dim': (lambda x: parse_exif_array(x, np.int_),
                                        None),
             'Black Level': (lambda x: parse_exif_array(x, np.int_), None),
             'White Level': (lambda x: parse_exif_array(x, np.int_), None),
-            'Samples Per Pixel': (lambda x: parse_exif_numeric(x, np.int_),
+            'Samples Per Pixel': (lambda x: parse_exif_number(x, np.int_),
                                   None),
             'Active Area': (lambda x: parse_exif_array(x, np.int_), None),
-            'Orientation': (lambda x: parse_exif_numeric(x, np.int_), None),
+            'Orientation': (lambda x: parse_exif_number(x, np.int_), None),
             'Camera Calibration Sig': (parse_exif_string, None),
             'Profile Calibration Sig': (parse_exif_string, None),
             'Calibration Illuminant 1': (
-                lambda x: parse_exif_numeric(x, np.int_), 17),
+                lambda x: parse_exif_number(x, np.int_), 17),
             'Calibration Illuminant 2': (
-                lambda x: parse_exif_numeric(x, np.int_), 21),
+                lambda x: parse_exif_number(x, np.int_), 21),
             'Color Matrix 1': (
                 lambda x: parse_exif_array(x, np.float_, (3, 3)),
                 '1 0 0 0 1 0 0 0 1'),
@@ -182,10 +182,9 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
                 '1 0 0 0 1 0 0 0 1'),
             'As Shot Neutral': (lambda x: parse_exif_array(x, np.float_),
                                 '1 1 1'),
-            'Baseline Exposure': (lambda x: parse_exif_numeric(x, np.float_),
+            'Baseline Exposure': (lambda x: parse_exif_number(x, np.float_),
                                   None),
-            'Baseline Noise': (lambda x: parse_exif_numeric(x, np.float_),
-                               None)
+            'Baseline Noise': (lambda x: parse_exif_number(x, np.float_), None)
         })
 })
 DNG_EXIF_TAGS_BINDING.__doc__ = """
@@ -320,7 +319,7 @@ def read_dng_files_exif_tags(dng_files,
                     default = binding[group][tag][1]
                     binding[group][tag] = (
                         default if default is None else parser(
-                            ExifTag(value=binding[group][tag][1])))
+                            EXIFTag(value=binding[group][tag][1])))
                 else:
                     binding[group][tag] = parser(exif_tag[0])
 

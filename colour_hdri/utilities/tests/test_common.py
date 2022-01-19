@@ -4,6 +4,8 @@
 Defines the unit tests for the :mod:`colour_hdri.utilities.common` module.
 """
 
+from __future__ import annotations
+
 import os
 import unittest
 
@@ -30,8 +32,8 @@ __all__ = [
     'TestFilterFiles',
 ]
 
-FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                       'frobisher_001')
+FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                            'frobisher_001')
 
 
 class TestVivification(unittest.TestCase):

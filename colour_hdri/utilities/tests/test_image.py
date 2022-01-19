@@ -4,13 +4,15 @@
 Defines the unit tests for the :mod:`colour_hdri.utilities.image` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import unittest
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.utilities import filter_files
-from colour_hdri.utilities import Metadata, Image, ImageStack
+from colour_hdri.utilities import Image, ImageStack
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
@@ -20,30 +22,12 @@ __email__ = 'colour-developers@colour-science.org'
 __status__ = 'Production'
 
 __all__ = [
-    'TestMetadata',
+    'TestImage',
+    'TestImageStack',
 ]
 
-FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                       'frobisher_001')
-
-
-class TestMetadata(unittest.TestCase):
-    """
-    Defines :class:`colour_hdri.utilities.image.Metadata` class unit tests
-    methods.
-    """
-
-    def test_required_attributes(self):
-        """
-        Tests presence of required attributes.
-        """
-
-        required_attributes = ('f_number', 'exposure_time', 'iso',
-                               'black_level', 'white_level',
-                               'white_balance_multipliers')
-
-        for attribute in required_attributes:
-            self.assertIn(attribute, dir(Metadata))
+FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                            'frobisher_001')
 
 
 class TestImage(unittest.TestCase):
@@ -87,7 +71,7 @@ class TestImage(unittest.TestCase):
 
         image = Image(self._test_jpg_image)
 
-        np.testing.assert_array_equal(image.data, np.array(np.nan))
+        self.assertIsNone(image.data)
         self.assertTupleEqual(image.read_data().shape, (426, 640, 3))
 
     def test_read_metadata(self):
@@ -98,9 +82,9 @@ class TestImage(unittest.TestCase):
         image = Image(self._test_jpg_image)
 
         self.assertEqual(image.metadata, None)
-        self.assertTupleEqual(
-            tuple(image.read_metadata()),
-            (8.0, 0.125, 100.0, None, None, None))
+        np.testing.assert_array_equal(
+            np.array(image.read_metadata()),
+            np.array([8.0, 0.125, 100.0, np.nan, np.nan, np.nan]))
 
 
 class TestImageStack(unittest.TestCase):

@@ -4,6 +4,8 @@
 Defines the unit tests for the :mod:`colour_hdri.utilities.exif` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import shutil
@@ -13,9 +15,9 @@ import unittest
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.utilities import filter_files, vivified_to_dict
 from colour_hdri.utilities import (
-    ExifTag,
+    EXIFTag,
     parse_exif_string,
-    parse_exif_numeric,
+    parse_exif_number,
     parse_exif_fraction,
     parse_exif_array,
     parse_exif_data,
@@ -37,7 +39,7 @@ __status__ = 'Production'
 __all__ = [
     'FROBISHER_001_DIRECTORY',
     'TestParseExifString',
-    'TestParseExifNumeric',
+    'TestParseExifNumber',
     'TestParseExifFraction',
     'TestParseExifArray',
     'TestParseExifData',
@@ -49,8 +51,8 @@ __all__ = [
     'TestWriteExifTag',
 ]
 
-FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                       'frobisher_001')
+FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                            'frobisher_001')
 
 
 class TestParseExifString(unittest.TestCase):
@@ -64,26 +66,26 @@ class TestParseExifString(unittest.TestCase):
         Tests :func:`colour_hdri.utilities.exif.parse_exif_string` definition.
         """
 
-        exif_tag = ExifTag('EXIF', 'Make', 'Canon', '271')
+        exif_tag = EXIFTag('EXIF', 'Make', 'Canon', '271')
         self.assertEqual(parse_exif_string(exif_tag), 'Canon')
 
 
-class TestParseExifNumeric(unittest.TestCase):
+class TestParseExifNumber(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.parse_exif_numeric` definition
+    Defines :func:`colour_hdri.utilities.exif.parse_exif_number` definition
     unit tests methods.
     """
 
-    def test_parse_exif_numeric(self):
+    def test_parse_exif_number(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.parse_exif_numeric` definition.
+        Tests :func:`colour_hdri.utilities.exif.parse_exif_number` definition.
         """
 
-        exif_tag = ExifTag('EXIF', 'Focal Length', '16', '37386')
-        self.assertEqual(parse_exif_numeric(exif_tag), 16)
+        exif_tag = EXIFTag('EXIF', 'Focal Length', '16', '37386')
+        self.assertEqual(parse_exif_number(exif_tag), 16)
 
-        exif_tag = ExifTag('EXIF', 'Focal Length', '16', '37386')
-        self.assertIsInstance(parse_exif_numeric(exif_tag, np.int_), np.int_)
+        exif_tag = EXIFTag('EXIF', 'Focal Length', '16', '37386')
+        self.assertIsInstance(parse_exif_number(exif_tag, np.int_), np.int_)
 
 
 class TestParseExifFraction(unittest.TestCase):
@@ -98,15 +100,13 @@ class TestParseExifFraction(unittest.TestCase):
         definition.
         """
 
-        exif_tag = ExifTag('EXIF', 'Exposure Time', '0.01666666667', '33434')
+        exif_tag = EXIFTag('EXIF', 'Exposure Time', '0.01666666667', '33434')
         self.assertAlmostEqual(
             parse_exif_fraction(exif_tag), 0.01666666, places=7)
 
-        exif_tag = ExifTag('EXIF', 'Exposure Time', '10/4000', '33434')
+        exif_tag = EXIFTag('EXIF', 'Exposure Time', '10/4000', '33434')
         self.assertAlmostEqual(
             parse_exif_fraction(exif_tag), 0.00250000, places=7)
-
-        self.assertIsInstance(parse_exif_fraction(exif_tag, np.int_), np.int_)
 
 
 class TestParseExifArray(unittest.TestCase):
@@ -120,26 +120,35 @@ class TestParseExifArray(unittest.TestCase):
         Tests :func:`colour_hdri.utilities.exif.parse_exif_array` definition.
         """
 
-        exif_tag = ExifTag(
+        exif_tag = EXIFTag(
             'EXIF',
             'Color Matrix 1',
             ('0.5309 -0.0229 -0.0336 '
              '-0.6241 1.3265 0.3337 '
              '-0.0817 0.1215 0.6664'),
-            '50721')  # yapf: disable
+            '50721',
+        )
         np.testing.assert_array_equal(
             parse_exif_array(exif_tag),
             np.array([
-                0.5309, -0.0229, -0.0336,
-                -0.6241, 1.3265, 0.3337,
-                -0.0817, 0.1215, 0.6664]))  # yapf: disable
+                0.5309,
+                -0.0229,
+                -0.0336,
+                -0.6241,
+                1.3265,
+                0.3337,
+                -0.0817,
+                0.1215,
+                0.6664,
+            ]))
 
         np.testing.assert_array_equal(
             parse_exif_array(exif_tag, shape=(3, 3)),
             np.array([
                 [0.5309, -0.0229, -0.0336],
                 [-0.6241, 1.3265, 0.3337],
-                [-0.0817, 0.1215, 0.6664]]))  # yapf: disable
+                [-0.0817, 0.1215, 0.6664],
+            ]))
 
 
 class TestParseExifData(unittest.TestCase):
@@ -192,25 +201,34 @@ class TestReadExifTags(unittest.TestCase):
             ])
 
         self.assertListEqual(
-            sorted(exif_data['EXIF'].values()),
-            [[ExifTag('EXIF', 'Camera Model Name', 'EOS 5D Mark II', '272')],
-             [ExifTag('EXIF', 'Create Date', '2015:09:19 03:39:20', '36868')],
-             [ExifTag('EXIF', 'Date/Time Original',
-                      '2015:09:19 03:39:20', '36867')],
-             [ExifTag('EXIF', 'Exif Image Height', '426', '40963')],
-             [ExifTag('EXIF', 'Exif Image Width', '640', '40962')],
-             [ExifTag('EXIF', 'Exposure Time', '0.125', '33434')],
-             [ExifTag('EXIF', 'F Number', '8', '33437')],
-             [ExifTag('EXIF', 'Focal Length', '16', '37386')],
-             [ExifTag('EXIF', 'ISO', '100', '34855')],
-             [ExifTag('EXIF', 'Make', 'Canon', '271')],
-             [ExifTag('EXIF', 'Modify Date', '2015:09:19 03:39:20', '306')],
-             [ExifTag('EXIF', 'Orientation', '1', '274')],
-             [ExifTag('EXIF', 'Photometric Interpretation', '2', '262')],
-             [ExifTag('EXIF', 'Resolution Unit', '2', '296')],
-             [ExifTag('EXIF', 'Software', 'Photos 1.0.1', '305')],
-             [ExifTag('EXIF', 'X Resolution', '72', '282')],
-             [ExifTag('EXIF', 'Y Resolution', '72', '283')]])  # yapf: disable
+            sorted(exif_data['EXIF'].values(), key=lambda x: x[0].name), [
+                [
+                    EXIFTag('EXIF', 'Camera Model Name', 'EOS 5D Mark II',
+                            '272')
+                ],
+                [
+                    EXIFTag('EXIF', 'Create Date', '2015:09:19 03:39:20',
+                            '36868')
+                ],
+                [
+                    EXIFTag('EXIF', 'Date/Time Original',
+                            '2015:09:19 03:39:20', '36867')
+                ],
+                [EXIFTag('EXIF', 'Exif Image Height', '426', '40963')],
+                [EXIFTag('EXIF', 'Exif Image Width', '640', '40962')],
+                [EXIFTag('EXIF', 'Exposure Time', '0.125', '33434')],
+                [EXIFTag('EXIF', 'F Number', '8', '33437')],
+                [EXIFTag('EXIF', 'Focal Length', '16', '37386')],
+                [EXIFTag('EXIF', 'ISO', '100', '34855')],
+                [EXIFTag('EXIF', 'Make', 'Canon', '271')],
+                [EXIFTag('EXIF', 'Modify Date', '2015:09:19 03:39:20', '306')],
+                [EXIFTag('EXIF', 'Orientation', '1', '274')],
+                [EXIFTag('EXIF', 'Photometric Interpretation', '2', '262')],
+                [EXIFTag('EXIF', 'Resolution Unit', '2', '296')],
+                [EXIFTag('EXIF', 'Software', 'Photos 1.0.1', '305')],
+                [EXIFTag('EXIF', 'X Resolution', '72', '282')],
+                [EXIFTag('EXIF', 'Y Resolution', '72', '283')],
+            ])
 
 
 class TestCopyExifTags(unittest.TestCase):
