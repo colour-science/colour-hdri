@@ -5,6 +5,8 @@ Defines the unit tests for the
 :mod:`colour_hdri.sampling.variance_minimization` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import unittest
@@ -34,8 +36,8 @@ __all__ = [
     'TestLightProbeSamplingVarianceMinimizationViriyothai2009',
 ]
 
-SAMPLING_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
-                                  'sampling')
+SAMPLING_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                       'colour_hdri', 'sampling')
 
 
 class TestLuminanceVariance(unittest.TestCase):

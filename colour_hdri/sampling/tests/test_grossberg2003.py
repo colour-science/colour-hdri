@@ -5,9 +5,13 @@ Defines the unit tests for the :mod:`colour_hdri.sampling.grossberg2003`
 module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import unittest
+
+from colour.hints import List
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.sampling import samples_Grossberg2003
@@ -27,13 +31,13 @@ __all__ = [
     'TestSamplesGrossberg2003',
 ]
 
-FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                       'frobisher_001')
+FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                            'frobisher_001')
 
-SAMPLING_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
-                                  'sampling')
+SAMPLING_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                       'colour_hdri', 'sampling')
 
-JPG_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('jpg', ))
+JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ('jpg', ))
 
 
 class TestSamplesGrossberg2003(unittest.TestCase):

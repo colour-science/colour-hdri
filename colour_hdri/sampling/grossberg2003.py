@@ -17,8 +17,11 @@ References
     1455-1467. doi:10.1109/TPAMI.2003.1240119
 """
 
+from __future__ import annotations
+
 import numpy as np
 
+from colour.hints import ArrayLike, Integer, NDArray
 from colour.utilities import as_float_array, tsplit, tstack
 
 __author__ = 'Colour Developers'
@@ -33,23 +36,25 @@ __all__ = [
 ]
 
 
-def samples_Grossberg2003(image_stack, samples=1000, n=256):
+def samples_Grossberg2003(image_stack: ArrayLike,
+                          samples: Integer = 1000,
+                          n: Integer = 256) -> NDArray:
     """
     Returns the samples for given image stack intensity histograms using
     *Grossberg (2003)* method.
 
     Parameters
     ----------
-    image_stack : array_like
+    image_stack
         Stack of single channel or multi-channel floating point images.
-    samples : int, optional
+    samples
         Samples count.
-    n : int, optional
+    n
         Histograms bins count.
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
         Intensity histograms samples.
 
     References
