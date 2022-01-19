@@ -11,6 +11,8 @@ and *dcraw*:
 -   :func:`colour_hdri.read_dng_files_exif_tags`
 """
 
+from __future__ import annotations
+
 import logging
 import numpy as np
 import os
@@ -18,8 +20,16 @@ import platform
 import re
 import shlex
 import subprocess  # nosec
-from copy import deepcopy
 
+from colour.hints import (
+    Callable,
+    Boolean,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Tuple,
+)
 from colour.utilities import CaseInsensitiveMapping, warning
 from colour.utilities.documentation import (
     DocstringText,
@@ -54,26 +64,24 @@ __all__ = [
     'read_dng_files_exif_tags',
 ]
 
-_IS_MACOS_PLATFORM = platform.system() == 'Darwin'
+_IS_MACOS_PLATFORM: Boolean = platform.system() == 'Darwin'
 """
 Whether the current platform is *macOS*.
 """
 
-_IS_WINDOWS_PLATFORM = platform.system() in ('Windows', 'Microsoft')
+_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ('Windows', 'Microsoft')
 """
 Whether the current platform is *Windows*.
 """
 
-RAW_CONVERTER = 'dcraw'
+RAW_CONVERTER: str = 'dcraw'
 if is_documentation_building():  # pragma: no cover
     RAW_CONVERTER = DocstringText(RAW_CONVERTER)
     RAW_CONVERTER.__doc__ = """
 Command line raw conversion application, usually Dave Coffin's *dcraw*.
-
-RAW_CONVERTER : str
 """
 
-RAW_CONVERSION_ARGUMENTS = '-t 0 -D -W -4 -T "{0}"'
+RAW_CONVERSION_ARGUMENTS: str = '-t 0 -D -W -4 -T "{0}"'
 if _IS_WINDOWS_PLATFORM:
     RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', '')
 if is_documentation_building():  # pragma: no cover
@@ -81,11 +89,9 @@ if is_documentation_building():  # pragma: no cover
     RAW_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for non
 demosaiced linear *tiff* file format output.
-
-RAW_CONVERSION_ARGUMENTS : str
 """
 
-RAW_D_CONVERSION_ARGUMENTS = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
+RAW_D_CONVERSION_ARGUMENTS: str = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
 if _IS_WINDOWS_PLATFORM:
     RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', '')
 if is_documentation_building():  # pragma: no cover
@@ -93,40 +99,36 @@ if is_documentation_building():  # pragma: no cover
     RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
-
-RAW_D_CONVERSION_ARGUMENTS : str
 """
 
 if _IS_MACOS_PLATFORM:
-    DNG_CONVERTER = ('/Applications/Adobe DNG Converter.app/Contents/'
-                     'MacOS/Adobe DNG Converter')
+    DNG_CONVERTER: Optional[str] = (
+        '/Applications/Adobe DNG Converter.app/Contents/'
+        'MacOS/Adobe DNG Converter')
 elif _IS_WINDOWS_PLATFORM:
-    DNG_CONVERTER = 'Adobe DNG Converter'
+    DNG_CONVERTER: Optional[str] = (  # type: ignore[no-redef]
+        'Adobe DNG Converter')
 else:
     warning('"Adobe DNG Converter" is not available on your platform!')
-    DNG_CONVERTER = None
+    DNG_CONVERTER: Optional[str] = None  # type: ignore[no-redef]
 
 if DNG_CONVERTER is not None:
     if is_documentation_building():  # pragma: no cover
         DNG_CONVERTER = DocstringText(DNG_CONVERTER)
         DNG_CONVERTER.__doc__ = """
 Command line *DNG* conversion application, usually *Adobe DNG Converter*.
-
-DNG_CONVERTER : str
 """
 
-DNG_CONVERSION_ARGUMENTS = '-cr7.1 -l -d "{0}" "{1}"'
+DNG_CONVERSION_ARGUMENTS: str = '-cr7.1 -l -d "{0}" "{1}"'
 if _IS_WINDOWS_PLATFORM:
     DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', '')
 if is_documentation_building():  # pragma: no cover
     DNG_CONVERSION_ARGUMENTS = DocstringText(DNG_CONVERSION_ARGUMENTS)
     DNG_CONVERSION_ARGUMENTS.__doc__ = """
 Arguments for the command line *dng* conversion application.
-
-DNG_CONVERSION_ARGUMENTS : str
 """
 
-DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
+DNG_EXIF_TAGS_BINDING: CaseInsensitiveMapping = CaseInsensitiveMapping({
     'EXIF':
         CaseInsensitiveMapping({
             'Make': (parse_exif_string, None),
@@ -189,72 +191,81 @@ DNG_EXIF_TAGS_BINDING = CaseInsensitiveMapping({
 })
 DNG_EXIF_TAGS_BINDING.__doc__ = """
 Exif tags binding for a *dng* file.
-
-DNG_EXIF_TAGS_BINDING : CaseInsensitiveMapping
 """
 
 
-def convert_raw_files_to_dng_files(raw_files, output_directory):
+def convert_raw_files_to_dng_files(raw_files: Sequence[str],
+                                   output_directory: str) -> List[str]:
     """
     Converts given raw files to *dng* files using given output directory.
 
     Parameters
     ----------
-    raw_files : array_like
+    raw_files
         Raw files to convert to *dng* files.
-    output_directory : str
+    output_directory
         Output directory.
 
     Returns
     -------
-    list
+    :class:`list`
         *dng* files.
+
+    Raises
+    ------
+    RuntimeError
+        If the *Adobe DNG Converter* is not available.
     """
 
-    dng_files = []
-    for raw_file in raw_files:
-        raw_file_extension = os.path.splitext(raw_file)[1]
-        dng_file = os.path.join(
-            output_directory,
-            os.path.basename(
-                re.sub('{0}$'.format(raw_file_extension), '.dng', raw_file)))
+    if DNG_CONVERTER is not None:
+        dng_files = []
+        for raw_file in raw_files:
+            raw_file_extension = os.path.splitext(raw_file)[1]
+            dng_file = os.path.join(
+                output_directory,
+                os.path.basename(
+                    re.sub('{0}$'.format(raw_file_extension), '.dng',
+                           raw_file)))
 
-        if path_exists(dng_file):
-            os.remove(dng_file)
+            if path_exists(dng_file):
+                os.remove(dng_file)
 
-        logging.info('Converting "{0}" file to "{1}" file.'.format(
-            raw_file, dng_file))
+            logging.info('Converting "{0}" file to "{1}" file.'.format(
+                raw_file, dng_file))
 
-        command = [DNG_CONVERTER] + shlex.split(
-            DNG_CONVERSION_ARGUMENTS.format(output_directory, raw_file),
-            posix=not _IS_WINDOWS_PLATFORM)
+            command = [DNG_CONVERTER] + shlex.split(
+                DNG_CONVERSION_ARGUMENTS.format(output_directory, raw_file),
+                posix=not _IS_WINDOWS_PLATFORM)
 
-        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
+            subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
-        dng_files.append(dng_file)
+            dng_files.append(dng_file)
 
-    return dng_files
+        return dng_files
+    else:
+        raise RuntimeError('The "Adobe DNG Converter" is not available!')
 
 
-def convert_dng_files_to_intermediate_files(dng_files,
-                                            output_directory,
-                                            demosaicing=False):
+def convert_dng_files_to_intermediate_files(
+        dng_files: Sequence[str],
+        output_directory: str,
+        demosaicing: Boolean = False) -> List[str]:
     """
     Converts given *dng* files to intermediate *tiff* files using given output
     directory.
 
     Parameters
     ----------
-    dng_files : array_like
+    dng_files
         *dng* files to convert to intermediate *tiff* files.
-    output_directory : str
+    output_directory
         Output directory.
-    demosaicing : bool
+    demosaicing
         Perform demosaicing on conversion.
 
     Returns
     -------
-    list
+    :class:`list`
         Intermediate *tiff* files.
     """
 
@@ -289,37 +300,38 @@ def convert_dng_files_to_intermediate_files(dng_files,
     return intermediate_files
 
 
-def read_dng_files_exif_tags(dng_files,
-                             exif_tags_binding=DNG_EXIF_TAGS_BINDING):
+def read_dng_files_exif_tags(
+        dng_files: Sequence[str],
+        exif_tags_binding: Mapping[str, Mapping[str, Tuple[Callable, Optional[
+            str]]]] = DNG_EXIF_TAGS_BINDING) -> List[CaseInsensitiveMapping]:
     """
     Reads given *dng* files exif tags using given binding.
 
     Parameters
     ----------
-    dng_files : array_like
+    dng_files
         *dng* files to read the exif tags from.
-    exif_tags_binding : dict_like
+    exif_tags_binding
         Exif tags binding.
 
     Returns
     -------
-    list
+    :class:`list`
         *dng* files exif tags.
     """
 
     dng_files_exif_tags = []
     for dng_file in dng_files:
         exif_tags = read_exif_tags(dng_file)
-        binding = deepcopy(exif_tags_binding)
-        for group, tags in binding.items():
-            for tag in tags:
+        binding = CaseInsensitiveMapping()
+        for group, tags in exif_tags_binding.items():
+            binding[group] = CaseInsensitiveMapping()
+            for tag, (parser, default) in tags.items():
                 exif_tag = exif_tags[group].get(tag)
-                parser = binding[group][tag][0]
                 if exif_tag is None:
-                    default = binding[group][tag][1]
-                    binding[group][tag] = (
-                        default if default is None else parser(
-                            EXIFTag(value=binding[group][tag][1])))
+                    binding[group][tag] = (default
+                                           if default is None else parser(
+                                               EXIFTag(value=default)))
                 else:
                     binding[group][tag] = parser(exif_tag[0])
 

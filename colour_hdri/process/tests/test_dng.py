@@ -4,6 +4,8 @@
 Defines the unit tests for the :mod:`colour_hdri.process.adobe_dng` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import platform
@@ -13,6 +15,7 @@ import unittest
 import zipfile
 
 from colour import read_image
+from colour.hints import List
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.process import (
@@ -37,13 +40,13 @@ __all__ = [
     'TestConvertDngFilesToIntermediateFiles',
 ]
 
-FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                       'frobisher_001')
+FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                            'frobisher_001')
 
-PROCESS_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
-                                 'process')
+PROCESS_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
+                                      'process')
 
-RAW_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('CR2', ))
+RAW_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ('CR2', ))
 
 
 class TestConvertRawFilesToDngFiles(unittest.TestCase):
