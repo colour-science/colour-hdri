@@ -4,6 +4,8 @@
 Defines the unit tests for the :mod:`colour_hdri.recovery.highlights` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import platform
@@ -15,6 +17,7 @@ import tempfile
 import unittest
 
 from colour import read_image
+from colour.hints import Boolean, List, NDArray
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
 from colour_hdri.process import RAW_CONVERTER, RAW_D_CONVERSION_ARGUMENTS
@@ -41,23 +44,24 @@ __all__ = [
     'TestHighlightsRecoveryLCHab',
 ]
 
-_IS_WINDOWS_PLATFORM = platform.system() in ('Windows', 'Microsoft')
+_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ('Windows', 'Microsoft')
 """
 Whether the current platform is *Windows*.
 """
 
-FROBISHER_001_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                       'frobisher_001')
+FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                            'frobisher_001')
 
-RECOVERY_DIRECTORY = os.path.join(TESTS_RESOURCES_DIRECTORY, 'colour_hdri',
-                                  'recovery')
+RECOVERY_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
+                                       'colour_hdri', 'recovery')
 
-RAW_IMAGES = filter_files(FROBISHER_001_DIRECTORY, ('CR2', ))
+RAW_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ('CR2', ))
 
-XYZ_TO_CAMERA_SPACE_MATRIX = np.array(
-    [[0.47160000, 0.06030000, -0.08300000],
-     [-0.77980000, 1.54740000, 0.24800000],
-     [-0.14960000, 0.19370000, 0.66510000]])  # yapf: disable
+XYZ_TO_CAMERA_SPACE_MATRIX: NDArray = np.array([
+    [0.47160000, 0.06030000, -0.08300000],
+    [-0.77980000, 1.54740000, 0.24800000],
+    [-0.14960000, 0.19370000, 0.66510000],
+])
 
 
 class TestHighlightsRecoveryBlend(unittest.TestCase):
