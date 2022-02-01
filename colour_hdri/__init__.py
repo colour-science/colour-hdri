@@ -225,17 +225,18 @@ __version__ = '.'.join(
      __change_version__))  # yapf: disable
 
 try:
-    version = subprocess.check_output(  # nosec
+    _version: str = subprocess.check_output(  # nosec
         ['git', 'describe'],
         cwd=os.path.dirname(__file__),
-        stderr=subprocess.STDOUT).strip()
-    version = version.decode('utf-8')
+        stderr=subprocess.STDOUT).strip().decode('utf-8')
 except Exception:
-    version = __version__
+    _version: str = __version__  # type: ignore[no-redef]
 
-colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES['colour-hdri'] = version
+colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES['colour-hdri'] = _version
 colour.utilities.ANCILLARY_RUNTIME_PACKAGES[
     'recordclass'] = recordclass.__version__
+
+del _version
 
 # TODO: Remove legacy printing support when deemed appropriate.
 try:
