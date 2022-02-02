@@ -17,7 +17,7 @@ is available to guide the process: https://www.colour-science.org/contributing/.
 - [ ] Pre-commit hooks have been run and passed.
 
 <!-- The unit tests can be invoked with `poetry run invoke tests` -->
-<!-- Mypy can be started with `dmypy run -- --show-error-codes --warn-unused-ignores --warn-redundant-casts --install-types --non-interactive -p colour-datasets` -->
+<!-- Mypy can be started with `dmypy run -- --show-error-codes --warn-unused-ignores --warn-redundant-casts --install-types --non-interactive -p colour-hdri` -->
 
 **Documentation**
 

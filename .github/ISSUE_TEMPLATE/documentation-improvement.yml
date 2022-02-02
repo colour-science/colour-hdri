@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: >
-        Thank you for taking the time to file a documentation improvement report. Before continuing, please take some time to check the existing [issues](https://github.com/colour-science/colour-datasets/issues).
+        Thank you for taking the time to file a documentation improvement report. Before continuing, please take some time to check the existing [issues](https://github.com/colour-science/colour-hdri/issues).
 
   - type: input
     attributes:
