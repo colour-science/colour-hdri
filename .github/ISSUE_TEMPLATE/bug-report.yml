@@ -7,8 +7,8 @@ body:
   - type: markdown
     attributes:
       value: >
-        Thank you for taking the time to file a bug report. Before continuing, please take some time to check the existing [issues](https://github.com/colour-science/colour-datasets/issues).
-        The issue could already be fixed in the [develop](https://github.com/colour-science/colour-datasets) branch. If you have an installation problem, the [installation guide](https://www.colour-science.org/installation-guide/) describes the recommended process.
+        Thank you for taking the time to file a bug report. Before continuing, please take some time to check the existing [issues](https://github.com/colour-science/colour-hdri/issues).
+        The issue could already be fixed in the [develop](https://github.com/colour-science/colour-hdri) branch. If you have an installation problem, the [installation guide](https://www.colour-science.org/installation-guide/) describes the recommended process.
 
   - type: textarea
     attributes:
