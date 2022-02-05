@@ -49,13 +49,13 @@ JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
 
 class TestGSolve(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.calibration.debevec1997.g_solve` definition
+    Define :func:`colour_hdri.calibration.debevec1997.g_solve` definition
     unit tests methods.
     """
 
     def test_g_solve(self):
         """
-        Tests :func:`colour_hdri.calibration.debevec1997.g_solve` definition.
+        Test :func:`colour_hdri.calibration.debevec1997.g_solve` definition.
         """
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
@@ -99,13 +99,13 @@ class TestGSolve(unittest.TestCase):
 
 class TestCameraResponseFunctionsDebevec1997(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.calibration.debevec1997.\
+    Define :func:`colour_hdri.calibration.debevec1997.\
 camera_response_functions_Debevec1997` definition unit tests methods.
     """
 
     def test_camera_response_function_Debevec1997(self):
         """
-        Tests :func:`colour_hdri.calibration.debevec1997.\
+        Test :func:`colour_hdri.calibration.debevec1997.\
 camera_response_functions_Debevec1997` definition.
         """
 

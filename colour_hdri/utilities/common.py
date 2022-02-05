@@ -30,7 +30,7 @@ __all__ = [
 
 def vivification() -> defaultdict:
     """
-    Implements supports for vivification of the underlying dict like
+    Implement supports for vivification of the underlying dict like
     data-structure, magical!
 
     Returns
@@ -52,7 +52,7 @@ def vivification() -> defaultdict:
 
 def vivified_to_dict(vivified: Union[Dict, defaultdict]) -> Dict:
     """
-    Converts given vivified data-structure to dictionary.
+    Convert given vivified data-structure to dictionary.
 
     Parameters
     ----------
@@ -80,7 +80,7 @@ def vivified_to_dict(vivified: Union[Dict, defaultdict]) -> Dict:
 
 def path_exists(path: Optional[str]) -> Boolean:
     """
-    Returns whether given path exists.
+    Return whether given path exists.
 
     Parameters
     ----------
@@ -108,7 +108,7 @@ def path_exists(path: Optional[str]) -> Boolean:
 
 def filter_files(directory: str, extensions: Sequence[str]) -> List[str]:
     """
-    Filters given directory for files matching given extensions.
+    Filter given directory for files matching given extensions.
 
     Parameters
     ----------

@@ -44,13 +44,13 @@ JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
 
 class TestRadianceImage(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.generation.radiance.\
+    Define :func:`colour_hdri.generation.radiance.\
 image_stack_to_radiance_image` definition unit tests methods.
     """
 
     def test_radiance_image(self):
         """
-        Tests :func:`colour_hdri.generation.\
+        Test :func:`colour_hdri.generation.\
 radiance.image_stack_to_radiance_image` definition.
         """
 

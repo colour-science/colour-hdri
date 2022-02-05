@@ -57,13 +57,13 @@ FROBISHER_001_DIRECTORY: str = os.path.join(
 
 class TestParseExifString(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.parse_exif_string` definition
+    Define :func:`colour_hdri.utilities.exif.parse_exif_string` definition
     unit tests methods.
     """
 
     def test_parse_exif_string(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.parse_exif_string` definition.
+        Test :func:`colour_hdri.utilities.exif.parse_exif_string` definition.
         """
 
         exif_tag = EXIFTag("EXIF", "Make", "Canon", "271")
@@ -72,13 +72,13 @@ class TestParseExifString(unittest.TestCase):
 
 class TestParseExifNumber(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.parse_exif_number` definition
+    Define :func:`colour_hdri.utilities.exif.parse_exif_number` definition
     unit tests methods.
     """
 
     def test_parse_exif_number(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.parse_exif_number` definition.
+        Test :func:`colour_hdri.utilities.exif.parse_exif_number` definition.
         """
 
         exif_tag = EXIFTag("EXIF", "Focal Length", "16", "37386")
@@ -90,13 +90,13 @@ class TestParseExifNumber(unittest.TestCase):
 
 class TestParseExifFraction(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.parse_exif_fraction` definition
+    Define :func:`colour_hdri.utilities.exif.parse_exif_fraction` definition
     unit tests methods.
     """
 
     def test_parse_exif_fraction(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.parse_exif_fraction`
+        Test :func:`colour_hdri.utilities.exif.parse_exif_fraction`
         definition.
         """
 
@@ -113,13 +113,13 @@ class TestParseExifFraction(unittest.TestCase):
 
 class TestParseExifArray(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.parse_exif_array` definition
+    Define :func:`colour_hdri.utilities.exif.parse_exif_array` definition
     unit tests methods.
     """
 
     def test_parse_exif_array(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.parse_exif_array` definition.
+        Test :func:`colour_hdri.utilities.exif.parse_exif_array` definition.
         """
 
         exif_tag = EXIFTag(
@@ -163,13 +163,13 @@ class TestParseExifArray(unittest.TestCase):
 
 class TestParseExifData(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.parse_exif_data` definition
+    Define :func:`colour_hdri.utilities.exif.parse_exif_data` definition
     unit tests methods.
     """
 
     def test_parse_exif_data(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.parse_exif_data` definition.
+        Test :func:`colour_hdri.utilities.exif.parse_exif_data` definition.
         """
 
         self.assertListEqual(
@@ -196,13 +196,13 @@ class TestParseExifData(unittest.TestCase):
 
 class TestReadExifTags(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.read_exif_tags` definition unit
+    Define :func:`colour_hdri.utilities.exif.read_exif_tags` definition unit
     tests methods.
     """
 
     def test_read_exif_tags(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.read_exif_tags` definition.
+        Test :func:`colour_hdri.utilities.exif.read_exif_tags` definition.
         """
 
         test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[0]
@@ -265,13 +265,13 @@ class TestReadExifTags(unittest.TestCase):
 
 class TestCopyExifTags(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.copy_exif_tags` definition unit
+    Define :func:`colour_hdri.utilities.exif.copy_exif_tags` definition unit
     tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -285,7 +285,7 @@ class TestCopyExifTags(unittest.TestCase):
 
     def test_copy_exif_tags(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.copy_exif_tags` definition.
+        Test :func:`colour_hdri.utilities.exif.copy_exif_tags` definition.
         """
 
         reference_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
@@ -305,13 +305,13 @@ class TestCopyExifTags(unittest.TestCase):
 
 class TestUpdateExifTags(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.update_exif_tags` definition unit
+    Define :func:`colour_hdri.utilities.exif.update_exif_tags` definition unit
     tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -325,7 +325,7 @@ class TestUpdateExifTags(unittest.TestCase):
 
     def test_update_exif_tags(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.update_exif_tags` definition.
+        Test :func:`colour_hdri.utilities.exif.update_exif_tags` definition.
         """
 
         reference_jpg_images = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
@@ -347,13 +347,13 @@ class TestUpdateExifTags(unittest.TestCase):
 
 class TestDeleteExifTags(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.delete_exif_tags` definition unit
+    Define :func:`colour_hdri.utilities.exif.delete_exif_tags` definition unit
     tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -367,7 +367,7 @@ class TestDeleteExifTags(unittest.TestCase):
 
     def test_delete_exif_tags(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.delete_exif_tags` definition.
+        Test :func:`colour_hdri.utilities.exif.delete_exif_tags` definition.
         """
 
         reference_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
@@ -385,13 +385,13 @@ class TestDeleteExifTags(unittest.TestCase):
 
 class TestReadExifTag(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.read_exif_tag` definition unit
+    Define :func:`colour_hdri.utilities.exif.read_exif_tag` definition unit
     tests methods.
     """
 
     def test_read_exif_tag(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.read_exif_tag` definition.
+        Test :func:`colour_hdri.utilities.exif.read_exif_tag` definition.
         """
 
         test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[0]
@@ -403,13 +403,13 @@ class TestReadExifTag(unittest.TestCase):
 
 class TestWriteExifTag(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.exif.write_exif_tag` definition unit
+    Define :func:`colour_hdri.utilities.exif.write_exif_tag` definition unit
     tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -423,7 +423,7 @@ class TestWriteExifTag(unittest.TestCase):
 
     def test_write_exif_tag(self):
         """
-        Tests :func:`colour_hdri.utilities.exif.write_exif_tag` definition.
+        Test :func:`colour_hdri.utilities.exif.write_exif_tag` definition.
         """
 
         reference_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[

@@ -49,7 +49,7 @@ def average_luminance(
     k: FloatingOrArrayLike = 12.5,
 ) -> FloatingOrNDArray:
     """
-    Computes the average luminance :math:`L` in :math:`cd\\cdot m^{-2}` from
+    Compute the average luminance :math:`L` in :math:`cd\\cdot m^{-2}` from
     given relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`,
     *ISO* arithmetic speed :math:`S` and *reflected light calibration constant*
     :math:`k`.
@@ -101,7 +101,7 @@ def average_illuminance(
     c: FloatingOrArrayLike = 250,
 ) -> FloatingOrNDArray:
     """
-    Computes the average illuminance :math:`E` in :math:`Lux` from given
+    Compute the average illuminance :math:`E` in :math:`Lux` from given
     relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO*
     arithmetic speed :math:`S` and *incident light calibration constant*
     :math:`c`.
@@ -154,7 +154,7 @@ def luminance_to_exposure_value(
     k: FloatingOrArrayLike = 12.5,
 ) -> FloatingOrNDArray:
     """
-    Computes the exposure value :math:`EV` from given scene luminance
+    Compute the exposure value :math:`EV` from given scene luminance
     :math:`L` in :math:`cd\\cdot m^{-2}`, *ISO* arithmetic speed :math:`S` and
     *reflected light calibration constant* :math:`k`.
 
@@ -208,7 +208,7 @@ def illuminance_to_exposure_value(
     c: FloatingOrArrayLike = 250,
 ) -> FloatingOrNDArray:
     """
-    Computes the exposure value :math:`EV` from given scene illuminance
+    Compute the exposure value :math:`EV` from given scene illuminance
     :math:`E` in :math:`Lux`, *ISO* arithmetic speed :math:`S` and
     *incident light calibration constant* :math:`c`.
 
@@ -262,7 +262,7 @@ def adjust_exposure(
     a: FloatingOrArrayLike, EV: FloatingOrArrayLike
 ) -> FloatingOrNDArray:
     """
-    Adjusts given array exposure using given :math:`EV` exposure value.
+    Adjust given array exposure using given :math:`EV` exposure value.
 
     Parameters
     ----------

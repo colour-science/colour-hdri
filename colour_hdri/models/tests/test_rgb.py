@@ -23,13 +23,13 @@ __all__ = [
 
 class TestCameraSpaceToRGB(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition
+    Define :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition
     unit tests methods.
     """
 
     def test_camera_space_to_RGB(self):
         """
-        Tests :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition.
+        Test :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -57,13 +57,13 @@ class TestCameraSpaceToRGB(unittest.TestCase):
 
 class TestCameraSpaceTosRGB(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition
+    Define :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition
     unit tests methods.
     """
 
     def test_camera_space_to_sRGB(self):
         """
-        Tests :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition.
+        Test :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition.
         """
 
         np.testing.assert_almost_equal(

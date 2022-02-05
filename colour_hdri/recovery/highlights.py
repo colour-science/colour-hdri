@@ -54,7 +54,7 @@ def highlights_recovery_blend(
     RGB: ArrayLike, multipliers: ArrayLike, threshold: Floating = 0.99
 ) -> NDArray:
     """
-    Performs highlights recovery using *Coffin (1997)* method from *dcraw*.
+    Perform highlights recovery using *Coffin (1997)* method from *dcraw*.
 
     Parameters
     ----------
@@ -108,7 +108,7 @@ def highlights_recovery_LCHab(
     RGB_colourspace: RGB_Colourspace = RGB_COLOURSPACE_sRGB,
 ) -> NDArray:
     """
-    Performs highlights recovery in *CIE L\\*C\\*Hab* colourspace.
+    Perform highlights recovery in *CIE L\\*C\\*Hab* colourspace.
 
     Parameters
     ----------

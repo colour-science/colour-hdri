@@ -43,13 +43,13 @@ JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
 
 class TestSamplesGrossberg2003(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.sampling.grossberg2003.\
+    Define :func:`colour_hdri.sampling.grossberg2003.\
 samples_Grossberg2003` definition unit tests methods.
     """
 
     def test_samples_Grossberg2003(self):
         """
-        Tests :func:`colour_hdri.sampling.grossberg2003.\
+        Test :func:`colour_hdri.sampling.grossberg2003.\
 samples_Grossberg2003` definition.
         """
 

@@ -56,7 +56,7 @@ def q_factor(
     theta: FloatingOrArrayLike = 10,
 ) -> FloatingOrNDArray:
     """
-    Computes the :math:`q` factor modeling the total lens vignetting and
+    Compute the :math:`q` factor modeling the total lens vignetting and
     transmission attenuation.
 
     Parameters
@@ -102,7 +102,7 @@ def focal_plane_exposure(
     theta: FloatingOrArrayLike = 10,
 ) -> FloatingOrNDArray:
     """
-    Computes the focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
+    Compute the focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
 
     Parameters
     ----------
@@ -171,7 +171,7 @@ def arithmetic_mean_focal_plane_exposure(
     L_a: FloatingOrArrayLike, A: FloatingOrArrayLike, t: FloatingOrArrayLike
 ) -> FloatingOrNDArray:
     """
-    Computes the arithmetic mean focal plane exposure :math:`H_a` for a camera
+    Compute the arithmetic mean focal plane exposure :math:`H_a` for a camera
     focused on infinity, :math:`H_f << H`, :math:`T=9/10`,
     :math:`\\theta =10^{\\circ}` and :math:`f_v=98/100`.
 
@@ -229,7 +229,7 @@ def saturation_based_speed_focal_plane_exposure(
     theta: FloatingOrArrayLike = 10,
 ) -> FloatingOrNDArray:
     """
-    Computes the Saturation-Based Speed (SBS) focal plane exposure
+    Compute the Saturation-Based Speed (SBS) focal plane exposure
     :math:`H_{SBS}` in lux-seconds (:math:`lx.s`).
 
     The model implemented by this definition is appropriate to simulate a
@@ -311,7 +311,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
 
 def exposure_index_values(H_a: FloatingOrArrayLike) -> FloatingOrNDArray:
     """
-    Computes the exposure index values :math:`I_{EI}` from given focal plane
+    Compute the exposure index values :math:`I_{EI}` from given focal plane
     exposure :math:`H_a`.
 
     Parameters
@@ -341,7 +341,7 @@ def exposure_value_100(
     N: FloatingOrArrayLike, t: FloatingOrArrayLike, S: FloatingOrArrayLike
 ) -> FloatingOrNDArray:
     """
-    Computes the exposure value :math:`EV100` from given relative aperture
+    Compute the exposure value :math:`EV100` from given relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic
     speed :math:`S`.
 
@@ -389,7 +389,7 @@ def photometric_exposure_scale_factor_Lagarde2014(
     theta: FloatingOrArrayLike = 10,
 ) -> FloatingOrNDArray:
     """
-    Converts the exposure value :math:`EV100` to photometric exposure scale
+    Convert the exposure value :math:`EV100` to photometric exposure scale
     factor using *Lagarde and de Rousiers (2014)* formulation derived from the
     *ISO 12232:2006* *Saturation Based Sensitivity* (SBS) recommendation.
 

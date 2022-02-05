@@ -151,7 +151,7 @@ def interpolated_matrix(
     M_2: ArrayLike,
 ) -> NDArray:
     """
-    Computes the matrix interpolated from :math:`CCT_1` and :math:`CCT_2`
+    Compute the matrix interpolated from :math:`CCT_1` and :math:`CCT_2`
     correlated colour temperatures to respectively :math:`M_T` and :math:`M_R`
     colour matrices using given correlated colour temperature :math:`CCT`
     interpolation value.
@@ -219,7 +219,7 @@ def xy_to_camera_neutral(
     analog_balance: ArrayLike,
 ) -> NDArray:
     """
-    Converts given *xy* white balance chromaticity coordinates to
+    Convert given *xy* white balance chromaticity coordinates to
     *Camera Neutral* coordinates.
 
     Parameters
@@ -305,7 +305,7 @@ def camera_neutral_to_xy(
     epsilon: Floating = EPSILON,
 ) -> NDArray:
     """
-    Converts given *Camera Neutral* coordinates to *xy* white balance
+    Convert given *Camera Neutral* coordinates to *xy* white balance
     chromaticity coordinates.
 
     Parameters
@@ -409,7 +409,7 @@ def XYZ_to_camera_space_matrix(
     analog_balance: ArrayLike,
 ) -> NDArray:
     """
-    Returns the *CIE XYZ* to *Camera Space* matrix for given *xy* white balance
+    Return the *CIE XYZ* to *Camera Space* matrix for given *xy* white balance
     chromaticity coordinates.
 
     Parameters
@@ -536,7 +536,7 @@ def camera_space_to_XYZ_matrix(
     ] = "Bradford",
 ) -> NDArray:
     """
-    Returns the *Camera Space* to *CIE XYZ* matrix for given *xy* white
+    Return the *Camera Space* to *CIE XYZ* matrix for given *xy* white
     balance chromaticity coordinates.
 
     Parameters

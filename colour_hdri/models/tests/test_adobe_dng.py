@@ -100,13 +100,13 @@ M_FORWARD_MATRIX_2: NDArray = np.array(
 
 class TestInterpolatedMatrix(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.models.adobe_dng.\
+    Define :func:`colour_hdri.models.adobe_dng.\
 interpolated_matrix` definition unit tests methods.
     """
 
     def test_interpolated_matrix(self):
         """
-        Tests :func:`colour_hdri.models.adobe_dng.\
+        Test :func:`colour_hdri.models.adobe_dng.\
 interpolated_matrix` definition.
         """
 
@@ -160,13 +160,13 @@ interpolated_matrix` definition.
 
 class TestXy_to_camera_neutral(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.models.adobe_dng.\
+    Define :func:`colour_hdri.models.adobe_dng.\
 xy_to_camera_neutral` definition unit tests methods.
     """
 
     def test_xy_to_camera_neutral(self):
         """
-        Tests :func:`colour_hdri.models.adobe_dng.\
+        Test :func:`colour_hdri.models.adobe_dng.\
 xy_to_camera_neutral` definition.
         """
 
@@ -218,13 +218,13 @@ xy_to_camera_neutral` definition.
 
 class TestCamera_neutral_to_xy(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.models.adobe_dng.\
+    Define :func:`colour_hdri.models.adobe_dng.\
 camera_neutral_to_xy` definition unit tests methods.
     """
 
     def test_camera_neutral_to_xy(self):
         """
-        Tests :func:`colour_hdri.models.adobe_dng.\
+        Test :func:`colour_hdri.models.adobe_dng.\
 camera_neutral_to_xy` definition.
         """
 
@@ -276,13 +276,13 @@ camera_neutral_to_xy` definition.
 
 class TestXYZ_to_camera_space_matrix(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.models.adobe_dng.\
+    Define :func:`colour_hdri.models.adobe_dng.\
 XYZ_to_camera_space_matrix` definition unit tests methods.
     """
 
     def test_XYZ_to_camera_space_matrix(self):
         """
-        Tests :func:`colour_hdri.models.adobe_dng.\
+        Test :func:`colour_hdri.models.adobe_dng.\
 XYZ_to_camera_space_matrix` definition.
         """
         M_reference = np.array(
@@ -354,13 +354,13 @@ XYZ_to_camera_space_matrix` definition.
 
 class TestCamera_space_to_XYZ_matrix(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.models.adobe_dng.\
+    Define :func:`colour_hdri.models.adobe_dng.\
 camera_space_to_XYZ_matrix` definition unit tests methods.
     """
 
     def test_camera_space_to_XYZ_matrix(self):
         """
-        Tests :func:`colour_hdri.models.adobe_dng.\
+        Test :func:`colour_hdri.models.adobe_dng.\
 camera_space_to_XYZ_matrix` definition.
         """
 

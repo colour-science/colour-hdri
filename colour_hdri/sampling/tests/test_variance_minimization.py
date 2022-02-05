@@ -43,13 +43,13 @@ SAMPLING_DIRECTORY: str = os.path.join(
 
 class TestLuminanceVariance(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.sampling.variance_minimization.\
+    Define :func:`colour_hdri.sampling.variance_minimization.\
 luminance_variance` definition unit tests methods.
     """
 
     def test_luminance_variance(self):
         """
-        Tests :func:`colour_hdri.sampling.variance_minimization.\
+        Test :func:`colour_hdri.sampling.variance_minimization.\
 luminance_variance` definition.
         """
 
@@ -60,14 +60,14 @@ luminance_variance` definition.
 
 class TestFindRegionsVarianceMinimizationViriyothai2009(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.sampling.variance_minimization.\
+    Define :func:`colour_hdri.sampling.variance_minimization.\
 find_regions_variance_minimization_Viriyothai2009` definition unit tests
     methods.
     """
 
     def test_find_regions_variance_minimization_Viriyothai2009(self):
         """
-        Tests :func:`colour_hdri.sampling.variance_minimization.\
+        Test :func:`colour_hdri.sampling.variance_minimization.\
 find_regions_variance_minimization_Viriyothai2009` definition.
         """
 
@@ -125,13 +125,13 @@ find_regions_variance_minimization_Viriyothai2009` definition.
 
 class TestHighlightRegionsVarianceMinimization(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.sampling.variance_minimization.\
+    Define :func:`colour_hdri.sampling.variance_minimization.\
 highlight_regions_variance_minimization` definition unit tests methods.
     """
 
     def test_highlight_regions_variance_minimization(self):
         """
-        Tests :func:`colour_hdri.sampling.variance_minimization.\
+        Test :func:`colour_hdri.sampling.variance_minimization.\
 highlight_regions_variance_minimization` definition.
         """
 
@@ -167,14 +167,14 @@ class TestLightProbeSamplingVarianceMinimizationViriyothai2009(
     unittest.TestCase
 ):
     """
-    Defines :func:`colour_hdri.sampling.variance_minimization.\
+    Define :func:`colour_hdri.sampling.variance_minimization.\
 light_probe_sampling_variance_minimization_Viriyothai2009` definition unit
     tests methods.
     """
 
     def test_light_probe_sampling_variance_minimization_Viriyothai2009(self):
         """
-        Tests :func:`colour_hdri.sampling.variance_minimization.\
+        Test :func:`colour_hdri.sampling.variance_minimization.\
 light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         """
 

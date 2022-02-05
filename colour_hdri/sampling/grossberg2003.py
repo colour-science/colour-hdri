@@ -39,7 +39,7 @@ def samples_Grossberg2003(
     image_stack: ArrayLike, samples: Integer = 1000, n: Integer = 256
 ) -> NDArray:
     """
-    Returns the samples for given image stack intensity histograms using
+    Return the samples for given image stack intensity histograms using
     *Grossberg (2003)* method.
 
     Parameters

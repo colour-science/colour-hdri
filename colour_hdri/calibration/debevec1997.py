@@ -191,7 +191,7 @@ def camera_response_functions_Debevec1997(
     normalise: Boolean = True,
 ) -> NDArray:
     """
-    Returns the camera response functions for given image stack using
+    Return the camera response functions for given image stack using
     *Debevec (1997)* method.
 
     Image channels are sampled with :math:`s` sampling function and the output

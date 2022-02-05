@@ -44,7 +44,7 @@ def plot_tonemapping_operator_image(
     **kwargs: Any
 ) -> Tuple[plt.Figure, plt.Axes]:
     """
-    Plots given tonemapped image with superimposed luminance mapping function.
+    Plot given tonemapped image with superimposed luminance mapping function.
 
     Parameters
     ----------

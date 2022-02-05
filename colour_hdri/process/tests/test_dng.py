@@ -52,13 +52,13 @@ RAW_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("CR2",))
 
 class TestConvertRawFilesToDngFiles(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.process.adobe_dng.\
+    Define :func:`colour_hdri.process.adobe_dng.\
 convert_raw_files_to_dng_files` definition unit tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -72,7 +72,7 @@ convert_raw_files_to_dng_files` definition unit tests methods.
 
     def test_convert_raw_files_to_dng_files(self):
         """
-        Tests :func:`colour_hdri.process.adobe_dng.\
+        Test :func:`colour_hdri.process.adobe_dng.\
 convert_raw_files_to_dng_files` definition.
         """
 
@@ -100,13 +100,13 @@ convert_raw_files_to_dng_files` definition.
 
 class TestConvertDngFilesToIntermediateFiles(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.process.adobe_dng.\
+    Define :func:`colour_hdri.process.adobe_dng.\
 convert_dng_files_to_intermediate_files` definition unit tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -120,7 +120,7 @@ convert_dng_files_to_intermediate_files` definition unit tests methods.
 
     def test_convert_dng_files_to_intermediate_files(self):
         """
-        Tests :func:`colour_hdri.process.adobe_dng.\
+        Test :func:`colour_hdri.process.adobe_dng.\
 convert_dng_files_to_intermediate_files` definition.
         """
 
@@ -181,13 +181,13 @@ convert_dng_files_to_intermediate_files` definition.
 
 class TestReadDngFilesExifTags(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.process.adobe_dng.\
+    Define :func:`colour_hdri.process.adobe_dng.\
 read_dng_files_exif_tags` definition unit tests methods.
     """
 
     def test_read_dng_files_exif_tags(self):
         """
-        Tests :func:`colour_hdri.process.adobe_dng.\
+        Test :func:`colour_hdri.process.adobe_dng.\
 read_dng_files_exif_tags` definition.
         """
 

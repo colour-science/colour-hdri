@@ -64,7 +64,7 @@ __all__ = [
 @dataclass
 class Metadata(MixinDataclassArray):
     """
-    Defines the base object for storing exif metadata relevant to
+    Define the base object for storing exif metadata relevant to
     HDRI / radiance image generation.
 
     Parameters
@@ -95,7 +95,7 @@ class Metadata(MixinDataclassArray):
 
 class Image:
     """
-    Defines the base object for storing an image along its path, pixel data and
+    Define the base object for storing an image along its path, pixel data and
     metadata needed for HDRI / radiance images generation.
 
     Parameters
@@ -233,7 +233,7 @@ class Image:
 
     def read_data(self, cctf_decoding: Optional[Callable] = None) -> NDArray:
         """
-        Reads image pixel data at :attr:`Image.path` attribute.
+        Read image pixel data at :attr:`Image.path` attribute.
 
         Parameters
         ----------
@@ -267,7 +267,7 @@ class Image:
 
     def read_metadata(self) -> Metadata:
         """
-        Reads image relevant exif metadata at :attr:`Image.path` attribute.
+        Read image relevant exif metadata at :attr:`Image.path` attribute.
 
         Returns
         -------
@@ -345,7 +345,7 @@ class Image:
 
 class ImageStack(MutableSequence):
     """
-    Defines a convenient stack storing a sequence of images for HDRI / radiance
+    Define a convenient stack storing a sequence of images for HDRI / radiance
     images generation.
 
     Methods
@@ -369,7 +369,7 @@ class ImageStack(MutableSequence):
         self, index: Union[Integer, slice]
     ) -> Union[Any, MutableSequence[Any]]:
         """
-        Returns the :class:`colour_hdri.Image` class instance at given index.
+        Return the :class:`colour_hdri.Image` class instance at given index.
 
         Parameters
         ----------
@@ -386,7 +386,7 @@ class ImageStack(MutableSequence):
 
     def __setitem__(self, index: Union[Integer, slice], value: Any):
         """
-        Sets given :class:`colour_hdri.Image` class instance at given index.
+        Set given :class:`colour_hdri.Image` class instance at given index.
 
         Parameters
         ----------
@@ -400,7 +400,7 @@ class ImageStack(MutableSequence):
 
     def __delitem__(self, index: Union[Integer, slice]):
         """
-        Deletes the :class:`colour_hdri.Image` class instance at given index.
+        Delete the :class:`colour_hdri.Image` class instance at given index.
 
         Parameters
         ----------
@@ -412,7 +412,7 @@ class ImageStack(MutableSequence):
 
     def __len__(self) -> Integer:
         """
-        Returns the :class:`colour_hdri.Image` class instances count.
+        Return the :class:`colour_hdri.Image` class instances count.
 
         Returns
         -------
@@ -424,7 +424,7 @@ class ImageStack(MutableSequence):
 
     def __getattr__(self, attribute: str) -> Any:
         """
-        Returns the value from the attribute with given name.
+        Return the value from the attribute with given name.
 
         Parameters
         ----------
@@ -457,7 +457,7 @@ class ImageStack(MutableSequence):
 
     def __setattr__(self, attribute: str, value: Any):
         """
-        Sets given value to the attribute with given name.
+        Set given value to the attribute with given name.
 
         Parameters
         ----------
@@ -483,7 +483,7 @@ class ImageStack(MutableSequence):
 
     def insert(self, index: Integer, value: Any):
         """
-        Inserts given :class:`colour_hdri.Image` class instance at given index.
+        Insert given :class:`colour_hdri.Image` class instance at given index.
 
         Parameters
         ----------
@@ -497,7 +497,7 @@ class ImageStack(MutableSequence):
 
     def sort(self, key: Optional[Callable] = None):
         """
-        Sorts the underlying data structure.
+        Sort the underlying data structure.
 
         Parameters
         ----------
@@ -513,7 +513,7 @@ class ImageStack(MutableSequence):
         image_files: Sequence[str], cctf_decoding: Optional[Callable] = None
     ) -> ImageStack:
         """
-        Returns a :class:`colour_hdri.ImageStack` instance from given image
+        Return a :class:`colour_hdri.ImageStack` instance from given image
         files.
 
         Parameters

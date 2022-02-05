@@ -69,13 +69,13 @@ XYZ_TO_CAMERA_SPACE_MATRIX: NDArray = np.array(
 
 class TestHighlightsRecoveryBlend(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.recovery.highlights.\
+    Define :func:`colour_hdri.recovery.highlights.\
 highlights_recovery_blend` definition unit tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -89,7 +89,7 @@ highlights_recovery_blend` definition unit tests methods.
 
     def test_highlights_recovery_blend(self):
         """
-        Tests :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`
+        Test :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`
         definition.
         """
 
@@ -130,13 +130,13 @@ highlights_recovery_blend` definition unit tests methods.
 
 class TestHighlightsRecoveryLCHab(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.recovery.highlights.\
+    Define :func:`colour_hdri.recovery.highlights.\
 highlights_recovery_LCHab` definition unit tests methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._temporary_directory = tempfile.mkdtemp()
@@ -150,7 +150,7 @@ highlights_recovery_LCHab` definition unit tests methods.
 
     def test_highlights_recovery_LCHab(self):
         """
-        Tests :func:`colour_hdri.recovery.highlights.highlights_recovery_LCHab`
+        Test :func:`colour_hdri.recovery.highlights.highlights_recovery_LCHab`
         definition.
         """
 

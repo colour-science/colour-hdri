@@ -41,7 +41,7 @@ class Light_Specification(
     namedtuple("Light_Specification", ("uv", "colour", "index"))
 ):
     """
-    Defines a light probe sampling resulting light specification.
+    Define a light probe sampling resulting light specification.
 
     Parameters
     ----------
@@ -56,7 +56,7 @@ class Light_Specification(
 
 def luminance_variance(a):
     """
-    Computes the Luminance variance of given :math:`a` 2-D array.
+    Compute the Luminance variance of given :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -88,7 +88,7 @@ def luminance_variance(a):
 
 def find_regions_variance_minimization_Viriyothai2009(a, n=4):
     """
-    Finds the :math:`2^n` regions using *Viriyothai (2009)* variance
+    Find the :math:`2^n` regions using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm on given :math:`a` 2-D array.
 
     Parameters
@@ -156,7 +156,7 @@ def highlight_regions_variance_minimization(
     a, regions, highlight_colour=np.array([0, 1, 0])
 ):
     """
-    Highlights regions using with variance minimized on given :math:`a`
+    Highlight regions using with variance minimized on given :math:`a`
     3-D array.
 
     Parameters

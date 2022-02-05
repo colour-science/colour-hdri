@@ -43,13 +43,13 @@ CALIBRATION_DIRECTORY: str = os.path.join(
 
 class TestUpperHemisphereIlluminanceLagarde2016(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.calibration.absolute_luminance.\
+    Define :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_Lagarde2016` definition unit tests methods.
     """
 
     def test_upper_hemisphere_illuminance_Lagarde2016(self):
         """
-        Tests :func:`colour_hdri.calibration.absolute_luminance.\
+        Test :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_Lagarde2016` definition.
         """
 
@@ -78,14 +78,14 @@ upper_hemisphere_illuminance_Lagarde2016` definition.
 
 class TestUpperHemisphereIlluminanceWeightsLagarde2016(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.calibration.absolute_luminance.\
+    Define :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_weights_Lagarde2016` definition unit tests
     methods.
     """
 
     def test_upper_hemisphere_illuminance_weights_Lagarde2016(self):
         """
-        Tests :func:`colour_hdri.calibration.absolute_luminance.\
+        Test :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_weights_Lagarde2016` definition.
         """
 
@@ -135,13 +135,13 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition.
 
 class TestAbsoluteLuminanceCalibrationLagarde2016(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.calibration.absolute_luminance.\
+    Define :func:`colour_hdri.calibration.absolute_luminance.\
 absolute_luminance_calibration_Lagarde2016` definition unit tests methods.
     """
 
     def test_absolute_luminance_calibration_Lagarde2016(self):
         """
-        Tests :func:`colour_hdri.calibration.absolute_luminance.\
+        Test :func:`colour_hdri.calibration.absolute_luminance.\
 absolute_luminance_calibration_Lagarde2016` definition.
         """
 

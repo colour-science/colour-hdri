@@ -90,7 +90,7 @@ def log_average(
     a: FloatingOrArrayLike, epsilon: Floating = EPSILON
 ) -> FloatingOrNDArray:
     """
-    Computes the log average of given array.
+    Compute the log average of given array.
 
     Parameters
     ----------
@@ -119,7 +119,7 @@ def log_average(
 
 def tonemapping_operator_simple(RGB: ArrayLike) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using the simple method:
+    Perform given *RGB* array tonemapping using the simple method:
     :math:`\\cfrac{RGB}{RGB + 1}`.
 
     Parameters
@@ -159,7 +159,7 @@ def tonemapping_operator_normalisation(
     RGB: ArrayLike, colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"]
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using the normalisation method.
+    Perform given *RGB* array tonemapping using the normalisation method.
 
     Parameters
     ----------
@@ -203,7 +203,7 @@ def tonemapping_operator_gamma(
     RGB: ArrayLike, gamma: Floating = 1, EV: Floating = 0
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using the gamma and exposure
+    Perform given *RGB* array tonemapping using the gamma and exposure
     correction method.
 
     Parameters
@@ -254,7 +254,7 @@ def tonemapping_operator_logarithmic(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using the logarithmic method.
+    Perform given *RGB* array tonemapping using the logarithmic method.
 
     Parameters
     ----------
@@ -312,7 +312,7 @@ def tonemapping_operator_exponential(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using the exponential method.
+    Perform given *RGB* array tonemapping using the exponential method.
 
     Parameters
     ----------
@@ -370,7 +370,7 @@ def tonemapping_operator_logarithmic_mapping(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using the logarithmic mapping
+    Perform given *RGB* array tonemapping using the logarithmic mapping
     method.
 
     Parameters
@@ -427,7 +427,7 @@ def tonemapping_operator_exponentiation_mapping(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using the exponentiation mapping
+    Perform given *RGB* array tonemapping using the exponentiation mapping
     method.
 
     Parameters
@@ -481,7 +481,7 @@ def tonemapping_operator_Schlick1994(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using *Schlick (1994)* method.
+    Perform given *RGB* array tonemapping using *Schlick (1994)* method.
 
     Parameters
     ----------
@@ -536,7 +536,7 @@ def tonemapping_operator_Tumblin1999(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using
+    Perform given *RGB* array tonemapping using
     *Tumblin, Hodgins and Guenter (1999)* method.
 
     Parameters
@@ -607,7 +607,7 @@ def tonemapping_operator_Reinhard2004(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using *Reinhard and Devlin (2004)*
+    Perform given *RGB* array tonemapping using *Reinhard and Devlin (2004)*
     method.
 
     Parameters
@@ -700,7 +700,7 @@ def tonemapping_operator_filmic(
     linear_whitepoint: Floating = 11.2,
 ) -> NDArray:
     """
-    Performs given *RGB* array tonemapping using *Habble (2010)* method.
+    Perform given *RGB* array tonemapping using *Habble (2010)* method.
 
     Parameters
     ----------

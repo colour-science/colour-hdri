@@ -50,7 +50,7 @@ def image_stack_to_radiance_image(
     camera_response_functions: Optional[ArrayLike] = None,
 ) -> Optional[NDArray]:
     """
-    Generates a HDRI / radiance image from given image stack.
+    Generate a HDRI / radiance image from given image stack.
 
     Parameters
     ----------

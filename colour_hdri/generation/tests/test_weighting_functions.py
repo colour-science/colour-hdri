@@ -29,13 +29,13 @@ __all__ = [
 
 class TestNormalDistributionFunction(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.generation.weighting_functions.\
+    Define :func:`colour_hdri.generation.weighting_functions.\
 normal_distribution_function` definition unit tests methods.
     """
 
     def test_normal_distribution_function(self):
         """
-        Tests :func:`colour_hdri.generation.weighting_functions.\
+        Test :func:`colour_hdri.generation.weighting_functions.\
 normal_distribution_function` definition.
         """
 
@@ -99,13 +99,13 @@ normal_distribution_function` definition.
 
 class TestHatFunction(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.generation.weighting_functions.hat_function`
+    Define :func:`colour_hdri.generation.weighting_functions.hat_function`
     definition unit tests methods.
     """
 
     def test_hat_function(self):
         """
-        Tests :func:`colour_hdri.generation.weighting_functions.hat_function`
+        Test :func:`colour_hdri.generation.weighting_functions.hat_function`
         definition.
         """
 
@@ -131,13 +131,13 @@ class TestHatFunction(unittest.TestCase):
 
 class TestWeightingFunctionDebevec1997(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.generation.weighting_functions.\
+    Define :func:`colour_hdri.generation.weighting_functions.\
 weighting_function_Debevec1997` definition unit tests methods.
     """
 
     def test_weighting_function_Debevec1997(self):
         """
-        Tests :func:`colour_hdri.generation.weighting_functions.\
+        Test :func:`colour_hdri.generation.weighting_functions.\
 weighting_function_Debevec1997` definition.
         """
 

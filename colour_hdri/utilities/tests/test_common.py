@@ -38,13 +38,13 @@ FROBISHER_001_DIRECTORY: str = os.path.join(
 
 class TestVivification(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.common.vivification` definition unit
+    Define :func:`colour_hdri.utilities.common.vivification` definition unit
     tests methods.
     """
 
     def test_vivification(self):
         """
-        Tests :func:`colour_hdri.utilities.common.vivification` definition.
+        Test :func:`colour_hdri.utilities.common.vivification` definition.
         """
 
         vivified = vivification()
@@ -55,13 +55,13 @@ class TestVivification(unittest.TestCase):
 
 class TestVivifiedToDict(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.common.vivified_to_dict` definition
+    Define :func:`colour_hdri.utilities.common.vivified_to_dict` definition
     unit tests methods.
     """
 
     def test_vivified_to_dict(self):
         """
-        Tests :func:`colour_hdri.utilities.common.vivified_to_dict` definition.
+        Test :func:`colour_hdri.utilities.common.vivified_to_dict` definition.
         """
 
         vivified = vivification()
@@ -74,13 +74,13 @@ class TestVivifiedToDict(unittest.TestCase):
 
 class TestPathExists(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.common.path_exists` definition unit
+    Define :func:`colour_hdri.utilities.common.path_exists` definition unit
     tests methods.
     """
 
     def test_path_exists(self):
         """
-        Tests :func:`colour_hdri.utilities.common.path_exists` definition.
+        Test :func:`colour_hdri.utilities.common.path_exists` definition.
         """
 
         self.assertTrue(path_exists(__file__))
@@ -89,13 +89,13 @@ class TestPathExists(unittest.TestCase):
 
 class TestFilterFiles(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.utilities.common.filter_files` definition unit
+    Define :func:`colour_hdri.utilities.common.filter_files` definition unit
     tests methods.
     """
 
     def test_filter_files(self):
         """
-        Tests :func:`colour_hdri.utilities.common.filter_files` definition.
+        Test :func:`colour_hdri.utilities.common.filter_files` definition.
         """
 
         raw_files = filter_files(FROBISHER_001_DIRECTORY, ("CR2", "jpg"))

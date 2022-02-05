@@ -42,7 +42,7 @@ def normal_distribution_function(
     a: ArrayLike, mu: Floating = 0.5, sigma: Floating = 0.15
 ) -> NDArray:
     """
-    Returns given array weighted by a normal distribution function.
+    Return given array weighted by a normal distribution function.
 
     Parameters
     ----------
@@ -72,7 +72,7 @@ def normal_distribution_function(
 
 def hat_function(a: ArrayLike) -> NDArray:
     """
-    Returns given array weighted by a hat function.
+    Return given array weighted by a hat function.
 
     Parameters
     ----------
@@ -100,7 +100,7 @@ def weighting_function_Debevec1997(
     a: ArrayLike, domain_l: Floating = 0.01, domain_h: Floating = 0.99
 ) -> NDArray:
     """
-    Returns given array weighted by *Debevec (1997)* function.
+    Return given array weighted by *Debevec (1997)* function.
 
     Parameters
     ----------

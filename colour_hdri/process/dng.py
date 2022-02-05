@@ -233,7 +233,7 @@ def convert_raw_files_to_dng_files(
     raw_files: Sequence[str], output_directory: str
 ) -> List[str]:
     """
-    Converts given raw files to *dng* files using given output directory.
+    Convert given raw files to *dng* files using given output directory.
 
     Parameters
     ----------
@@ -289,7 +289,7 @@ def convert_dng_files_to_intermediate_files(
     demosaicing: Boolean = False,
 ) -> List[str]:
     """
-    Converts given *dng* files to intermediate *tiff* files using given output
+    Convert given *dng* files to intermediate *tiff* files using given output
     directory.
 
     Parameters
@@ -351,7 +351,7 @@ def read_dng_files_exif_tags(
     ] = DNG_EXIF_TAGS_BINDING,
 ) -> List[CaseInsensitiveMapping]:
     """
-    Reads given *dng* files exif tags using given binding.
+    Read given *dng* files exif tags using given binding.
 
     Parameters
     ----------

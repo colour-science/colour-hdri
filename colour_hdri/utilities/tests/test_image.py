@@ -32,13 +32,13 @@ FROBISHER_001_DIRECTORY: str = os.path.join(
 
 class TestImage(unittest.TestCase):
     """
-    Defines :class:`colour_hdri.utilities.image.Image` class unit tests
+    Define :class:`colour_hdri.utilities.image.Image` class unit tests
     methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
@@ -47,7 +47,7 @@ class TestImage(unittest.TestCase):
 
     def test_required_attributes(self):
         """
-        Tests presence of required attributes.
+        Test the presence of required attributes.
         """
 
         required_attributes = ("path", "data", "metadata")
@@ -57,7 +57,7 @@ class TestImage(unittest.TestCase):
 
     def test_required_methods(self):
         """
-        Tests presence of required methods.
+        Test the presence of required methods.
         """
 
         required_methods = ("__init__", "read_data", "read_metadata")
@@ -67,7 +67,7 @@ class TestImage(unittest.TestCase):
 
     def test_read_data(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.Image.read_data` method.
+        Test :attr:`colour_hdri.utilities.image.Image.read_data` method.
         """
 
         image = Image(self._test_jpg_image)
@@ -77,7 +77,7 @@ class TestImage(unittest.TestCase):
 
     def test_read_metadata(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.Image.end` method.
+        Test :attr:`colour_hdri.utilities.image.Image.end` method.
         """
 
         image = Image(self._test_jpg_image)
@@ -91,13 +91,13 @@ class TestImage(unittest.TestCase):
 
 class TestImageStack(unittest.TestCase):
     """
-    Defines :class:`colour_hdri.utilities.image.ImageStack` class unit tests
+    Define :class:`colour_hdri.utilities.image.ImageStack` class unit tests
     methods.
     """
 
     def setUp(self):
         """
-        Initialises common tests attributes.
+        Initialise the common tests attributes.
         """
 
         self._test_jpg_images = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
@@ -106,7 +106,7 @@ class TestImageStack(unittest.TestCase):
 
     def test_required_methods(self):
         """
-        Tests presence of required methods.
+        Test the presence of required methods.
         """
 
         required_methods = (
@@ -126,7 +126,7 @@ class TestImageStack(unittest.TestCase):
 
     def test__getitem__(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.ImageStack.__getitem__`
+        Test :attr:`colour_hdri.utilities.image.ImageStack.__getitem__`
         method.
         """
 
@@ -135,7 +135,7 @@ class TestImageStack(unittest.TestCase):
 
     def test__setitem__(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.ImageStack.__setitem__`
+        Test :attr:`colour_hdri.utilities.image.ImageStack.__setitem__`
         method.
         """
 
@@ -149,7 +149,7 @@ class TestImageStack(unittest.TestCase):
 
     def test__delitem__(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.ImageStack.__delitem__`
+        Test :attr:`colour_hdri.utilities.image.ImageStack.__delitem__`
         method.
         """
 
@@ -161,14 +161,14 @@ class TestImageStack(unittest.TestCase):
 
     def test__len__(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.ImageStack.__len__` method.
+        Test :attr:`colour_hdri.utilities.image.ImageStack.__len__` method.
         """
 
         self.assertEqual(len(self._image_stack), 3)
 
     def test__getattr__(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.ImageStack.__getattr__`
+        Test :attr:`colour_hdri.utilities.image.ImageStack.__getattr__`
         method.
         """
 
@@ -194,7 +194,7 @@ class TestImageStack(unittest.TestCase):
 
     def test__setattr__(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.ImageStack.__getattr__`
+        Test :attr:`colour_hdri.utilities.image.ImageStack.__getattr__`
         method.
         """
 
@@ -232,7 +232,7 @@ class TestImageStack(unittest.TestCase):
 
     def test_from_files(self):
         """
-        Tests :attr:`colour_hdri.utilities.image.ImageStack.test_from_files`
+        Test :attr:`colour_hdri.utilities.image.ImageStack.test_from_files`
         method.
         """
 

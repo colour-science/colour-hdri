@@ -35,7 +35,7 @@ def camera_space_to_RGB(
     matrix_RGB_to_XYZ: ArrayLike,
 ) -> NDArray:
     """
-    Converts given *RGB* array from *camera space* to given *RGB* colourspace.
+    Convert given *RGB* array from *camera space* to given *RGB* colourspace.
 
     Parameters
     ----------
@@ -83,7 +83,7 @@ def camera_space_to_sRGB(
     RGB: ArrayLike, M_XYZ_to_camera_space: ArrayLike
 ) -> NDArray:
     """
-    Converts given *RGB* array from *camera space* to *sRGB* colourspace.
+    Convert given *RGB* array from *camera space* to *sRGB* colourspace.
 
     Parameters
     ----------

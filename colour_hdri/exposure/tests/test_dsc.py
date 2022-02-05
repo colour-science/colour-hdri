@@ -36,13 +36,13 @@ __all__ = [
 
 class TestQFactor(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.exposure.dsc.q_factor` definition
+    Define :func:`colour_hdri.exposure.dsc.q_factor` definition
     unit tests methods.
     """
 
     def test_q_factor(self):
         """
-        Tests :func:`colour_hdri.exposure.dsc.q_factor` definition.
+        Test :func:`colour_hdri.exposure.dsc.q_factor` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -58,13 +58,13 @@ class TestQFactor(unittest.TestCase):
 
 class TestFocalPlaneExposure(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition
+    Define :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition
     unit tests methods.
     """
 
     def test_focal_plane_exposure(self):
         """
-        Tests :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition.
+        Test :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition.
         """
 
         np.testing.assert_almost_equal(
@@ -86,13 +86,13 @@ class TestFocalPlaneExposure(unittest.TestCase):
 
 class TestArithmeticMeanFocalPlaneExposure(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.exposure.dsc.\
+    Define :func:`colour_hdri.exposure.dsc.\
 arithmetic_mean_focal_plane_exposure` definition unit tests methods.
     """
 
     def test_arithmetic_mean_focal_plane_exposure(self):
         """
-        Tests :func:`colour_hdri.exposure.dsc.\
+        Test :func:`colour_hdri.exposure.dsc.\
 arithmetic_mean_focal_plane_exposure` definition.
         """
 
@@ -109,13 +109,13 @@ arithmetic_mean_focal_plane_exposure` definition.
 
 class TestSaturationBasedSpeedFocalPlaneExposure(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.exposure.dsc.\
+    Define :func:`colour_hdri.exposure.dsc.\
 saturation_based_speed_focal_plane_exposure` definition unit tests methods.
     """
 
     def test_saturation_based_speed_focal_plane_exposure(self):
         """
-        Tests :func:`colour_hdri.exposure.dsc.\
+        Test :func:`colour_hdri.exposure.dsc.\
 saturation_based_speed_focal_plane_exposure` definition.
         """
 
@@ -139,13 +139,13 @@ saturation_based_speed_focal_plane_exposure` definition.
 
 class TestExposureIndexValues(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.exposure.dsc.exposure_index_values` definition
+    Define :func:`colour_hdri.exposure.dsc.exposure_index_values` definition
     unit tests methods.
     """
 
     def test_exposure_index_values(self):
         """
-        Tests :func:`colour_hdri.exposure.dsc.exposure_index_values`
+        Test :func:`colour_hdri.exposure.dsc.exposure_index_values`
         definition.
         """
 
@@ -160,13 +160,13 @@ class TestExposureIndexValues(unittest.TestCase):
 
 class TestExposureValue100(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.exposure.dsc.exposure_value_100` definition
+    Define :func:`colour_hdri.exposure.dsc.exposure_value_100` definition
     unit tests methods.
     """
 
     def test_exposure_value_100(self):
         """
-        Tests :func:`colour_hdri.exposure.dsc.exposure_value_100`
+        Test :func:`colour_hdri.exposure.dsc.exposure_value_100`
         definition.
         """
 
@@ -183,14 +183,14 @@ class TestExposureValue100(unittest.TestCase):
 
 class TestPhotometricExposureScaleFactorLagarde2014(unittest.TestCase):
     """
-    Defines :func:`colour_hdri.exposure.dsc.\
+    Define :func:`colour_hdri.exposure.dsc.\
 photometric_exposure_scale_factor_Lagarde2014` definition unit tests
     methods.
     """
 
     def test_photometric_exposure_scale_factor_Lagarde2014(self):
         """
-        Tests :func:`colour_hdri.exposure.dsc.\
+        Test :func:`colour_hdri.exposure.dsc.\
 photometric_exposure_scale_factor_Lagarde2014` definition.
         """
 

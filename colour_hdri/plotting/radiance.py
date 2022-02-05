@@ -40,7 +40,7 @@ def plot_radiance_image_strip(
     **kwargs: Any,
 ) -> Tuple[plt.Figure, plt.Axes]:
     """
-    Plots given HDRI / radiance image as strip of images of varying exposure.
+    Plot given HDRI / radiance image as strip of images of varying exposure.
 
     Parameters
     ----------

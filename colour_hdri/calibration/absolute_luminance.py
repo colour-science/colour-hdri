@@ -43,7 +43,7 @@ def upper_hemisphere_illuminance_Lagarde2016(
     RGB: ArrayLike, colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"]
 ) -> Floating:
     """
-    Computes upper hemisphere illuminance :math:`E_v` of given RGB panoramic
+    Compute upper hemisphere illuminance :math:`E_v` of given RGB panoramic
     image.
 
     Parameters
@@ -91,7 +91,7 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(
     height: Integer, width: Integer
 ) -> NDArray:
     """
-    Computes upper hemisphere illuminance weights for use with applications
+    Compute upper hemisphere illuminance weights for use with applications
     unable to perform the computation directly, i.e. *Adobe Photoshop*.
 
     Parameters
@@ -153,7 +153,7 @@ def absolute_luminance_calibration_Lagarde2016(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> NDArray:
     """
-    Performs absolute *Luminance* calibration of given *RGB* panoramic image
+    Perform absolute *Luminance* calibration of given *RGB* panoramic image
     using *Lagarde (2016)* method.
 
     Parameters
