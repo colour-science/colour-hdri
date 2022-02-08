@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Exposure Value Computation
 ==========================
@@ -27,26 +26,28 @@ from colour.hints import FloatingOrArrayLike, FloatingOrNDArray
 
 from colour.utilities import as_float, as_float_array
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'average_luminance',
-    'average_illuminance',
-    'luminance_to_exposure_value',
-    'illuminance_to_exposure_value',
-    'adjust_exposure',
+    "average_luminance",
+    "average_illuminance",
+    "luminance_to_exposure_value",
+    "illuminance_to_exposure_value",
+    "adjust_exposure",
 ]
 
 
-def average_luminance(N: FloatingOrArrayLike,
-                      t: FloatingOrArrayLike,
-                      S: FloatingOrArrayLike,
-                      k: FloatingOrArrayLike = 12.5) -> FloatingOrNDArray:
+def average_luminance(
+    N: FloatingOrArrayLike,
+    t: FloatingOrArrayLike,
+    S: FloatingOrArrayLike,
+    k: FloatingOrArrayLike = 12.5,
+) -> FloatingOrNDArray:
     """
     Computes the average luminance :math:`L` in :math:`cd\\cdot m^{-2}` from
     given relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`,
@@ -93,10 +94,12 @@ def average_luminance(N: FloatingOrArrayLike,
     return as_float(L)
 
 
-def average_illuminance(N: FloatingOrArrayLike,
-                        t: FloatingOrArrayLike,
-                        S: FloatingOrArrayLike,
-                        c: FloatingOrArrayLike = 250) -> FloatingOrNDArray:
+def average_illuminance(
+    N: FloatingOrArrayLike,
+    t: FloatingOrArrayLike,
+    S: FloatingOrArrayLike,
+    c: FloatingOrArrayLike = 250,
+) -> FloatingOrNDArray:
     """
     Computes the average illuminance :math:`E` in :math:`Lux` from given
     relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO*
@@ -146,9 +149,10 @@ def average_illuminance(N: FloatingOrArrayLike,
 
 
 def luminance_to_exposure_value(
-        L: FloatingOrArrayLike,
-        S: FloatingOrArrayLike,
-        k: FloatingOrArrayLike = 12.5) -> FloatingOrNDArray:
+    L: FloatingOrArrayLike,
+    S: FloatingOrArrayLike,
+    k: FloatingOrArrayLike = 12.5,
+) -> FloatingOrNDArray:
     """
     Computes the exposure value :math:`EV` from given scene luminance
     :math:`L` in :math:`cd\\cdot m^{-2}`, *ISO* arithmetic speed :math:`S` and
@@ -199,9 +203,10 @@ def luminance_to_exposure_value(
 
 
 def illuminance_to_exposure_value(
-        E: FloatingOrArrayLike,
-        S: FloatingOrArrayLike,
-        c: FloatingOrArrayLike = 250) -> FloatingOrNDArray:
+    E: FloatingOrArrayLike,
+    S: FloatingOrArrayLike,
+    c: FloatingOrArrayLike = 250,
+) -> FloatingOrNDArray:
     """
     Computes the exposure value :math:`EV` from given scene illuminance
     :math:`E` in :math:`Lux`, *ISO* arithmetic speed :math:`S` and
@@ -253,8 +258,9 @@ def illuminance_to_exposure_value(
     return as_float(EV)
 
 
-def adjust_exposure(a: FloatingOrArrayLike,
-                    EV: FloatingOrArrayLike) -> FloatingOrNDArray:
+def adjust_exposure(
+    a: FloatingOrArrayLike, EV: FloatingOrArrayLike
+) -> FloatingOrNDArray:
     """
     Adjusts given array exposure using given :math:`EV` exposure value.
 

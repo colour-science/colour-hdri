@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 RGB Colourspace & Transformations
 =================================
@@ -17,21 +16,24 @@ from colour.algebra import matrix_dot, vector_dot
 from colour.hints import ArrayLike, NDArray
 from colour.models import RGB_COLOURSPACES
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'camera_space_to_RGB',
-    'camera_space_to_sRGB',
+    "camera_space_to_RGB",
+    "camera_space_to_sRGB",
 ]
 
 
-def camera_space_to_RGB(RGB: ArrayLike, M_XYZ_to_camera_space: ArrayLike,
-                        matrix_RGB_to_XYZ: ArrayLike) -> NDArray:
+def camera_space_to_RGB(
+    RGB: ArrayLike,
+    M_XYZ_to_camera_space: ArrayLike,
+    matrix_RGB_to_XYZ: ArrayLike,
+) -> NDArray:
     """
     Converts given *RGB* array from *camera space* to given *RGB* colourspace.
 
@@ -77,8 +79,9 @@ def camera_space_to_RGB(RGB: ArrayLike, M_XYZ_to_camera_space: ArrayLike,
     return RGB_f
 
 
-def camera_space_to_sRGB(RGB: ArrayLike,
-                         M_XYZ_to_camera_space: ArrayLike) -> NDArray:
+def camera_space_to_sRGB(
+    RGB: ArrayLike, M_XYZ_to_camera_space: ArrayLike
+) -> NDArray:
     """
     Converts given *RGB* array from *camera space* to *sRGB* colourspace.
 
@@ -105,5 +108,6 @@ def camera_space_to_sRGB(RGB: ArrayLike,
     array([ 0.7564350...,  0.8683155...,  0.6044706...])
     """
 
-    return camera_space_to_RGB(RGB, M_XYZ_to_camera_space,
-                               RGB_COLOURSPACES['sRGB'].matrix_RGB_to_XYZ)
+    return camera_space_to_RGB(
+        RGB, M_XYZ_to_camera_space, RGB_COLOURSPACES["sRGB"].matrix_RGB_to_XYZ
+    )

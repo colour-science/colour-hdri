@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Image Data & Metadata Utilities
 ===============================
@@ -48,17 +47,17 @@ from colour_hdri.utilities.exif import (
     read_exif_tags,
 )
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'Metadata',
-    'Image',
-    'ImageStack',
+    "Metadata",
+    "Image",
+    "ImageStack",
 ]
 
 
@@ -90,7 +89,8 @@ class Metadata(MixinDataclassArray):
     black_level: Optional[NDArray] = field(default_factory=lambda: None)
     white_level: Optional[NDArray] = field(default_factory=lambda: None)
     white_balance_multipliers: Optional[NDArray] = field(
-        default_factory=lambda: None)
+        default_factory=lambda: None
+    )
 
 
 class Image:
@@ -120,10 +120,12 @@ class Image:
     -   :meth:`colour_hdri.Image.read_metadata`
     """
 
-    def __init__(self,
-                 path: Optional[str] = None,
-                 data: Optional[ArrayLike] = None,
-                 metadata: Optional[Metadata] = None):
+    def __init__(
+        self,
+        path: Optional[str] = None,
+        data: Optional[ArrayLike] = None,
+        metadata: Optional[Metadata] = None,
+    ):
         self._path: Optional[str] = None
         self.path = path
         # TODO: Remove pragma when https://github.com/python/mypy/issues/3004
@@ -158,9 +160,9 @@ class Image:
         """
 
         if value is not None:
-            assert is_string(value), (
-                '"{0}" attribute: "{1}" type is not "str"!'.format(
-                    'path', value))
+            assert is_string(
+                value
+            ), f'"path" property: "{value}" type is not "str"!'
 
         self._path = value
 
@@ -189,9 +191,10 @@ class Image:
         """
 
         if value is not None:
-            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), ((
-                '"{0}" attribute: "{1!r}" is not a "tuple", "list", "ndarray" '
-                'or "matrix" instance!').format('data', value))
+            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
+                '"{}" property: "{!r}" is not a "tuple", "list", "ndarray" '
+                'or "matrix" instance!'
+            ).format("data", value)
 
             value = as_float_array(value)
 
@@ -222,9 +225,9 @@ class Image:
         """
 
         if value is not None:
-            assert isinstance(value, Metadata), (
-                '"{0}" attribute: "{1}" is not a "Metadata" instance!'.format(
-                    'metadata', value))
+            assert isinstance(
+                value, Metadata
+            ), f'"metadata" property: "{value}" is not a "Metadata" instance!'
 
         self._metadata = value
 
@@ -250,7 +253,7 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info('Reading "{0}" image.'.format(self._path))
+            logging.info(f'Reading "{self._path}" image.')
 
             data = read_image(str(self._path))
             if cctf_decoding is not None:
@@ -278,48 +281,60 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info('Reading "{0}" image metadata.'.format(self._path))
+            logging.info(f'Reading "{self._path}" image metadata.')
 
             exif_data = read_exif_tags(self._path)
 
-            if not exif_data.get('EXIF'):
-                warning('"{0}" file has no "Exif" data, '
-                        'metadata will be undefined!'.format(self._path))
+            if not exif_data.get("EXIF"):
+                warning(
+                    f'"{self._path}" file has no "Exif" data, metadata will '
+                    f"be undefined!"
+                )
                 self.metadata = Metadata(*[None] * 6)
                 return self.metadata
 
-            f_number = exif_data['EXIF'].get('F Number')
+            f_number = exif_data["EXIF"].get("F Number")
             if f_number is not None:
                 f_number = parse_exif_number(f_number[0])
 
-            exposure_time = exif_data['EXIF'].get('Exposure Time')
+            exposure_time = exif_data["EXIF"].get("Exposure Time")
             if exposure_time is not None:
                 exposure_time = parse_exif_fraction(exposure_time[0])
 
-            iso = exif_data['EXIF'].get('ISO')
+            iso = exif_data["EXIF"].get("ISO")
             if iso is not None:
                 iso = parse_exif_number(iso[0])
 
-            black_level = exif_data['EXIF'].get('Black Level')
+            black_level = exif_data["EXIF"].get("Black Level")
             if black_level is not None:
                 black_level = parse_exif_array(black_level[0])
                 black_level = as_float_array(black_level) / 65535
 
-            white_level = exif_data['EXIF'].get('White Level')
+            white_level = exif_data["EXIF"].get("White Level")
             if white_level is not None:
                 white_level = parse_exif_array(white_level[0])
                 white_level = as_float_array(white_level) / 65535
 
-            white_balance_multipliers = exif_data['EXIF'].get(
-                'As Shot Neutral')
+            white_balance_multipliers = exif_data["EXIF"].get(
+                "As Shot Neutral"
+            )
             if white_balance_multipliers is not None:
                 white_balance_multipliers = parse_exif_array(
-                    white_balance_multipliers[0])
-                white_balance_multipliers = as_float_array(
-                    white_balance_multipliers) / white_balance_multipliers[1]
+                    white_balance_multipliers[0]
+                )
+                white_balance_multipliers = (
+                    as_float_array(white_balance_multipliers)
+                    / white_balance_multipliers[1]
+                )
 
-            metadata = Metadata(f_number, exposure_time, iso, black_level,
-                                white_level, white_balance_multipliers)
+            metadata = Metadata(
+                f_number,
+                exposure_time,
+                iso,
+                black_level,
+                white_level,
+                white_balance_multipliers,
+            )
 
             self._metadata = metadata
 
@@ -350,8 +365,9 @@ class ImageStack(MutableSequence):
     def __init__(self):
         self._data: List = []
 
-    def __getitem__(self, index: Union[Integer, slice]
-                    ) -> Union[Any, MutableSequence[Any]]:
+    def __getitem__(
+        self, index: Union[Integer, slice]
+    ) -> Union[Any, MutableSequence[Any]]:
         """
         Returns the :class:`colour_hdri.Image` class instance at given index.
 
@@ -425,7 +441,7 @@ class ImageStack(MutableSequence):
         except KeyError:
             if hasattr(Image, attribute):
                 value = [getattr(image, attribute) for image in self]
-                if attribute == 'data':
+                if attribute == "data":
                     return tstack(value)
                 else:
                     return tuple(value)
@@ -435,8 +451,9 @@ class ImageStack(MutableSequence):
                 return as_float_array(value)
             else:
                 raise AttributeError(
-                    "'{0}' object has no attribute '{1}'".format(
-                        self.__class__.__name__, attribute))
+                    f"'{self.__class__.__name__}' object has no attribute "
+                    f"'{attribute}'"
+                )
 
     def __setattr__(self, attribute: str, value: Any):
         """
@@ -451,7 +468,7 @@ class ImageStack(MutableSequence):
         """
 
         if hasattr(Image, attribute):
-            if attribute == 'data':
+            if attribute == "data":
                 data = tsplit(value)
                 for i, image in enumerate(self):
                     image.data = data[i]
@@ -462,7 +479,7 @@ class ImageStack(MutableSequence):
             for i, image in enumerate(self):
                 setattr(image.metadata, attribute, value[i])
         else:
-            super(ImageStack, self).__setattr__(attribute, value)
+            super().__setattr__(attribute, value)
 
     def insert(self, index: Integer, value: Any):
         """
@@ -492,8 +509,9 @@ class ImageStack(MutableSequence):
         self._data = sorted(self._data, key=key)
 
     @staticmethod
-    def from_files(image_files: Sequence[str],
-                   cctf_decoding: Optional[Callable] = None) -> ImageStack:
+    def from_files(
+        image_files: Sequence[str], cctf_decoding: Optional[Callable] = None
+    ) -> ImageStack:
         """
         Returns a :class:`colour_hdri.ImageStack` instance from given image
         files.
@@ -530,8 +548,10 @@ class ImageStack(MutableSequence):
             iso = metadata.iso
 
             if f_number is None or exposure_time is None or iso is None:
-                warning('"{0}" exposure data is missing, average luminance '
-                        'sorting is inapplicable!'.format(image.path))
+                warning(
+                    f'"{image.path}" exposure data is missing, average '
+                    f"luminance sorting is inapplicable!"
+                )
                 return None
             else:
                 return 1 / average_luminance(f_number, exposure_time, iso)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 HDRI / Radiance Image Plotting
 ==============================
@@ -20,25 +19,26 @@ from colour.utilities import as_float_array
 
 from colour_hdri.exposure import adjust_exposure
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'plot_radiance_image_strip',
+    "plot_radiance_image_strip",
 ]
 
 
 @override_style()
-def plot_radiance_image_strip(image: ArrayLike,
-                              count: Integer = 5,
-                              ev_steps: Floating = -2,
-                              cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.
-                              colour.colourspace.cctf_encoding,
-                              **kwargs: Any) -> Tuple[plt.Figure, plt.Axes]:
+def plot_radiance_image_strip(
+    image: ArrayLike,
+    count: Integer = 5,
+    ev_steps: Floating = -2,
+    cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
+    **kwargs: Any,
+) -> Tuple[plt.Figure, plt.Axes]:
     """
     Plots given HDRI / radiance image as strip of images of varying exposure.
 
@@ -77,12 +77,10 @@ def plot_radiance_image_strip(image: ArrayLike,
         axis = plt.subplot(grid[i])
         axis.imshow(np.clip(cctf_encoding(adjust_exposure(image, ev)), 0, 1))
         axis.text(
-            width * 0.05,
-            height - height * 0.05,
-            'EV {0}'.format(ev),
-            color=(1, 1, 1))
+            width * 0.05, height - height * 0.05, f"EV {ev}", color=(1, 1, 1)
+        )
         axis.set_xticks([])
         axis.set_yticks([])
-        axis.set_aspect('equal')
+        axis.set_aspect("equal")
 
     return render(**kwargs)

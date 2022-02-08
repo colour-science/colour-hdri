@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Digital Still Camera Exposure
 =============================
@@ -33,27 +32,29 @@ from colour_hdri.exposure import (
     luminance_to_exposure_value,
 )
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'q_factor',
-    'focal_plane_exposure',
-    'arithmetic_mean_focal_plane_exposure',
-    'saturation_based_speed_focal_plane_exposure',
-    'exposure_index_values',
-    'exposure_value_100',
-    'photometric_exposure_scale_factor_Lagarde2014',
+    "q_factor",
+    "focal_plane_exposure",
+    "arithmetic_mean_focal_plane_exposure",
+    "saturation_based_speed_focal_plane_exposure",
+    "exposure_index_values",
+    "exposure_value_100",
+    "photometric_exposure_scale_factor_Lagarde2014",
 ]
 
 
-def q_factor(T: FloatingOrArrayLike = 9 / 10,
-             f_v: FloatingOrArrayLike = 98 / 100,
-             theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
+def q_factor(
+    T: FloatingOrArrayLike = 9 / 10,
+    f_v: FloatingOrArrayLike = 98 / 100,
+    theta: FloatingOrArrayLike = 10,
+) -> FloatingOrNDArray:
     """
     Computes the :math:`q` factor modeling the total lens vignetting and
     transmission attenuation.
@@ -89,15 +90,17 @@ def q_factor(T: FloatingOrArrayLike = 9 / 10,
     return as_float(np.pi / 4 * T * f_v * np.cos(np.radians(theta)) ** 4)
 
 
-def focal_plane_exposure(L: FloatingOrArrayLike,
-                         A: FloatingOrArrayLike,
-                         t: FloatingOrArrayLike,
-                         F: FloatingOrArrayLike,
-                         i: FloatingOrArrayLike,
-                         H_f: FloatingOrArrayLike,
-                         T: FloatingOrArrayLike = 9 / 10,
-                         f_v: FloatingOrArrayLike = 98 / 100,
-                         theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
+def focal_plane_exposure(
+    L: FloatingOrArrayLike,
+    A: FloatingOrArrayLike,
+    t: FloatingOrArrayLike,
+    F: FloatingOrArrayLike,
+    i: FloatingOrArrayLike,
+    H_f: FloatingOrArrayLike,
+    T: FloatingOrArrayLike = 9 / 10,
+    f_v: FloatingOrArrayLike = 98 / 100,
+    theta: FloatingOrArrayLike = 10,
+) -> FloatingOrNDArray:
     """
     Computes the focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
 
@@ -165,8 +168,8 @@ def focal_plane_exposure(L: FloatingOrArrayLike,
 
 
 def arithmetic_mean_focal_plane_exposure(
-        L_a: FloatingOrArrayLike, A: FloatingOrArrayLike,
-        t: FloatingOrArrayLike) -> FloatingOrNDArray:
+    L_a: FloatingOrArrayLike, A: FloatingOrArrayLike, t: FloatingOrArrayLike
+) -> FloatingOrNDArray:
     """
     Computes the arithmetic mean focal plane exposure :math:`H_a` for a camera
     focused on infinity, :math:`H_f << H`, :math:`T=9/10`,
@@ -214,16 +217,17 @@ def arithmetic_mean_focal_plane_exposure(
 
 
 def saturation_based_speed_focal_plane_exposure(
-        L: FloatingOrArrayLike,
-        A: FloatingOrArrayLike,
-        t: FloatingOrArrayLike,
-        S: FloatingOrArrayLike,
-        F: FloatingOrArrayLike = 50 / 1000,
-        i: FloatingOrArrayLike = 1 / (-1 / 5 + 1 / (50 / 1000)),
-        H_f: FloatingOrArrayLike = 0,
-        T: FloatingOrArrayLike = 9 / 10,
-        f_v: FloatingOrArrayLike = 98 / 100,
-        theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
+    L: FloatingOrArrayLike,
+    A: FloatingOrArrayLike,
+    t: FloatingOrArrayLike,
+    S: FloatingOrArrayLike,
+    F: FloatingOrArrayLike = 50 / 1000,
+    i: FloatingOrArrayLike = 1 / (-1 / 5 + 1 / (50 / 1000)),
+    H_f: FloatingOrArrayLike = 0,
+    T: FloatingOrArrayLike = 9 / 10,
+    f_v: FloatingOrArrayLike = 98 / 100,
+    theta: FloatingOrArrayLike = 10,
+) -> FloatingOrNDArray:
     """
     Computes the Saturation-Based Speed (SBS) focal plane exposure
     :math:`H_{SBS}` in lux-seconds (:math:`lx.s`).
@@ -333,8 +337,9 @@ def exposure_index_values(H_a: FloatingOrArrayLike) -> FloatingOrNDArray:
     return as_float(10 / as_float_array(H_a))
 
 
-def exposure_value_100(N: FloatingOrArrayLike, t: FloatingOrArrayLike,
-                       S: FloatingOrArrayLike) -> FloatingOrNDArray:
+def exposure_value_100(
+    N: FloatingOrArrayLike, t: FloatingOrArrayLike, S: FloatingOrArrayLike
+) -> FloatingOrNDArray:
     """
     Computes the exposure value :math:`EV100` from given relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic
@@ -378,10 +383,11 @@ def exposure_value_100(N: FloatingOrArrayLike, t: FloatingOrArrayLike,
 
 
 def photometric_exposure_scale_factor_Lagarde2014(
-        EV100: FloatingOrArrayLike,
-        T: FloatingOrArrayLike = 9 / 10,
-        f_v: FloatingOrArrayLike = 98 / 100,
-        theta: FloatingOrArrayLike = 10) -> FloatingOrNDArray:
+    EV100: FloatingOrArrayLike,
+    T: FloatingOrArrayLike = 9 / 10,
+    f_v: FloatingOrArrayLike = 98 / 100,
+    theta: FloatingOrArrayLike = 10,
+) -> FloatingOrNDArray:
     """
     Converts the exposure value :math:`EV100` to photometric exposure scale
     factor using *Lagarde and de Rousiers (2014)* formulation derived from the

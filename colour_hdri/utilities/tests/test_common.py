@@ -1,5 +1,4 @@
 # !/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Defines the unit tests for the :mod:`colour_hdri.utilities.common` module.
 """
@@ -17,23 +16,24 @@ from colour_hdri.utilities import (
     filter_files,
 )
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'FROBISHER_001_DIRECTORY',
-    'TestVivification',
-    'TestVivifiedToDict',
-    'TestPathExists',
-    'TestFilterFiles',
+    "FROBISHER_001_DIRECTORY",
+    "TestVivification",
+    "TestVivifiedToDict",
+    "TestPathExists",
+    "TestFilterFiles",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                            'frobisher_001')
+FROBISHER_001_DIRECTORY: str = os.path.join(
+    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+)
 
 
 class TestVivification(unittest.TestCase):
@@ -48,9 +48,9 @@ class TestVivification(unittest.TestCase):
         """
 
         vivified = vivification()
-        vivified['my']['attribute'] = 1
-        self.assertIn('attribute', vivified['my'].keys())
-        self.assertEqual(vivified['my']['attribute'], 1)
+        vivified["my"]["attribute"] = 1
+        self.assertIn("attribute", vivified["my"].keys())
+        self.assertEqual(vivified["my"]["attribute"], 1)
 
 
 class TestVivifiedToDict(unittest.TestCase):
@@ -65,11 +65,11 @@ class TestVivifiedToDict(unittest.TestCase):
         """
 
         vivified = vivification()
-        vivified['my']['attribute'] = 1
+        vivified["my"]["attribute"] = 1
         vivified_as_dict = vivified_to_dict(vivified)
         self.assertIsInstance(dict(), type(vivified_as_dict))
-        self.assertIn('attribute', vivified_as_dict['my'].keys())
-        self.assertEqual(vivified_as_dict['my']['attribute'], 1)
+        self.assertIn("attribute", vivified_as_dict["my"].keys())
+        self.assertEqual(vivified_as_dict["my"]["attribute"], 1)
 
 
 class TestPathExists(unittest.TestCase):
@@ -84,7 +84,7 @@ class TestPathExists(unittest.TestCase):
         """
 
         self.assertTrue(path_exists(__file__))
-        self.assertFalse(path_exists(''))
+        self.assertFalse(path_exists(""))
 
 
 class TestFilterFiles(unittest.TestCase):
@@ -98,12 +98,19 @@ class TestFilterFiles(unittest.TestCase):
         Tests :func:`colour_hdri.utilities.common.filter_files` definition.
         """
 
-        raw_files = filter_files(FROBISHER_001_DIRECTORY, ('CR2', 'jpg'))
+        raw_files = filter_files(FROBISHER_001_DIRECTORY, ("CR2", "jpg"))
         self.assertListEqual(
             sorted(map(os.path.basename, raw_files)),
-            ['IMG_2600.CR2', 'IMG_2600.jpg', 'IMG_2601.CR2',
-             'IMG_2601.jpg', 'IMG_2602.CR2', 'IMG_2602.jpg'])  # yapf: disable
+            [
+                "IMG_2600.CR2",
+                "IMG_2600.jpg",
+                "IMG_2601.CR2",
+                "IMG_2601.jpg",
+                "IMG_2602.CR2",
+                "IMG_2602.jpg",
+            ],
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

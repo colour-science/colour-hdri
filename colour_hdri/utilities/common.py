@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Common Utilities
 ================
@@ -14,18 +13,18 @@ from collections import defaultdict
 
 from colour.hints import Boolean, Dict, List, Optional, Sequence, Union
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'vivification',
-    'vivified_to_dict',
-    'path_exists',
-    'filter_files',
+    "vivification",
+    "vivified_to_dict",
+    "path_exists",
+    "filter_files",
 ]
 
 
@@ -74,8 +73,7 @@ def vivified_to_dict(vivified: Union[Dict, defaultdict]) -> Dict:
 
     if isinstance(vivified, defaultdict):
         vivified = {
-            key: vivified_to_dict(value)
-            for key, value in vivified.items()
+            key: vivified_to_dict(value) for key, value in vivified.items()
         }
     return vivified
 
@@ -126,7 +124,9 @@ def filter_files(directory: str, extensions: Sequence[str]) -> List[str]:
     """
 
     return [
-        os.path.join(directory, path) for path in filter(
-            lambda x: re.search('{0}$'.format('|'.join(extensions)), x),
-            sorted(os.listdir(directory)))
+        os.path.join(directory, path)
+        for path in filter(
+            lambda x: re.search(f"{'|'.join(extensions)}$", x),
+            sorted(os.listdir(directory)),
+        )
     ]

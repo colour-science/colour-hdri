@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 HDRI / Radiance Image Generation
 ================================
@@ -32,23 +31,23 @@ from colour_hdri.exposure import average_luminance
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.utilities import ImageStack
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'image_stack_to_radiance_image',
+    "image_stack_to_radiance_image",
 ]
 
 
 def image_stack_to_radiance_image(
-        image_stack: ImageStack,
-        weighting_function: Callable = weighting_function_Debevec1997,
-        weighting_average: Boolean = False,
-        camera_response_functions: Optional[ArrayLike] = None
+    image_stack: ImageStack,
+    weighting_function: Callable = weighting_function_Debevec1997,
+    weighting_average: Boolean = False,
+    camera_response_functions: Optional[ArrayLike] = None,
 ) -> Optional[NDArray]:
     """
     Generates a HDRI / radiance image from given image stack.
@@ -93,16 +92,19 @@ def image_stack_to_radiance_image(
                 image_c = np.zeros(image.data.shape)
                 weight_c = np.zeros(image.data.shape)
 
-            L = 1 / average_luminance(image.metadata.f_number,
-                                      image.metadata.exposure_time,
-                                      image.metadata.iso)
+            L = 1 / average_luminance(
+                image.metadata.f_number,
+                image.metadata.exposure_time,
+                image.metadata.iso,
+            )
 
             if np.any(image.data <= 0):
                 warning(
-                    '"{0}" image channels contain negative or equal to zero '
-                    'values, unpredictable results may occur! Please consider '
-                    'encoding your images in a wider gamut RGB colourspace or '
-                    'clamp negative values.'.format(image.path))
+                    f'"{image.path}" image channels contain negative or equal '
+                    f"to zero values, unpredictable results may occur! Please "
+                    f"consider encoding your images in a wider gamut RGB "
+                    f"colourspace or clamp negative values."
+                )
 
             if weighting_average and image.data.ndim == 3:
                 average = np.average(image.data, axis=-1)
@@ -123,7 +125,8 @@ def image_stack_to_radiance_image(
             image_data = image.data
             if camera_response_functions is not None:
                 camera_response_functions = as_float_array(
-                    camera_response_functions)
+                    camera_response_functions
+                )
                 samples = np.linspace(0, 1, camera_response_functions.shape[0])
 
                 R, G, B = tsplit(image.data)

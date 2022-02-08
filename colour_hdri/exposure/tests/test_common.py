@@ -1,5 +1,4 @@
 # !/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Defines the unit tests for the :mod:`colour_hdri.exposure.common` module.
 """
@@ -15,18 +14,18 @@ from colour_hdri.exposure import (
     adjust_exposure,
 )
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'TestAverageLuminance',
-    'TestAverageIlluminance',
-    'TestLuminanceToExposureValue',
-    'TestAdjustExposure',
+    "TestAverageLuminance",
+    "TestAverageIlluminance",
+    "TestLuminanceToExposureValue",
+    "TestAdjustExposure",
 ]
 
 
@@ -48,7 +47,8 @@ class TestAverageLuminance(unittest.TestCase):
                 np.array([100, 800, 16000]),
             ),
             np.array([7.84000000, 0.98000000, 0.05000000]),
-            decimal=7)
+            decimal=7,
+        )
 
 
 class TestAverageIlluminance(unittest.TestCase):
@@ -70,7 +70,8 @@ class TestAverageIlluminance(unittest.TestCase):
                 np.array([100, 800, 16000]),
             ),
             np.array([156.80000000, 19.60000000, 1.00000000]),
-            decimal=7)
+            decimal=7,
+        )
 
 
 class TestLuminanceToExposureValue(unittest.TestCase):
@@ -92,7 +93,8 @@ class TestLuminanceToExposureValue(unittest.TestCase):
                 np.array([12.5, 12.5, 14]),
             ),
             np.array([0.00000000, 1.00000000, -0.16349873]),
-            decimal=7)
+            decimal=7,
+        )
 
 
 class TestIlluminanceToExposureValue(unittest.TestCase):
@@ -114,7 +116,8 @@ class TestIlluminanceToExposureValue(unittest.TestCase):
                 np.array([250, 250, 340]),
             ),
             np.array([0.00000000, 1.00000000, -4.76553475]),
-            decimal=7)
+            decimal=7,
+        )
 
 
 class TestAdjustExposure(unittest.TestCase):
@@ -130,9 +133,10 @@ class TestAdjustExposure(unittest.TestCase):
 
         np.testing.assert_almost_equal(
             adjust_exposure(np.array([0.25, 0.5, 0.75, 1]), 1),
-            np.array([0.5, 1.0, 1.5, 2.]),
-            decimal=7)
+            np.array([0.5, 1.0, 1.5, 2.0]),
+            decimal=7,
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

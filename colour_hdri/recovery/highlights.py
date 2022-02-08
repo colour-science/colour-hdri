@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Clipped Highlights Recovery
 ===========================
@@ -38,22 +37,22 @@ from colour.models import (
 )
 from colour.utilities import tsplit, tstack
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'highlights_recovery_blend',
-    'highlights_recovery_LCHab',
+    "highlights_recovery_blend",
+    "highlights_recovery_LCHab",
 ]
 
 
-def highlights_recovery_blend(RGB: ArrayLike,
-                              multipliers: ArrayLike,
-                              threshold: Floating = 0.99) -> NDArray:
+def highlights_recovery_blend(
+    RGB: ArrayLike, multipliers: ArrayLike, threshold: Floating = 0.99
+) -> NDArray:
     """
     Performs highlights recovery using *Coffin (1997)* method from *dcraw*.
 
@@ -77,9 +76,12 @@ def highlights_recovery_blend(RGB: ArrayLike,
     """
 
     M = np.array(
-        [[1.0000000, 1.0000000, 1.0000000],
-         [1.7320508, -1.7320508, 0.0000000],
-         [-1.0000000, -1.0000000, 2.0000000]])  # yapf: disable
+        [
+            [1.0000000, 1.0000000, 1.0000000],
+            [1.7320508, -1.7320508, 0.0000000],
+            [-1.0000000, -1.0000000, 2.0000000],
+        ]
+    )
 
     clipping_level = np.min(multipliers) * threshold
 
@@ -101,9 +103,10 @@ def highlights_recovery_blend(RGB: ArrayLike,
 
 
 def highlights_recovery_LCHab(
-        RGB: ArrayLike,
-        threshold: Optional[Floating] = None,
-        RGB_colourspace: RGB_Colourspace = RGB_COLOURSPACE_sRGB) -> NDArray:
+    RGB: ArrayLike,
+    threshold: Optional[Floating] = None,
+    RGB_colourspace: RGB_Colourspace = RGB_COLOURSPACE_sRGB,
+) -> NDArray:
     """
     Performs highlights recovery in *CIE L\\*C\\*Hab* colourspace.
 
@@ -126,22 +129,36 @@ def highlights_recovery_LCHab(
     L, _C, H = tsplit(
         Lab_to_LCHab(
             XYZ_to_Lab(
-                RGB_to_XYZ(RGB, RGB_colourspace.whitepoint,
-                           RGB_colourspace.whitepoint,
-                           RGB_colourspace.matrix_RGB_to_XYZ),
-                RGB_colourspace.whitepoint)))
+                RGB_to_XYZ(
+                    RGB,
+                    RGB_colourspace.whitepoint,
+                    RGB_colourspace.whitepoint,
+                    RGB_colourspace.matrix_RGB_to_XYZ,
+                ),
+                RGB_colourspace.whitepoint,
+            )
+        )
+    )
 
     _L_c, C_c, _H_c = tsplit(
         Lab_to_LCHab(
             XYZ_to_Lab(
                 RGB_to_XYZ(
-                    np.clip(RGB, 0, threshold), RGB_colourspace.whitepoint,
+                    np.clip(RGB, 0, threshold),
                     RGB_colourspace.whitepoint,
-                    RGB_colourspace.matrix_RGB_to_XYZ),
-                RGB_colourspace.whitepoint)))
+                    RGB_colourspace.whitepoint,
+                    RGB_colourspace.matrix_RGB_to_XYZ,
+                ),
+                RGB_colourspace.whitepoint,
+            )
+        )
+    )
 
     return XYZ_to_RGB(
         Lab_to_XYZ(
-            LCHab_to_Lab(tstack([L, C_c, H])),
-            RGB_colourspace.whitepoint), RGB_colourspace.whitepoint,
-        RGB_colourspace.whitepoint, RGB_colourspace.matrix_XYZ_to_RGB)
+            LCHab_to_Lab(tstack([L, C_c, H])), RGB_colourspace.whitepoint
+        ),
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.whitepoint,
+        RGB_colourspace.matrix_XYZ_to_RGB,
+    )

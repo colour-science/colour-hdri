@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Tonemapping Operators Plotting
 ==============================
@@ -24,26 +23,26 @@ from colour.plotting import (
 )
 from colour.utilities import as_float_array
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'plot_tonemapping_operator_image',
+    "plot_tonemapping_operator_image",
 ]
 
 
 @override_style()
 def plot_tonemapping_operator_image(
-        image: ArrayLike,
-        luminance_function: ArrayLike,
-        log_scale: Boolean = False,
-        cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.
-        cctf_encoding,
-        **kwargs: Any) -> Tuple[plt.Figure, plt.Axes]:
+    image: ArrayLike,
+    luminance_function: ArrayLike,
+    log_scale: Boolean = False,
+    cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
+    **kwargs: Any
+) -> Tuple[plt.Figure, plt.Axes]:
     """
     Plots given tonemapped image with superimposed luminance mapping function.
 
@@ -74,7 +73,7 @@ def plot_tonemapping_operator_image(
     image = as_float_array(image)
     luminance_function = as_float_array(luminance_function)
 
-    settings: Dict[str, Any] = {'uniform': True}
+    settings: Dict[str, Any] = {"uniform": True}
     settings.update(kwargs)
 
     figure, axes = artist(**settings)
@@ -87,30 +86,35 @@ def plot_tonemapping_operator_image(
         image,
         aspect=shape[0] / shape[1],
         extent=bounding_box,
-        interpolation='nearest')
+        interpolation="nearest",
+    )
 
     axes.plot(
         np.linspace(0, 1, len(luminance_function)),
         luminance_function,
-        color='red')
+        color="red",
+    )
 
     settings = {
-        'axes': axes,
-        'bounding_box': bounding_box,
-        'x_ticker': True,
-        'y_ticker': True,
-        'x_label': 'Input Luminance',
-        'y_label': 'Output Luminance',
+        "axes": axes,
+        "bounding_box": bounding_box,
+        "x_ticker": True,
+        "y_ticker": True,
+        "x_label": "Input Luminance",
+        "y_label": "Output Luminance",
     }
     settings.update(kwargs)
 
     if log_scale:
-        settings.update({
-            'x_label': '$log_2$ Input Luminance',
-            'x_ticker_locator': matplotlib.ticker.AutoMinorLocator(0.5)
-        })
-        plt.gca().set_xscale('log', basex=2)
+        settings.update(
+            {
+                "x_label": "$log_2$ Input Luminance",
+                "x_ticker_locator": matplotlib.ticker.AutoMinorLocator(0.5),
+            }
+        )
+        plt.gca().set_xscale("log", basex=2)
         plt.gca().xaxis.set_major_formatter(
-            matplotlib.ticker.ScalarFormatter())
+            matplotlib.ticker.ScalarFormatter()
+        )
 
     return render(**settings)

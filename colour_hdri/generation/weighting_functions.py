@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Weighting Functions
 ===================
@@ -25,23 +24,23 @@ from colour.hints import ArrayLike, Floating, NDArray
 
 from colour.utilities import as_float_array
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'normal_distribution_function',
-    'hat_function',
-    'weighting_function_Debevec1997',
+    "normal_distribution_function",
+    "hat_function",
+    "weighting_function_Debevec1997",
 ]
 
 
-def normal_distribution_function(a: ArrayLike,
-                                 mu: Floating = 0.5,
-                                 sigma: Floating = 0.15) -> NDArray:
+def normal_distribution_function(
+    a: ArrayLike, mu: Floating = 0.5, sigma: Floating = 0.15
+) -> NDArray:
     """
     Returns given array weighted by a normal distribution function.
 
@@ -97,9 +96,9 @@ def hat_function(a: ArrayLike) -> NDArray:
     return 1 - (2 * a - 1) ** 12
 
 
-def weighting_function_Debevec1997(a: ArrayLike,
-                                   domain_l: Floating = 0.01,
-                                   domain_h: Floating = 0.99) -> NDArray:
+def weighting_function_Debevec1997(
+    a: ArrayLike, domain_l: Floating = 0.01, domain_h: Floating = 0.99
+) -> NDArray:
     """
     Returns given array weighted by *Debevec (1997)* function.
 

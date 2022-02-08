@@ -1,5 +1,4 @@
 # !/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Defines the unit tests for the
 :mod:`colour_hdri.calibration.absolute_luminance` module.
@@ -19,25 +18,27 @@ from colour_hdri.calibration import (
     absolute_luminance_calibration_Lagarde2016,
 )
 from colour_hdri.calibration.absolute_luminance import (
-    upper_hemisphere_illuminance_Lagarde2016, )
+    upper_hemisphere_illuminance_Lagarde2016,
+)
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'TestUpperHemisphereIlluminanceLagarde2016',
-    'TestUpperHemisphereIlluminanceWeightsLagarde2016',
-    'TestAbsoluteLuminanceCalibrationLagarde2016',
+    "TestUpperHemisphereIlluminanceLagarde2016",
+    "TestUpperHemisphereIlluminanceWeightsLagarde2016",
+    "TestAbsoluteLuminanceCalibrationLagarde2016",
 ]
 
-UNITY_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY, 'unity_001')
+UNITY_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY, "unity_001")
 
-CALIBRATION_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY,
-                                          'colour_hdri', 'calibration')
+CALIBRATION_DIRECTORY: str = os.path.join(
+    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "calibration"
+)
 
 
 class TestUpperHemisphereIlluminanceLagarde2016(unittest.TestCase):
@@ -55,19 +56,24 @@ upper_hemisphere_illuminance_Lagarde2016` definition.
         self.assertAlmostEqual(
             upper_hemisphere_illuminance_Lagarde2016(np.ones((16, 32, 3))),
             2.934469165342606,
-            places=7)
+            places=7,
+        )
 
         self.assertAlmostEqual(
             upper_hemisphere_illuminance_Lagarde2016(
-                np.ones((16, 32, 3)) * 10),
+                np.ones((16, 32, 3)) * 10
+            ),
             29.344691653426061,
-            places=7)
+            places=7,
+        )
 
         self.assertAlmostEqual(
             upper_hemisphere_illuminance_Lagarde2016(
-                np.ones((16, 32, 3)) * 0.1),
+                np.ones((16, 32, 3)) * 0.1
+            ),
             0.293446916534261,
-            places=7)
+            places=7,
+        )
 
 
 class TestUpperHemisphereIlluminanceWeightsLagarde2016(unittest.TestCase):
@@ -84,43 +90,47 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition.
         """
 
         weights = np.array(
-            [[0.00000000],
-             [1.98673676],
-             [3.89213628],
-             [5.63819129],
-             [7.15341808],
-             [8.37578310],
-             [9.25524257],
-             [9.75579132],
-             [9.85693683],
-             [9.55453819],
-             [8.86097564],
-             [7.80464369],
-             [6.42878872],
-             [4.78973839],
-             [2.95459560],
-             [0.99849132],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000],
-             [0.00000000]])  # yapf: disable
+            [
+                [0.00000000],
+                [1.98673676],
+                [3.89213628],
+                [5.63819129],
+                [7.15341808],
+                [8.37578310],
+                [9.25524257],
+                [9.75579132],
+                [9.85693683],
+                [9.55453819],
+                [8.86097564],
+                [7.80464369],
+                [6.42878872],
+                [4.78973839],
+                [2.95459560],
+                [0.99849132],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+                [0.00000000],
+            ]
+        )
 
         np.testing.assert_almost_equal(
             upper_hemisphere_illuminance_weights_Lagarde2016(32, 16),
             np.tile(weights, (1, 16)),
-            decimal=7)
+            decimal=7,
+        )
 
 
 class TestAbsoluteLuminanceCalibrationLagarde2016(unittest.TestCase):
@@ -142,22 +152,31 @@ absolute_luminance_calibration_Lagarde2016` definition.
 
         reference_exr_file = read_image(
             str(
-                os.path.join(UNITY_001_DIRECTORY,
-                             'Unity_Treasure_Island_White_Balanced.exr')))
+                os.path.join(
+                    UNITY_001_DIRECTORY,
+                    "Unity_Treasure_Island_White_Balanced.exr",
+                )
+            )
+        )
 
         test_exr_file = read_image(
             str(
                 os.path.join(
                     CALIBRATION_DIRECTORY,
-                    'Unity_Treasure_Island_White_Balanced_Absolute.exr')))
+                    "Unity_Treasure_Island_White_Balanced_Absolute.exr",
+                )
+            )
+        )
 
         np.testing.assert_allclose(
-            absolute_luminance_calibration_Lagarde2016(reference_exr_file,
-                                                       51000),
+            absolute_luminance_calibration_Lagarde2016(
+                reference_exr_file, 51000
+            ),
             test_exr_file,
             rtol=0.0000001,
-            atol=0.0000001)
+            atol=0.0000001,
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

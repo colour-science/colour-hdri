@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Debevec (1997) Camera Response Function Computation
 ===================================================
@@ -46,25 +45,27 @@ from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import ImageStack
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'g_solve',
-    'extrapolating_function_polynomial',
-    'camera_response_functions_Debevec1997',
+    "g_solve",
+    "extrapolating_function_polynomial",
+    "camera_response_functions_Debevec1997",
 ]
 
 
-def g_solve(Z: ArrayLike,
-            B: ArrayLike,
-            l_s: Floating = 30,
-            w: Callable = weighting_function_Debevec1997,
-            n: Integer = 256) -> Tuple[NDArray, NDArray]:
+def g_solve(
+    Z: ArrayLike,
+    B: ArrayLike,
+    l_s: Floating = 30,
+    w: Callable = weighting_function_Debevec1997,
+    n: Integer = 256,
+) -> Tuple[NDArray, NDArray]:
     """
     Given a set of pixel values observed for several pixels in several images
     with different exposure times, this function returns the imaging system's
@@ -126,15 +127,17 @@ def g_solve(Z: ArrayLike,
     x = np.squeeze(np.linalg.lstsq(A, b, rcond=None)[0])
 
     g = x[0:n]
-    lE = x[n:x.shape[0]]
+    lE = x[n : x.shape[0]]
 
     return g, lE
 
 
-def extrapolating_function_polynomial(crfs: ArrayLike,
-                                      weighting_function: Callable,
-                                      degree: Integer = 3,
-                                      **kwargs: Any) -> NDArray:
+def extrapolating_function_polynomial(
+    crfs: ArrayLike,
+    weighting_function: Callable,
+    degree: Integer = 3,
+    **kwargs: Any
+) -> NDArray:
     """
     Polynomial extrapolating function used to handle zero-weighted data of
     given camera response functions.
@@ -176,16 +179,17 @@ def extrapolating_function_polynomial(crfs: ArrayLike,
 
 
 def camera_response_functions_Debevec1997(
-        image_stack: ImageStack,
-        sampling_function: Callable = samples_Grossberg2003,
-        sampling_function_kwargs: Optional[Dict] = None,
-        weighting_function: Callable = weighting_function_Debevec1997,
-        weighting_function_kwargs: Optional[Dict] = None,
-        extrapolating_function: Callable = extrapolating_function_polynomial,
-        extrapolating_function_kwargs: Optional[Dict] = None,
-        l_s: Floating = 30,
-        n: Integer = 256,
-        normalise: Boolean = True) -> NDArray:
+    image_stack: ImageStack,
+    sampling_function: Callable = samples_Grossberg2003,
+    sampling_function_kwargs: Optional[Dict] = None,
+    weighting_function: Callable = weighting_function_Debevec1997,
+    weighting_function_kwargs: Optional[Dict] = None,
+    extrapolating_function: Callable = extrapolating_function_polynomial,
+    extrapolating_function_kwargs: Optional[Dict] = None,
+    l_s: Floating = 30,
+    n: Integer = 256,
+    normalise: Boolean = True,
+) -> NDArray:
     """
     Returns the camera response functions for given image stack using
     *Debevec (1997)* method.
@@ -237,8 +241,12 @@ def camera_response_functions_Debevec1997(
 
     s_o = sampling_function(image_stack.data, **sampling_function_kwargs)
 
-    L_l = np.log(1 / average_luminance(
-        image_stack.f_number, image_stack.exposure_time, image_stack.iso))
+    L_l = np.log(
+        1
+        / average_luminance(
+            image_stack.f_number, image_stack.exposure_time, image_stack.iso
+        )
+    )
 
     w = partial(weighting_function, **weighting_function_kwargs)
 
