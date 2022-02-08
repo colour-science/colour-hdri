@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from .global_operators import *  # noqa
 from . import global_operators
 

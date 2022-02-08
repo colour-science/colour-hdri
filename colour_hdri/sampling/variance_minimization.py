@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Viriyothai (2009) Variance Minimization Light Probe Sampling
 ============================================================
@@ -22,26 +21,27 @@ from collections import namedtuple
 from colour.models import RGB_COLOURSPACES, RGB_luminance
 from colour.utilities import as_float_array, centroid, warning
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2021 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'Light_Specification',
-    'luminance_variance',
-    'find_regions_variance_minimization_Viriyothai2009',
-    'highlight_regions_variance_minimization',
-    'light_probe_sampling_variance_minimization_Viriyothai2009',
+    "Light_Specification",
+    "luminance_variance",
+    "find_regions_variance_minimization_Viriyothai2009",
+    "highlight_regions_variance_minimization",
+    "light_probe_sampling_variance_minimization_Viriyothai2009",
 ]
 
 
 class Light_Specification(
-        namedtuple('Light_Specification', ('uv', 'colour', 'index'))):
+    namedtuple("Light_Specification", ("uv", "colour", "index"))
+):
     """
-    Defines a light probe sampling resulting light specification.
+    Define a light probe sampling resulting light specification.
 
     Parameters
     ----------
@@ -56,7 +56,7 @@ class Light_Specification(
 
 def luminance_variance(a):
     """
-    Computes the Luminance variance of given :math:`a` 2-D array.
+    Compute the Luminance variance of given :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -75,19 +75,20 @@ def luminance_variance(a):
     12.2474487...
     """
 
-    x, y = np.mgrid[0:np.shape(a)[0], 0:np.shape(a)[1]]
+    x, y = np.mgrid[0 : np.shape(a)[0], 0 : np.shape(a)[1]]
 
     x_centroid, y_centroid = centroid(a)
 
     variance = np.sqrt(
-        np.sum(a * ((y - y_centroid) ** 2 + (x - x_centroid) ** 2)))
+        np.sum(a * ((y - y_centroid) ** 2 + (x - x_centroid) ** 2))
+    )
 
     return variance
 
 
 def find_regions_variance_minimization_Viriyothai2009(a, n=4):
     """
-    Finds the :math:`2^n` regions using *Viriyothai (2009)* variance
+    Find the :math:`2^n` regions using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm on given :math:`a` 2-D array.
 
     Parameters
@@ -119,7 +120,8 @@ def find_regions_variance_minimization_Viriyothai2009(a, n=4):
             for j in range(x_min, x_max):
                 variance_c = max(
                     luminance_variance(a[y_min:y_max, x_min:j]),
-                    luminance_variance(a[y_min:y_max, j:x_max]))
+                    luminance_variance(a[y_min:y_max, j:x_max]),
+                )
 
                 if variance_c < variance:
                     variance = variance_c
@@ -130,7 +132,8 @@ def find_regions_variance_minimization_Viriyothai2009(a, n=4):
             for j in range(y_min, y_max):
                 variance_c = max(
                     luminance_variance(a[y_min:j, x_min:x_max]),
-                    luminance_variance(a[j:y_max, x_min:x_max]))
+                    luminance_variance(a[j:y_max, x_min:x_max]),
+                )
 
                 if variance_c < variance:
                     variance = variance_c
@@ -149,12 +152,11 @@ def find_regions_variance_minimization_Viriyothai2009(a, n=4):
     return regions
 
 
-def highlight_regions_variance_minimization(a,
-                                            regions,
-                                            highlight_colour=np.array(
-                                                [0, 1, 0])):
+def highlight_regions_variance_minimization(
+    a, regions, highlight_colour=np.array([0, 1, 0])
+):
     """
-    Highlights regions using with variance minimized on given :math:`a`
+    Highlight regions using with variance minimized on given :math:`a`
     3-D array.
 
     Parameters
@@ -186,7 +188,8 @@ def highlight_regions_variance_minimization(a,
 
 
 def light_probe_sampling_variance_minimization_Viriyothai2009(
-        light_probe, lights_count=16, colourspace=RGB_COLOURSPACES['sRGB']):
+    light_probe, lights_count=16, colourspace=RGB_COLOURSPACES["sRGB"]
+):
     """
     Sample given light probe to find lights using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm.
@@ -217,21 +220,27 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
     iterations = np.sqrt(lights_count).astype(np.int_)
     if iterations ** 2 != lights_count:
         warning(
-            '{0} lights requested, {1} will be effectively computed!'.format(
-                lights_count, iterations ** 2))
+            f"{lights_count} lights requested, {iterations ** 2} will be "
+            f"effectively computed!"
+        )
 
-    Y = RGB_luminance(light_probe, colourspace.primaries,
-                      colourspace.whitepoint)
+    Y = RGB_luminance(
+        light_probe, colourspace.primaries, colourspace.whitepoint
+    )
     regions = find_regions_variance_minimization_Viriyothai2009(Y, iterations)
 
     lights = []
     for region in regions:
         y_min, y_max, x_min, x_max = region
         c = centroid(Y[y_min:y_max, x_min:x_max])
-        c = (c + np.array([y_min, x_min]))
+        c = c + np.array([y_min, x_min])
         light_probe_c = light_probe[y_min:y_max, x_min:x_max]
         lights.append(
-            Light_Specification((c / np.array(Y.shape))[::-1],
-                                np.sum(np.sum(light_probe_c, 0), 0), c))
+            Light_Specification(
+                (c / np.array(Y.shape))[::-1],
+                np.sum(np.sum(light_probe_c, 0), 0),
+                c,
+            )
+        )
 
     return lights
