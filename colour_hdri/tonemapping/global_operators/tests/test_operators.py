@@ -52,9 +52,7 @@ class TestLogAverage(unittest.TestCase):
     """
 
     def test_log_average(self):
-        """
-        Test :func:`colour_hdri.utilities.common.log_average` definition.
-        """
+        """Test :func:`colour_hdri.utilities.common.log_average` definition."""
 
         np.testing.assert_allclose(
             log_average(np.linspace(0, 10, 10)),

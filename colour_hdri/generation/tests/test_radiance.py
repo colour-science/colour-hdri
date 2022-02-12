@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.generation.radiance` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.generation.radiance` module."""
 
 from __future__ import annotations
 

@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.process.adobe_dng` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.process.adobe_dng` module."""
 
 from __future__ import annotations
 
@@ -57,16 +55,12 @@ convert_raw_files_to_dng_files` definition unit tests methods.
     """
 
     def setUp(self):
-        """
-        Initialise the common tests attributes.
-        """
+        """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
-        """
-        After tests actions.
-        """
+        """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
 
@@ -105,16 +99,12 @@ convert_dng_files_to_intermediate_files` definition unit tests methods.
     """
 
     def setUp(self):
-        """
-        Initialise the common tests attributes.
-        """
+        """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
-        """
-        After tests actions.
-        """
+        """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
 

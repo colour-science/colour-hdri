@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.recovery.highlights` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.recovery.highlights` module."""
 
 from __future__ import annotations
 
@@ -44,9 +42,7 @@ __all__ = [
 ]
 
 _IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
-"""
-Whether the current platform is *Windows*.
-"""
+"""Whether the current platform is *Windows*."""
 
 FROBISHER_001_DIRECTORY: str = os.path.join(
     TESTS_RESOURCES_DIRECTORY, "frobisher_001"
@@ -74,16 +70,12 @@ highlights_recovery_blend` definition unit tests methods.
     """
 
     def setUp(self):
-        """
-        Initialise the common tests attributes.
-        """
+        """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
-        """
-        After tests actions.
-        """
+        """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
 
@@ -135,16 +127,12 @@ highlights_recovery_LCHab` definition unit tests methods.
     """
 
     def setUp(self):
-        """
-        Initialise the common tests attributes.
-        """
+        """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
     def tearDown(self):
-        """
-        After tests actions.
-        """
+        """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
 

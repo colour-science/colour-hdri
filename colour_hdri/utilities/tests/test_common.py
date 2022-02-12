@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.utilities.common` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.utilities.common` module."""
 
 from __future__ import annotations
 
@@ -43,9 +41,7 @@ class TestVivification(unittest.TestCase):
     """
 
     def test_vivification(self):
-        """
-        Test :func:`colour_hdri.utilities.common.vivification` definition.
-        """
+        """Test :func:`colour_hdri.utilities.common.vivification` definition."""
 
         vivified = vivification()
         vivified["my"]["attribute"] = 1
@@ -60,9 +56,7 @@ class TestVivifiedToDict(unittest.TestCase):
     """
 
     def test_vivified_to_dict(self):
-        """
-        Test :func:`colour_hdri.utilities.common.vivified_to_dict` definition.
-        """
+        """Test :func:`colour_hdri.utilities.common.vivified_to_dict` definition."""
 
         vivified = vivification()
         vivified["my"]["attribute"] = 1
@@ -79,9 +73,7 @@ class TestPathExists(unittest.TestCase):
     """
 
     def test_path_exists(self):
-        """
-        Test :func:`colour_hdri.utilities.common.path_exists` definition.
-        """
+        """Test :func:`colour_hdri.utilities.common.path_exists` definition."""
 
         self.assertTrue(path_exists(__file__))
         self.assertFalse(path_exists(""))
@@ -94,9 +86,7 @@ class TestFilterFiles(unittest.TestCase):
     """
 
     def test_filter_files(self):
-        """
-        Test :func:`colour_hdri.utilities.common.filter_files` definition.
-        """
+        """Test :func:`colour_hdri.utilities.common.filter_files` definition."""
 
         raw_files = filter_files(FROBISHER_001_DIRECTORY, ("CR2", "jpg"))
         self.assertListEqual(

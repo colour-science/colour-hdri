@@ -59,7 +59,7 @@ def normal_distribution_function(
         Weighted array.
 
     Examples
-    -------
+    --------
     >>> normal_distribution_function(np.linspace(0, 1, 10))
     array([ 0.00386592,  0.03470859,  0.18002174,  0.53940751,  0.93371212,
             0.93371212,  0.53940751,  0.18002174,  0.03470859,  0.00386592])
@@ -85,7 +85,7 @@ def hat_function(a: ArrayLike) -> NDArray:
         Weighted array.
 
     Examples
-    -------
+    --------
     >>> hat_function(np.linspace(0, 1, 10))
     array([ 0.        ,  0.95099207,  0.99913557,  0.99999812,  1.        ,
             1.        ,  0.99999812,  0.99913557,  0.95099207,  0.        ])
@@ -123,7 +123,7 @@ def weighting_function_Debevec1997(
     :cite:`Debevec1997a`
 
     Examples
-    -------
+    --------
     >>> weighting_function_Debevec1997(np.linspace(0, 1, 10))
     array([ 0.        ,  0.23273657,  0.48849105,  0.74424552,  1.        ,
             1.        ,  0.74424552,  0.48849105,  0.23273657,  0.        ])

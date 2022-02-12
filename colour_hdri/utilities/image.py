@@ -155,9 +155,7 @@ class Image:
 
     @path.setter
     def path(self, value: Optional[str]):
-        """
-        Setter for the **self._path** property.
-        """
+        """Setter for the **self._path** property."""
 
         if value is not None:
             assert is_string(
@@ -186,9 +184,7 @@ class Image:
 
     @data.setter
     def data(self, value: Optional[ArrayLike]):
-        """
-        Setter for the **self._data** property.
-        """
+        """Setter for the **self._data** property."""
 
         if value is not None:
             assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
@@ -220,9 +216,7 @@ class Image:
 
     @metadata.setter
     def metadata(self, value):
-        """
-        Setter for the **self._metadata** property.
-        """
+        """Setter for the **self._metadata** property."""
 
         if value is not None:
             assert isinstance(
@@ -537,9 +531,7 @@ class ImageStack(MutableSequence):
             image_stack.append(image)
 
         def luminance_average_key(image: Image) -> Optional[FloatingOrNDArray]:
-            """
-            Comparison key function.
-            """
+            """Comparison key function."""
 
             metadata = cast(Metadata, image.metadata)
 

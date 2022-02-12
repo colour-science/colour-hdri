@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.models.rgb` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.models.rgb` module."""
 
 import numpy as np
 import unittest
@@ -28,9 +26,7 @@ class TestCameraSpaceToRGB(unittest.TestCase):
     """
 
     def test_camera_space_to_RGB(self):
-        """
-        Test :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition.
-        """
+        """Test :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition."""
 
         np.testing.assert_almost_equal(
             camera_space_to_RGB(
@@ -62,9 +58,7 @@ class TestCameraSpaceTosRGB(unittest.TestCase):
     """
 
     def test_camera_space_to_sRGB(self):
-        """
-        Test :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition.
-        """
+        """Test :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition."""
 
         np.testing.assert_almost_equal(
             camera_space_to_sRGB(
