@@ -1,8 +1,6 @@
 Image Processing
 ================
 
-.. contents:: :local:
-
 Adobe DNG SDK
 -------------
 

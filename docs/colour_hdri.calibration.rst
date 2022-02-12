@@ -1,8 +1,6 @@
 Camera Calibration
 ==================
 
-.. contents:: :local:
-
 Absolute Luminance - Lagarde (2016)
 -----------------------------------
 

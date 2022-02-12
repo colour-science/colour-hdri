@@ -1,8 +1,6 @@
 Exposure Computation
 ====================
 
-.. contents:: :local:
-
 Common
 ------
 

@@ -30,7 +30,7 @@ It is open source and freely available under the
 
 .. contents:: **Table of Contents**
     :backlinks: none
-    :depth: 3
+    :depth: 2
 
 .. sectnum::
 
@@ -49,8 +49,17 @@ The following features are available:
 - Digital Still Camera (DSC) Exposure Model
 - Raw Processing Helpers
 
+Examples
+^^^^^^^^
+
+Various usage examples are available from the
+`examples directory <https://github.com/colour-science/colour-hdri/tree/master/colour_hdri/examples>`__.
+
+User Guide
+----------
+
 Installation
-------------
+^^^^^^^^^^^^
 
 Because of their size, the resources dependencies needed to run the various
 examples and unit tests are not provided within the Pypi package. They are
@@ -60,16 +69,16 @@ when cloning the
 `repository <https://github.com/colour-science/colour-hdri>`__.
 
 Primary Dependencies
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 **Colour - HDRI** requires various dependencies in order to run:
 
-- `python>=3.5 <https://www.python.org/download/releases/>`__
+- `python >= 3.8, < 4 <https://www.python.org/download/releases/>`__
 - `colour-science <https://pypi.org/project/colour-science/>`__
 - `recordclass <https://pypi.org/project/recordclass/>`__
 
 Optional Features Dependencies
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `colour-demosaicing <https://pypi.org/project/colour-demosaicing/>`__
 - `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
@@ -78,7 +87,7 @@ Optional Features Dependencies
 - `rawpy <https://pypi.org/project/rawpy/>`__
 
 Pypi
-^^^^
+~~~~
 
 Once the dependencies are satisfied, **Colour - HDRI** can be installed from
 the `Python Package Index <http://pypi.python.org/pypi/colour-hdri>`__ by
@@ -98,34 +107,25 @@ The overall development dependencies are installed as follows::
 
     pip install --user 'colour-hdri[development]'
 
-Usage
------
-
-API
-^^^
-
-The main reference for `Colour - HDRI <https://github.com/colour-science/colour-hdri>`__
-is the `Colour - HDRI Manual <https://colour-hdri.readthedocs.io/en/latest/manual.html>`__.
-
-Examples
-^^^^^^^^
-
-Various usage examples are available from the
-`examples directory <https://github.com/colour-science/colour-hdri/tree/master/colour_hdri/examples>`__.
-
 Contributing
-------------
+^^^^^^^^^^^^
 
 If you would like to contribute to `Colour - HDRI <https://github.com/colour-science/colour-hdri>`__,
 please refer to the following `Contributing <https://www.colour-science.org/contributing/>`__
 guide for `Colour <https://github.com/colour-science/colour>`__.
 
 Bibliography
-------------
+^^^^^^^^^^^^
 
 The bibliography is available in the repository in
 `BibTeX <https://github.com/colour-science/colour-hdri/blob/develop/BIBLIOGRAPHY.bib>`__
 format.
+
+API Reference
+-------------
+
+The main technical reference for `Colour - HDRI <https://github.com/colour-science/colour-hdri>`__
+is the `API Reference <https://colour-hdri.readthedocs.io/en/latest/reference.html>`__.
 
 See Also
 --------
