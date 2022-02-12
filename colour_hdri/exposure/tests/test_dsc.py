@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.exposure.dsc` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.exposure.dsc` module."""
 
 import numpy as np
 import unittest
@@ -41,9 +39,7 @@ class TestQFactor(unittest.TestCase):
     """
 
     def test_q_factor(self):
-        """
-        Test :func:`colour_hdri.exposure.dsc.q_factor` definition.
-        """
+        """Test :func:`colour_hdri.exposure.dsc.q_factor` definition."""
 
         np.testing.assert_almost_equal(
             q_factor(
@@ -63,9 +59,7 @@ class TestFocalPlaneExposure(unittest.TestCase):
     """
 
     def test_focal_plane_exposure(self):
-        """
-        Test :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition.
-        """
+        """Test :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition."""
 
         np.testing.assert_almost_equal(
             focal_plane_exposure(

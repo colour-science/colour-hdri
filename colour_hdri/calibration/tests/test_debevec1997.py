@@ -54,9 +54,7 @@ class TestGSolve(unittest.TestCase):
     """
 
     def test_g_solve(self):
-        """
-        Test :func:`colour_hdri.calibration.debevec1997.g_solve` definition.
-        """
+        """Test :func:`colour_hdri.calibration.debevec1997.g_solve` definition."""
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
         L_l = np.log(

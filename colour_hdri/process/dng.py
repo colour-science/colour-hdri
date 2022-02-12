@@ -64,14 +64,10 @@ __all__ = [
 ]
 
 _IS_MACOS_PLATFORM: Boolean = platform.system() == "Darwin"
-"""
-Whether the current platform is *macOS*.
-"""
+"""Whether the current platform is *macOS*."""
 
 _IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
-"""
-Whether the current platform is *Windows*.
-"""
+"""Whether the current platform is *Windows*."""
 
 RAW_CONVERTER: str = "dcraw"
 if is_documentation_building():  # pragma: no cover

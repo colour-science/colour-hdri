@@ -45,9 +45,7 @@ __all__ = [
 CCS_ILLUMINANT_ADOBEDNG: NDArray = CCS_ILLUMINANTS[
     "CIE 1931 2 Degree Standard Observer"
 ]["D50"]
-"""
-*Adobe DNG SDK* default illuminant for *CIE XYZ* colourspace.
-"""
+"""*Adobe DNG SDK* default illuminant for *CIE XYZ* colourspace."""
 
 CCT_ILLUMINANTS_ADOBEDNG: CaseInsensitiveMapping = CaseInsensitiveMapping(
     {

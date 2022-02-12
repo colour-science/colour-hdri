@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.exposure.common` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.exposure.common` module."""
 
 import numpy as np
 import unittest
@@ -36,9 +34,7 @@ class TestAverageLuminance(unittest.TestCase):
     """
 
     def test_average_luminance(self):
-        """
-        Test :func:`colour_hdri.exposure.common.average_luminance` definition.
-        """
+        """Test :func:`colour_hdri.exposure.common.average_luminance` definition."""
 
         np.testing.assert_almost_equal(
             average_luminance(
@@ -127,9 +123,7 @@ class TestAdjustExposure(unittest.TestCase):
     """
 
     def test_adjust_exposure(self):
-        """
-        Test :func:`colour_hdri.exposure.common.adjust_exposure` definition.
-        """
+        """Test :func:`colour_hdri.exposure.common.adjust_exposure` definition."""
 
         np.testing.assert_almost_equal(
             adjust_exposure(np.array([0.25, 0.5, 0.75, 1]), 1),

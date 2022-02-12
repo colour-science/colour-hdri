@@ -1,7 +1,5 @@
 # !/usr/bin/env python
-"""
-Defines the unit tests for the :mod:`colour_hdri.utilities.image` module.
-"""
+"""Defines the unit tests for the :mod:`colour_hdri.utilities.image` module."""
 
 from __future__ import annotations
 
@@ -37,18 +35,14 @@ class TestImage(unittest.TestCase):
     """
 
     def setUp(self):
-        """
-        Initialise the common tests attributes.
-        """
+        """Initialise the common tests attributes."""
 
         self._test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
             0
         ]
 
     def test_required_attributes(self):
-        """
-        Test the presence of required attributes.
-        """
+        """Test the presence of required attributes."""
 
         required_attributes = ("path", "data", "metadata")
 
@@ -56,9 +50,7 @@ class TestImage(unittest.TestCase):
             self.assertIn(attribute, dir(Image))
 
     def test_required_methods(self):
-        """
-        Test the presence of required methods.
-        """
+        """Test the presence of required methods."""
 
         required_methods = ("__init__", "read_data", "read_metadata")
 
@@ -66,9 +58,7 @@ class TestImage(unittest.TestCase):
             self.assertIn(method, dir(Image))
 
     def test_read_data(self):
-        """
-        Test :attr:`colour_hdri.utilities.image.Image.read_data` method.
-        """
+        """Test :attr:`colour_hdri.utilities.image.Image.read_data` method."""
 
         image = Image(self._test_jpg_image)
 
@@ -76,9 +66,7 @@ class TestImage(unittest.TestCase):
         self.assertTupleEqual(image.read_data().shape, (426, 640, 3))
 
     def test_read_metadata(self):
-        """
-        Test :attr:`colour_hdri.utilities.image.Image.end` method.
-        """
+        """Test :attr:`colour_hdri.utilities.image.Image.end` method."""
 
         image = Image(self._test_jpg_image)
 
@@ -96,18 +84,14 @@ class TestImageStack(unittest.TestCase):
     """
 
     def setUp(self):
-        """
-        Initialise the common tests attributes.
-        """
+        """Initialise the common tests attributes."""
 
         self._test_jpg_images = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
 
         self._image_stack = ImageStack().from_files(self._test_jpg_images)
 
     def test_required_methods(self):
-        """
-        Test the presence of required methods.
-        """
+        """Test the presence of required methods."""
 
         required_methods = (
             "__init__",
@@ -160,9 +144,7 @@ class TestImageStack(unittest.TestCase):
         self.assertEqual(len(image_stack), 2)
 
     def test__len__(self):
-        """
-        Test :attr:`colour_hdri.utilities.image.ImageStack.__len__` method.
-        """
+        """Test :attr:`colour_hdri.utilities.image.ImageStack.__len__` method."""
 
         self.assertEqual(len(self._image_stack), 3)
 

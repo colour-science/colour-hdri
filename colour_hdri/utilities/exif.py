@@ -286,7 +286,7 @@ def read_exif_tags(image: str) -> defaultdict:
 
 def copy_exif_tags(source: str, target: str) -> Boolean:
     """
-    Copie given source image file EXIF tag to given image target.
+    Copy given source image file EXIF tag to given image target.
 
     Parameters
     ----------
