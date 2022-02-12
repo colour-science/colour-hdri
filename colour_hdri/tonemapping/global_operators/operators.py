@@ -64,7 +64,7 @@ from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
 from colour.utilities import as_float_array
 
 __author__ = "Colour Developers"
-__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__copyright__ = "Copyright 2015 Colour Developers"
 __license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
@@ -241,7 +241,7 @@ def tonemapping_operator_gamma(
 
     RGB = as_float_array(RGB)
 
-    exposure = 2 ** EV
+    exposure = 2**EV
     RGB = (exposure * RGB) ** (1 / gamma)
 
     return RGB
@@ -583,10 +583,10 @@ def tonemapping_operator_Tumblin1999(
 
     def f(x: FloatingOrNDArray) -> FloatingOrNDArray:
         return np.where(
-            x > 100, 2.655, 1.855 + 0.4 * np.log10(x + 2.3 * 10 ** -5)
+            x > 100, 2.655, 1.855 + 0.4 * np.log10(x + 2.3 * 10**-5)
         )
 
-    L_wa = np.exp(np.mean(np.log(L_w + 2.3 * 10 ** -5)))
+    L_wa = np.exp(np.mean(np.log(L_w + 2.3 * 10**-5)))
     g_d = f(L_da)
     g_w = f(L_wa)
     g_wd = g_w / (1.855 + 0.4 * np.log(L_da))

@@ -33,7 +33,7 @@ from colour_hdri.exposure import (
 )
 
 __author__ = "Colour Developers"
-__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__copyright__ = "Copyright 2015 Colour Developers"
 __license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
@@ -162,7 +162,7 @@ def focal_plane_exposure(
 
     q = q_factor(T, f_v, theta)
 
-    H = q * (L * t * F ** 2) / (A ** 2 * i ** 2) + H_f
+    H = q * (L * t * F**2) / (A**2 * i**2) + H_f
 
     return as_float(H)
 
@@ -446,4 +446,4 @@ def photometric_exposure_scale_factor_Lagarde2014(
 
     q = q_factor(T, f_v, theta)
 
-    return as_float(1 / (78 / (100 * q) * 2 ** EV100))
+    return as_float(1 / (78 / (100 * q) * 2**EV100))
