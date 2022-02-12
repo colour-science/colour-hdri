@@ -24,7 +24,7 @@ from colour.plotting import (
 from colour.utilities import as_float_array
 
 __author__ = "Colour Developers"
-__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__copyright__ = "Copyright 2015 Colour Developers"
 __license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
@@ -41,7 +41,7 @@ def plot_tonemapping_operator_image(
     luminance_function: ArrayLike,
     log_scale: Boolean = False,
     cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Tuple[plt.Figure, plt.Axes]:
     """
     Plot given tonemapped image with superimposed luminance mapping function.

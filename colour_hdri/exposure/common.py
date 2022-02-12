@@ -27,7 +27,7 @@ from colour.hints import FloatingOrArrayLike, FloatingOrNDArray
 from colour.utilities import as_float, as_float_array
 
 __author__ = "Colour Developers"
-__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__copyright__ = "Copyright 2015 Colour Developers"
 __license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
@@ -89,7 +89,7 @@ def average_luminance(
     S = as_float_array(S)
     k = as_float_array(k)
 
-    L = N ** 2 / t / S * k
+    L = N**2 / t / S * k
 
     return as_float(L)
 
@@ -143,7 +143,7 @@ def average_illuminance(
     S = as_float_array(S)
     c = as_float_array(c)
 
-    E = N ** 2 / t / S * c
+    E = N**2 / t / S * c
 
     return as_float(E)
 

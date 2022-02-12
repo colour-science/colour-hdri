@@ -26,7 +26,7 @@ from colour.hints import ArrayLike, Floating, Integer, NDArray
 from colour.utilities import as_float_array
 
 __author__ = "Colour Developers"
-__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__copyright__ = "Copyright 2015 Colour Developers"
 __license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
@@ -82,7 +82,7 @@ def upper_hemisphere_illuminance_Lagarde2016(
 
     E_v = np.sum(np.where(theta_cos > 0, L * theta_cos * theta_sin, 0))
 
-    E_v *= 2 * np.pi ** 2 / (width * height)
+    E_v *= 2 * np.pi**2 / (width * height)
 
     return E_v
 
@@ -141,7 +141,7 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(
     theta_sin = np.sin(theta)
 
     w[theta_cos > 0] = (
-        theta_cos[theta_cos > 0] * theta_sin[theta_cos > 0] * 2 * np.pi ** 2
+        theta_cos[theta_cos > 0] * theta_sin[theta_cos > 0] * 2 * np.pi**2
     )
 
     return w

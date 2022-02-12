@@ -22,7 +22,7 @@ from colour.models import RGB_COLOURSPACES, RGB_luminance
 from colour.utilities import as_float_array, centroid, warning
 
 __author__ = "Colour Developers"
-__copyright__ = "Copyright (C) 2015-2021 - Colour Developers"
+__copyright__ = "Copyright 2015 Colour Developers"
 __license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
@@ -218,7 +218,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
     light_probe = as_float_array(light_probe)
 
     iterations = np.sqrt(lights_count).astype(np.int_)
-    if iterations ** 2 != lights_count:
+    if iterations**2 != lights_count:
         warning(
             f"{lights_count} lights requested, {iterations ** 2} will be "
             f"effectively computed!"

@@ -1,8 +1,6 @@
 Colour Models
 =============
 
-.. contents:: :local:
-
 Adobe DNG SDK
 -------------
 

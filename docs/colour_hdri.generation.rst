@@ -1,8 +1,6 @@
 HDRI / Radiance Image Generation
 ================================
 
-.. contents:: :local:
-
 Generation
 ----------
 
