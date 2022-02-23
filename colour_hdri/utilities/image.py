@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import logging
 import numpy as np
-from collections import MutableSequence
+from collections.abc import MutableSequence
 from dataclasses import dataclass, field, fields
 
 from colour.hints import (
