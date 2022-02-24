@@ -30,21 +30,20 @@ jobs:
     - name: Install Dependencies (macOS)
       if: matrix.os == 'macOS-latest'
       run: |
-        brew install dcraw exiftool gnu-sed
-        brew cask install adobe-dng-converter
-        ln -s /usr/local/bin/gsed /usr/local/bin/sed
+        brew install dcraw exiftool
+        brew install --cask adobe-dng-converter
       shell: bash
     - name: Install Dependencies (Ubuntu)
-      if: matrix.os == 'ubuntu-18.04'
+      if: matrix.os == 'ubuntu-20.04'
       run: |
         sudo apt-get update
-        sudo apt-get --yes install dcraw libimage-exiftool-perl
+        sudo apt-get --yes install dcraw exiftool
       shell: bash
     - name: Install Dependencies (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        curl -L https://exiftool.org/exiftool-12.11.zip -o exiftool-12.11.zip
-        unzip -d exiftool exiftool-12.11.zip
+        curl -L https://exiftool.org/exiftool-12.40.zip -o exiftool-12.40.zip
+        unzip -d exiftool exiftool-12.40.zip
         cp exiftool/exiftool\(-k\).exe exiftool/exiftool.exe
         echo "$PWD/exiftool" >> $GITHUB_PATH
         curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
@@ -66,7 +65,7 @@ jobs:
     - name: Install Poetry
       run: |
         curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
-        python get-poetry.py
+        python get-poetry.py --version 1.1.12
         echo "$HOME/.poetry/bin" >> $GITHUB_PATH
       shell: bash
     - name: Install Package Dependencies
@@ -75,9 +74,9 @@ jobs:
         poetry install --extras "plotting"
         poetry run python -c "import imageio;imageio.plugins.freeimage.download()"
       shell: bash
-    - name: Lint with flake8
+    - name: Pre-Commit (All Files)
       run: |
-        poetry run flake8 $CI_PACKAGE --count --show-source --statistics
+        poetry run pre-commit run --all-files
       shell: bash
     - name: Test Optimised Python Execution
       run: |

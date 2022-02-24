@@ -16,6 +16,7 @@ EXIF data manipulation routines based on *exiftool*:
 from __future__ import annotations
 
 import logging
+import numpy as np
 import re
 import subprocess  # nosec
 from collections import defaultdict
@@ -202,7 +203,7 @@ def parse_exif_array(
         exif_tag.value if exif_tag.value is None else exif_tag.value.split()
     )
 
-    return as_array(value, dtype).reshape(shape)  # type: ignore[arg-type]
+    return np.reshape(as_array(value, dtype), shape)  # type: ignore[arg-type]
 
 
 def parse_exif_data(data: str) -> List:

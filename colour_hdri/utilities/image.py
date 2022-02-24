@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import logging
 import numpy as np
-from collections import MutableSequence
+from collections.abc import MutableSequence
 from dataclasses import dataclass, field, fields
 
 from colour.hints import (
@@ -188,9 +188,9 @@ class Image:
 
         if value is not None:
             assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
-                '"{}" property: "{!r}" is not a "tuple", "list", "ndarray" '
+                f'"data" property: "{value}" is not a "tuple", "list", "ndarray" '
                 'or "matrix" instance!'
-            ).format("data", value)
+            )
 
             value = as_float_array(value)
 
