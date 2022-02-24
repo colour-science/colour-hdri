@@ -135,7 +135,7 @@ def g_solve(
 def extrapolating_function_polynomial(
     crfs: ArrayLike,
     weighting_function: Callable,
-    degree: Integer = 3,
+    degree: Integer = 7,
     **kwargs: Any,
 ) -> NDArray:
     """
