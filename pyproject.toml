@@ -135,12 +135,7 @@ development = [
 ]
 optional = [ "colour-demosaicing" ]
 plotting = [ "matplotlib" ]
-read-the-docs = [
-    "matplotlib",
-    "numpy",
-    "pydata-sphinx-theme",
-    "sphinxcontrib-bibtex"
-]
+read-the-docs = [ "matplotlib", "pydata-sphinx-theme", "sphinxcontrib-bibtex" ]
 
 [tool.black]
 line-length = 79
