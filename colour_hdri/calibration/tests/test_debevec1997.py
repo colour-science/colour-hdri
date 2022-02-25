@@ -72,24 +72,24 @@ class TestGSolve(unittest.TestCase):
 
             # Lower precision for unit tests under *Github Actions*.
             np.testing.assert_allclose(
-                g[0:-2],
+                g,
                 np.load(
                     os.path.join(
                         CALIBRATION_DIRECTORY, f"test_g_solve_g_{i}.npy"
                     )
-                )[0:-2],
+                ),
                 rtol=0.001,
                 atol=0.001,
             )
 
             # Lower precision for unit tests under *Github Actions*.
             np.testing.assert_allclose(
-                lE[1:],
+                lE,
                 np.load(
                     os.path.join(
                         CALIBRATION_DIRECTORY, f"test_g_solve_lE_{i}.npy"
                     )
-                )[1:],
+                ),
                 rtol=0.001,
                 atol=0.001,
             )
