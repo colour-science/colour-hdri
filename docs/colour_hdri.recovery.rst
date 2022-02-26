@@ -1,8 +1,6 @@
 Highlights Recovery
 ===================
 
-.. contents:: :local:
-
 Clipped Highlights Recovery
 ---------------------------
 

@@ -1,8 +1,6 @@
 Image Sampling
 ==============
 
-.. contents:: :local:
-
 Viriyothai (2009)
 -----------------
 

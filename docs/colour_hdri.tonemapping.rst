@@ -1,8 +1,6 @@
 Tonemapping Operators
 =====================
 
-.. contents:: :local:
-
 Global
 ------
 

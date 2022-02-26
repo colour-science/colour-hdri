@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 """
 EXIF Data Manipulation
 ======================
 
-Exif data manipulation routines based on *exiftool*:
+EXIF data manipulation routines based on *exiftool*:
 
 -   :func:`colour_hdri.parse_exif_data`
 -   :func:`colour_hdri.read_exif_tags`
@@ -14,198 +13,263 @@ Exif data manipulation routines based on *exiftool*:
 -   :func:`colour_hdri.write_exif_tag`
 """
 
-from __future__ import division, unicode_literals
+from __future__ import annotations
 
 import logging
 import numpy as np
 import re
 import subprocess  # nosec
-from collections import namedtuple
+from collections import defaultdict
+from dataclasses import dataclass, field
 from fractions import Fraction
-from six import text_type
 
-from colour.utilities.documentation import (DocstringText,
-                                            is_documentation_building)
+from colour.hints import (
+    Boolean,
+    DTypeFloating,
+    DTypeNumber,
+    Floating,
+    List,
+    NDArray,
+    Number,
+    Optional,
+    Sequence,
+    SupportsIndex,
+    Type,
+    Union,
+    cast,
+)
+
+from colour.constants import DEFAULT_FLOAT_DTYPE
+from colour.utilities import as_array, as_float_scalar, optional
+from colour.utilities.documentation import (
+    DocstringText,
+    is_documentation_building,
+)
 
 from colour_hdri.utilities import vivification
 
-__author__ = 'Colour Developers'
-__copyright__ = 'Copyright (C) 2015-2020 - Colour Developers'
-__license__ = 'New BSD License - https://opensource.org/licenses/BSD-3-Clause'
-__maintainer__ = 'Colour Developers'
-__email__ = 'colour-developers@colour-science.org'
-__status__ = 'Production'
+__author__ = "Colour Developers"
+__copyright__ = "Copyright 2015 Colour Developers"
+__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__maintainer__ = "Colour Developers"
+__email__ = "colour-developers@colour-science.org"
+__status__ = "Production"
 
 __all__ = [
-    'EXIF_EXECUTABLE', 'ExifTag', 'parse_exif_string', 'parse_exif_numeric',
-    'parse_exif_fraction', 'parse_exif_array', 'parse_exif_data',
-    'read_exif_tags', 'copy_exif_tags', 'update_exif_tags', 'delete_exif_tags',
-    'read_exif_tag', 'write_exif_tag'
+    "EXIF_EXECUTABLE",
+    "EXIFTag",
+    "parse_exif_string",
+    "parse_exif_number",
+    "parse_exif_fraction",
+    "parse_exif_array",
+    "parse_exif_data",
+    "read_exif_tags",
+    "copy_exif_tags",
+    "update_exif_tags",
+    "delete_exif_tags",
+    "read_exif_tag",
+    "write_exif_tag",
 ]
 
-EXIF_EXECUTABLE = 'exiftool'
+EXIF_EXECUTABLE: str = "exiftool"
 if is_documentation_building():  # pragma: no cover
     EXIF_EXECUTABLE = DocstringText(EXIF_EXECUTABLE)
     EXIF_EXECUTABLE.__doc__ = """
-Command line exif manipulation application, usually Phil Harvey's *ExifTool*.
-
-EXIF_EXECUTABLE : unicode
+Command line EXIF manipulation application, usually Phil Harvey's *ExifTool*.
 """
 
 
-class ExifTag(namedtuple('ExifTag', ('group', 'name', 'value', 'identifier'))):
+@dataclass
+class EXIFTag:
     """
-    Hunt colour appearance model induction factors.
+    EXIF tag data.
 
     Parameters
     ----------
-    group : unicode, optional
-        Exif tag group name.
-    name : unicode, optional
-        Exif tag name.
-    value : object, optional
-        Exif tag value.
-    identifier : numeric, optional
-        Exif tag identifier.
+    group
+        EXIF tag group name.
+    name
+        EXIF tag name.
+    value
+        EXIF tag value.
+    identifier
+        EXIF tag identifier.
     """
 
-    def __new__(cls, group=None, name=None, value=None, identifier=None):
-        """
-        Returns a new instance of the :class:`colour_hdri.ExifTag` class.
-        """
-
-        return super(ExifTag, cls).__new__(cls, group, name, value, identifier)
+    group: Optional[str] = field(default_factory=lambda: None)
+    name: Optional[str] = field(default_factory=lambda: None)
+    value: Optional[str] = field(default_factory=lambda: None)
+    identifier: Optional[str] = field(default_factory=lambda: None)
 
 
-def parse_exif_string(exif_tag):
+def parse_exif_string(exif_tag: EXIFTag) -> str:
     """
-    Parses given exif tag assuming it is a string and return its value.
+    Parse given EXIF tag assuming it is a string and return its value.
 
     Parameters
     ----------
-    exif_tag : ExifTag
-        Exif tag to parse.
+    exif_tag
+        EXIF tag to parse.
 
     Returns
     -------
-    unicode
-        Parsed exif tag value.
+    :class:`str`
+        Parsed EXIF tag value.
     """
 
-    return text_type(exif_tag.value)
+    return str(exif_tag.value)
 
 
-def parse_exif_numeric(exif_tag, dtype=np.float_):
+def parse_exif_number(
+    exif_tag: EXIFTag, dtype: Optional[Type[DTypeNumber]] = None
+) -> Number:
     """
-    Parses given exif tag assuming it is a numeric type and return its value.
+    Parse given EXIF tag assuming it is a number type and return its value.
 
     Parameters
     ----------
-    exif_tag : ExifTag
-        Exif tag to parse.
-    dtype : object, optional
+    exif_tag
+        EXIF tag to parse.
+    dtype
         Return value data type.
 
     Returns
     -------
-    numeric
-        Parsed exif tag value.
+    :class:`numpy.floating` or :class:`numpy.integer`
+        Parsed EXIF tag value.
     """
 
-    return dtype(exif_tag.value)
+    dtype = cast(Type[DTypeNumber], optional(dtype, DEFAULT_FLOAT_DTYPE))
+
+    return dtype(exif_tag.value)  # type: ignore[arg-type, return-value]
 
 
-def parse_exif_fraction(exif_tag, dtype=np.float_):
+def parse_exif_fraction(
+    exif_tag: EXIFTag, dtype: Optional[Type[DTypeFloating]] = None
+) -> Floating:
     """
-    Parses given exif tag assuming it is a fraction and return its value.
+    Parse given EXIF tag assuming it is a fraction and return its value.
 
     Parameters
     ----------
-    exif_tag : ExifTag
-        Exif tag to parse.
-    dtype : object, optional
+    exif_tag
+        EXIF tag to parse.
+    dtype
         Return value data type.
 
     Returns
     -------
-    numeric
-        Parsed exif tag value.
+    :class:`numpy.floating`
+        Parsed EXIF tag value.
     """
 
-    return dtype(Fraction(exif_tag.value))
+    dtype = cast(Type[DTypeFloating], optional(dtype, DEFAULT_FLOAT_DTYPE))
+
+    value = (
+        exif_tag.value
+        if exif_tag.value is None
+        else float(Fraction(exif_tag.value))
+    )
+
+    return as_float_scalar(value, dtype)  # type: ignore[arg-type]
 
 
-def parse_exif_array(exif_tag, dtype=np.float_, shape=None):
+def parse_exif_array(
+    exif_tag: EXIFTag,
+    dtype: Optional[Type[DTypeNumber]] = None,
+    shape: Optional[Union[SupportsIndex, Sequence[SupportsIndex]]] = None,
+) -> NDArray:
     """
-    Parses given exif tag assuming it is an array and return its value.
+    Parse given EXIF tag assuming it is an array and return its value.
 
     Parameters
     ----------
-    exif_tag : ExifTag
-        Exif tag to parse.
-    dtype : object, optional
+    exif_tag
+        EXIF tag to parse.
+    dtype
         Return value data type.
-    shape : array_like, optional
-        Shape of
+    shape
+        Shape of the array to be returned.
 
     Returns
     -------
-    ndarray
-        Parsed exif tag value.
+    :class:`numpy.ndarray`
+        Parsed EXIF tag value.
     """
 
-    return np.array(exif_tag.value.split()).astype(dtype).reshape(shape)
+    dtype = cast(Type[DTypeNumber], optional(dtype, DEFAULT_FLOAT_DTYPE))
+
+    value = (
+        exif_tag.value if exif_tag.value is None else exif_tag.value.split()
+    )
+
+    return np.reshape(as_array(value, dtype), shape)  # type: ignore[arg-type]
 
 
-def parse_exif_data(data):
+def parse_exif_data(data: str) -> List:
     """
-    Parses given exif data output from *exiftool*.
+    Parse given EXIF data output from *exiftool*.
 
     Parameters
     ----------
-    data : unicode
-        Exif data.
+    data
+        EXIF data output.
 
     Returns
     -------
-    list
-        Parsed exif data.
+    :class:`list`
+        Parsed EXIF data output.
+
+    Raises
+    ------
+    ValueError
+        If the EXIF data output cannot be parsed.
     """
 
     search = re.search(
-        r'\[(?P<group>\w+)\]\s*(?P<id>(\d+|-))?(?P<tag>.*?):(?P<value>.*$)',
-        data)
+        r"\[(?P<group>\w+)\]\s*(?P<id>(\d+|-))?(?P<tag>.*?):(?P<value>.*$)",
+        data,
+    )
 
-    return [
-        group.strip() if group is not None else group
-        for group in (search.group('group'), search.group('id'),
-                      search.group('tag'), search.group('value'))
-    ]
+    if search is not None:
+        return [
+            group.strip() if group is not None else group
+            for group in (
+                search.group("group"),
+                search.group("id"),
+                search.group("tag"),
+                search.group("value"),
+            )
+        ]
+    else:
+        raise ValueError("The EXIF data output cannot be parsed!")
 
 
-def read_exif_tags(image):
+def read_exif_tags(image: str) -> defaultdict:
     """
-    Returns given image exif image tags.
+    Return given image EXIF image tags.
 
     Parameters
     ----------
-    image : unicode
+    image
         Image file.
 
     Returns
     -------
-    defaultdict
-        Exif tags.
+    :class:`defaultdict`
+        EXIF tags.
     """
 
-    logging.info("Reading '{0}' image exif data.".format(image))
+    logging.info(f"Reading '{image}' image EXIF data.")
 
     exif_tags = vivification()
-    lines = text_type(
+    lines = str(
         subprocess.check_output(  # nosec
-            [EXIF_EXECUTABLE, '-D', '-G', '-a', '-u', '-n', image]),
-        'utf-8',
-        'ignore').split('\n')
+            [EXIF_EXECUTABLE, "-D", "-G", "-a", "-u", "-n", image]
+        ),
+        "utf-8",
+        "ignore",
+    ).split("\n")
 
     for line in lines:
         if not line.strip():
@@ -216,136 +280,144 @@ def read_exif_tags(image):
         if not exif_tags[group][tag]:
             exif_tags[group][tag] = []
 
-        exif_tags[group][tag].append(ExifTag(group, tag, value, identifier))
+        exif_tags[group][tag].append(EXIFTag(group, tag, value, identifier))
 
     return exif_tags
 
 
-def copy_exif_tags(source, target):
+def copy_exif_tags(source: str, target: str) -> Boolean:
     """
-    Copies given source image file exif tag to given image target.
+    Copy given source image file EXIF tag to given image target.
 
     Parameters
     ----------
-    source : unicode
+    source
         Source image file.
-    target : unicode
+    target
         Target image file.
 
     Returns
     -------
-    bool
+    :class:`bool`
         Definition success.
     """
 
-    logging.info("Copying '{0}' file exif data to '{1}' file.".format(
-        source, target))
+    logging.info(f"Copying '{source}' file EXIF data to '{target}' file.")
 
-    arguments = [EXIF_EXECUTABLE, '-overwrite_original', '-TagsFromFile']
+    arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
     subprocess.check_output(arguments)  # nosec
 
     return True
 
 
-def update_exif_tags(images):
+# TODO: Find a better name.
+def update_exif_tags(images: Sequence[Sequence[str]]) -> Boolean:
     """
-    Updates given images siblings images pairs exif tags.
+    Update given images pairs EXIF tags.
 
     Parameters
     ----------
-    images : list
-        Image files to update.
+    images
+        Image pairs to update the EXIF tags of.
 
     Returns
     -------
-    bool
+    :class:`bool`
         Definition success.
     """
 
-    success = True
+    success = 1
     for (source, target) in images:
-        success *= copy_exif_tags(source, target)
+        success *= int(copy_exif_tags(source, target))
 
-    return success
+    return bool(success)
 
 
-def delete_exif_tags(image):
+def delete_exif_tags(image: str) -> Boolean:
     """
-    Deletes all given image exif tags.
+    Delete all given image EXIF tags.
 
     Parameters
     ----------
-    image : unicode
-        Image file.
+    image
+        Image file to delete the EXIF tags from.
 
     Returns
     -------
-    bool
+    :class:`bool`
         Definition success.
     """
 
-    logging.info("Deleting '{0}' image exif tags.".format(image))
+    logging.info(f"Deleting '{image}' image EXIF tags.")
 
     subprocess.check_output(  # nosec
-        [EXIF_EXECUTABLE, '-overwrite_original', '-all=', image])
+        [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image]
+    )
 
     return True
 
 
-def read_exif_tag(image, tag):
+def read_exif_tag(image: str, tag: str) -> str:
     """
-    Returns given image exif tag value.
+    Return given image EXIF tag value.
 
     Parameters
     ----------
-    image : unicode
-        Image file.
-    tag : unicode
-        Tag.
+    image : str
+        Image file to read the EXIF tag value of.
+    tag : str
+        Tag to read the value of.
 
     Returns
     -------
-    unicode
+    :class:`str`
         Tag value.
     """
 
-    value = text_type(
-        subprocess.check_output(  # nosec
-            [EXIF_EXECUTABLE, '-{0}'.format(tag), image]),
-        'utf-8',
-        'ignore').split(':').pop().strip()
+    value = (
+        str(
+            subprocess.check_output(  # nosec
+                [EXIF_EXECUTABLE, f"-{tag}", image]
+            ),
+            "utf-8",
+            "ignore",
+        )
+        .split(":")
+        .pop()
+        .strip()
+    )
 
-    logging.info("Reading '{0}' image '{1}' exif tag value: '{2}'".format(
-        image, tag, value))
+    logging.info(f"Reading '{image}' image '{tag}' EXIF tag value: '{value}'")
 
     return value
 
 
-def write_exif_tag(image, tag, value):
+def write_exif_tag(image: str, tag: str, value: str) -> Boolean:
     """
-    Sets given image exif tag value.
+    Set given image EXIF tag value.
 
     Parameters
     ----------
-    image : unicode
-        Image file.
-    tag : unicode
-        Tag.
-    value : unicode
-        Value.
+    image : str
+        Image file to set the EXIF tag value of.
+    tag : str
+        Tag to set the value of.
+    value : str
+        Value to set.
 
     Returns
     -------
-    bool
+    :class:`bool`
         Definition success.
     """
 
-    logging.info("Writing '{0}' image '{1}' exif tag with '{2}' value.".format(
-        image, tag, value))
+    logging.info(
+        f"Writing '{image}' image '{tag}' EXIF tag with '{value}' value."
+    )
 
-    arguments = [EXIF_EXECUTABLE, '-overwrite_original']
-    arguments += ['-{0}={1}'.format(tag, value), image]
+    arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
+    arguments += [f"-{tag}={value}", image]
     subprocess.check_output(arguments)  # nosec
 
     return True
