@@ -33,38 +33,46 @@ packages = [
 
 package_data = {
     "": ["*"],
-    "colour_hdri": [
-        "examples/*",
-        "resources/colour-hdri-examples-datasets/*",
-        "resources/colour-hdri-tests-datasets/*",
-    ],
+    "colour_hdri": ["examples/*", "resources/colour-hdri-tests-datasets/*"],
 }
 
-install_requires = ["colour-science>=0.3.16,<0.4.0", "recordclass"]
+install_requires = [
+    "colour-science>=0.4.0",
+    "imageio>=2,<3",
+    "numpy>=1.19,<2",
+    "scipy>=1.5,<2",
+    "typing-extensions>=4,<5",
+]
 
 extras_require = {
     "development": [
         "biblib-simple",
-        "coverage",
+        "black",
+        "coverage!=6.3",
         "coveralls",
         "flake8",
+        "flynt",
         "invoke",
         "jupyter",
-        "mock",
-        "nose",
+        "mypy",
         "pre-commit",
+        "pydata-sphinx-theme",
+        "pydocstyle",
         "pytest",
+        "pytest-cov",
         "restructuredtext-lint",
-        "sphinx<=3.1.2",
-        "sphinx_rtd_theme",
+        "sphinx>=4,<5",
         "sphinxcontrib-bibtex",
         "toml",
         "twine",
-        "yapf==0.23",
     ],
-    "optional": ["colour-demosaicing", "rawpy"],
-    "plotting": ["matplotlib"],
-    "read-the-docs": ["mock", "numpy", "sphinxcontrib-bibtex"],
+    "optional": ["colour-demosaicing>=0.2.0"],
+    "plotting": ["matplotlib>=3.2,!=3.5.0,!=3.5.1"],
+    "read-the-docs": [
+        "matplotlib>=3.2,!=3.5.0,!=3.5.1",
+        "pydata-sphinx-theme",
+        "sphinxcontrib-bibtex",
+    ],
 }
 
 setup(
@@ -81,5 +89,5 @@ setup(
     package_data=package_data,
     install_requires=install_requires,
     extras_require=extras_require,
-    python_requires=">=3.6,<4.0",
+    python_requires=">=3.8,<3.11",
 )
