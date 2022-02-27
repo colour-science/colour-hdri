@@ -14,8 +14,10 @@ Primary Dependencies
 **Colour - HDRI** requires various dependencies in order to run:
 
 - `python >= 3.8, < 4 <https://www.python.org/download/releases/>`__
-- `colour-science <https://pypi.org/project/colour-science/>`__
-- `recordclass <https://pypi.org/project/recordclass/>`__
+- `colour-science >= 4 <https://pypi.org/project/colour-science/>`__
+- `imageio >= 2, < 3 <https://imageio.github.io/>`__
+- `numpy >= 1.19, < 2 <https://pypi.org/project/numpy/>`__
+- `scipy >= 1.5, < 2 <https://pypi.org/project/scipy/>`__
 
 Optional Features Dependencies
 ------------------------------
