@@ -1,5 +1,5 @@
 # !/usr/bin/env python
-"""Defines the unit tests for the :mod:`colour_hdri.utilities.common` module."""
+"""Define the unit tests for the :mod:`colour_hdri.utilities.common` module."""
 
 from __future__ import annotations
 
