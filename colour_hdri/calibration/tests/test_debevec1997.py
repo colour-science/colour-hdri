@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 """
-Defines the unit tests for the :mod:`colour_hdri.calibration.debevec1997`
+Define the unit tests for the :mod:`colour_hdri.calibration.debevec1997`
 module.
 """
 

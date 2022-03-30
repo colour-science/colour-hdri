@@ -29,7 +29,7 @@ from colour.hints import (
     Sequence,
     Tuple,
 )
-from colour.utilities import CaseInsensitiveMapping, warning
+from colour.utilities import CaseInsensitiveMapping, optional, warning
 from colour.utilities.documentation import (
     DocstringText,
     is_documentation_building,
@@ -53,10 +53,10 @@ __status__ = "Production"
 
 __all__ = [
     "RAW_CONVERTER",
-    "RAW_CONVERSION_ARGUMENTS",
-    "RAW_D_CONVERSION_ARGUMENTS",
+    "RAW_CONVERTER_ARGUMENTS_BAYER_CFA",
+    "RAW_CONVERTER_ARGUMENTS_DEMOSAICING",
     "DNG_CONVERTER",
-    "DNG_CONVERSION_ARGUMENTS",
+    "DNG_CONVERTER_ARGUMENTS",
     "DNG_EXIF_TAGS_BINDING",
     "convert_raw_files_to_dng_files",
     "convert_dng_files_to_intermediate_files",
@@ -73,25 +73,35 @@ RAW_CONVERTER: str = "dcraw"
 if is_documentation_building():  # pragma: no cover
     RAW_CONVERTER = DocstringText(RAW_CONVERTER)
     RAW_CONVERTER.__doc__ = """
-Command line raw conversion application, usually Dave Coffin's *dcraw*.
+Command line raw conversion application, typically Dave Coffin's *dcraw*.
 """
 
-RAW_CONVERSION_ARGUMENTS: str = '-t 0 -D -W -4 -T "{0}"'
+RAW_CONVERTER_ARGUMENTS_BAYER_CFA: str = '-t 0 -D -W -4 -T "{raw_file}"'
 if _IS_WINDOWS_PLATFORM:
-    RAW_CONVERSION_ARGUMENTS = RAW_CONVERSION_ARGUMENTS.replace('"', "")
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = (
+        RAW_CONVERTER_ARGUMENTS_BAYER_CFA.replace('"', "")
+    )
 if is_documentation_building():  # pragma: no cover
-    RAW_CONVERSION_ARGUMENTS = DocstringText(RAW_CONVERSION_ARGUMENTS)
-    RAW_CONVERSION_ARGUMENTS.__doc__ = """
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = DocstringText(
+        RAW_CONVERTER_ARGUMENTS_BAYER_CFA
+    )
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA.__doc__ = """
 Arguments for the command line raw conversion application for non
 demosaiced linear *tiff* file format output.
 """
 
-RAW_D_CONVERSION_ARGUMENTS: str = '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{0}"'
+RAW_CONVERTER_ARGUMENTS_DEMOSAICING: str = (
+    '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{raw_file}"'
+)
 if _IS_WINDOWS_PLATFORM:
-    RAW_D_CONVERSION_ARGUMENTS = RAW_D_CONVERSION_ARGUMENTS.replace('"', "")
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING = (
+        RAW_CONVERTER_ARGUMENTS_DEMOSAICING.replace('"', "")
+    )
 if is_documentation_building():  # pragma: no cover
-    RAW_D_CONVERSION_ARGUMENTS = DocstringText(RAW_D_CONVERSION_ARGUMENTS)
-    RAW_D_CONVERSION_ARGUMENTS.__doc__ = """
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING = DocstringText(
+        RAW_CONVERTER_ARGUMENTS_DEMOSAICING
+    )
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING.__doc__ = """
 Arguments for the command line raw conversion application for demosaiced
 linear *tiff* file format output.
 """
@@ -113,16 +123,16 @@ if DNG_CONVERTER is not None:
     if is_documentation_building():  # pragma: no cover
         DNG_CONVERTER = DocstringText(DNG_CONVERTER)
         DNG_CONVERTER.__doc__ = """
-Command line *DNG* conversion application, usually *Adobe DNG Converter*.
+Command line *DNG* conversion application, typically *Adobe DNG Converter*.
 """
 
-DNG_CONVERSION_ARGUMENTS: str = '-cr7.1 -l -d "{0}" "{1}"'
+DNG_CONVERTER_ARGUMENTS: str = '-cr7.1 -l -d "{output_directory}" "{raw_file}"'
 if _IS_WINDOWS_PLATFORM:
-    DNG_CONVERSION_ARGUMENTS = DNG_CONVERSION_ARGUMENTS.replace('"', "")
+    DNG_CONVERTER_ARGUMENTS = DNG_CONVERTER_ARGUMENTS.replace('"', "")
 if is_documentation_building():  # pragma: no cover
-    DNG_CONVERSION_ARGUMENTS = DocstringText(DNG_CONVERSION_ARGUMENTS)
-    DNG_CONVERSION_ARGUMENTS.__doc__ = """
-Arguments for the command line *dng* conversion application.
+    DNG_CONVERTER_ARGUMENTS = DocstringText(DNG_CONVERTER_ARGUMENTS)
+    DNG_CONVERTER_ARGUMENTS.__doc__ = """
+Arguments for the command line *DNG* conversion application.
 """
 
 DNG_EXIF_TAGS_BINDING: CaseInsensitiveMapping = CaseInsensitiveMapping(
@@ -226,7 +236,10 @@ Exif tags binding for a *dng* file.
 
 
 def convert_raw_files_to_dng_files(
-    raw_files: Sequence[str], output_directory: str
+    raw_files: Sequence[str],
+    output_directory: str,
+    dng_converter: Optional[str] = None,
+    dng_converter_arguments: Optional[str] = None,
 ) -> List[str]:
     """
     Convert given raw files to *dng* files using given output directory.
@@ -237,6 +250,11 @@ def convert_raw_files_to_dng_files(
         Raw files to convert to *dng* files.
     output_directory
         Output directory.
+    dng_converter
+        Command line *DNG* conversion application, typically
+        *Adobe DNG Converter*.
+    dng_converter_arguments
+        Arguments for the command line *DNG* conversion application.
 
     Returns
     -------
@@ -246,43 +264,48 @@ def convert_raw_files_to_dng_files(
     Raises
     ------
     RuntimeError
-        If the *Adobe DNG Converter* is not available.
+        If the *DNG* converter is not available.
     """
 
-    if DNG_CONVERTER is not None:
-        dng_files = []
-        for raw_file in raw_files:
-            raw_file_extension = os.path.splitext(raw_file)[1]
-            dng_file = os.path.join(
-                output_directory,
-                os.path.basename(
-                    re.sub(f"{raw_file_extension}$", ".dng", raw_file)
-                ),
-            )
+    dng_converter = optional(dng_converter, DNG_CONVERTER)
+    dng_converter_arguments = optional(
+        dng_converter_arguments, DNG_CONVERTER_ARGUMENTS
+    )
 
-            if path_exists(dng_file):
-                os.remove(dng_file)
+    dng_files = []
+    for raw_file in raw_files:
+        raw_file_extension = os.path.splitext(raw_file)[1]
+        dng_file = os.path.join(
+            output_directory,
+            os.path.basename(
+                re.sub(f"{raw_file_extension}$", ".dng", raw_file)
+            ),
+        )
 
-            logging.info(f'Converting "{raw_file}" file to "{dng_file}" file.')
+        if path_exists(dng_file):
+            os.remove(dng_file)
 
-            command = [DNG_CONVERTER] + shlex.split(
-                DNG_CONVERSION_ARGUMENTS.format(output_directory, raw_file),
-                posix=not _IS_WINDOWS_PLATFORM,
-            )
+        logging.info(f'Converting "{raw_file}" file to "{dng_file}" file.')
 
-            subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
+        command = [dng_converter] + shlex.split(
+            dng_converter_arguments.format(
+                output_directory=output_directory, raw_file=raw_file
+            ),
+            posix=not _IS_WINDOWS_PLATFORM,
+        )
 
-            dng_files.append(dng_file)
+        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
-        return dng_files
-    else:
-        raise RuntimeError('The "Adobe DNG Converter" is not available!')
+        dng_files.append(dng_file)
+
+    return dng_files
 
 
 def convert_dng_files_to_intermediate_files(
     dng_files: Sequence[str],
     output_directory: str,
-    demosaicing: Boolean = False,
+    raw_converter: Optional[str] = None,
+    raw_converter_arguments: Optional[str] = None,
 ) -> List[str]:
     """
     Convert given *dng* files to intermediate *tiff* files using given output
@@ -294,14 +317,22 @@ def convert_dng_files_to_intermediate_files(
         *dng* files to convert to intermediate *tiff* files.
     output_directory
         Output directory.
-    demosaicing
-        Perform demosaicing on conversion.
+    raw_converter
+        Command line raw conversion application, typically Dave Coffin's
+        *dcraw*.
+    raw_converter_arguments
+        Arguments for the command line raw conversion application.
 
     Returns
     -------
     :class:`list`
         Intermediate *tiff* files.
     """
+
+    raw_converter = optional(raw_converter, RAW_CONVERTER)
+    raw_converter_arguments = optional(
+        raw_converter_arguments, RAW_CONVERTER_ARGUMENTS_DEMOSAICING
+    )
 
     intermediate_files = []
     for dng_file in dng_files:
@@ -314,13 +345,10 @@ def convert_dng_files_to_intermediate_files(
             f'Converting "{dng_file}" file to "{intermediate_file}" file.'
         )
 
-        raw_conversion_arguments = (
-            RAW_D_CONVERSION_ARGUMENTS
-            if demosaicing
-            else RAW_CONVERSION_ARGUMENTS
-        )
-        command = [RAW_CONVERTER] + shlex.split(
-            raw_conversion_arguments.format(dng_file),
+        command = [raw_converter] + shlex.split(
+            raw_converter_arguments.format(
+                output_directory=output_directory, raw_file=dng_file
+            ),
             posix=not _IS_WINDOWS_PLATFORM,
         )
 

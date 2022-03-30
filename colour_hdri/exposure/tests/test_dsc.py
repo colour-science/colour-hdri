@@ -1,5 +1,5 @@
 # !/usr/bin/env python
-"""Defines the unit tests for the :mod:`colour_hdri.exposure.dsc` module."""
+"""Define the unit tests for the :mod:`colour_hdri.exposure.dsc` module."""
 
 import numpy as np
 import unittest

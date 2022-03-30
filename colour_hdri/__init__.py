@@ -86,12 +86,12 @@ from .models import (
     XYZ_to_camera_space_matrix,
 )
 from .process import (
-    DNG_CONVERSION_ARGUMENTS,
     DNG_CONVERTER,
+    DNG_CONVERTER_ARGUMENTS,
     DNG_EXIF_TAGS_BINDING,
-    RAW_CONVERSION_ARGUMENTS,
     RAW_CONVERTER,
-    RAW_D_CONVERSION_ARGUMENTS,
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA,
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
     convert_dng_files_to_intermediate_files,
     convert_raw_files_to_dng_files,
     read_dng_files_exif_tags,
@@ -178,12 +178,12 @@ __all__ += [
     "XYZ_to_camera_space_matrix",
 ]
 __all__ += [
-    "DNG_CONVERSION_ARGUMENTS",
     "DNG_CONVERTER",
+    "DNG_CONVERTER_ARGUMENTS",
     "DNG_EXIF_TAGS_BINDING",
-    "RAW_CONVERSION_ARGUMENTS",
     "RAW_CONVERTER",
-    "RAW_D_CONVERSION_ARGUMENTS",
+    "RAW_CONVERTER_ARGUMENTS_BAYER_CFA",
+    "RAW_CONVERTER_ARGUMENTS_DEMOSAICING",
     "convert_dng_files_to_intermediate_files",
     "convert_raw_files_to_dng_files",
     "read_dng_files_exif_tags",

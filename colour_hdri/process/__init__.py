@@ -1,9 +1,9 @@
 from .dng import (
     RAW_CONVERTER,
-    RAW_CONVERSION_ARGUMENTS,
-    RAW_D_CONVERSION_ARGUMENTS,
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA,
     DNG_CONVERTER,
-    DNG_CONVERSION_ARGUMENTS,
+    DNG_CONVERTER_ARGUMENTS,
     DNG_EXIF_TAGS_BINDING,
     convert_raw_files_to_dng_files,
     convert_dng_files_to_intermediate_files,
@@ -12,10 +12,10 @@ from .dng import (
 
 __all__ = [
     "RAW_CONVERTER",
-    "RAW_CONVERSION_ARGUMENTS",
-    "RAW_D_CONVERSION_ARGUMENTS",
+    "RAW_CONVERTER_ARGUMENTS_DEMOSAICING",
+    "RAW_CONVERTER_ARGUMENTS_BAYER_CFA",
     "DNG_CONVERTER",
-    "DNG_CONVERSION_ARGUMENTS",
+    "DNG_CONVERTER_ARGUMENTS",
     "DNG_EXIF_TAGS_BINDING",
     "convert_raw_files_to_dng_files",
     "convert_dng_files_to_intermediate_files",
