@@ -17,7 +17,10 @@ from colour import read_image
 from colour.hints import Boolean, List, NDArray
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
-from colour_hdri.process import RAW_CONVERTER, RAW_D_CONVERSION_ARGUMENTS
+from colour_hdri.process import (
+    RAW_CONVERTER,
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
+)
 from colour_hdri.recovery import (
     highlights_recovery_blend,
     highlights_recovery_LCHab,
@@ -94,7 +97,7 @@ highlights_recovery_blend` definition unit tests methods.
         )
         shutil.copyfile(reference_raw_file, test_raw_file)
         command = [RAW_CONVERTER] + shlex.split(
-            RAW_D_CONVERSION_ARGUMENTS.format(test_raw_file),
+            RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
             posix=not _IS_WINDOWS_PLATFORM,
         )
 
@@ -151,7 +154,7 @@ highlights_recovery_LCHab` definition unit tests methods.
         )
         shutil.copyfile(reference_raw_file, test_raw_file)
         command = [RAW_CONVERTER] + shlex.split(
-            RAW_D_CONVERSION_ARGUMENTS.format(test_raw_file),
+            RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
             posix=not _IS_WINDOWS_PLATFORM,
         )
 
