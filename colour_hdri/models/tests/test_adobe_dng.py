@@ -15,7 +15,7 @@ import unittest
 
 from colour.hints import Floating, NDArray
 
-from colour_hdri.models.dng import interpolated_matrix
+from colour_hdri.models.dng import matrix_interpolated
 from colour_hdri.models import (
     xy_to_camera_neutral,
     camera_neutral_to_xy,
@@ -40,7 +40,7 @@ __all__ = [
     "ANALOG_BALANCE",
     "M_FORWARD_MATRIX_1",
     "M_FORWARD_MATRIX_2",
-    "TestInterpolatedMatrix",
+    "TestMatrixInterpolated",
     "TestXy_to_camera_neutral",
     "TestCamera_neutral_to_xy",
     "TestMatrix_XYZ_to_camera_space",
@@ -98,16 +98,16 @@ M_FORWARD_MATRIX_2: NDArray = np.array(
 )
 
 
-class TestInterpolatedMatrix(unittest.TestCase):
+class TestMatrixInterpolated(unittest.TestCase):
     """
-    Define :func:`colour_hdri.models.adobe_dng.\
-interpolated_matrix` definition unit tests methods.
+    Define :func:`colour_hdri.models.adobe_dng.matrix_interpolated` definition
+    unit tests methods.
     """
 
-    def test_interpolated_matrix(self):
+    def test_matrix_interpolated(self):
         """
-        Test :func:`colour_hdri.models.adobe_dng.\
-interpolated_matrix` definition.
+        Test :func:`colour_hdri.models.adobe_dng.matrix_interpolated`
+        definition.
         """
 
         M_reference = np.array(
@@ -118,7 +118,7 @@ interpolated_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            interpolated_matrix(
+            matrix_interpolated(
                 5000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_reference,
@@ -126,7 +126,7 @@ interpolated_matrix` definition.
         )
 
         np.testing.assert_almost_equal(
-            interpolated_matrix(
+            matrix_interpolated(
                 2850, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_1,
@@ -134,7 +134,7 @@ interpolated_matrix` definition.
         )
 
         np.testing.assert_almost_equal(
-            interpolated_matrix(
+            matrix_interpolated(
                 1000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_1,
@@ -142,7 +142,7 @@ interpolated_matrix` definition.
         )
 
         np.testing.assert_almost_equal(
-            interpolated_matrix(
+            matrix_interpolated(
                 6500, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_2,
@@ -150,7 +150,7 @@ interpolated_matrix` definition.
         )
 
         np.testing.assert_almost_equal(
-            interpolated_matrix(
+            matrix_interpolated(
                 10000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_2,

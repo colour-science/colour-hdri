@@ -135,7 +135,7 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "interpolated_matrix",
+    "matrix_interpolated",
     "xy_to_camera_neutral",
     "camera_neutral_to_xy",
     "matrix_XYZ_to_camera_space",
@@ -143,7 +143,7 @@ __all__ = [
 ]
 
 
-def interpolated_matrix(
+def matrix_interpolated(
     CCT: Floating,
     CCT_1: Floating,
     CCT_2: Floating,
@@ -192,7 +192,7 @@ def interpolated_matrix(
     ...     [0.4716, 0.0603, -0.0830],
     ...     [-0.7798, 1.5474, 0.2480],
     ...     [-0.1496, 0.1937, 0.6651]])
-    >>> interpolated_matrix(CCT, CCT_1, CCT_2, M_T, M_R)  # doctest: +ELLIPSIS
+    >>> matrix_interpolated(CCT, CCT_1, CCT_2, M_T, M_R)  # doctest: +ELLIPSIS
     array([[ 0.4854908...,  0.0408106..., -0.0714282...],
            [-0.7433278...,  1.4956549...,  0.2680749...],
            [-0.1336946...,  0.1767874...,  0.6654045...]])
@@ -485,7 +485,7 @@ def matrix_XYZ_to_camera_space(
             else M_color_matrix_2
         )
     else:
-        M_CM = interpolated_matrix(
+        M_CM = matrix_interpolated(
             CCT,
             CCT_calibration_illuminant_1,
             CCT_calibration_illuminant_2,
@@ -493,7 +493,7 @@ def matrix_XYZ_to_camera_space(
             M_color_matrix_2,
         )
 
-    M_CC = interpolated_matrix(
+    M_CC = matrix_interpolated(
         CCT,
         CCT_calibration_illuminant_1,
         CCT_calibration_illuminant_2,
@@ -642,7 +642,7 @@ def matrix_camera_space_to_XYZ(
         uv = UCS_to_uv(XYZ_to_UCS(xy_to_XYZ(xy)))
         CCT, _D_uv = uv_to_CCT_Robertson1968(uv)
 
-        M_CC = interpolated_matrix(
+        M_CC = matrix_interpolated(
             CCT,
             CCT_calibration_illuminant_1,
             CCT_calibration_illuminant_2,
@@ -676,7 +676,7 @@ def matrix_camera_space_to_XYZ(
             np.linalg.inv(matrix_dot(M_AB, M_CC)), camera_neutral
         )
         M_D = np.linalg.inv(np.diagflat(M_reference_neutral))
-        M_FM = interpolated_matrix(
+        M_FM = matrix_interpolated(
             CCT,
             CCT_calibration_illuminant_1,
             CCT_calibration_illuminant_2,
