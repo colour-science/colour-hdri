@@ -19,8 +19,8 @@ from colour_hdri.models.dng import interpolated_matrix
 from colour_hdri.models import (
     xy_to_camera_neutral,
     camera_neutral_to_xy,
-    XYZ_to_camera_space_matrix,
-    camera_space_to_XYZ_matrix,
+    matrix_XYZ_to_camera_space,
+    matrix_camera_space_to_XYZ,
 )
 
 __author__ = "Colour Developers"
@@ -43,8 +43,8 @@ __all__ = [
     "TestInterpolatedMatrix",
     "TestXy_to_camera_neutral",
     "TestCamera_neutral_to_xy",
-    "TestXYZ_to_camera_space_matrix",
-    "TestCamera_space_to_XYZ_matrix",
+    "TestMatrix_XYZ_to_camera_space",
+    "TestMatrix_Camera_space_to_XYZ",
 ]
 
 CCT_CALIBRATION_ILLUMINANT_1: Floating = 2850
@@ -274,16 +274,16 @@ camera_neutral_to_xy` definition.
         )
 
 
-class TestXYZ_to_camera_space_matrix(unittest.TestCase):
+class TestMatrix_XYZ_to_camera_space(unittest.TestCase):
     """
     Define :func:`colour_hdri.models.adobe_dng.\
-XYZ_to_camera_space_matrix` definition unit tests methods.
+matrix_XYZ_to_camera_space` definition unit tests methods.
     """
 
-    def test_XYZ_to_camera_space_matrix(self):
+    def test_matrix_XYZ_to_camera_space(self):
         """
         Test :func:`colour_hdri.models.adobe_dng.\
-XYZ_to_camera_space_matrix` definition.
+matrix_XYZ_to_camera_space` definition.
         """
         M_reference = np.array(
             [
@@ -293,7 +293,7 @@ XYZ_to_camera_space_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            XYZ_to_camera_space_matrix(
+            matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -315,7 +315,7 @@ XYZ_to_camera_space_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            XYZ_to_camera_space_matrix(
+            matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -337,7 +337,7 @@ XYZ_to_camera_space_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            XYZ_to_camera_space_matrix(
+            matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -352,16 +352,16 @@ XYZ_to_camera_space_matrix` definition.
         )
 
 
-class TestCamera_space_to_XYZ_matrix(unittest.TestCase):
+class TestMatrix_Camera_space_to_XYZ(unittest.TestCase):
     """
     Define :func:`colour_hdri.models.adobe_dng.\
-camera_space_to_XYZ_matrix` definition unit tests methods.
+matrix_camera_space_to_XYZ` definition unit tests methods.
     """
 
-    def test_camera_space_to_XYZ_matrix(self):
+    def test_matrix_camera_space_to_XYZ(self):
         """
         Test :func:`colour_hdri.models.adobe_dng.\
-camera_space_to_XYZ_matrix` definition.
+matrix_camera_space_to_XYZ` definition.
         """
 
         M_reference = np.array(
@@ -372,7 +372,7 @@ camera_space_to_XYZ_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -396,7 +396,7 @@ camera_space_to_XYZ_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -420,7 +420,7 @@ camera_space_to_XYZ_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -444,7 +444,7 @@ camera_space_to_XYZ_matrix` definition.
             ]
         )
         np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
