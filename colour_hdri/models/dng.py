@@ -6,8 +6,8 @@ Defines various objects implementing *Adobe DNG SDK* colour processing:
 
 -   :func:`colour_hdri.xy_to_camera_neutral`
 -   :func:`colour_hdri.camera_neutral_to_xy`
--   :func:`colour_hdri.XYZ_to_camera_space_matrix`
--   :func:`colour_hdri.camera_space_to_XYZ_matrix`
+-   :func:`colour_hdri.matrix_XYZ_to_camera_space`
+-   :func:`colour_hdri.matrix_camera_space_to_XYZ`
 
 The *Adobe DNG SDK* defines the following tags relevant for the current
 implementation:
@@ -135,15 +135,15 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "interpolated_matrix",
+    "matrix_interpolated",
     "xy_to_camera_neutral",
     "camera_neutral_to_xy",
-    "XYZ_to_camera_space_matrix",
-    "camera_space_to_XYZ_matrix",
+    "matrix_XYZ_to_camera_space",
+    "matrix_camera_space_to_XYZ",
 ]
 
 
-def interpolated_matrix(
+def matrix_interpolated(
     CCT: Floating,
     CCT_1: Floating,
     CCT_2: Floating,
@@ -192,7 +192,7 @@ def interpolated_matrix(
     ...     [0.4716, 0.0603, -0.0830],
     ...     [-0.7798, 1.5474, 0.2480],
     ...     [-0.1496, 0.1937, 0.6651]])
-    >>> interpolated_matrix(CCT, CCT_1, CCT_2, M_T, M_R)  # doctest: +ELLIPSIS
+    >>> matrix_interpolated(CCT, CCT_1, CCT_2, M_T, M_R)  # doctest: +ELLIPSIS
     array([[ 0.4854908...,  0.0408106..., -0.0714282...],
            [-0.7433278...,  1.4956549...,  0.2680749...],
            [-0.1336946...,  0.1767874...,  0.6654045...]])
@@ -276,7 +276,7 @@ def xy_to_camera_neutral(
     array([ 0.4130699...,  1...        ,  0.646465...])
     """
 
-    M_XYZ_to_camera = XYZ_to_camera_space_matrix(
+    M_XYZ_to_camera = matrix_XYZ_to_camera_space(
         xy,
         CCT_calibration_illuminant_1,
         CCT_calibration_illuminant_2,
@@ -375,7 +375,7 @@ def camera_neutral_to_xy(
 
     while True:
         xy_p = np.copy(xy)
-        M_XYZ_to_camera = XYZ_to_camera_space_matrix(
+        M_XYZ_to_camera = matrix_XYZ_to_camera_space(
             xy,
             CCT_calibration_illuminant_1,
             CCT_calibration_illuminant_2,
@@ -398,7 +398,7 @@ def camera_neutral_to_xy(
     )
 
 
-def XYZ_to_camera_space_matrix(
+def matrix_XYZ_to_camera_space(
     xy: ArrayLike,
     CCT_calibration_illuminant_1: Floating,
     CCT_calibration_illuminant_2: Floating,
@@ -459,7 +459,7 @@ def XYZ_to_camera_space_matrix(
     >>> M_camera_calibration_1 = np.identity(3)
     >>> M_camera_calibration_2 = np.identity(3)
     >>> analog_balance = np.ones(3)
-    >>> XYZ_to_camera_space_matrix(  # doctest: +ELLIPSIS
+    >>> matrix_XYZ_to_camera_space(  # doctest: +ELLIPSIS
     ...     np.array([0.34510414, 0.35162252]),
     ...     2850,
     ...     6500,
@@ -485,7 +485,7 @@ def XYZ_to_camera_space_matrix(
             else M_color_matrix_2
         )
     else:
-        M_CM = interpolated_matrix(
+        M_CM = matrix_interpolated(
             CCT,
             CCT_calibration_illuminant_1,
             CCT_calibration_illuminant_2,
@@ -493,7 +493,7 @@ def XYZ_to_camera_space_matrix(
             M_color_matrix_2,
         )
 
-    M_CC = interpolated_matrix(
+    M_CC = matrix_interpolated(
         CCT,
         CCT_calibration_illuminant_1,
         CCT_calibration_illuminant_2,
@@ -506,7 +506,7 @@ def XYZ_to_camera_space_matrix(
     return M_XYZ_to_camera_space
 
 
-def camera_space_to_XYZ_matrix(
+def matrix_camera_space_to_XYZ(
     xy: ArrayLike,
     CCT_calibration_illuminant_1: Floating,
     CCT_calibration_illuminant_2: Floating,
@@ -601,7 +601,7 @@ def camera_space_to_XYZ_matrix(
     ...     [[0.8924, -0.1041, 0.1760],
     ...      [0.4351, 0.6621, -0.0972],
     ...      [0.0505, -0.1562, 0.9308]])
-    >>> camera_space_to_XYZ_matrix(  # doctest: +ELLIPSIS
+    >>> matrix_camera_space_to_XYZ(  # doctest: +ELLIPSIS
     ...     np.array([0.32816244, 0.34698169]),
     ...     2850,
     ...     6500,
@@ -621,7 +621,7 @@ def camera_space_to_XYZ_matrix(
     # profile.
     if is_identity(M_forward_matrix_1) and is_identity(M_forward_matrix_2):
         M_camera_to_XYZ = np.linalg.inv(
-            XYZ_to_camera_space_matrix(
+            matrix_XYZ_to_camera_space(
                 xy,
                 CCT_calibration_illuminant_1,
                 CCT_calibration_illuminant_2,
@@ -642,7 +642,7 @@ def camera_space_to_XYZ_matrix(
         uv = UCS_to_uv(XYZ_to_UCS(xy_to_XYZ(xy)))
         CCT, _D_uv = uv_to_CCT_Robertson1968(uv)
 
-        M_CC = interpolated_matrix(
+        M_CC = matrix_interpolated(
             CCT,
             CCT_calibration_illuminant_1,
             CCT_calibration_illuminant_2,
@@ -676,7 +676,7 @@ def camera_space_to_XYZ_matrix(
             np.linalg.inv(matrix_dot(M_AB, M_CC)), camera_neutral
         )
         M_D = np.linalg.inv(np.diagflat(M_reference_neutral))
-        M_FM = interpolated_matrix(
+        M_FM = matrix_interpolated(
             CCT,
             CCT_calibration_illuminant_1,
             CCT_calibration_illuminant_2,

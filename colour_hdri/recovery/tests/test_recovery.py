@@ -39,7 +39,7 @@ __all__ = [
     "FROBISHER_001_DIRECTORY",
     "RECOVERY_DIRECTORY",
     "RAW_IMAGES",
-    "XYZ_TO_CAMERA_SPACE_MATRIX",
+    "matrix_XYZ_to_camera_space",
     "TestHighlightsRecoveryBlend",
     "TestHighlightsRecoveryLCHab",
 ]
@@ -57,7 +57,7 @@ RECOVERY_DIRECTORY: str = os.path.join(
 
 RAW_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("CR2",))
 
-XYZ_TO_CAMERA_SPACE_MATRIX: NDArray = np.array(
+matrix_XYZ_to_camera_space: NDArray = np.array(
     [
         [0.47160000, 0.06030000, -0.08300000],
         [-0.77980000, 1.54740000, 0.24800000],
@@ -110,7 +110,7 @@ highlights_recovery_blend` definition unit tests methods.
         test_tiff_file *= multipliers
         test_tiff_file = highlights_recovery_blend(test_tiff_file, multipliers)
         test_tiff_file = camera_space_to_sRGB(
-            test_tiff_file, XYZ_TO_CAMERA_SPACE_MATRIX
+            test_tiff_file, matrix_XYZ_to_camera_space
         )
         reference_exr_path = os.path.join(
             RECOVERY_DIRECTORY,
@@ -169,7 +169,7 @@ highlights_recovery_LCHab` definition unit tests methods.
             test_tiff_file, min(multipliers)
         )
         test_tiff_file = camera_space_to_sRGB(
-            test_tiff_file, XYZ_TO_CAMERA_SPACE_MATRIX
+            test_tiff_file, matrix_XYZ_to_camera_space
         )
 
         reference_exr_path = os.path.join(

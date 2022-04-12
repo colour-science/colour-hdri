@@ -13,8 +13,8 @@ Adobe DNG SDK
 
     xy_to_camera_neutral
     camera_neutral_to_xy
-    XYZ_to_camera_space_matrix
-    camera_space_to_XYZ_matrix
+    matrix_XYZ_to_camera_space
+    matrix_camera_space_to_XYZ
 
 RGB Models
 ----------
