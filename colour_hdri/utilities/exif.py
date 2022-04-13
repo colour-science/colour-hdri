@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import logging
 import numpy as np
+import platform
 import re
 import subprocess  # nosec
 from collections import defaultdict
@@ -70,6 +71,9 @@ __all__ = [
     "read_exif_tag",
     "write_exif_tag",
 ]
+
+_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
+"""Whether the current platform is *Windows*."""
 
 EXIF_EXECUTABLE: str = "exiftool"
 if is_documentation_building():  # pragma: no cover
@@ -265,7 +269,8 @@ def read_exif_tags(image: str) -> defaultdict:
     exif_tags = vivification()
     lines = str(
         subprocess.check_output(  # nosec
-            [EXIF_EXECUTABLE, "-D", "-G", "-a", "-u", "-n", image]
+            [EXIF_EXECUTABLE, "-D", "-G", "-a", "-u", "-n", image],
+            shell=_IS_WINDOWS_PLATFORM,
         ),
         "utf-8",
         "ignore",
@@ -306,7 +311,7 @@ def copy_exif_tags(source: str, target: str) -> Boolean:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
-    subprocess.check_output(arguments)  # nosec
+    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
     return True
 
@@ -352,7 +357,8 @@ def delete_exif_tags(image: str) -> Boolean:
     logging.info(f"Deleting '{image}' image EXIF tags.")
 
     subprocess.check_output(  # nosec
-        [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image]
+        [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
+        shell=_IS_WINDOWS_PLATFORM,
     )
 
     return True
@@ -378,7 +384,7 @@ def read_exif_tag(image: str, tag: str) -> str:
     value = (
         str(
             subprocess.check_output(  # nosec
-                [EXIF_EXECUTABLE, f"-{tag}", image]
+                [EXIF_EXECUTABLE, f"-{tag}", image], shell=_IS_WINDOWS_PLATFORM
             ),
             "utf-8",
             "ignore",
@@ -418,6 +424,6 @@ def write_exif_tag(image: str, tag: str, value: str) -> Boolean:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
     arguments += [f"-{tag}={value}", image]
-    subprocess.check_output(arguments)  # nosec
+    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
     return True
