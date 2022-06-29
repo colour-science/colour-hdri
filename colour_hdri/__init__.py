@@ -7,6 +7,7 @@ HDRI - Radiance image processing algorithms for *Python*.
 Subpackages
 -----------
 -   calibration: Camera calibration computations.
+-   distortion: Lens vignette characterisation & correction.
 -   exposure: Exposure computations.
 -   examples: Examples for the sub-packages.
 -   generation: HDRI / radiance image generation.
@@ -54,6 +55,11 @@ from .utilities import (
     vivification,
     vivified_to_dict,
     write_exif_tag,
+)
+from .distortion import (
+    DataVignetteCharacterisation,
+    characterise_vignette,
+    correct_vignette,
 )
 from .sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
@@ -146,6 +152,11 @@ __all__ = [
     "vivification",
     "vivified_to_dict",
     "write_exif_tag",
+]
+__all__ += [
+    "DataVignetteCharacterisation",
+    "characterise_vignette",
+    "correct_vignette",
 ]
 __all__ += [
     "light_probe_sampling_variance_minimization_Viriyothai2009",
