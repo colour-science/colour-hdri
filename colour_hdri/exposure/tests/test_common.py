@@ -36,7 +36,7 @@ class TestAverageLuminance(unittest.TestCase):
     def test_average_luminance(self):
         """Test :func:`colour_hdri.exposure.common.average_luminance` definition."""
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             average_luminance(
                 np.array([2.8, 5.6, 8]),
                 np.array([0.125, 0.5, 1.0]),
@@ -59,7 +59,7 @@ class TestAverageIlluminance(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             average_illuminance(
                 np.array([2.8, 5.6, 8]),
                 np.array([0.125, 0.5, 1.0]),
@@ -82,7 +82,7 @@ class TestLuminanceToExposureValue(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             luminance_to_exposure_value(
                 np.array([0.125, 0.250, 0.125]),
                 np.array([100, 100, 100]),
@@ -105,7 +105,7 @@ class TestIlluminanceToExposureValue(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             illuminance_to_exposure_value(
                 np.array([2.5, 5.0, 0.125]),
                 np.array([100, 100, 100]),
@@ -125,7 +125,7 @@ class TestAdjustExposure(unittest.TestCase):
     def test_adjust_exposure(self):
         """Test :func:`colour_hdri.exposure.common.adjust_exposure` definition."""
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             adjust_exposure(np.array([0.25, 0.5, 0.75, 1]), 1),
             np.array([0.5, 1.0, 1.5, 2.0]),
             decimal=7,

@@ -117,7 +117,7 @@ class TestMatrixInterpolated(unittest.TestCase):
                 [-0.13369466, 0.17678740, 0.66540452],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_interpolated(
                 5000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
@@ -125,7 +125,7 @@ class TestMatrixInterpolated(unittest.TestCase):
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_interpolated(
                 2850, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
@@ -133,7 +133,7 @@ class TestMatrixInterpolated(unittest.TestCase):
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_interpolated(
                 1000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
@@ -141,7 +141,7 @@ class TestMatrixInterpolated(unittest.TestCase):
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_interpolated(
                 6500, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
@@ -149,7 +149,7 @@ class TestMatrixInterpolated(unittest.TestCase):
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_interpolated(
                 10000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
@@ -170,7 +170,7 @@ xy_to_camera_neutral` definition unit tests methods.
 xy_to_camera_neutral` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -185,7 +185,7 @@ xy_to_camera_neutral` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -200,7 +200,7 @@ xy_to_camera_neutral` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -228,7 +228,7 @@ camera_neutral_to_xy` definition unit tests methods.
 camera_neutral_to_xy` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             camera_neutral_to_xy(
                 np.array([0.41306999, 1.00000000, 0.64646500]),
                 2850,
@@ -243,7 +243,7 @@ camera_neutral_to_xy` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             camera_neutral_to_xy(
                 np.array([0.42696744, 1.00000000, 0.63712786]),
                 2850,
@@ -258,7 +258,7 @@ camera_neutral_to_xy` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             camera_neutral_to_xy(
                 np.array([0.39667111, 1.00000000, 0.62474378]),
                 2850,
@@ -292,7 +292,7 @@ matrix_XYZ_to_camera_space` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -314,7 +314,7 @@ matrix_XYZ_to_camera_space` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -336,7 +336,7 @@ matrix_XYZ_to_camera_space` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -371,7 +371,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -395,7 +395,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -419,7 +419,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -443,7 +443,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.13472434, -0.17097714, 1.40232276],
             ]
         )
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,

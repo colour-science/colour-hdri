@@ -126,7 +126,7 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition.
             ]
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             upper_hemisphere_illuminance_weights_Lagarde2016(32, 16),
             np.tile(weights, (1, 16)),
             decimal=7,

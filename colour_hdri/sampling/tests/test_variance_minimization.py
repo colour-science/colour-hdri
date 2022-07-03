@@ -149,7 +149,7 @@ highlight_regions_variance_minimization` definition.
 
         Y = RGB_luminance(image, colourspace.primaries, colourspace.whitepoint)
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             highlight_regions_variance_minimization(image, regions),
             read_image(
                 str(
@@ -195,7 +195,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         colours = np.array([light[1] for light in lights])
         indexes = np.array([light[2] for light in lights])
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             uvs,
             np.array(
                 [
@@ -220,7 +220,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             colours,
             np.array(
                 [

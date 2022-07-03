@@ -41,7 +41,7 @@ class TestQFactor(unittest.TestCase):
     def test_q_factor(self):
         """Test :func:`colour_hdri.exposure.dsc.q_factor` definition."""
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             q_factor(
                 np.array([9 / 10, 8 / 10, 9 / 10]),
                 np.array([98 / 100, 98 / 100, 94 / 100]),
@@ -61,7 +61,7 @@ class TestFocalPlaneExposure(unittest.TestCase):
     def test_focal_plane_exposure(self):
         """Test :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition."""
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             focal_plane_exposure(
                 np.array([4000, 2000, 1000]),
                 np.array([8, 5.6, 2.8]),
@@ -90,7 +90,7 @@ arithmetic_mean_focal_plane_exposure` definition unit tests methods.
 arithmetic_mean_focal_plane_exposure` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             arithmetic_mean_focal_plane_exposure(
                 np.array([4000, 2000, 1000]),
                 np.array([8, 5.6, 2.8]),
@@ -113,7 +113,7 @@ saturation_based_speed_focal_plane_exposure` definition unit tests methods.
 saturation_based_speed_focal_plane_exposure` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             saturation_based_speed_focal_plane_exposure(
                 np.array([4000, 2000, 1000]),
                 np.array([8, 5.6, 2.8]),
@@ -143,7 +143,7 @@ class TestExposureIndexValues(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             exposure_index_values(
                 np.array([0.16439371, 0.08810904, 0.09310904])
             ),
@@ -164,7 +164,7 @@ class TestExposureValue100(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             exposure_value_100(
                 np.array([8, 5.6, 2.8]),
                 np.array([1 / 250, 1 / 500, 1 / 1000]),
@@ -188,7 +188,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition unit tests
 photometric_exposure_scale_factor_Lagarde2014` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             photometric_exposure_scale_factor_Lagarde2014(
                 np.array([13.96578428, 10.93663794, 8.93663794]),
                 np.array([9 / 10, 8 / 10, 9 / 10]),
