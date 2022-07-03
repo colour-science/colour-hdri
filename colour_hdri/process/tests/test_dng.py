@@ -85,7 +85,7 @@ convert_raw_files_to_dng_files` definition.
         for test_dng_file, reference_dng_file in zip(
             test_dng_files, reference_dng_files
         ):
-            np.testing.assert_almost_equal(
+            np.testing.assert_array_almost_equal(
                 read_image(str(test_dng_file)),
                 read_image(str(reference_dng_file)),
                 decimal=7,
@@ -162,7 +162,7 @@ convert_dng_files_to_intermediate_files` definition.
         for test_tiff_file, reference_tiff_file in zip(
             test_tiff_files, reference_tiff_files
         ):
-            np.testing.assert_almost_equal(
+            np.testing.assert_array_almost_equal(
                 read_image(str(test_tiff_file)),
                 read_image(str(reference_tiff_file)),
                 decimal=7,

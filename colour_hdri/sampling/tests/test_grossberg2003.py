@@ -53,7 +53,7 @@ samples_Grossberg2003` definition unit tests methods.
 samples_Grossberg2003` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             samples_Grossberg2003(ImageStack.from_files(JPG_IMAGES).data),
             np.load(
                 os.path.join(

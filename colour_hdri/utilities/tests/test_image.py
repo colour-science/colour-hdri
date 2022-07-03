@@ -156,13 +156,13 @@ class TestImageStack(unittest.TestCase):
 
         self.assertTupleEqual(self._image_stack.data.shape, (426, 640, 3, 3))
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             self._image_stack.f_number, np.array([8, 8, 8]), decimal=7
         )
 
         self.assertEqual(self._image_stack[0].metadata.f_number, 8)
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             self._image_stack.exposure_time, np.array([0.125, 1, 8]), decimal=7
         )
 
@@ -188,13 +188,13 @@ class TestImageStack(unittest.TestCase):
 
         self.assertTupleEqual(image_stack.data.shape, (20, 10, 3, 3))
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             image_stack.f_number, np.array([8, 8, 8]), decimal=7
         )
 
         image_stack.f_number = np.array([1, 2, 3])
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             image_stack.f_number, np.array([1, 2, 3]), decimal=7
         )
 
@@ -206,7 +206,7 @@ class TestImageStack(unittest.TestCase):
 
         image_stack.black_level = np.array([2048, 2048, 2048])
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             image_stack.black_level, np.array([2048, 2048, 2048]), decimal=7
         )
 
