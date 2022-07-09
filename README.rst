@@ -48,6 +48,7 @@ The following features are available:
 - Absolute Luminance Calibration
 - Digital Still Camera (DSC) Exposure Model
 - Raw Processing Helpers
+- Vignette Characterisation & Correction
 
 Examples
 ^^^^^^^^
