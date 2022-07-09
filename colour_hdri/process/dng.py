@@ -29,7 +29,7 @@ from colour.hints import (
     Sequence,
     Tuple,
 )
-from colour.utilities import CaseInsensitiveMapping, optional, warning
+from colour.utilities import CaseInsensitiveMapping, optional
 from colour.utilities.documentation import (
     DocstringText,
     is_documentation_building,
@@ -107,22 +107,19 @@ linear *tiff* file format output.
 """
 
 if _IS_MACOS_PLATFORM:
-    DNG_CONVERTER: Optional[str] = (
+    DNG_CONVERTER: str = (
         "/Applications/Adobe DNG Converter.app/Contents/"
         "MacOS/Adobe DNG Converter"
     )
 elif _IS_WINDOWS_PLATFORM:
-    DNG_CONVERTER: Optional[  # type: ignore[no-redef]
-        str
-    ] = "Adobe DNG Converter"
+    DNG_CONVERTER: str = "Adobe DNG Converter"  # type: ignore[no-redef]
 else:
-    warning('"Adobe DNG Converter" is not available on your platform!')
-    DNG_CONVERTER: Optional[str] = None  # type: ignore[no-redef]
+    # https://rawpedia.rawtherapee.com/How_to_convert_raw_formats_to_DNG
+    DNG_CONVERTER: str = "Adobe-DNG-Converter"  # type: ignore[no-redef]
 
-if DNG_CONVERTER is not None:
-    if is_documentation_building():  # pragma: no cover
-        DNG_CONVERTER = DocstringText(DNG_CONVERTER)
-        DNG_CONVERTER.__doc__ = """
+if is_documentation_building():  # pragma: no cover
+    DNG_CONVERTER = DocstringText(DNG_CONVERTER)
+    DNG_CONVERTER.__doc__ = """
 Command line *DNG* conversion application, typically *Adobe DNG Converter*.
 """
 

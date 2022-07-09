@@ -188,7 +188,7 @@ class Image:
 
         if value is not None:
             assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
-                f'"data" property: "{value}" is not a "tuple", "list", "ndarray" '
+                f'"data" property: "{value!r}" is not a "tuple", "list", "ndarray" '
                 'or "matrix" instance!'
             )
 
