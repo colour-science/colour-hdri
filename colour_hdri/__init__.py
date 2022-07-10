@@ -58,7 +58,9 @@ from .utilities import (
 )
 from .distortion import (
     DataVignetteCharacterisation,
+    VIGNETTE_CHARACTERISATION_METHODS,
     characterise_vignette,
+    VIGNETTE_CORRECTION_METHODS,
     correct_vignette,
 )
 from .sampling import (
@@ -155,7 +157,9 @@ __all__ = [
 ]
 __all__ += [
     "DataVignetteCharacterisation",
+    "VIGNETTE_CHARACTERISATION_METHODS",
     "characterise_vignette",
+    "VIGNETTE_CORRECTION_METHODS",
     "correct_vignette",
 ]
 __all__ += [
