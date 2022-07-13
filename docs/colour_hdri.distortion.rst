@@ -12,8 +12,10 @@ Lens Vignette
     :toctree: generated/
 
     DataVignetteCharacterisation
-    characterise_vignette_parabolic
-    correct_vignette_parabolic
+    VIGNETTE_CHARACTERISATION_METHODS
+    characterise_vignette
+    VIGNETTE_CORRECTION_METHODS
+    correct_vignette
 
 ``colour_hdri.distortion``
 
@@ -23,5 +25,11 @@ Lens Vignette
     :toctree: generated/
 
     apply_radial_gradient
-    parabolic_2d_function
+    parabolic_2D_function
     hyperbolic_cosine_2D_function
+    characterise_vignette_2D_function
+    correct_vignette_2D_function
+    characterise_vignette_bivariate_spline
+    correct_vignette_bivariate_spline
+    characterise_vignette_RBF
+    correct_vignette_RBF
