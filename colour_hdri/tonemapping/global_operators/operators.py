@@ -302,7 +302,7 @@ def tonemapping_operator_logarithmic(
     L_max = np.max(L)
     L_d = as_float_array(np.log10(1 + L * q) / np.log10(1 + L_max * k))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_exponential(
@@ -360,7 +360,7 @@ def tonemapping_operator_exponential(
     L_a = log_average(L)
     L_d = as_float_array(1 - np.exp(-(L * q) / (L_a * k)))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_logarithmic_mapping(
@@ -417,7 +417,7 @@ def tonemapping_operator_logarithmic_mapping(
         (np.log(1 + p * L) / np.log(1 + p * L_max)) ** (1 / q)
     )
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_exponentiation_mapping(
@@ -472,7 +472,7 @@ def tonemapping_operator_exponentiation_mapping(
     L_max = np.max(L)
     L_d = as_float_array((L / L_max) ** (p / q))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_Schlick1994(
@@ -525,7 +525,7 @@ def tonemapping_operator_Schlick1994(
     L_max = np.max(L)
     L_d = as_float_array((p * L) / (p * L - L + L_max))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_Tumblin1999(
@@ -595,7 +595,7 @@ def tonemapping_operator_Tumblin1999(
 
     L_d = mL_wa * L_da * (L_w / L_wa) ** (g_w / g_d)
 
-    return (RGB * L_d[..., np.newaxis] / L_w[..., np.newaxis]) / L_max
+    return (RGB * L_d[..., None] / L_w[..., None]) / L_max
 
 
 def tonemapping_operator_Reinhard2004(
@@ -681,7 +681,7 @@ def tonemapping_operator_Reinhard2004(
         )
     )
 
-    I_l = (c * RGB + (1 - c)) * L[..., np.newaxis]
+    I_l = (c * RGB + (1 - c)) * L[..., None]
     I_g = c * C_av + (1 - c) * L_lav
     I_a = a * I_l + (1 - a) * I_g
 
