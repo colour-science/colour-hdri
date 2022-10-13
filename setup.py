@@ -78,7 +78,7 @@ extras_require = {
 setup(
     name="colour-hdri",
     version="0.2.0",
-    description="HDRI / Radiance image processing algorithms for Python",
+    description="HDRI processing algorithms for Python",
     long_description=codecs.open("README.rst", encoding="utf8").read(),
     author="Colour Developers",
     author_email="colour-developers@colour-science.org",

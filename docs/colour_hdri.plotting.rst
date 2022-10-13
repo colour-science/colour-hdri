@@ -1,8 +1,8 @@
 Plotting
 ========
 
-HDRI / Radiance Image
----------------------
+HDRI
+----
 
 ``colour_hdri.plotting``
 
@@ -11,7 +11,7 @@ HDRI / Radiance Image
 .. autosummary::
     :toctree: generated/
 
-    plot_radiance_image_strip
+    plot_HDRI_strip
 
 Tonemapping Operators
 ---------------------

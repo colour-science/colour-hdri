@@ -65,7 +65,7 @@ __all__ = [
 class Metadata(MixinDataclassArray):
     """
     Define the base object for storing exif metadata relevant to
-    HDRI / radiance image generation.
+    HDRI Generation.
 
     Parameters
     ----------
@@ -96,7 +96,7 @@ class Metadata(MixinDataclassArray):
 class Image:
     """
     Define the base object for storing an image along its path, pixel data and
-    metadata needed for HDRI / radiance images generation.
+    metadata needed for HDRIs generation.
 
     Parameters
     ----------

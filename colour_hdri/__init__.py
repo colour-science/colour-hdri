@@ -2,7 +2,7 @@
 Colour - HDRI
 =============
 
-HDRI - Radiance image processing algorithms for *Python*.
+HDRI processing algorithms for *Python*.
 
 Subpackages
 -----------
@@ -10,7 +10,7 @@ Subpackages
 -   distortion: Lens vignette characterisation & correction.
 -   exposure: Exposure computations.
 -   examples: Examples for the sub-packages.
--   generation: HDRI / radiance image generation.
+-   generation: HDRI Generation.
 -   models: Colour models conversion.
 -   plotting: Diagrams, figures, etc...
 -   process: Image conversion helpers.
@@ -84,7 +84,7 @@ from .generation import (
     normal_distribution_function,
     hat_function,
     weighting_function_Debevec1997,
-    image_stack_to_radiance_image,
+    image_stack_to_HDRI,
 )
 from .calibration import (
     absolute_luminance_calibration_Lagarde2016,
@@ -183,7 +183,7 @@ __all__ += [
     "normal_distribution_function",
     "hat_function",
     "weighting_function_Debevec1997",
-    "image_stack_to_radiance_image",
+    "image_stack_to_HDRI",
 ]
 __all__ += [
     "absolute_luminance_calibration_Lagarde2016",
@@ -291,6 +291,10 @@ API_CHANGES = {
         [
             "colour_hdri.camera_space_to_XYZ_matrix",
             "colour_hdri.matrix_camera_space_to_XYZ",
+        ],
+        [
+            "colour_hdri.image_stack_to_radiance_image",
+            "colour_hdri.image_stack_to_HDRI",
         ],
     ]
 }
