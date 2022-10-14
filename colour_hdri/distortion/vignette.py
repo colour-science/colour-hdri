@@ -154,10 +154,10 @@ def apply_radial_gradient(
     samples_y += offset_y - 0.5
 
     distance = np.sqrt(
-        (samples_x**2)[..., np.newaxis] + (samples_y**2)[np.newaxis, ...]
+        (samples_x**2)[..., None] + (samples_y**2)[None, ...]
     )
 
-    image *= 1 - distance[..., np.newaxis] * intensity
+    image *= 1 - distance[..., None] * intensity
     image **= bias
 
     image += np.random.random(image.shape) * noise

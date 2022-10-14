@@ -1,10 +1,10 @@
 """
-HDRI / Radiance Image Generation
-================================
+HDRI Generation
+===============
 
-Defines the HDRI / radiance image generation objects:
+Defines the HDRI generation objects:
 
--   :func:`colour_hdri.image_stack_to_radiance_image`
+-   :func:`colour_hdri.image_stack_to_HDRI`
 
 See Also
 --------
@@ -39,17 +39,17 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "image_stack_to_radiance_image",
+    "image_stack_to_HDRI",
 ]
 
 
-def image_stack_to_radiance_image(
+def image_stack_to_HDRI(
     image_stack: ImageStack,
     weighting_function: Callable = weighting_function_Debevec1997,
     camera_response_functions: Optional[ArrayLike] = None,
 ) -> Optional[NDArray]:
     """
-    Generate a HDRI / radiance image from given image stack.
+    Generate a HDRI from given image stack.
 
     Parameters
     ----------
@@ -66,7 +66,7 @@ def image_stack_to_radiance_image(
     Returns
     -------
     :class:`numpy.ndarray`
-        Radiance image.
+        HDRI.
 
     Warnings
     --------

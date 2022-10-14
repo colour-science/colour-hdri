@@ -11,7 +11,7 @@ from colour import RGB_COLOURSPACES
 from colour.hints import List
 
 from colour_hdri import TESTS_RESOURCES_DIRECTORY
-from colour_hdri.generation import image_stack_to_radiance_image
+from colour_hdri.generation import image_stack_to_HDRI
 from colour_hdri.calibration import camera_response_functions_Debevec1997
 from colour_hdri.utilities import ImageStack, filter_files
 
@@ -26,7 +26,7 @@ __all__ = [
     "FROBISHER_001_DIRECTORY",
     "GENERATION_DIRECTORY",
     "JPG_IMAGES",
-    "TestRadianceImage",
+    "TestImageStackToHDRI",
 ]
 
 FROBISHER_001_DIRECTORY: str = os.path.join(
@@ -40,16 +40,16 @@ GENERATION_DIRECTORY: str = os.path.join(
 JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
 
 
-class TestRadianceImage(unittest.TestCase):
+class TestImageStackToHDRI(unittest.TestCase):
     """
-    Define :func:`colour_hdri.generation.radiance.\
-image_stack_to_radiance_image` definition unit tests methods.
+    Define :func:`colour_hdri.generation.radiance.image_stack_to_HDRI`
+    definition unit tests methods.
     """
 
-    def test_radiance_image(self):
+    def test_image_stack_to_HDRI(self):
         """
-        Test :func:`colour_hdri.generation.\
-radiance.image_stack_to_radiance_image` definition.
+        Test :func:`colour_hdri.generation.radiance.image_stack_to_HDRI`
+        definition.
         """
 
         image_stack = ImageStack.from_files(JPG_IMAGES)
@@ -59,10 +59,10 @@ radiance.image_stack_to_radiance_image` definition.
 
         # Lower precision for unit tests under *travis-ci*.
         np.testing.assert_allclose(
-            image_stack_to_radiance_image(image_stack),
+            image_stack_to_HDRI(image_stack),
             np.load(
                 os.path.join(
-                    GENERATION_DIRECTORY, "test_radiance_image_linear.npy"
+                    GENERATION_DIRECTORY, "test_image_stack_to_hdri_linear.npy"
                 )
             ),
             rtol=0.0001,
@@ -72,7 +72,7 @@ radiance.image_stack_to_radiance_image` definition.
         # Lower precision for unit tests under *travis-ci*.
         image_stack = ImageStack.from_files(JPG_IMAGES)
         np.testing.assert_allclose(
-            image_stack_to_radiance_image(
+            image_stack_to_HDRI(
                 image_stack,
                 camera_response_functions=(
                     camera_response_functions_Debevec1997(image_stack)
@@ -80,7 +80,7 @@ radiance.image_stack_to_radiance_image` definition.
             ),
             np.load(
                 os.path.join(
-                    GENERATION_DIRECTORY, "test_radiance_image_crfs.npy"
+                    GENERATION_DIRECTORY, "test_image_stack_to_hdri_crfs.npy"
                 )
             ),
             rtol=0.0001,

@@ -95,7 +95,7 @@ def highlights_recovery_blend(
     ratio = np.sqrt(s_c / s)
     ratio[np.logical_or(np.isnan(ratio), np.isinf(ratio))] = 1
 
-    Lab[:, :, 1:3] *= np.rollaxis(ratio[np.newaxis], 0, 3)
+    Lab[:, :, 1:3] *= np.rollaxis(ratio[None], 0, 3)
 
     RGB_o = vector_dot(np.linalg.inv(M), Lab)
 

@@ -2,7 +2,7 @@ Colour - HDRI
 =============
 
 A `Python <https://www.python.org/>`__ package implementing various
-HDRI / Radiance image processing algorithms.
+HDRI processing algorithms.
 
 It is open source and freely available under the
 `New BSD License <https://opensource.org/licenses/BSD-3-Clause>`__ terms.
@@ -16,7 +16,7 @@ Features
 
 The following features are available:
 
-- HDRI / Radiance Image Generation
+- HDRI Generation
 - Debevec (1997) Camera Response Function Computation
 - Grossberg (2003) Histogram Based Image Sampling
 - Variance Minimization Light Probe Sampling

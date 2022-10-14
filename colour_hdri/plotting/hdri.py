@@ -1,10 +1,10 @@
 """
-HDRI / Radiance Image Plotting
-==============================
+HDRI Plotting
+===================
 
-Defines the HDRI / radiance image plotting objects:
+Defines the HDRI plotting objects:
 
--   :func:`colour_hdri.plotting.plot_radiance_image_strip`
+-   :func:`colour_hdri.plotting.plot_HDRI_strip`
 """
 
 from __future__ import annotations
@@ -27,12 +27,12 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "plot_radiance_image_strip",
+    "plot_HDRI_strip",
 ]
 
 
 @override_style()
-def plot_radiance_image_strip(
+def plot_HDRI_strip(
     image: ArrayLike,
     count: Integer = 5,
     ev_steps: Floating = -2,
@@ -40,12 +40,12 @@ def plot_radiance_image_strip(
     **kwargs: Any,
 ) -> Tuple[plt.Figure, plt.Axes]:
     """
-    Plot given HDRI / radiance image as strip of images of varying exposure.
+    Plot given HDRI as strip of images of varying exposure.
 
     Parameters
     ----------
     image
-         HDRI / radiance image to plot.
+         HDRI to plot.
     count
         Strip images count.
     ev_steps
