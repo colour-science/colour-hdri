@@ -113,7 +113,8 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(
     Examples
     --------
     >>> upper_hemisphere_illuminance_weights_Lagarde2016(  # doctest: +ELLIPSIS
-    ...    16, 1)
+    ...     16, 1
+    ... )
     array([[ 0...        ],
            [ 4.0143297...],
            [ 7.3345454...],
@@ -174,7 +175,8 @@ def absolute_luminance_calibration_Lagarde2016(
     --------
     >>> RGB = np.ones((4, 8, 3))
     >>> absolute_luminance_calibration_Lagarde2016(  # doctest: +ELLIPSIS
-    ...     RGB, 500)
+    ...     RGB, 500
+    ... )
     array([[[ 233.9912506...,  233.9912506...,  233.9912506...],
             [ 233.9912506...,  233.9912506...,  233.9912506...],
             [ 233.9912506...,  233.9912506...,  233.9912506...],
