@@ -12,7 +12,7 @@ import unittest
 
 from colour import RGB_COLOURSPACES, RGB_luminance, read_image
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
 )
@@ -30,14 +30,14 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "SAMPLING_DIRECTORY",
+    "ROOT_RESOURCES_SAMPLING",
     "TestLuminanceVariance",
     "TestFindRegionsVarianceMinimizationViriyothai2009",
     "TestLightProbeSamplingVarianceMinimizationViriyothai2009",
 ]
 
-SAMPLING_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "sampling"
+ROOT_RESOURCES_SAMPLING: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "colour_hdri", "sampling"
 )
 
 
@@ -76,7 +76,7 @@ find_regions_variance_minimization_Viriyothai2009` definition.
         image = read_image(
             str(
                 os.path.join(
-                    SAMPLING_DIRECTORY,
+                    ROOT_RESOURCES_SAMPLING,
                     "tests_light_probe_sampling_variance_minimization_"
                     "Viriyothai2009.exr",
                 )
@@ -140,7 +140,7 @@ highlight_regions_variance_minimization` definition.
         image = read_image(
             str(
                 os.path.join(
-                    SAMPLING_DIRECTORY,
+                    ROOT_RESOURCES_SAMPLING,
                     "tests_light_probe_sampling_variance_minimization_"
                     "Viriyothai2009.exr",
                 )
@@ -154,7 +154,7 @@ highlight_regions_variance_minimization` definition.
             read_image(
                 str(
                     os.path.join(
-                        SAMPLING_DIRECTORY,
+                        ROOT_RESOURCES_SAMPLING,
                         "tests_highlight_regions_variance_minimization.exr",
                     )
                 )
@@ -181,7 +181,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         image = read_image(
             str(
                 os.path.join(
-                    SAMPLING_DIRECTORY,
+                    ROOT_RESOURCES_SAMPLING,
                     "tests_light_probe_sampling_variance_minimization_"
                     "Viriyothai2009.exr",
                 )

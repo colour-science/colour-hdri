@@ -228,12 +228,12 @@ __all__ += [
     "tonemapping_operator_Tumblin1999",
 ]
 
-RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
-EXAMPLES_RESOURCES_DIRECTORY = os.path.join(
-    RESOURCES_DIRECTORY, "colour-hdri-examples-datasets"
+ROOT_RESOURCES = os.path.join(os.path.dirname(__file__), "resources")
+ROOT_RESOURCES_EXAMPLES = os.path.join(
+    ROOT_RESOURCES, "colour-hdri-examples-datasets"
 )
-TESTS_RESOURCES_DIRECTORY = os.path.join(
-    RESOURCES_DIRECTORY, "colour-hdri-tests-datasets"
+ROOT_RESOURCES_TESTS = os.path.join(
+    ROOT_RESOURCES, "colour-hdri-tests-datasets"
 )
 
 __application_name__ = "Colour - HDRI"

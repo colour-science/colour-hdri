@@ -7,7 +7,7 @@ import numpy as np
 import os
 import unittest
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.utilities import filter_files
 from colour_hdri.utilities import Image, ImageStack
 
@@ -23,8 +23,8 @@ __all__ = [
     "TestImageStack",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
 
@@ -37,9 +37,9 @@ class TestImage(unittest.TestCase):
     def setUp(self):
         """Initialise the common tests attributes."""
 
-        self._test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
-            0
-        ]
+        self._test_jpg_image = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )[0]
 
     def test_required_attributes(self):
         """Test the presence of required attributes."""
@@ -86,7 +86,9 @@ class TestImageStack(unittest.TestCase):
     def setUp(self):
         """Initialise the common tests attributes."""
 
-        self._test_jpg_images = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
+        self._test_jpg_images = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )
 
         self._image_stack = ImageStack().from_files(self._test_jpg_images)
 

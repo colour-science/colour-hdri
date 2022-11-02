@@ -9,7 +9,7 @@ import numpy as np
 import os
 import unittest
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.distortion import (
     apply_radial_gradient,
     parabolic_2D_function,
@@ -49,7 +49,7 @@ __all__ = [
 ]
 
 DIRECTORY_DISTORTION: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "distortion"
+    ROOT_RESOURCES_TESTS, "colour_hdri", "distortion"
 )
 
 
