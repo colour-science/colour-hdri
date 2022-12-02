@@ -55,7 +55,7 @@ from colour.hints import (
     cast,
 )
 from colour.utilities import (
-    CaseInsensitiveMapping,
+    CanonicalMapping,
     MixinDataclassIterable,
     as_float_array,
     as_int_array,
@@ -356,31 +356,29 @@ class FunctionVignetteCharacterisation(MixinDataclassIterable):
     bounds: NDArray
 
 
-VIGNETTE_CHARACTERISATION_2D_FUNCTIONS: CaseInsensitiveMapping = (
-    CaseInsensitiveMapping(
-        {
-            "Parabolic": FunctionVignetteCharacterisation(
-                parabolic_2D_function,
-                np.array([0, 0, 1, 0, 0, 1]),
-                np.array(
-                    [
-                        (-5.0, -0.5, 0.9, -5.0, -0.5, 0.9),
-                        (+0.0, +0.5, 1.1, +0.0, +0.5, 1.1),
-                    ]
-                ),
+VIGNETTE_CHARACTERISATION_2D_FUNCTIONS: CanonicalMapping = CanonicalMapping(
+    {
+        "Parabolic": FunctionVignetteCharacterisation(
+            parabolic_2D_function,
+            np.array([0, 0, 1, 0, 0, 1]),
+            np.array(
+                [
+                    (-5.0, -0.5, 0.9, -5.0, -0.5, 0.9),
+                    (+0.0, +0.5, 1.1, +0.0, +0.5, 1.1),
+                ]
             ),
-            "Hyperbolic Cosine": FunctionVignetteCharacterisation(
-                hyperbolic_cosine_2D_function,
-                np.array([1, 0, 1, 0, 0]),
-                np.array(
-                    [
-                        (0.5, -1.0, 0.5, -1.0, 0.0),
-                        (5.0, +0.0, 5.0, +0.0, 1.5),
-                    ]
-                ),
+        ),
+        "Hyperbolic Cosine": FunctionVignetteCharacterisation(
+            hyperbolic_cosine_2D_function,
+            np.array([1, 0, 1, 0, 0]),
+            np.array(
+                [
+                    (0.5, -1.0, 0.5, -1.0, 0.0),
+                    (5.0, +0.0, 5.0, +0.0, 1.5),
+                ]
             ),
-        }
-    )
+        ),
+    }
 )
 VIGNETTE_CHARACTERISATION_2D_FUNCTIONS.__doc__ = """
 Supported vignette characterisation 2D functions.
@@ -974,14 +972,12 @@ def correct_vignette_RBF(
     return np.squeeze(image)
 
 
-VIGNETTE_CHARACTERISATION_METHODS: CaseInsensitiveMapping = (
-    CaseInsensitiveMapping(
-        {
-            "2D Function": characterise_vignette_2D_function,
-            "Bivariate Spline": characterise_vignette_bivariate_spline,
-            "RBF": characterise_vignette_RBF,
-        }
-    )
+VIGNETTE_CHARACTERISATION_METHODS: CanonicalMapping = CanonicalMapping(
+    {
+        "2D Function": characterise_vignette_2D_function,
+        "Bivariate Spline": characterise_vignette_bivariate_spline,
+        "RBF": characterise_vignette_RBF,
+    }
 )
 VIGNETTE_CHARACTERISATION_METHODS.__doc__ = """
 Supported vignette characterisation methods.
@@ -1070,7 +1066,7 @@ def characterise_vignette(
     return VIGNETTE_CHARACTERISATION_METHODS[method](image, **kwargs)
 
 
-VIGNETTE_CORRECTION_METHODS: CaseInsensitiveMapping = CaseInsensitiveMapping(
+VIGNETTE_CORRECTION_METHODS: CanonicalMapping = CanonicalMapping(
     {
         "2D Function": correct_vignette_2D_function,
         "Bivariate Spline": correct_vignette_bivariate_spline,

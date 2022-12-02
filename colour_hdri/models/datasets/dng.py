@@ -27,7 +27,7 @@ from __future__ import annotations
 
 from colour.colorimetry import CCS_ILLUMINANTS
 from colour.hints import Dict, NDArray
-from colour.utilities import CaseInsensitiveMapping
+from colour.utilities import CanonicalMapping
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -47,7 +47,7 @@ CCS_ILLUMINANT_ADOBEDNG: NDArray = CCS_ILLUMINANTS[
 ]["D50"]
 """*Adobe DNG SDK* default illuminant for *CIE XYZ* colourspace."""
 
-CCT_ILLUMINANTS_ADOBEDNG: CaseInsensitiveMapping = CaseInsensitiveMapping(
+CCT_ILLUMINANTS_ADOBEDNG: CanonicalMapping = CanonicalMapping(
     {
         "Standard light A": 2850,
         "Tungsten (incandescent light)": 2850,

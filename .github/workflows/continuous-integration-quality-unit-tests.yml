@@ -7,11 +7,8 @@ jobs:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
     strategy:
       matrix:
-        os: [macOS-latest, ubuntu-20.04, windows-latest]
-        python-version: [3.8, 3.9, '3.10']
-        exclude:
-          - os: windows-latest
-            python-version: 3.8
+        os: [macOS-latest, ubuntu-22.04, windows-latest]
+        python-version: [3.9, '3.10', 3.11]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -26,6 +23,10 @@ jobs:
         echo "COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}" >> $GITHUB_ENV
         echo "MPLBACKEND=AGG" >> $GITHUB_ENV
       shell: bash
+    - name: Set up Python 3.9 for Pre-Commit
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.9
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
@@ -37,7 +38,7 @@ jobs:
         brew install --cask adobe-dng-converter
       shell: bash
     - name: Install Dependencies (Ubuntu)
-      if: matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt-get update
         sudo apt-get --yes install dcraw exiftool
@@ -45,20 +46,19 @@ jobs:
     - name: Install Dependencies (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        curl -L https://exiftool.org/exiftool-12.40.zip -o exiftool-12.40.zip
-        unzip -d exiftool exiftool-12.40.zip
+        curl -L https://exiftool.org/exiftool-12.51.zip -o exiftool-12.51.zip
+        unzip -d exiftool exiftool-12.51.zip
         cp exiftool/exiftool\(-k\).exe exiftool/exiftool.exe
-        echo "$PWD/exiftool" >> $GITHUB_PATH
+        echo "$PWD/exiftool" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
         curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
         unzip -d dcraw dcraw.zip
-        echo "$PWD/dcraw" >> $GITHUB_PATH
+        echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
       shell: bash
     - name: Install Adobe DNG Converter (Windows)
       if: matrix.os == 'windows-latest'
       run: |
         curl -L https://download.adobe.com/pub/adobe/dng/win/DNGConverter_11_4.exe -o DNGConverter_11_4.exe
         DNGConverter_11_4.exe /S
-        echo "C:\Program Files\Adobe\Adobe DNG Converter" >> $GITHUB_PATH
       shell: cmd
     - name: Add Adobe DNG Converter to %PATH% (Windows)
       if: matrix.os == 'windows-latest'
@@ -67,8 +67,7 @@ jobs:
       shell: bash
     - name: Install Poetry
       run: |
-        curl -L https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
-        python get-poetry.py --version 1.1.12
+        curl -sSL https://install.python-poetry.org | POETRY_HOME=$HOME/.poetry python3 -
         echo "$HOME/.poetry/bin" >> $GITHUB_PATH
       shell: bash
     - name: Install Package Dependencies
