@@ -31,6 +31,6 @@ DNG Files
 
     convert_dng_files_to_intermediate_files
     DNG_CONVERTER
-    DNG_CONVERSION_ARGUMENTS
+    DNG_CONVERTER_ARGUMENTS
     DNG_EXIF_TAGS_BINDING
     read_dng_files_exif_tags
