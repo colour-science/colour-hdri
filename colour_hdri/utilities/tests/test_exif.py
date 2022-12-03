@@ -1,5 +1,5 @@
 # !/usr/bin/env python
-"""Defines the unit tests for the :mod:`colour_hdri.utilities.exif` module."""
+"""Define the unit tests for the :mod:`colour_hdri.utilities.exif` module."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import shutil
 import tempfile
 import unittest
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.utilities import filter_files, vivified_to_dict
 from colour_hdri.utilities import (
     EXIFTag,
@@ -34,7 +34,7 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "FROBISHER_001_DIRECTORY",
+    "ROOT_RESOURCES_FROBISHER_001",
     "TestParseExifString",
     "TestParseExifNumber",
     "TestParseExifFraction",
@@ -48,8 +48,8 @@ __all__ = [
     "TestWriteExifTag",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
 
@@ -193,7 +193,9 @@ class TestReadExifTags(unittest.TestCase):
     def test_read_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.read_exif_tags` definition."""
 
-        test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[0]
+        test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[
+            0
+        ]
         exif_data = vivified_to_dict(read_exif_tags(test_jpg_image))
 
         self.assertIsInstance(exif_data, type(dict()))
@@ -270,9 +272,9 @@ class TestCopyExifTags(unittest.TestCase):
     def test_copy_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.copy_exif_tags` definition."""
 
-        reference_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
-            0
-        ]
+        reference_jpg_image = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )[0]
         test_jpg_image = os.path.join(
             self._temporary_directory, os.path.basename(reference_jpg_image)
         )
@@ -304,7 +306,9 @@ class TestUpdateExifTags(unittest.TestCase):
     def test_update_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.update_exif_tags` definition."""
 
-        reference_jpg_images = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
+        reference_jpg_images = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )
         test_jpg_images = []
         for reference_jpg_image in reference_jpg_images:
             test_jpg_image = os.path.join(
@@ -340,9 +344,9 @@ class TestDeleteExifTags(unittest.TestCase):
     def test_delete_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.delete_exif_tags` definition."""
 
-        reference_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
-            0
-        ]
+        reference_jpg_image = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )[0]
         test_jpg_image = os.path.join(
             self._temporary_directory, os.path.basename(reference_jpg_image)
         )
@@ -362,7 +366,9 @@ class TestReadExifTag(unittest.TestCase):
     def test_read_exif_tag(self):
         """Test :func:`colour_hdri.utilities.exif.read_exif_tag` definition."""
 
-        test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[0]
+        test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[
+            0
+        ]
 
         self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "8.0")
         self.assertEqual(read_exif_tag(test_jpg_image, "ExposureTime"), "1/8")
@@ -388,9 +394,9 @@ class TestWriteExifTag(unittest.TestCase):
     def test_write_exif_tag(self):
         """Test :func:`colour_hdri.utilities.exif.write_exif_tag` definition."""
 
-        reference_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
-            0
-        ]
+        reference_jpg_image = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )[0]
         test_jpg_image = os.path.join(
             self._temporary_directory, os.path.basename(reference_jpg_image)
         )

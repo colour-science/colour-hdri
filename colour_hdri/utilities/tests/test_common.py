@@ -1,12 +1,12 @@
 # !/usr/bin/env python
-"""Defines the unit tests for the :mod:`colour_hdri.utilities.common` module."""
+"""Define the unit tests for the :mod:`colour_hdri.utilities.common` module."""
 
 from __future__ import annotations
 
 import os
 import unittest
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.utilities import (
     vivification,
     vivified_to_dict,
@@ -22,15 +22,15 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "FROBISHER_001_DIRECTORY",
+    "ROOT_RESOURCES_FROBISHER_001",
     "TestVivification",
     "TestVivifiedToDict",
     "TestPathExists",
     "TestFilterFiles",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
 
@@ -88,7 +88,7 @@ class TestFilterFiles(unittest.TestCase):
     def test_filter_files(self):
         """Test :func:`colour_hdri.utilities.common.filter_files` definition."""
 
-        raw_files = filter_files(FROBISHER_001_DIRECTORY, ("CR2", "jpg"))
+        raw_files = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2", "jpg"))
         self.assertListEqual(
             sorted(map(os.path.basename, raw_files)),
             [

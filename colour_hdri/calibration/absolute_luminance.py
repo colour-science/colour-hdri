@@ -77,8 +77,8 @@ def upper_hemisphere_illuminance_Lagarde2016(
 
     theta = np.linspace(0, 1, height) * np.pi
 
-    theta_cos = np.cos(theta)[..., np.newaxis]
-    theta_sin = np.sin(theta)[..., np.newaxis]
+    theta_cos = np.cos(theta)[..., None]
+    theta_sin = np.sin(theta)[..., None]
 
     E_v = np.sum(np.where(theta_cos > 0, L * theta_cos * theta_sin, 0))
 
@@ -113,7 +113,8 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(
     Examples
     --------
     >>> upper_hemisphere_illuminance_weights_Lagarde2016(  # doctest: +ELLIPSIS
-    ...    16, 1)
+    ...     16, 1
+    ... )
     array([[ 0...        ],
            [ 4.0143297...],
            [ 7.3345454...],
@@ -135,7 +136,7 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(
     w = np.zeros((height, width))
 
     theta = np.linspace(0, 1, height) * np.pi
-    theta = np.tile(theta[..., np.newaxis], (1, width))
+    theta = np.tile(theta[..., None], (1, width))
 
     theta_cos = np.cos(theta)
     theta_sin = np.sin(theta)
@@ -174,7 +175,8 @@ def absolute_luminance_calibration_Lagarde2016(
     --------
     >>> RGB = np.ones((4, 8, 3))
     >>> absolute_luminance_calibration_Lagarde2016(  # doctest: +ELLIPSIS
-    ...     RGB, 500)
+    ...     RGB, 500
+    ... )
     array([[[ 233.9912506...,  233.9912506...,  233.9912506...],
             [ 233.9912506...,  233.9912506...,  233.9912506...],
             [ 233.9912506...,  233.9912506...,  233.9912506...],

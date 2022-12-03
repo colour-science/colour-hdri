@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 """
-Defines the unit tests for the :mod:`colour_hdri.calibration.debevec1997`
+Define the unit tests for the :mod:`colour_hdri.calibration.debevec1997`
 module.
 """
 
@@ -12,7 +12,7 @@ import unittest
 
 from colour.hints import List
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import (
     g_solve,
     camera_response_functions_Debevec1997,
@@ -29,22 +29,22 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "FROBISHER_001_DIRECTORY",
-    "CALIBRATION_DIRECTORY",
-    "JPG_IMAGES",
+    "ROOT_RESOURCES_FROBISHER_001",
+    "ROOT_RESOURCES_CALIBRATION",
+    "IMAGES_JPG",
     "TestGSolve",
     "TestCameraResponseFunctionsDebevec1997",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
-CALIBRATION_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "calibration"
+ROOT_RESOURCES_CALIBRATION: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "colour_hdri", "calibration"
 )
 
-JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
+IMAGES_JPG: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
 
 
 class TestGSolve(unittest.TestCase):
@@ -56,7 +56,7 @@ class TestGSolve(unittest.TestCase):
     def test_g_solve(self):
         """Test :func:`colour_hdri.calibration.debevec1997.g_solve` definition."""
 
-        image_stack = ImageStack.from_files(JPG_IMAGES)
+        image_stack = ImageStack.from_files(IMAGES_JPG)
         L_l = np.log(
             1
             / average_luminance(
@@ -75,7 +75,7 @@ class TestGSolve(unittest.TestCase):
                 g,
                 np.load(
                     os.path.join(
-                        CALIBRATION_DIRECTORY, f"test_g_solve_g_{i}.npy"
+                        ROOT_RESOURCES_CALIBRATION, f"test_g_solve_g_{i}.npy"
                     )
                 ),
                 rtol=0.001,
@@ -87,7 +87,7 @@ class TestGSolve(unittest.TestCase):
                 lE,
                 np.load(
                     os.path.join(
-                        CALIBRATION_DIRECTORY, f"test_g_solve_lE_{i}.npy"
+                        ROOT_RESOURCES_CALIBRATION, f"test_g_solve_lE_{i}.npy"
                     )
                 ),
                 rtol=0.001,
@@ -110,11 +110,11 @@ camera_response_functions_Debevec1997` definition.
         # Lower precision for unit tests under *Github Actions*.
         np.testing.assert_allclose(
             camera_response_functions_Debevec1997(
-                ImageStack.from_files(JPG_IMAGES)
+                ImageStack.from_files(IMAGES_JPG)
             ),
             np.load(
                 os.path.join(
-                    CALIBRATION_DIRECTORY,
+                    ROOT_RESOURCES_CALIBRATION,
                     "test_camera_response_function_Debevec1997_crfs.npy",
                 )
             ),

@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 """
-Defines the unit tests for the
+Define the unit tests for the
 :mod:`colour_hdri.generation.weighting_functions` module.
 """
 
@@ -39,7 +39,7 @@ normal_distribution_function` definition unit tests methods.
 normal_distribution_function` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             normal_distribution_function(np.linspace(0, 1, 10)),
             np.array(
                 [
@@ -58,7 +58,7 @@ normal_distribution_function` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             normal_distribution_function(np.linspace(0, 1, 10), 0, 1),
             np.array(
                 [
@@ -77,7 +77,7 @@ normal_distribution_function` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             normal_distribution_function(np.linspace(0, 1, 10), 0.5, 0.5),
             np.array(
                 [
@@ -109,7 +109,7 @@ class TestHatFunction(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             hat_function(np.linspace(0, 1, 10)),
             np.array(
                 [
@@ -141,7 +141,7 @@ weighting_function_Debevec1997` definition unit tests methods.
 weighting_function_Debevec1997` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             weighting_function_Debevec1997(np.linspace(0, 1, 10)),
             np.array(
                 [
@@ -160,7 +160,7 @@ weighting_function_Debevec1997` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             weighting_function_Debevec1997(np.linspace(0, 1, 10), 0, 1),
             np.array(
                 [
@@ -179,7 +179,7 @@ weighting_function_Debevec1997` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             weighting_function_Debevec1997(np.linspace(0, 1, 10), 0.25, 0.75),
             np.array(
                 [

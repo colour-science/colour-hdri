@@ -65,7 +65,7 @@ __all__ = [
 class Metadata(MixinDataclassArray):
     """
     Define the base object for storing exif metadata relevant to
-    HDRI / radiance image generation.
+    HDRI Generation.
 
     Parameters
     ----------
@@ -96,7 +96,7 @@ class Metadata(MixinDataclassArray):
 class Image:
     """
     Define the base object for storing an image along its path, pixel data and
-    metadata needed for HDRI / radiance images generation.
+    metadata needed for HDRIs generation.
 
     Parameters
     ----------
@@ -125,7 +125,7 @@ class Image:
         path: Optional[str] = None,
         data: Optional[ArrayLike] = None,
         metadata: Optional[Metadata] = None,
-    ):
+    ) -> None:
         self._path: Optional[str] = None
         self.path = path
         # TODO: Remove pragma when https://github.com/python/mypy/issues/3004
@@ -188,7 +188,7 @@ class Image:
 
         if value is not None:
             assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
-                f'"data" property: "{value}" is not a "tuple", "list", "ndarray" '
+                f'"data" property: "{value!r}" is not a "tuple", "list", "ndarray" '
                 'or "matrix" instance!'
             )
 
@@ -356,7 +356,7 @@ class ImageStack(MutableSequence):
     -   :meth:`colour_hdri.ImageStack.from_files`
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._data: List = []
 
     def __getitem__(

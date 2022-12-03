@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 """
-Defines the unit tests for the :mod:`colour_hdri.models.dng` module.
+Define the unit tests for the :mod:`colour_hdri.models.dng` module.
 
 Notes
 -----
@@ -15,12 +15,12 @@ import unittest
 
 from colour.hints import Floating, NDArray
 
-from colour_hdri.models.dng import interpolated_matrix
+from colour_hdri.models.dng import matrix_interpolated
 from colour_hdri.models import (
     xy_to_camera_neutral,
     camera_neutral_to_xy,
-    XYZ_to_camera_space_matrix,
-    camera_space_to_XYZ_matrix,
+    matrix_XYZ_to_camera_space,
+    matrix_camera_space_to_XYZ,
 )
 
 __author__ = "Colour Developers"
@@ -40,11 +40,11 @@ __all__ = [
     "ANALOG_BALANCE",
     "M_FORWARD_MATRIX_1",
     "M_FORWARD_MATRIX_2",
-    "TestInterpolatedMatrix",
+    "TestMatrixInterpolated",
     "TestXy_to_camera_neutral",
     "TestCamera_neutral_to_xy",
-    "TestXYZ_to_camera_space_matrix",
-    "TestCamera_space_to_XYZ_matrix",
+    "TestMatrix_XYZ_to_camera_space",
+    "TestMatrix_Camera_space_to_XYZ",
 ]
 
 CCT_CALIBRATION_ILLUMINANT_1: Floating = 2850
@@ -98,16 +98,16 @@ M_FORWARD_MATRIX_2: NDArray = np.array(
 )
 
 
-class TestInterpolatedMatrix(unittest.TestCase):
+class TestMatrixInterpolated(unittest.TestCase):
     """
-    Define :func:`colour_hdri.models.adobe_dng.\
-interpolated_matrix` definition unit tests methods.
+    Define :func:`colour_hdri.models.adobe_dng.matrix_interpolated` definition
+    unit tests methods.
     """
 
-    def test_interpolated_matrix(self):
+    def test_matrix_interpolated(self):
         """
-        Test :func:`colour_hdri.models.adobe_dng.\
-interpolated_matrix` definition.
+        Test :func:`colour_hdri.models.adobe_dng.matrix_interpolated`
+        definition.
         """
 
         M_reference = np.array(
@@ -117,40 +117,40 @@ interpolated_matrix` definition.
                 [-0.13369466, 0.17678740, 0.66540452],
             ]
         )
-        np.testing.assert_almost_equal(
-            interpolated_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_interpolated(
                 5000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_reference,
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
-            interpolated_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_interpolated(
                 2850, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_1,
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
-            interpolated_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_interpolated(
                 1000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_1,
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
-            interpolated_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_interpolated(
                 6500, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_2,
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
-            interpolated_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_interpolated(
                 10000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_2,
@@ -170,7 +170,7 @@ xy_to_camera_neutral` definition unit tests methods.
 xy_to_camera_neutral` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -185,7 +185,7 @@ xy_to_camera_neutral` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -200,7 +200,7 @@ xy_to_camera_neutral` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -228,7 +228,7 @@ camera_neutral_to_xy` definition unit tests methods.
 camera_neutral_to_xy` definition.
         """
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             camera_neutral_to_xy(
                 np.array([0.41306999, 1.00000000, 0.64646500]),
                 2850,
@@ -243,7 +243,7 @@ camera_neutral_to_xy` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             camera_neutral_to_xy(
                 np.array([0.42696744, 1.00000000, 0.63712786]),
                 2850,
@@ -258,7 +258,7 @@ camera_neutral_to_xy` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             camera_neutral_to_xy(
                 np.array([0.39667111, 1.00000000, 0.62474378]),
                 2850,
@@ -274,16 +274,16 @@ camera_neutral_to_xy` definition.
         )
 
 
-class TestXYZ_to_camera_space_matrix(unittest.TestCase):
+class TestMatrix_XYZ_to_camera_space(unittest.TestCase):
     """
     Define :func:`colour_hdri.models.adobe_dng.\
-XYZ_to_camera_space_matrix` definition unit tests methods.
+matrix_XYZ_to_camera_space` definition unit tests methods.
     """
 
-    def test_XYZ_to_camera_space_matrix(self):
+    def test_matrix_XYZ_to_camera_space(self):
         """
         Test :func:`colour_hdri.models.adobe_dng.\
-XYZ_to_camera_space_matrix` definition.
+matrix_XYZ_to_camera_space` definition.
         """
         M_reference = np.array(
             [
@@ -292,8 +292,8 @@ XYZ_to_camera_space_matrix` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_almost_equal(
-            XYZ_to_camera_space_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -314,8 +314,8 @@ XYZ_to_camera_space_matrix` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_almost_equal(
-            XYZ_to_camera_space_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -336,8 +336,8 @@ XYZ_to_camera_space_matrix` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_almost_equal(
-            XYZ_to_camera_space_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -352,16 +352,16 @@ XYZ_to_camera_space_matrix` definition.
         )
 
 
-class TestCamera_space_to_XYZ_matrix(unittest.TestCase):
+class TestMatrix_Camera_space_to_XYZ(unittest.TestCase):
     """
     Define :func:`colour_hdri.models.adobe_dng.\
-camera_space_to_XYZ_matrix` definition unit tests methods.
+matrix_camera_space_to_XYZ` definition unit tests methods.
     """
 
-    def test_camera_space_to_XYZ_matrix(self):
+    def test_matrix_camera_space_to_XYZ(self):
         """
         Test :func:`colour_hdri.models.adobe_dng.\
-camera_space_to_XYZ_matrix` definition.
+matrix_camera_space_to_XYZ` definition.
         """
 
         M_reference = np.array(
@@ -371,8 +371,8 @@ camera_space_to_XYZ_matrix` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -395,8 +395,8 @@ camera_space_to_XYZ_matrix` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -419,8 +419,8 @@ camera_space_to_XYZ_matrix` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,
@@ -443,8 +443,8 @@ camera_space_to_XYZ_matrix` definition.
                 [0.13472434, -0.17097714, 1.40232276],
             ]
         )
-        np.testing.assert_almost_equal(
-            camera_space_to_XYZ_matrix(
+        np.testing.assert_array_almost_equal(
+            matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
                 6500,

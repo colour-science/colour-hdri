@@ -138,11 +138,20 @@ def tonemapping_operator_simple(RGB: ArrayLike) -> NDArray:
 
     Examples
     --------
-    >>> tonemapping_operator_simple(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_simple(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     )
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.3245382...,  0.2601156...,  0.1911532...],
             [ 0.5830618...,  0.3567839...,  0.2808993...]],
     <BLANKLINE>
@@ -179,11 +188,20 @@ def tonemapping_operator_normalisation(
 
     Examples
     --------
-    >>> tonemapping_operator_normalisation(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_normalisation(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     )
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.1194997...,  0.0874388...,  0.0587783...],
             [ 0.3478122...,  0.1379590...,  0.0971544...]],
     <BLANKLINE>
@@ -226,12 +244,22 @@ def tonemapping_operator_gamma(
 
     Examples
     --------
-    >>> tonemapping_operator_gamma(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]),
-    ...      1.0, -3.0)  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_gamma(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     ),
+    ...     1.0,
+    ...     -3.0,
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.0600585...,  0.0439453...,  0.0295410...],
             [ 0.1748046...,  0.0693359...,  0.0488282...]],
     <BLANKLINE>
@@ -278,12 +306,22 @@ def tonemapping_operator_logarithmic(
 
     Examples
     --------
-    >>> tonemapping_operator_logarithmic(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]),
-    ...       1.0, 25)  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_logarithmic(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     ),
+    ...     1.0,
+    ...     25,
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.0884587...,  0.0647259...,  0.0435102...],
             [ 0.2278222...,  0.0903652...,  0.0636376...]],
     <BLANKLINE>
@@ -302,7 +340,7 @@ def tonemapping_operator_logarithmic(
     L_max = np.max(L)
     L_d = as_float_array(np.log10(1 + L * q) / np.log10(1 + L_max * k))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_exponential(
@@ -336,12 +374,22 @@ def tonemapping_operator_exponential(
 
     Examples
     --------
-    >>> tonemapping_operator_exponential(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]),
-    ...       1.0, 25)  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_exponential(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     ),
+    ...     1.0,
+    ...     25,
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.0148082...,  0.0108353...,  0.0072837...],
             [ 0.0428669...,  0.0170031...,  0.0119740...]],
     <BLANKLINE>
@@ -360,7 +408,7 @@ def tonemapping_operator_exponential(
     L_a = log_average(L)
     L_d = as_float_array(1 - np.exp(-(L * q) / (L_a * k)))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_logarithmic_mapping(
@@ -395,11 +443,20 @@ def tonemapping_operator_logarithmic_mapping(
 
     Examples
     --------
-    >>> tonemapping_operator_logarithmic_mapping(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_logarithmic_mapping(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     )
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.2532899...,  0.1853341...,  0.1245857...],
             [ 0.6523387...,  0.2587489...,  0.1822179...]],
     <BLANKLINE>
@@ -417,7 +474,7 @@ def tonemapping_operator_logarithmic_mapping(
         (np.log(1 + p * L) / np.log(1 + p * L_max)) ** (1 / q)
     )
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_exponentiation_mapping(
@@ -452,11 +509,20 @@ def tonemapping_operator_exponentiation_mapping(
 
     Examples
     --------
-    >>> tonemapping_operator_exponentiation_mapping(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_exponentiation_mapping(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     )
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.1194997...,  0.0874388...,  0.0587783...],
             [ 0.3478122...,  0.1379590...,  0.0971544...]],
     <BLANKLINE>
@@ -472,7 +538,7 @@ def tonemapping_operator_exponentiation_mapping(
     L_max = np.max(L)
     L_d = as_float_array((L / L_max) ** (p / q))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_Schlick1994(
@@ -503,11 +569,20 @@ def tonemapping_operator_Schlick1994(
 
     Examples
     --------
-    >>> tonemapping_operator_Schlick1994(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_Schlick1994(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     )
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.1194997...,  0.0874388...,  0.0587783...],
             [ 0.3478122...,  0.1379590...,  0.0971544...]],
     <BLANKLINE>
@@ -525,7 +600,7 @@ def tonemapping_operator_Schlick1994(
     L_max = np.max(L)
     L_d = as_float_array((p * L) / (p * L - L + L_max))
 
-    return RGB * L_d[..., np.newaxis] / L[..., np.newaxis]
+    return RGB * L_d[..., None] / L[..., None]
 
 
 def tonemapping_operator_Tumblin1999(
@@ -563,11 +638,20 @@ def tonemapping_operator_Tumblin1999(
 
     Examples
     --------
-    >>> tonemapping_operator_Tumblin1999(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_Tumblin1999(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     )
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.0400492...,  0.0293043...,  0.0196990...],
             [ 0.1019768...,  0.0404489...,  0.0284852...]],
     <BLANKLINE>
@@ -595,7 +679,7 @@ def tonemapping_operator_Tumblin1999(
 
     L_d = mL_wa * L_da * (L_w / L_wa) ** (g_w / g_d)
 
-    return (RGB * L_d[..., np.newaxis] / L_w[..., np.newaxis]) / L_max
+    return (RGB * L_d[..., None] / L_w[..., None]) / L_max
 
 
 def tonemapping_operator_Reinhard2004(
@@ -636,12 +720,21 @@ def tonemapping_operator_Reinhard2004(
 
     Examples
     --------
-    >>> tonemapping_operator_Reinhard2004(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]),
-    ...     -10)  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_Reinhard2004(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     ),
+    ...     -10,
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.0216792...,  0.0159556...,  0.0107821...],
             [ 0.0605894...,  0.0249445...,  0.0176972...]],
     <BLANKLINE>
@@ -681,7 +774,7 @@ def tonemapping_operator_Reinhard2004(
         )
     )
 
-    I_l = (c * RGB + (1 - c)) * L[..., np.newaxis]
+    I_l = (c * RGB + (1 - c)) * L[..., None]
     I_g = c * C_av + (1 - c) * L_lav
     I_a = a * I_l + (1 - a) * I_g
 
@@ -734,11 +827,20 @@ def tonemapping_operator_filmic(
 
     Examples
     --------
-    >>> tonemapping_operator_filmic(np.array(
-    ...     [[[0.48046875, 0.35156256, 0.23632812],
-    ...       [1.39843753, 0.55468757, 0.39062594]],
-    ...      [[4.40625388, 2.15625895, 1.34375372],
-    ...       [6.59375023, 3.43751395, 2.21875829]]]))  # doctest: +ELLIPSIS
+    >>> tonemapping_operator_filmic(
+    ...     np.array(
+    ...         [
+    ...             [
+    ...                 [0.48046875, 0.35156256, 0.23632812],
+    ...                 [1.39843753, 0.55468757, 0.39062594],
+    ...             ],
+    ...             [
+    ...                 [4.40625388, 2.15625895, 1.34375372],
+    ...                 [6.59375023, 3.43751395, 2.21875829],
+    ...             ],
+    ...         ]
+    ...     )
+    ... )  # doctest: +ELLIPSIS
     array([[[ 0.4507954...,  0.3619673...,  0.2617269...],
             [ 0.7567191...,  0.4933310...,  0.3911730...]],
     <BLANKLINE>

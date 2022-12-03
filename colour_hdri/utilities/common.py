@@ -40,10 +40,10 @@ def vivification() -> defaultdict:
     Examples
     --------
     >>> vivified = vivification()
-    >>> vivified['my']['attribute'] = 1
-    >>> vivified['my']  # doctest: +SKIP
+    >>> vivified["my"]["attribute"] = 1
+    >>> vivified["my"]  # doctest: +SKIP
     defaultdict(<function vivification at 0x...>, {u'attribute': 1})
-    >>> vivified['my']['attribute']
+    >>> vivified["my"]["attribute"]
     1
     """
 
@@ -66,7 +66,7 @@ def vivified_to_dict(vivified: Union[Dict, defaultdict]) -> Dict:
     Examples
     --------
     >>> vivified = vivification()
-    >>> vivified['my']['attribute'] = 1
+    >>> vivified["my"]["attribute"] = 1
     >>> vivified_to_dict(vivified)  # doctest: +SKIP
     {u'my': {u'attribute': 1}}
     """
@@ -96,7 +96,7 @@ def path_exists(path: Optional[str]) -> Boolean:
     --------
     >>> path_exists(__file__)
     True
-    >>> path_exists('')
+    >>> path_exists("")
     False
     """
 

@@ -5,13 +5,13 @@ Colour - HDRI
 
 |actions| |coveralls| |codacy| |version|
 
-.. |actions| image:: https://img.shields.io/github/workflow/status/colour-science/colour-hdri/Continuous%20Integration?label=actions&logo=github&style=flat-square
+.. |actions| image:: https://img.shields.io/github/workflow/status/colour-science/colour-hdri/Continuous%20Integration%20-%20Quality%20&%20Unit%20Tests?label=actions&logo=github&style=flat-square
     :target: https://github.com/colour-science/colour-hdri/actions
     :alt: Develop Build Status
 .. |coveralls| image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg?style=flat-square
     :target: https://coveralls.io/r/colour-science/colour-hdri
     :alt: Coverage Status
-.. |codacy| image:: https://img.shields.io/codacy/grade/290ad2c23b0749b99a1d548ca47d9062/develop.svg?style=flat-square
+.. |codacy| image:: https://img.shields.io/codacy/grade/f422dc0703dd4653b2b766217c745813/develop.svg?style=flat-square
     :target: https://www.codacy.com/app/colour-science/colour-hdri
     :alt: Code Grade
 .. |version| image:: https://img.shields.io/pypi/v/colour-hdri.svg?style=flat-square
@@ -21,7 +21,7 @@ Colour - HDRI
 .. end-badges
 
 A `Python <https://www.python.org/>`__ package implementing various
-HDRI / Radiance image processing algorithms.
+HDRI processing algorithms.
 
 It is open source and freely available under the
 `New BSD License <https://opensource.org/licenses/BSD-3-Clause>`__ terms.
@@ -39,7 +39,7 @@ Features
 
 The following features are available:
 
-- HDRI / Radiance Image Generation
+- HDRI Generation
 - Debevec (1997) Camera Response Function Computation
 - Grossberg (2003) Histogram Based Image Sampling
 - Variance Minimization Light Probe Sampling
@@ -48,6 +48,7 @@ The following features are available:
 - Absolute Luminance Calibration
 - Digital Still Camera (DSC) Exposure Model
 - Raw Processing Helpers
+- Vignette Characterisation & Correction
 
 Examples
 ^^^^^^^^
@@ -74,8 +75,10 @@ Primary Dependencies
 **Colour - HDRI** requires various dependencies in order to run:
 
 - `python >= 3.8, < 4 <https://www.python.org/download/releases/>`__
-- `colour-science <https://pypi.org/project/colour-science/>`__
-- `recordclass <https://pypi.org/project/recordclass/>`__
+- `colour-science >= 4 <https://pypi.org/project/colour-science/>`__
+- `imageio >= 2, < 3 <https://imageio.github.io/>`__
+- `numpy >= 1.19, < 2 <https://pypi.org/project/numpy/>`__
+- `scipy >= 1.5, < 2 <https://pypi.org/project/scipy/>`__
 
 Optional Features Dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

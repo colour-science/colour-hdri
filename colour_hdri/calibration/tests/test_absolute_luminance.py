@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 """
-Defines the unit tests for the
+Define the unit tests for the
 :mod:`colour_hdri.calibration.absolute_luminance` module.
 """
 
@@ -12,7 +12,7 @@ import unittest
 
 from colour import read_image
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import (
     upper_hemisphere_illuminance_weights_Lagarde2016,
     absolute_luminance_calibration_Lagarde2016,
@@ -34,10 +34,10 @@ __all__ = [
     "TestAbsoluteLuminanceCalibrationLagarde2016",
 ]
 
-UNITY_001_DIRECTORY: str = os.path.join(TESTS_RESOURCES_DIRECTORY, "unity_001")
+ROOT_RESOURCES_UNITY_001: str = os.path.join(ROOT_RESOURCES_TESTS, "unity_001")
 
-CALIBRATION_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "calibration"
+ROOT_RESOURCES_CALIBRATION: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "colour_hdri", "calibration"
 )
 
 
@@ -126,7 +126,7 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition.
             ]
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             upper_hemisphere_illuminance_weights_Lagarde2016(32, 16),
             np.tile(weights, (1, 16)),
             decimal=7,
@@ -153,7 +153,7 @@ absolute_luminance_calibration_Lagarde2016` definition.
         reference_exr_file = read_image(
             str(
                 os.path.join(
-                    UNITY_001_DIRECTORY,
+                    ROOT_RESOURCES_UNITY_001,
                     "Unity_Treasure_Island_White_Balanced.exr",
                 )
             )
@@ -162,7 +162,7 @@ absolute_luminance_calibration_Lagarde2016` definition.
         test_exr_file = read_image(
             str(
                 os.path.join(
-                    CALIBRATION_DIRECTORY,
+                    ROOT_RESOURCES_CALIBRATION,
                     "Unity_Treasure_Island_White_Balanced_Absolute.exr",
                 )
             )

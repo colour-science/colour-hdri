@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 """
-Defines the unit tests for the
+Define the unit tests for the
 :mod:`colour_hdri.sampling.variance_minimization` module.
 """
 
@@ -12,7 +12,7 @@ import unittest
 
 from colour import RGB_COLOURSPACES, RGB_luminance, read_image
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
 )
@@ -30,14 +30,14 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "SAMPLING_DIRECTORY",
+    "ROOT_RESOURCES_SAMPLING",
     "TestLuminanceVariance",
     "TestFindRegionsVarianceMinimizationViriyothai2009",
     "TestLightProbeSamplingVarianceMinimizationViriyothai2009",
 ]
 
-SAMPLING_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "sampling"
+ROOT_RESOURCES_SAMPLING: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "colour_hdri", "sampling"
 )
 
 
@@ -76,7 +76,7 @@ find_regions_variance_minimization_Viriyothai2009` definition.
         image = read_image(
             str(
                 os.path.join(
-                    SAMPLING_DIRECTORY,
+                    ROOT_RESOURCES_SAMPLING,
                     "tests_light_probe_sampling_variance_minimization_"
                     "Viriyothai2009.exr",
                 )
@@ -140,7 +140,7 @@ highlight_regions_variance_minimization` definition.
         image = read_image(
             str(
                 os.path.join(
-                    SAMPLING_DIRECTORY,
+                    ROOT_RESOURCES_SAMPLING,
                     "tests_light_probe_sampling_variance_minimization_"
                     "Viriyothai2009.exr",
                 )
@@ -149,12 +149,12 @@ highlight_regions_variance_minimization` definition.
 
         Y = RGB_luminance(image, colourspace.primaries, colourspace.whitepoint)
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             highlight_regions_variance_minimization(image, regions),
             read_image(
                 str(
                     os.path.join(
-                        SAMPLING_DIRECTORY,
+                        ROOT_RESOURCES_SAMPLING,
                         "tests_highlight_regions_variance_minimization.exr",
                     )
                 )
@@ -181,7 +181,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         image = read_image(
             str(
                 os.path.join(
-                    SAMPLING_DIRECTORY,
+                    ROOT_RESOURCES_SAMPLING,
                     "tests_light_probe_sampling_variance_minimization_"
                     "Viriyothai2009.exr",
                 )
@@ -195,7 +195,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         colours = np.array([light[1] for light in lights])
         indexes = np.array([light[2] for light in lights])
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             uvs,
             np.array(
                 [
@@ -220,7 +220,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
             decimal=7,
         )
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             colours,
             np.array(
                 [

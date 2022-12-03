@@ -55,24 +55,29 @@ def camera_space_to_RGB(
     Examples
     --------
     >>> RGB = np.array([0.80660, 0.81638, 0.65885])
-    >>> M_XYZ_to_camera_space = np.array([
-    ...     [0.47160000, 0.06030000, -0.08300000],
-    ...     [-0.77980000, 1.54740000, 0.24800000],
-    ...     [-0.14960000, 0.19370000, 0.66510000]])
-    >>> matrix_RGB_to_XYZ = np.array([
-    ...     [0.41238656, 0.35759149, 0.18045049],
-    ...     [0.21263682, 0.71518298, 0.07218020],
-    ...     [0.01933062, 0.11919716, 0.95037259]])
+    >>> M_XYZ_to_camera_space = np.array(
+    ...     [
+    ...         [0.47160000, 0.06030000, -0.08300000],
+    ...         [-0.77980000, 1.54740000, 0.24800000],
+    ...         [-0.14960000, 0.19370000, 0.66510000],
+    ...     ]
+    ... )
+    >>> matrix_RGB_to_XYZ = np.array(
+    ...     [
+    ...         [0.41238656, 0.35759149, 0.18045049],
+    ...         [0.21263682, 0.71518298, 0.07218020],
+    ...         [0.01933062, 0.11919716, 0.95037259],
+    ...     ]
+    ... )
     >>> camera_space_to_RGB(
-    ...     RGB,
-    ...     M_XYZ_to_camera_space,
-    ...     matrix_RGB_to_XYZ)  # doctest: +ELLIPSIS
+    ...     RGB, M_XYZ_to_camera_space, matrix_RGB_to_XYZ
+    ... )  # doctest: +ELLIPSIS
     array([ 0.7564180...,  0.8683192...,  0.6044589...])
     """
 
     M_RGB_camera = matrix_dot(M_XYZ_to_camera_space, matrix_RGB_to_XYZ)
 
-    M_RGB_camera /= np.transpose(np.sum(M_RGB_camera, axis=1)[np.newaxis])
+    M_RGB_camera /= np.transpose(np.sum(M_RGB_camera, axis=1)[None])
 
     RGB_f = vector_dot(np.linalg.inv(M_RGB_camera), RGB)
 
@@ -100,10 +105,13 @@ def camera_space_to_sRGB(
     Examples
     --------
     >>> RGB = np.array([0.80660, 0.81638, 0.65885])
-    >>> M_XYZ_to_camera_space = np.array([
-    ...     [0.47160000, 0.06030000, -0.08300000],
-    ...     [-0.77980000, 1.54740000, 0.24800000],
-    ...     [-0.14960000, 0.19370000, 0.66510000]])
+    >>> M_XYZ_to_camera_space = np.array(
+    ...     [
+    ...         [0.47160000, 0.06030000, -0.08300000],
+    ...         [-0.77980000, 1.54740000, 0.24800000],
+    ...         [-0.14960000, 0.19370000, 0.66510000],
+    ...     ]
+    ... )
     >>> camera_space_to_sRGB(RGB, M_XYZ_to_camera_space)  # doctest: +ELLIPSIS
     array([ 0.7564350...,  0.8683155...,  0.6044706...])
     """

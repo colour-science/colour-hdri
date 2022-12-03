@@ -2,14 +2,15 @@
 Colour - HDRI
 =============
 
-HDRI - Radiance image processing algorithms for *Python*.
+HDRI processing algorithms for *Python*.
 
 Subpackages
 -----------
 -   calibration: Camera calibration computations.
+-   distortion: Lens vignette characterisation & correction.
 -   exposure: Exposure computations.
 -   examples: Examples for the sub-packages.
--   generation: HDRI / radiance image generation.
+-   generation: HDRI Generation.
 -   models: Colour models conversion.
 -   plotting: Diagrams, figures, etc...
 -   process: Image conversion helpers.
@@ -19,6 +20,13 @@ Subpackages
 -   tonemapping: Tonemapping operators.
 -   utilities: Various utilities and data structures.
 """
+
+import sys
+
+from colour.utilities.deprecation import ModuleAPI, build_API_changes
+from colour.utilities.documentation import is_documentation_building
+
+from colour.hints import Any
 
 import numpy as np
 import os
@@ -48,6 +56,13 @@ from .utilities import (
     vivified_to_dict,
     write_exif_tag,
 )
+from .distortion import (
+    DataVignetteCharacterisation,
+    VIGNETTE_CHARACTERISATION_METHODS,
+    characterise_vignette,
+    VIGNETTE_CORRECTION_METHODS,
+    correct_vignette,
+)
 from .sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
     samples_Grossberg2003,
@@ -69,7 +84,7 @@ from .generation import (
     normal_distribution_function,
     hat_function,
     weighting_function_Debevec1997,
-    image_stack_to_radiance_image,
+    image_stack_to_HDRI,
 )
 from .calibration import (
     absolute_luminance_calibration_Lagarde2016,
@@ -81,17 +96,17 @@ from .models import (
     camera_neutral_to_xy,
     camera_space_to_RGB,
     camera_space_to_sRGB,
-    camera_space_to_XYZ_matrix,
+    matrix_camera_space_to_XYZ,
+    matrix_XYZ_to_camera_space,
     xy_to_camera_neutral,
-    XYZ_to_camera_space_matrix,
 )
 from .process import (
-    DNG_CONVERSION_ARGUMENTS,
     DNG_CONVERTER,
+    DNG_CONVERTER_ARGUMENTS,
     DNG_EXIF_TAGS_BINDING,
-    RAW_CONVERSION_ARGUMENTS,
     RAW_CONVERTER,
-    RAW_D_CONVERSION_ARGUMENTS,
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA,
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
     convert_dng_files_to_intermediate_files,
     convert_raw_files_to_dng_files,
     read_dng_files_exif_tags,
@@ -141,6 +156,13 @@ __all__ = [
     "write_exif_tag",
 ]
 __all__ += [
+    "DataVignetteCharacterisation",
+    "VIGNETTE_CHARACTERISATION_METHODS",
+    "characterise_vignette",
+    "VIGNETTE_CORRECTION_METHODS",
+    "correct_vignette",
+]
+__all__ += [
     "light_probe_sampling_variance_minimization_Viriyothai2009",
     "samples_Grossberg2003",
 ]
@@ -161,7 +183,7 @@ __all__ += [
     "normal_distribution_function",
     "hat_function",
     "weighting_function_Debevec1997",
-    "image_stack_to_radiance_image",
+    "image_stack_to_HDRI",
 ]
 __all__ += [
     "absolute_luminance_calibration_Lagarde2016",
@@ -173,17 +195,17 @@ __all__ += [
     "camera_neutral_to_xy",
     "camera_space_to_RGB",
     "camera_space_to_sRGB",
-    "camera_space_to_XYZ_matrix",
+    "matrix_camera_space_to_XYZ",
+    "matrix_XYZ_to_camera_space",
     "xy_to_camera_neutral",
-    "XYZ_to_camera_space_matrix",
 ]
 __all__ += [
-    "DNG_CONVERSION_ARGUMENTS",
     "DNG_CONVERTER",
+    "DNG_CONVERTER_ARGUMENTS",
     "DNG_EXIF_TAGS_BINDING",
-    "RAW_CONVERSION_ARGUMENTS",
     "RAW_CONVERTER",
-    "RAW_D_CONVERSION_ARGUMENTS",
+    "RAW_CONVERTER_ARGUMENTS_BAYER_CFA",
+    "RAW_CONVERTER_ARGUMENTS_DEMOSAICING",
     "convert_dng_files_to_intermediate_files",
     "convert_raw_files_to_dng_files",
     "read_dng_files_exif_tags",
@@ -206,19 +228,19 @@ __all__ += [
     "tonemapping_operator_Tumblin1999",
 ]
 
-RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), "resources")
-EXAMPLES_RESOURCES_DIRECTORY = os.path.join(
-    RESOURCES_DIRECTORY, "colour-hdri-examples-datasets"
+ROOT_RESOURCES = os.path.join(os.path.dirname(__file__), "resources")
+ROOT_RESOURCES_EXAMPLES = os.path.join(
+    ROOT_RESOURCES, "colour-hdri-examples-datasets"
 )
-TESTS_RESOURCES_DIRECTORY = os.path.join(
-    RESOURCES_DIRECTORY, "colour-hdri-tests-datasets"
+ROOT_RESOURCES_TESTS = os.path.join(
+    ROOT_RESOURCES, "colour-hdri-tests-datasets"
 )
 
 __application_name__ = "Colour - HDRI"
 
 __major_version__ = "0"
 __minor_version__ = "2"
-__change_version__ = "0"
+__change_version__ = "1"
 __version__ = ".".join(
     (__major_version__, __minor_version__, __change_version__)
 )
@@ -245,3 +267,42 @@ try:
     np.set_printoptions(legacy="1.13")
 except TypeError:
     pass
+
+
+# ----------------------------------------------------------------------------#
+# ---                API Changes and Deprecation Management                ---#
+# ----------------------------------------------------------------------------#
+class colour_hdri(ModuleAPI):
+    """Define a class acting like the *colour_hdri* module."""
+
+    def __getattr__(self, attribute) -> Any:
+        """Return the value from the attribute with given name."""
+
+        return super().__getattr__(attribute)
+
+
+# v0.2.1
+API_CHANGES = {
+    "ObjectRenamed": [
+        [
+            "colour_hdri.XYZ_to_camera_space_matrix",
+            "colour_hdri.matrix_XYZ_to_camera_space",
+        ],
+        [
+            "colour_hdri.camera_space_to_XYZ_matrix",
+            "colour_hdri.matrix_camera_space_to_XYZ",
+        ],
+        [
+            "colour_hdri.image_stack_to_radiance_image",
+            "colour_hdri.image_stack_to_HDRI",
+        ],
+    ]
+}
+"""Defines the *colour_hdri* package API changes."""
+
+if not is_documentation_building():
+    sys.modules["colour_hdri"] = colour_hdri(  # type: ignore[assignment]
+        sys.modules["colour_hdri"], build_API_changes(API_CHANGES)
+    )
+
+    del ModuleAPI, is_documentation_building, build_API_changes, sys

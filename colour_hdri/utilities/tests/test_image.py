@@ -1,5 +1,5 @@
 # !/usr/bin/env python
-"""Defines the unit tests for the :mod:`colour_hdri.utilities.image` module."""
+"""Define the unit tests for the :mod:`colour_hdri.utilities.image` module."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import numpy as np
 import os
 import unittest
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.utilities import filter_files
 from colour_hdri.utilities import Image, ImageStack
 
@@ -23,8 +23,8 @@ __all__ = [
     "TestImageStack",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
 
@@ -37,9 +37,9 @@ class TestImage(unittest.TestCase):
     def setUp(self):
         """Initialise the common tests attributes."""
 
-        self._test_jpg_image = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))[
-            0
-        ]
+        self._test_jpg_image = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )[0]
 
     def test_required_attributes(self):
         """Test the presence of required attributes."""
@@ -86,7 +86,9 @@ class TestImageStack(unittest.TestCase):
     def setUp(self):
         """Initialise the common tests attributes."""
 
-        self._test_jpg_images = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
+        self._test_jpg_images = filter_files(
+            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
+        )
 
         self._image_stack = ImageStack().from_files(self._test_jpg_images)
 
@@ -156,13 +158,13 @@ class TestImageStack(unittest.TestCase):
 
         self.assertTupleEqual(self._image_stack.data.shape, (426, 640, 3, 3))
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             self._image_stack.f_number, np.array([8, 8, 8]), decimal=7
         )
 
         self.assertEqual(self._image_stack[0].metadata.f_number, 8)
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             self._image_stack.exposure_time, np.array([0.125, 1, 8]), decimal=7
         )
 
@@ -188,13 +190,13 @@ class TestImageStack(unittest.TestCase):
 
         self.assertTupleEqual(image_stack.data.shape, (20, 10, 3, 3))
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             image_stack.f_number, np.array([8, 8, 8]), decimal=7
         )
 
         image_stack.f_number = np.array([1, 2, 3])
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             image_stack.f_number, np.array([1, 2, 3]), decimal=7
         )
 
@@ -206,7 +208,7 @@ class TestImageStack(unittest.TestCase):
 
         image_stack.black_level = np.array([2048, 2048, 2048])
 
-        np.testing.assert_almost_equal(
+        np.testing.assert_array_almost_equal(
             image_stack.black_level, np.array([2048, 2048, 2048]), decimal=7
         )
 

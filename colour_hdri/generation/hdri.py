@@ -1,10 +1,10 @@
 """
-HDRI / Radiance Image Generation
-================================
+HDRI Generation
+===============
 
-Defines the HDRI / radiance image generation objects:
+Defines the HDRI generation objects:
 
--   :func:`colour_hdri.image_stack_to_radiance_image`
+-   :func:`colour_hdri.image_stack_to_HDRI`
 
 See Also
 --------
@@ -25,7 +25,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour.utilities import as_float_array, tsplit, tstack, warning
-from colour.hints import ArrayLike, Boolean, Callable, NDArray, Optional
+from colour.hints import ArrayLike, Callable, NDArray, Optional
 
 from colour_hdri.exposure import average_luminance
 from colour_hdri.generation import weighting_function_Debevec1997
@@ -39,18 +39,17 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "image_stack_to_radiance_image",
+    "image_stack_to_HDRI",
 ]
 
 
-def image_stack_to_radiance_image(
+def image_stack_to_HDRI(
     image_stack: ImageStack,
     weighting_function: Callable = weighting_function_Debevec1997,
-    weighting_average: Boolean = False,
     camera_response_functions: Optional[ArrayLike] = None,
 ) -> Optional[NDArray]:
     """
-    Generate a HDRI / radiance image from given image stack.
+    Generate a HDRI from given image stack.
 
     Parameters
     ----------
@@ -60,9 +59,6 @@ def image_stack_to_radiance_image(
         ``camera_response_functions`` argument is provided.
     weighting_function
         Weighting function :math:`w`.
-    weighting_average
-         Enables weighting function :math:`w` computation on channels average
-         instead of on a per-channel basis.
     camera_response_functions
         Camera response functions :math:`g(z)` of the imaging system / camera
         if the stack is representing non-linear values.
@@ -70,7 +66,7 @@ def image_stack_to_radiance_image(
     Returns
     -------
     :class:`numpy.ndarray`
-        Radiance image.
+        HDRI.
 
     Warnings
     --------
@@ -106,21 +102,11 @@ def image_stack_to_radiance_image(
                     f"colourspace or clamp negative values."
                 )
 
-            if weighting_average and image.data.ndim == 3:
-                average = np.average(image.data, axis=-1)
-
-                weights = weighting_function(average)
-                weights = np.rollaxis(weights[np.newaxis], 0, 3)
-                if i == 0:
-                    weights[average >= 0.5] = 1
-                if i == len(image_stack) - 1:
-                    weights[average <= 0.5] = 1
-            else:
-                weights = weighting_function(image.data)
-                if i == 0:
-                    weights[image.data >= 0.5] = 1
-                if i == len(image_stack) - 1:
-                    weights[image.data <= 0.5] = 1
+            weights = weighting_function(image.data)
+            if i == 0:
+                weights[image.data >= 0.5] = 1
+            if i == len(image_stack) - 1:
+                weights[image.data <= 0.5] = 1
 
             image_data = image.data
             if camera_response_functions is not None:

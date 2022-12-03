@@ -1,5 +1,5 @@
-HDRI / Radiance Image Generation
-================================
+HDRI Generation
+===============
 
 Generation
 ----------
@@ -11,7 +11,7 @@ Generation
 .. autosummary::
     :toctree: generated/
 
-    image_stack_to_radiance_image
+    image_stack_to_HDRI
 
 Weighting Functions
 -------------------
