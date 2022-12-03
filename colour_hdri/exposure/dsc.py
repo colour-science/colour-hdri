@@ -296,7 +296,8 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
     Examples
     --------
     >>> saturation_based_speed_focal_plane_exposure(  # doctest: +ELLIPSIS
-    ...     4000, 8, 1 / 250, 400, 50 / 1000, 50 / 1000, 0.0015)
+    ...     4000, 8, 1 / 250, 400, 50 / 1000, 50 / 1000, 0.0015
+    ... )
     0.8430446...
     """
 

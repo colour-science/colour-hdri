@@ -125,7 +125,7 @@ class Image:
         path: Optional[str] = None,
         data: Optional[ArrayLike] = None,
         metadata: Optional[Metadata] = None,
-    ):
+    ) -> None:
         self._path: Optional[str] = None
         self.path = path
         # TODO: Remove pragma when https://github.com/python/mypy/issues/3004
@@ -356,7 +356,7 @@ class ImageStack(MutableSequence):
     -   :meth:`colour_hdri.ImageStack.from_files`
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._data: List = []
 
     def __getitem__(

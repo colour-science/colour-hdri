@@ -10,7 +10,7 @@ import unittest
 from colour import RGB_COLOURSPACES
 from colour.hints import List
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.generation import image_stack_to_HDRI
 from colour_hdri.calibration import camera_response_functions_Debevec1997
 from colour_hdri.utilities import ImageStack, filter_files
@@ -23,21 +23,21 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "FROBISHER_001_DIRECTORY",
-    "GENERATION_DIRECTORY",
-    "JPG_IMAGES",
+    "ROOT_RESOURCES_FROBISHER_001",
+    "ROOT_RESOURCES_GENERATION",
+    "IMAGES_JPG",
     "TestImageStackToHDRI",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
-GENERATION_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "generation"
+ROOT_RESOURCES_GENERATION: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "colour_hdri", "generation"
 )
 
-JPG_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("jpg",))
+IMAGES_JPG: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
 
 
 class TestImageStackToHDRI(unittest.TestCase):
@@ -52,7 +52,7 @@ class TestImageStackToHDRI(unittest.TestCase):
         definition.
         """
 
-        image_stack = ImageStack.from_files(JPG_IMAGES)
+        image_stack = ImageStack.from_files(IMAGES_JPG)
         image_stack.data = RGB_COLOURSPACES["sRGB"].cctf_decoding(
             image_stack.data
         )
@@ -62,7 +62,8 @@ class TestImageStackToHDRI(unittest.TestCase):
             image_stack_to_HDRI(image_stack),
             np.load(
                 os.path.join(
-                    GENERATION_DIRECTORY, "test_image_stack_to_hdri_linear.npy"
+                    ROOT_RESOURCES_GENERATION,
+                    "test_image_stack_to_hdri_linear.npy",
                 )
             ),
             rtol=0.0001,
@@ -70,7 +71,7 @@ class TestImageStackToHDRI(unittest.TestCase):
         )
 
         # Lower precision for unit tests under *travis-ci*.
-        image_stack = ImageStack.from_files(JPG_IMAGES)
+        image_stack = ImageStack.from_files(IMAGES_JPG)
         np.testing.assert_allclose(
             image_stack_to_HDRI(
                 image_stack,
@@ -80,7 +81,8 @@ class TestImageStackToHDRI(unittest.TestCase):
             ),
             np.load(
                 os.path.join(
-                    GENERATION_DIRECTORY, "test_image_stack_to_hdri_crfs.npy"
+                    ROOT_RESOURCES_GENERATION,
+                    "test_image_stack_to_hdri_crfs.npy",
                 )
             ),
             rtol=0.0001,

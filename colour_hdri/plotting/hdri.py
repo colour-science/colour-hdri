@@ -1,6 +1,6 @@
 """
 HDRI Plotting
-===================
+=============
 
 Defines the HDRI plotting objects:
 

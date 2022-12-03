@@ -14,7 +14,7 @@ import zipfile
 from colour import read_image
 from colour.hints import List
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.process import (
     convert_raw_files_to_dng_files,
     convert_dng_files_to_intermediate_files,
@@ -30,22 +30,22 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "FROBISHER_001_DIRECTORY",
-    "PROCESS_DIRECTORY",
-    "RAW_IMAGES",
+    "ROOT_RESOURCES_FROBISHER_001",
+    "ROOT_PROCESS",
+    "IMAGES_RAW",
     "TestConvertRawFilesToDngFiles",
     "TestConvertDngFilesToIntermediateFiles",
 ]
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
-PROCESS_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "process"
+ROOT_PROCESS: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "colour_hdri", "process"
 )
 
-RAW_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("CR2",))
+IMAGES_RAW: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2",))
 
 
 class TestConvertRawFilesToDngFiles(unittest.TestCase):
@@ -75,10 +75,10 @@ convert_raw_files_to_dng_files` definition.
             # reproducible on *macOS* thus we skip this unit test.
             return
 
-        reference_dng_files = sorted(filter_files(PROCESS_DIRECTORY, ("dng",)))
+        reference_dng_files = sorted(filter_files(ROOT_PROCESS, ("dng",)))
         test_dng_files = sorted(
             convert_raw_files_to_dng_files(
-                RAW_IMAGES, self._temporary_directory
+                IMAGES_RAW, self._temporary_directory
             )
         )
 
@@ -114,7 +114,7 @@ convert_dng_files_to_intermediate_files` definition unit tests methods.
 convert_dng_files_to_intermediate_files` definition.
         """
 
-        reference_dng_files = sorted(filter_files(PROCESS_DIRECTORY, ("dng",)))
+        reference_dng_files = sorted(filter_files(ROOT_PROCESS, ("dng",)))
         tests_dng_files = [
             os.path.join(
                 self._temporary_directory, os.path.basename(reference_dng_file)
@@ -126,7 +126,7 @@ convert_dng_files_to_intermediate_files` definition.
         ):
             shutil.copyfile(reference_dng_file, tests_dng_file)
 
-        reference_zip_files = sorted(filter_files(PROCESS_DIRECTORY, ("zip",)))
+        reference_zip_files = sorted(filter_files(ROOT_PROCESS, ("zip",)))
 
         for reference_zip_file in reference_zip_files:
             with zipfile.ZipFile(reference_zip_file) as zip_file:
@@ -181,7 +181,7 @@ read_dng_files_exif_tags` definition unit tests methods.
 read_dng_files_exif_tags` definition.
         """
 
-        reference_dng_files = sorted(filter_files(PROCESS_DIRECTORY, ("dng",)))
+        reference_dng_files = sorted(filter_files(ROOT_PROCESS, ("dng",)))
         exif_tags = read_dng_files_exif_tags(reference_dng_files)
         self.assertEqual(len(exif_tags), 3)
         self.assertIn("EXIF", exif_tags[0])

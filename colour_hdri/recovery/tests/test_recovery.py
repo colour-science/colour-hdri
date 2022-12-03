@@ -16,7 +16,7 @@ import unittest
 from colour import read_image
 from colour.hints import Boolean, List, NDArray
 
-from colour_hdri import TESTS_RESOURCES_DIRECTORY
+from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.process import (
     RAW_CONVERTER,
     RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
@@ -36,9 +36,9 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
-    "FROBISHER_001_DIRECTORY",
-    "RECOVERY_DIRECTORY",
-    "RAW_IMAGES",
+    "ROOT_RESOURCES_FROBISHER_001",
+    "ROOT_RESOURCES_RECOVERY",
+    "IMAGES_RAW",
     "matrix_XYZ_to_camera_space",
     "TestHighlightsRecoveryBlend",
     "TestHighlightsRecoveryLCHab",
@@ -47,15 +47,15 @@ __all__ = [
 _IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
-FROBISHER_001_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "frobisher_001"
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "frobisher_001"
 )
 
-RECOVERY_DIRECTORY: str = os.path.join(
-    TESTS_RESOURCES_DIRECTORY, "colour_hdri", "recovery"
+ROOT_RESOURCES_RECOVERY: str = os.path.join(
+    ROOT_RESOURCES_TESTS, "colour_hdri", "recovery"
 )
 
-RAW_IMAGES: List[str] = filter_files(FROBISHER_001_DIRECTORY, ("CR2",))
+IMAGES_RAW: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2",))
 
 matrix_XYZ_to_camera_space: NDArray = np.array(
     [
@@ -91,7 +91,7 @@ highlights_recovery_blend` definition unit tests methods.
         multipliers = np.array([2.42089718, 1.00000000, 1.54687415])
         multipliers /= np.max(multipliers)
 
-        reference_raw_file = RAW_IMAGES[1]
+        reference_raw_file = IMAGES_RAW[1]
         test_raw_file = os.path.join(
             self._temporary_directory, os.path.basename(reference_raw_file)
         )
@@ -113,7 +113,7 @@ highlights_recovery_blend` definition unit tests methods.
             test_tiff_file, matrix_XYZ_to_camera_space
         )
         reference_exr_path = os.path.join(
-            RECOVERY_DIRECTORY,
+            ROOT_RESOURCES_RECOVERY,
             os.path.basename(re.sub("\\.CR2$", "_Blend.exr", test_raw_file)),
         )
         reference_exr_file = read_image(str(reference_exr_path))
@@ -148,7 +148,7 @@ highlights_recovery_LCHab` definition unit tests methods.
         multipliers = np.array([2.42089718, 1.00000000, 1.54687415])
         multipliers /= np.max(multipliers)
 
-        reference_raw_file = RAW_IMAGES[1]
+        reference_raw_file = IMAGES_RAW[1]
         test_raw_file = os.path.join(
             self._temporary_directory, os.path.basename(reference_raw_file)
         )
@@ -173,7 +173,7 @@ highlights_recovery_LCHab` definition unit tests methods.
         )
 
         reference_exr_path = os.path.join(
-            RECOVERY_DIRECTORY,
+            ROOT_RESOURCES_RECOVERY,
             os.path.basename(re.sub("\\.CR2$", "_LCHab.exr", test_raw_file)),
         )
         reference_exr_file = read_image(str(reference_exr_path))

@@ -10,6 +10,8 @@ packages = [
     "colour_hdri",
     "colour_hdri.calibration",
     "colour_hdri.calibration.tests",
+    "colour_hdri.distortion",
+    "colour_hdri.distortion.tests",
     "colour_hdri.exposure",
     "colour_hdri.exposure.tests",
     "colour_hdri.generation",
@@ -33,14 +35,18 @@ packages = [
 
 package_data = {
     "": ["*"],
-    "colour_hdri": ["examples/*", "resources/colour-hdri-tests-datasets/*"],
+    "colour_hdri": [
+        "examples/*",
+        "resources/colour-hdri-tests-datasets/*",
+        "resources/colour-hdri-tests-datasets/colour_hdri/distortion/*",
+    ],
 }
 
 install_requires = [
-    "colour-science>=0.4.0",
+    "colour-science>=0.4.2",
     "imageio>=2,<3",
-    "numpy>=1.19,<2",
-    "scipy>=1.5,<2",
+    "numpy>=1.20,<2",
+    "scipy>=1.7,<2",
     "typing-extensions>=4,<5",
 ]
 
@@ -48,6 +54,7 @@ extras_require = {
     "development": [
         "biblib-simple",
         "black",
+        "blackdoc",
         "coverage!=6.3",
         "coveralls",
         "flake8",
@@ -66,10 +73,10 @@ extras_require = {
         "toml",
         "twine",
     ],
-    "optional": ["colour-demosaicing>=0.2.0"],
-    "plotting": ["matplotlib>=3.2,!=3.5.0,!=3.5.1"],
+    "optional": ["colour-demosaicing>=0.2.3"],
+    "plotting": ["matplotlib>=3.5,!=3.5.0,!=3.5.1"],
     "read-the-docs": [
-        "matplotlib>=3.2,!=3.5.0,!=3.5.1",
+        "matplotlib>=3.5,!=3.5.0,!=3.5.1",
         "pydata-sphinx-theme",
         "sphinxcontrib-bibtex",
     ],
@@ -77,7 +84,7 @@ extras_require = {
 
 setup(
     name="colour-hdri",
-    version="0.2.0",
+    version="0.2.1",
     description="HDRI processing algorithms for Python",
     long_description=codecs.open("README.rst", encoding="utf8").read(),
     author="Colour Developers",
@@ -89,5 +96,5 @@ setup(
     package_data=package_data,
     install_requires=install_requires,
     extras_require=extras_require,
-    python_requires=">=3.8,<3.11",
+    python_requires=">=3.9,<3.12",
 )

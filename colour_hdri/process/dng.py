@@ -29,7 +29,7 @@ from colour.hints import (
     Sequence,
     Tuple,
 )
-from colour.utilities import CaseInsensitiveMapping, optional
+from colour.utilities import CanonicalMapping, optional
 from colour.utilities.documentation import (
     DocstringText,
     is_documentation_building,
@@ -132,9 +132,9 @@ if is_documentation_building():  # pragma: no cover
 Arguments for the command line *DNG* conversion application.
 """
 
-DNG_EXIF_TAGS_BINDING: CaseInsensitiveMapping = CaseInsensitiveMapping(
+DNG_EXIF_TAGS_BINDING: CanonicalMapping = CanonicalMapping(
     {
-        "EXIF": CaseInsensitiveMapping(
+        "EXIF": CanonicalMapping(
             {
                 "Make": (parse_exif_string, None),
                 "Camera Model Name": (parse_exif_string, None),
@@ -370,7 +370,7 @@ def read_dng_files_exif_tags(
     exif_tags_binding: Mapping[
         str, Mapping[str, Tuple[Callable, Optional[str]]]
     ] = DNG_EXIF_TAGS_BINDING,
-) -> List[CaseInsensitiveMapping]:
+) -> List[CanonicalMapping]:
     """
     Read given *dng* files exif tags using given binding.
 
@@ -390,9 +390,9 @@ def read_dng_files_exif_tags(
     dng_files_exif_tags = []
     for dng_file in dng_files:
         exif_tags = read_exif_tags(dng_file)
-        binding = CaseInsensitiveMapping()
+        binding = CanonicalMapping()
         for group, tags in exif_tags_binding.items():
-            binding[group] = CaseInsensitiveMapping()
+            binding[group] = CanonicalMapping()
             for tag, (parser, default) in tags.items():
                 exif_tag = exif_tags[group].get(tag)
                 if exif_tag is None:
