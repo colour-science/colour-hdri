@@ -84,7 +84,7 @@ extras_require = {
 
 setup(
     name="colour-hdri",
-    version="0.2.0",
+    version="0.2.1",
     description="HDRI processing algorithms for Python",
     long_description=codecs.open("README.rst", encoding="utf8").read(),
     author="Colour Developers",
