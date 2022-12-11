@@ -11,7 +11,7 @@ import os
 import re
 from collections import defaultdict
 
-from colour.hints import Boolean, Dict, List, Optional, Sequence, Union
+from colour.hints import Dict, List, Optional, Sequence, Union
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -78,7 +78,7 @@ def vivified_to_dict(vivified: Union[Dict, defaultdict]) -> Dict:
     return vivified
 
 
-def path_exists(path: Optional[str]) -> Boolean:
+def path_exists(path: Optional[str]) -> bool:
     """
     Return whether given path exists.
 

@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from colour.hints import FloatingOrArrayLike, FloatingOrNDArray
+from colour.hints import ArrayLike, NDArrayFloat
 
 from colour.utilities import as_float, as_float_array
 
@@ -43,11 +43,11 @@ __all__ = [
 
 
 def average_luminance(
-    N: FloatingOrArrayLike,
-    t: FloatingOrArrayLike,
-    S: FloatingOrArrayLike,
-    k: FloatingOrArrayLike = 12.5,
-) -> FloatingOrNDArray:
+    N: ArrayLike,
+    t: ArrayLike,
+    S: ArrayLike,
+    k: ArrayLike = 12.5,
+) -> NDArrayFloat:
     """
     Compute the average luminance :math:`L` in :math:`cd\\cdot m^{-2}` from
     given relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`,
@@ -71,7 +71,7 @@ def average_luminance(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Average luminance :math:`L` in :math:`cd\\cdot m^{-2}`.
 
     References
@@ -95,11 +95,11 @@ def average_luminance(
 
 
 def average_illuminance(
-    N: FloatingOrArrayLike,
-    t: FloatingOrArrayLike,
-    S: FloatingOrArrayLike,
-    c: FloatingOrArrayLike = 250,
-) -> FloatingOrNDArray:
+    N: ArrayLike,
+    t: ArrayLike,
+    S: ArrayLike,
+    c: ArrayLike = 250,
+) -> NDArrayFloat:
     """
     Compute the average illuminance :math:`E` in :math:`Lux` from given
     relative aperture *F-Number* :math:`N`, *Exposure Time* :math:`t`, *ISO*
@@ -125,7 +125,7 @@ def average_illuminance(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Average illuminance :math:`E` in :math:`Lux`.
 
     References
@@ -149,10 +149,10 @@ def average_illuminance(
 
 
 def luminance_to_exposure_value(
-    L: FloatingOrArrayLike,
-    S: FloatingOrArrayLike,
-    k: FloatingOrArrayLike = 12.5,
-) -> FloatingOrNDArray:
+    L: ArrayLike,
+    S: ArrayLike,
+    k: ArrayLike = 12.5,
+) -> NDArrayFloat:
     """
     Compute the exposure value :math:`EV` from given scene luminance
     :math:`L` in :math:`cd\\cdot m^{-2}`, *ISO* arithmetic speed :math:`S` and
@@ -173,7 +173,7 @@ def luminance_to_exposure_value(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Exposure value :math:`EV`.
 
     Notes
@@ -203,10 +203,10 @@ def luminance_to_exposure_value(
 
 
 def illuminance_to_exposure_value(
-    E: FloatingOrArrayLike,
-    S: FloatingOrArrayLike,
-    c: FloatingOrArrayLike = 250,
-) -> FloatingOrNDArray:
+    E: ArrayLike,
+    S: ArrayLike,
+    c: ArrayLike = 250,
+) -> NDArrayFloat:
     """
     Compute the exposure value :math:`EV` from given scene illuminance
     :math:`E` in :math:`Lux`, *ISO* arithmetic speed :math:`S` and
@@ -229,7 +229,7 @@ def illuminance_to_exposure_value(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Exposure value :math:`EV`.
 
     Notes
@@ -258,9 +258,7 @@ def illuminance_to_exposure_value(
     return as_float(EV)
 
 
-def adjust_exposure(
-    a: FloatingOrArrayLike, EV: FloatingOrArrayLike
-) -> FloatingOrNDArray:
+def adjust_exposure(a: ArrayLike, EV: ArrayLike) -> NDArrayFloat:
     """
     Adjust given array exposure using given :math:`EV` exposure value.
 
@@ -273,7 +271,7 @@ def adjust_exposure(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Exposure adjusted array.
 
     Examples

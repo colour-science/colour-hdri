@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
 
-from colour.hints import Any, ArrayLike, Boolean, Callable, Dict, Tuple
+from colour.hints import Any, ArrayLike, Callable, Dict, Tuple
 from colour.plotting import (
     CONSTANTS_COLOUR_STYLE,
     artist,
@@ -39,7 +39,7 @@ __all__ = [
 def plot_tonemapping_operator_image(
     image: ArrayLike,
     luminance_function: ArrayLike,
-    log_scale: Boolean = False,
+    log_scale: bool = False,
     cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
     **kwargs: Any,
 ) -> Tuple[plt.Figure, plt.Axes]:

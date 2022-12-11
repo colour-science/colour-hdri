@@ -256,9 +256,11 @@ try:
         .decode("utf-8")
     )
 except Exception:
-    _version: str = __version__  # type: ignore[no-redef]
+    _version: str = __version__
 
-colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES["colour-hdri"] = _version
+colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES[  # pyright: ignore
+    "colour-hdri"
+] = _version
 
 del _version
 
@@ -301,7 +303,7 @@ API_CHANGES = {
 """Defines the *colour_hdri* package API changes."""
 
 if not is_documentation_building():
-    sys.modules["colour_hdri"] = colour_hdri(  # type: ignore[assignment]
+    sys.modules["colour_hdri"] = colour_hdri(  # pyright: ignore
         sys.modules["colour_hdri"], build_API_changes(API_CHANGES)
     )
 

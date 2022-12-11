@@ -25,19 +25,16 @@ from dataclasses import dataclass, field
 from fractions import Fraction
 
 from colour.hints import (
-    Boolean,
-    DTypeFloating,
-    DTypeNumber,
-    Floating,
+    DTypeFloat,
+    DTypeReal,
     List,
     NDArray,
-    Number,
+    Real,
     Optional,
     Sequence,
     SupportsIndex,
     Type,
     Union,
-    cast,
 )
 
 from colour.constants import DEFAULT_FLOAT_DTYPE
@@ -72,7 +69,7 @@ __all__ = [
     "write_exif_tag",
 ]
 
-_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
+_IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
 EXIF_EXECUTABLE: str = "exiftool"
@@ -125,8 +122,8 @@ def parse_exif_string(exif_tag: EXIFTag) -> str:
 
 
 def parse_exif_number(
-    exif_tag: EXIFTag, dtype: Optional[Type[DTypeNumber]] = None
-) -> Number:
+    exif_tag: EXIFTag, dtype: Optional[Type[DTypeReal]] = None
+) -> Real:
     """
     Parse given EXIF tag assuming it is a number type and return its value.
 
@@ -143,14 +140,14 @@ def parse_exif_number(
         Parsed EXIF tag value.
     """
 
-    dtype = cast(Type[DTypeNumber], optional(dtype, DEFAULT_FLOAT_DTYPE))
+    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
 
-    return dtype(exif_tag.value)  # type: ignore[arg-type, return-value]
+    return dtype(exif_tag.value)  # pyright: ignore
 
 
 def parse_exif_fraction(
-    exif_tag: EXIFTag, dtype: Optional[Type[DTypeFloating]] = None
-) -> Floating:
+    exif_tag: EXIFTag, dtype: Optional[Type[DTypeFloat]] = None
+) -> float:
     """
     Parse given EXIF tag assuming it is a fraction and return its value.
 
@@ -167,7 +164,7 @@ def parse_exif_fraction(
         Parsed EXIF tag value.
     """
 
-    dtype = cast(Type[DTypeFloating], optional(dtype, DEFAULT_FLOAT_DTYPE))
+    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
 
     value = (
         exif_tag.value
@@ -175,12 +172,12 @@ def parse_exif_fraction(
         else float(Fraction(exif_tag.value))
     )
 
-    return as_float_scalar(value, dtype)  # type: ignore[arg-type]
+    return as_float_scalar(value, dtype)  # pyright: ignore
 
 
 def parse_exif_array(
     exif_tag: EXIFTag,
-    dtype: Optional[Type[DTypeNumber]] = None,
+    dtype: Optional[Type[DTypeReal]] = None,
     shape: Optional[Union[SupportsIndex, Sequence[SupportsIndex]]] = None,
 ) -> NDArray:
     """
@@ -201,13 +198,13 @@ def parse_exif_array(
         Parsed EXIF tag value.
     """
 
-    dtype = cast(Type[DTypeNumber], optional(dtype, DEFAULT_FLOAT_DTYPE))
+    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
 
     value = (
         exif_tag.value if exif_tag.value is None else exif_tag.value.split()
     )
 
-    return np.reshape(as_array(value, dtype), shape)  # type: ignore[arg-type]
+    return np.reshape(as_array(value, dtype), shape)  # pyright: ignore
 
 
 def parse_exif_data(data: str) -> List:
@@ -290,7 +287,7 @@ def read_exif_tags(image: str) -> defaultdict:
     return exif_tags
 
 
-def copy_exif_tags(source: str, target: str) -> Boolean:
+def copy_exif_tags(source: str, target: str) -> bool:
     """
     Copy given source image file EXIF tag to given image target.
 
@@ -317,7 +314,7 @@ def copy_exif_tags(source: str, target: str) -> Boolean:
 
 
 # TODO: Find a better name.
-def update_exif_tags(images: Sequence[Sequence[str]]) -> Boolean:
+def update_exif_tags(images: Sequence[Sequence[str]]) -> bool:
     """
     Update given images pairs EXIF tags.
 
@@ -339,7 +336,7 @@ def update_exif_tags(images: Sequence[Sequence[str]]) -> Boolean:
     return bool(success)
 
 
-def delete_exif_tags(image: str) -> Boolean:
+def delete_exif_tags(image: str) -> bool:
     """
     Delete all given image EXIF tags.
 
@@ -399,7 +396,7 @@ def read_exif_tag(image: str, tag: str) -> str:
     return value
 
 
-def write_exif_tag(image: str, tag: str, value: str) -> Boolean:
+def write_exif_tag(image: str, tag: str, value: str) -> bool:
     """
     Set given image EXIF tag value.
 

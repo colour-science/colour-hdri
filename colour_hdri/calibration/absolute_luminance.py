@@ -22,7 +22,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
-from colour.hints import ArrayLike, Floating, Integer, NDArray
+from colour.hints import ArrayLike, NDArrayFloat
 from colour.utilities import as_float_array
 
 __author__ = "Colour Developers"
@@ -41,7 +41,7 @@ __all__ = [
 
 def upper_hemisphere_illuminance_Lagarde2016(
     RGB: ArrayLike, colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"]
-) -> Floating:
+) -> float:
     """
     Compute upper hemisphere illuminance :math:`E_v` of given RGB panoramic
     image.
@@ -88,8 +88,8 @@ def upper_hemisphere_illuminance_Lagarde2016(
 
 
 def upper_hemisphere_illuminance_weights_Lagarde2016(
-    height: Integer, width: Integer
-) -> NDArray:
+    height: int, width: int
+) -> NDArrayFloat:
     """
     Compute upper hemisphere illuminance weights for use with applications
     unable to perform the computation directly, i.e. *Adobe Photoshop*.
@@ -150,9 +150,9 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(
 
 def absolute_luminance_calibration_Lagarde2016(
     RGB: ArrayLike,
-    measured_illuminance: Floating,
+    measured_illuminance: float,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform absolute *Luminance* calibration of given *RGB* panoramic image
     using *Lagarde (2016)* method.

@@ -13,7 +13,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour.algebra import matrix_dot, vector_dot
-from colour.hints import ArrayLike, NDArray
+from colour.hints import ArrayLike, NDArrayFloat
 from colour.models import RGB_COLOURSPACES
 
 __author__ = "Colour Developers"
@@ -33,7 +33,7 @@ def camera_space_to_RGB(
     RGB: ArrayLike,
     M_XYZ_to_camera_space: ArrayLike,
     matrix_RGB_to_XYZ: ArrayLike,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Convert given *RGB* array from *camera space* to given *RGB* colourspace.
 
@@ -86,7 +86,7 @@ def camera_space_to_RGB(
 
 def camera_space_to_sRGB(
     RGB: ArrayLike, M_XYZ_to_camera_space: ArrayLike
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Convert given *RGB* array from *camera space* to *sRGB* colourspace.
 
