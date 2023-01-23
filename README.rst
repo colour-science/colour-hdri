@@ -5,7 +5,7 @@ Colour - HDRI
 
 |actions| |coveralls| |codacy| |version|
 
-.. |actions| image:: https://img.shields.io/github/workflow/status/colour-science/colour-hdri/Continuous%20Integration%20-%20Quality%20&%20Unit%20Tests?label=actions&logo=github&style=flat-square
+.. |actions| image:: https://img.shields.io/github/actions/workflow/status/colour-science/colour-hdri/.github/workflows/continuous-integration-quality-unit-tests.yml?branch=develop&style=flat-square
     :target: https://github.com/colour-science/colour-hdri/actions
     :alt: Develop Build Status
 .. |coveralls| image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg?style=flat-square
