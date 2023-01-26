@@ -20,11 +20,10 @@ from colour.hints import (
     Any,
     ArrayLike,
     Callable,
-    FloatingOrNDArray,
-    Integer,
     List,
-    NDArray,
+    NDArrayFloat,
     Optional,
+    Real,
     Sequence,
     Union,
     cast,
@@ -83,12 +82,12 @@ class Metadata(MixinDataclassArray):
         Image white balance multipliers, usually the *As Shot Neutral*  matrix.
     """
 
-    f_number: Optional[NDArray] = field(default_factory=lambda: None)
-    exposure_time: Optional[NDArray] = field(default_factory=lambda: None)
-    iso: Optional[NDArray] = field(default_factory=lambda: None)
-    black_level: Optional[NDArray] = field(default_factory=lambda: None)
-    white_level: Optional[NDArray] = field(default_factory=lambda: None)
-    white_balance_multipliers: Optional[NDArray] = field(
+    f_number: Optional[Real] = field(default_factory=lambda: None)
+    exposure_time: Optional[Real] = field(default_factory=lambda: None)
+    iso: Optional[Real] = field(default_factory=lambda: None)
+    black_level: Optional[NDArrayFloat] = field(default_factory=lambda: None)
+    white_level: Optional[NDArrayFloat] = field(default_factory=lambda: None)
+    white_balance_multipliers: Optional[NDArrayFloat] = field(
         default_factory=lambda: None
     )
 
@@ -128,10 +127,8 @@ class Image:
     ) -> None:
         self._path: Optional[str] = None
         self.path = path
-        # TODO: Remove pragma when https://github.com/python/mypy/issues/3004
-        # is resolved.
-        self._data: Optional[NDArray] = None
-        self.data = data  # type: ignore[assignment]
+        self._data: Optional[NDArrayFloat] = None
+        self.data = data
         self._metadata: Optional[Metadata] = None
         self.metadata = metadata
 
@@ -165,7 +162,7 @@ class Image:
         self._path = value
 
     @property
-    def data(self) -> Optional[NDArray]:
+    def data(self) -> Optional[NDArrayFloat]:
         """
         Getter and setter property for the image data.
 
@@ -225,7 +222,9 @@ class Image:
 
         self._metadata = value
 
-    def read_data(self, cctf_decoding: Optional[Callable] = None) -> NDArray:
+    def read_data(
+        self, cctf_decoding: Optional[Callable] = None
+    ) -> NDArrayFloat:
         """
         Read image pixel data at :attr:`Image.path` attribute.
 
@@ -255,7 +254,7 @@ class Image:
 
             self.data = data
 
-            return data
+            return cast(NDArrayFloat, data)
         else:
             raise ValueError('The image "path" is undefined!')
 
@@ -360,7 +359,7 @@ class ImageStack(MutableSequence):
         self._data: List = []
 
     def __getitem__(
-        self, index: Union[Integer, slice]
+        self, index: Union[int, slice]
     ) -> Union[Any, MutableSequence[Any]]:
         """
         Return the :class:`colour_hdri.Image` class instance at given index.
@@ -378,7 +377,7 @@ class ImageStack(MutableSequence):
 
         return self._data[index]
 
-    def __setitem__(self, index: Union[Integer, slice], value: Any):
+    def __setitem__(self, index: Union[int, slice], value: Any):
         """
         Set given :class:`colour_hdri.Image` class instance at given index.
 
@@ -392,7 +391,7 @@ class ImageStack(MutableSequence):
 
         self._data[index] = value
 
-    def __delitem__(self, index: Union[Integer, slice]):
+    def __delitem__(self, index: Union[int, slice]):
         """
         Delete the :class:`colour_hdri.Image` class instance at given index.
 
@@ -404,7 +403,7 @@ class ImageStack(MutableSequence):
 
         del self._data[index]
 
-    def __len__(self) -> Integer:
+    def __len__(self) -> int:
         """
         Return the :class:`colour_hdri.Image` class instances count.
 
@@ -475,7 +474,7 @@ class ImageStack(MutableSequence):
         else:
             super().__setattr__(attribute, value)
 
-    def insert(self, index: Integer, value: Any):
+    def insert(self, index: int, value: Any):
         """
         Insert given :class:`colour_hdri.Image` class instance at given index.
 
@@ -530,7 +529,7 @@ class ImageStack(MutableSequence):
             image.read_metadata()
             image_stack.append(image)
 
-        def luminance_average_key(image: Image) -> Optional[FloatingOrNDArray]:
+        def luminance_average_key(image: Image) -> Optional[NDArrayFloat]:
             """Comparison key function."""
 
             metadata = cast(Metadata, image.metadata)

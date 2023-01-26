@@ -20,15 +20,7 @@ import re
 import shlex
 import subprocess  # nosec
 
-from colour.hints import (
-    Callable,
-    Boolean,
-    List,
-    Mapping,
-    Optional,
-    Sequence,
-    Tuple,
-)
+from colour.hints import Callable, List, Mapping, Optional, Sequence, Tuple
 from colour.utilities import CanonicalMapping, optional
 from colour.utilities.documentation import (
     DocstringText,
@@ -63,10 +55,10 @@ __all__ = [
     "read_dng_files_exif_tags",
 ]
 
-_IS_MACOS_PLATFORM: Boolean = platform.system() == "Darwin"
+_IS_MACOS_PLATFORM: bool = platform.system() == "Darwin"
 """Whether the current platform is *macOS*."""
 
-_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
+_IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
 RAW_CONVERTER: str = "dcraw"
@@ -112,10 +104,10 @@ if _IS_MACOS_PLATFORM:
         "MacOS/Adobe DNG Converter"
     )
 elif _IS_WINDOWS_PLATFORM:
-    DNG_CONVERTER: str = "Adobe DNG Converter"  # type: ignore[no-redef]
+    DNG_CONVERTER: str = "Adobe DNG Converter"
 else:
     # https://rawpedia.rawtherapee.com/How_to_convert_raw_formats_to_DNG
-    DNG_CONVERTER: str = "Adobe-DNG-Converter"  # type: ignore[no-redef]
+    DNG_CONVERTER: str = "Adobe-DNG-Converter"
 
 if is_documentation_building():  # pragma: no cover
     DNG_CONVERTER = DocstringText(DNG_CONVERTER)

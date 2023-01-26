@@ -14,7 +14,7 @@ import tempfile
 import unittest
 
 from colour import read_image
-from colour.hints import Boolean, List, NDArray
+from colour.hints import List, NDArrayFloat
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.process import (
@@ -44,7 +44,7 @@ __all__ = [
     "TestHighlightsRecoveryLCHab",
 ]
 
-_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
+_IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
 ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
@@ -57,7 +57,7 @@ ROOT_RESOURCES_RECOVERY: str = os.path.join(
 
 IMAGES_RAW: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2",))
 
-matrix_XYZ_to_camera_space: NDArray = np.array(
+matrix_XYZ_to_camera_space: NDArrayFloat = np.array(
     [
         [0.47160000, 0.06030000, -0.08300000],
         [-0.77980000, 1.54740000, 0.24800000],

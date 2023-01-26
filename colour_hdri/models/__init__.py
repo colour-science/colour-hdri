@@ -57,7 +57,7 @@ API_CHANGES = {
 """Defines the *colour_hdri.models* sub-package API changes."""
 
 if not is_documentation_building():
-    sys.modules["colour_hdri.models"] = models(  # type: ignore[assignment]
+    sys.modules["colour_hdri.models"] = models(  # pyright: ignore
         sys.modules["colour_hdri.models"], build_API_changes(API_CHANGES)
     )
 

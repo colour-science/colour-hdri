@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from colour.hints import ArrayLike, Floating, NDArray
+from colour.hints import ArrayLike, NDArrayFloat
 
 from colour.utilities import as_float_array
 
@@ -39,8 +39,8 @@ __all__ = [
 
 
 def normal_distribution_function(
-    a: ArrayLike, mu: Floating = 0.5, sigma: Floating = 0.15
-) -> NDArray:
+    a: ArrayLike, mu: float = 0.5, sigma: float = 0.15
+) -> NDArrayFloat:
     """
     Return given array weighted by a normal distribution function.
 
@@ -70,7 +70,7 @@ def normal_distribution_function(
     return np.exp(-np.power(a - mu, 2) / (2 * np.power(sigma, 2)))
 
 
-def hat_function(a: ArrayLike) -> NDArray:
+def hat_function(a: ArrayLike) -> NDArrayFloat:
     """
     Return given array weighted by a hat function.
 
@@ -97,8 +97,8 @@ def hat_function(a: ArrayLike) -> NDArray:
 
 
 def weighting_function_Debevec1997(
-    a: ArrayLike, domain_l: Floating = 0.01, domain_h: Floating = 0.99
-) -> NDArray:
+    a: ArrayLike, domain_l: float = 0.01, domain_h: float = 0.99
+) -> NDArrayFloat:
     """
     Return given array weighted by *Debevec (1997)* function.
 

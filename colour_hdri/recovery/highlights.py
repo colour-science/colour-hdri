@@ -24,7 +24,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour.algebra import vector_dot
-from colour.hints import ArrayLike, Floating, NDArray, Optional
+from colour.hints import ArrayLike, NDArrayFloat, Optional
 from colour.models import (
     RGB_Colourspace,
     LCHab_to_Lab,
@@ -51,8 +51,8 @@ __all__ = [
 
 
 def highlights_recovery_blend(
-    RGB: ArrayLike, multipliers: ArrayLike, threshold: Floating = 0.99
-) -> NDArray:
+    RGB: ArrayLike, multipliers: ArrayLike, threshold: float = 0.99
+) -> NDArrayFloat:
     """
     Perform highlights recovery using *Coffin (1997)* method from *dcraw*.
 
@@ -104,9 +104,9 @@ def highlights_recovery_blend(
 
 def highlights_recovery_LCHab(
     RGB: ArrayLike,
-    threshold: Optional[Floating] = None,
+    threshold: Optional[float] = None,
     RGB_colourspace: RGB_Colourspace = RGB_COLOURSPACE_sRGB,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform highlights recovery in *CIE L\\*C\\*Hab* colourspace.
 

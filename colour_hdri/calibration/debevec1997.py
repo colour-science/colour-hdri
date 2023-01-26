@@ -29,12 +29,9 @@ from functools import partial
 from colour.hints import (
     Any,
     ArrayLike,
-    Boolean,
     Callable,
     Dict,
-    Floating,
-    Integer,
-    NDArray,
+    NDArrayFloat,
     Optional,
     Tuple,
 )
@@ -62,10 +59,10 @@ __all__ = [
 def g_solve(
     Z: ArrayLike,
     B: ArrayLike,
-    l_s: Floating = 30,
+    l_s: float = 30,
     w: Callable = weighting_function_Debevec1997,
-    n: Integer = 256,
-) -> Tuple[NDArray, NDArray]:
+    n: int = 256,
+) -> Tuple[NDArrayFloat, NDArrayFloat]:
     """
     Given a set of pixel values observed for several pixels in several images
     with different exposure times, this function returns the imaging system's
@@ -135,9 +132,9 @@ def g_solve(
 def extrapolating_function_polynomial(
     crfs: ArrayLike,
     weighting_function: Callable,
-    degree: Integer = 7,
+    degree: int = 7,
     **kwargs: Any,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Polynomial extrapolating function used to handle zero-weighted data of
     given camera response functions.
@@ -186,10 +183,10 @@ def camera_response_functions_Debevec1997(
     weighting_function_kwargs: Optional[Dict] = None,
     extrapolating_function: Callable = extrapolating_function_polynomial,
     extrapolating_function_kwargs: Optional[Dict] = None,
-    l_s: Floating = 30,
-    n: Integer = 256,
-    normalise: Boolean = True,
-) -> NDArray:
+    l_s: float = 30,
+    n: int = 256,
+    normalise: bool = True,
+) -> NDArrayFloat:
     """
     Return the camera response functions for given image stack using
     *Debevec (1997)* method.
