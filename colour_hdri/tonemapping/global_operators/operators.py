@@ -53,7 +53,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour.constants import EPSILON
-from colour.hints import ArrayLike, NDArrayFloat, Union, cast
+from colour.hints import ArrayLike, NDArrayFloat, cast
 from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
 from colour.utilities import as_float_array
 
@@ -657,7 +657,7 @@ def tonemapping_operator_Tumblin1999(
         RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     )
 
-    def f(x: Union[float, NDArrayFloat]) -> NDArrayFloat:
+    def f(x: float | NDArrayFloat) -> NDArrayFloat:
         return np.where(
             x > 100, 2.655, 1.855 + 0.4 * np.log10(x + 2.3 * 10**-5)
         )
@@ -850,14 +850,14 @@ def tonemapping_operator_filmic(
     F = toe_denominator
 
     def f(
-        x: Union[float, NDArrayFloat],
+        x: float | NDArrayFloat,
         A: float,
         B: float,
         C: float,
         D: float,
         E: float,
         F: float,
-    ) -> Union[float, NDArrayFloat]:
+    ) -> float | NDArrayFloat:
         return (
             (x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)
         ) - E / F

@@ -30,11 +30,9 @@ from colour.hints import (
     List,
     NDArray,
     Real,
-    Optional,
     Sequence,
     SupportsIndex,
     Type,
-    Union,
 )
 
 from colour.constants import DEFAULT_FLOAT_DTYPE
@@ -97,10 +95,10 @@ class EXIFTag:
         EXIF tag identifier.
     """
 
-    group: Optional[str] = field(default_factory=lambda: None)
-    name: Optional[str] = field(default_factory=lambda: None)
-    value: Optional[str] = field(default_factory=lambda: None)
-    identifier: Optional[str] = field(default_factory=lambda: None)
+    group: str | None = field(default_factory=lambda: None)
+    name: str | None = field(default_factory=lambda: None)
+    value: str | None = field(default_factory=lambda: None)
+    identifier: str | None = field(default_factory=lambda: None)
 
 
 def parse_exif_string(exif_tag: EXIFTag) -> str:
@@ -122,7 +120,7 @@ def parse_exif_string(exif_tag: EXIFTag) -> str:
 
 
 def parse_exif_number(
-    exif_tag: EXIFTag, dtype: Optional[Type[DTypeReal]] = None
+    exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None
 ) -> Real:
     """
     Parse given EXIF tag assuming it is a number type and return its value.
@@ -146,7 +144,7 @@ def parse_exif_number(
 
 
 def parse_exif_fraction(
-    exif_tag: EXIFTag, dtype: Optional[Type[DTypeFloat]] = None
+    exif_tag: EXIFTag, dtype: Type[DTypeFloat] | None = None
 ) -> float:
     """
     Parse given EXIF tag assuming it is a fraction and return its value.
@@ -177,8 +175,8 @@ def parse_exif_fraction(
 
 def parse_exif_array(
     exif_tag: EXIFTag,
-    dtype: Optional[Type[DTypeReal]] = None,
-    shape: Optional[Union[SupportsIndex, Sequence[SupportsIndex]]] = None,
+    dtype: Type[DTypeReal] | None = None,
+    shape: SupportsIndex | Sequence[SupportsIndex] | None = None,
 ) -> NDArray:
     """
     Parse given EXIF tag assuming it is an array and return its value.
@@ -261,7 +259,7 @@ def read_exif_tags(image: str) -> defaultdict:
         EXIF tags.
     """
 
-    logging.info(f"Reading '{image}' image EXIF data.")
+    logging.info("Reading '{image}' image EXIF data.", extra={"image": image})
 
     exif_tags = vivification()
     lines = str(
@@ -304,7 +302,10 @@ def copy_exif_tags(source: str, target: str) -> bool:
         Definition success.
     """
 
-    logging.info(f"Copying '{source}' file EXIF data to '{target}' file.")
+    logging.info(
+        "Copying '{source}' file EXIF data to '{target}' file.",
+        extra={"source": source, "target": target},
+    )
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
@@ -330,7 +331,7 @@ def update_exif_tags(images: Sequence[Sequence[str]]) -> bool:
     """
 
     success = 1
-    for (source, target) in images:
+    for source, target in images:
         success *= int(copy_exif_tags(source, target))
 
     return bool(success)
@@ -351,7 +352,7 @@ def delete_exif_tags(image: str) -> bool:
         Definition success.
     """
 
-    logging.info(f"Deleting '{image}' image EXIF tags.")
+    logging.info("Deleting '{image}' image EXIF tags.", extra={"image": image})
 
     subprocess.check_output(  # nosec
         [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
@@ -391,7 +392,10 @@ def read_exif_tag(image: str, tag: str) -> str:
         .strip()
     )
 
-    logging.info(f"Reading '{image}' image '{tag}' EXIF tag value: '{value}'")
+    logging.info(
+        "Reading '{image}' image '{tag}' EXIF tag value: '{value}'",
+        extra={"image": image, "tag": tag, "value": value},
+    )
 
     return value
 
@@ -416,7 +420,8 @@ def write_exif_tag(image: str, tag: str, value: str) -> bool:
     """
 
     logging.info(
-        f"Writing '{image}' image '{tag}' EXIF tag with '{value}' value."
+        "Writing '{image}' image '{tag}' EXIF tag with '{value}' value.",
+        extra={"image": image, "tag": tag, "value": value},
     )
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]

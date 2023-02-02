@@ -21,6 +21,9 @@ Subpackages
 -   utilities: Various utilities and data structures.
 """
 
+from __future__ import annotations
+
+import contextlib
 import sys
 
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
@@ -228,11 +231,11 @@ __all__ += [
     "tonemapping_operator_Tumblin1999",
 ]
 
-ROOT_RESOURCES = os.path.join(os.path.dirname(__file__), "resources")
-ROOT_RESOURCES_EXAMPLES = os.path.join(
+ROOT_RESOURCES: str = os.path.join(os.path.dirname(__file__), "resources")
+ROOT_RESOURCES_EXAMPLES: str = os.path.join(
     ROOT_RESOURCES, "colour-hdri-examples-datasets"
 )
-ROOT_RESOURCES_TESTS = os.path.join(
+ROOT_RESOURCES_TESTS: str = os.path.join(
     ROOT_RESOURCES, "colour-hdri-tests-datasets"
 )
 
@@ -265,10 +268,8 @@ colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES[  # pyright: ignore
 del _version
 
 # TODO: Remove legacy printing support when deemed appropriate.
-try:
+with contextlib.suppress(TypeError):
     np.set_printoptions(legacy="1.13")
-except TypeError:
-    pass
 
 
 # ----------------------------------------------------------------------------#

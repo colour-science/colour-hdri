@@ -9,7 +9,7 @@ Defines the HDRI plotting objects:
 
 from __future__ import annotations
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -68,7 +68,7 @@ def plot_HDRI_strip(
 
     image = as_float_array(image)
 
-    grid = matplotlib.gridspec.GridSpec(1, count)  # pyright: ignore
+    grid = mpl.gridspec.GridSpec(1, count)
     grid.update(wspace=0, hspace=0)
 
     height, width, _channel = image.shape

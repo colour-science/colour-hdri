@@ -20,7 +20,7 @@ import re
 import shlex
 import subprocess  # nosec
 
-from colour.hints import Callable, List, Mapping, Optional, Sequence, Tuple
+from colour.hints import Callable, List, Mapping, Sequence, Tuple
 from colour.utilities import CanonicalMapping, optional
 from colour.utilities.documentation import (
     DocstringText,
@@ -227,8 +227,8 @@ Exif tags binding for a *dng* file.
 def convert_raw_files_to_dng_files(
     raw_files: Sequence[str],
     output_directory: str,
-    dng_converter: Optional[str] = None,
-    dng_converter_arguments: Optional[str] = None,
+    dng_converter: str | None = None,
+    dng_converter_arguments: str | None = None,
 ) -> List[str]:
     """
     Convert given raw files to *dng* files using given output directory.
@@ -274,14 +274,20 @@ def convert_raw_files_to_dng_files(
         if path_exists(dng_file):
             os.remove(dng_file)
 
-        logging.info(f'Converting "{raw_file}" file to "{dng_file}" file.')
-
-        command = [dng_converter] + shlex.split(
-            dng_converter_arguments.format(
-                output_directory=output_directory, raw_file=raw_file
-            ),
-            posix=not _IS_WINDOWS_PLATFORM,
+        logging.info(
+            'Converting "{raw_file}" file to "{dng_file}" file.',
+            extra={"raw_file": raw_file, "dng_file": dng_file},
         )
+
+        command = [
+            dng_converter,
+            *shlex.split(
+                dng_converter_arguments.format(
+                    output_directory=output_directory, raw_file=raw_file
+                ),
+                posix=not _IS_WINDOWS_PLATFORM,
+            ),
+        ]
 
         subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
@@ -293,8 +299,8 @@ def convert_raw_files_to_dng_files(
 def convert_dng_files_to_intermediate_files(
     dng_files: Sequence[str],
     output_directory: str,
-    raw_converter: Optional[str] = None,
-    raw_converter_arguments: Optional[str] = None,
+    raw_converter: str | None = None,
+    raw_converter_arguments: str | None = None,
 ) -> List[str]:
     """
     Convert given *dng* files to intermediate *tiff* files using given output
@@ -331,15 +337,22 @@ def convert_dng_files_to_intermediate_files(
             os.remove(intermediate_file)
 
         logging.info(
-            f'Converting "{dng_file}" file to "{intermediate_file}" file.'
+            'Converting "{dng_file}" file to "{intermediate_file}" file.',
+            extra={
+                "dng_file": dng_file,
+                "intermediate_file": intermediate_file,
+            },
         )
 
-        command = [raw_converter] + shlex.split(
-            raw_converter_arguments.format(
-                output_directory=output_directory, raw_file=dng_file
+        command = [
+            raw_converter,
+            *shlex.split(
+                raw_converter_arguments.format(
+                    output_directory=output_directory, raw_file=dng_file
+                ),
+                posix=not _IS_WINDOWS_PLATFORM,
             ),
-            posix=not _IS_WINDOWS_PLATFORM,
-        )
+        ]
 
         subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
 
@@ -360,7 +373,7 @@ def convert_dng_files_to_intermediate_files(
 def read_dng_files_exif_tags(
     dng_files: Sequence[str],
     exif_tags_binding: Mapping[
-        str, Mapping[str, Tuple[Callable, Optional[str]]]
+        str, Mapping[str, Tuple[Callable, str | None]]
     ] = DNG_EXIF_TAGS_BINDING,
 ) -> List[CanonicalMapping]:
     """

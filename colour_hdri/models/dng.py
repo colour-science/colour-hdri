@@ -119,7 +119,7 @@ from colour.algebra import (
     matrix_dot,
     vector_dot,
 )
-from colour.hints import ArrayLike, Literal, NDArrayFloat, Union
+from colour.hints import ArrayLike, Literal, NDArrayFloat
 from colour.constants import EPSILON
 from colour.models import UCS_to_uv, XYZ_to_UCS, XYZ_to_xy, xy_to_XYZ
 from colour.utilities import as_float_array, tstack
@@ -547,23 +547,21 @@ def matrix_camera_space_to_XYZ(
     analog_balance: ArrayLike,
     M_forward_matrix_1: ArrayLike,
     M_forward_matrix_2: ArrayLike,
-    chromatic_adaptation_transform: Union[
-        Literal[
-            "Bianco 2010",
-            "Bianco PC 2010",
-            "Bradford",
-            "CAT02 Brill 2008",
-            "CAT02",
-            "CAT16",
-            "CMCCAT2000",
-            "CMCCAT97",
-            "Fairchild",
-            "Sharp",
-            "Von Kries",
-            "XYZ Scaling",
-        ],
-        str,
-    ] = "Bradford",
+    chromatic_adaptation_transform: Literal[
+        "Bianco 2010",
+        "Bianco PC 2010",
+        "Bradford",
+        "CAT02 Brill 2008",
+        "CAT02",
+        "CAT16",
+        "CMCCAT2000",
+        "CMCCAT97",
+        "Fairchild",
+        "Sharp",
+        "Von Kries",
+        "XYZ Scaling",
+    ]
+    | str = "Bradford",
 ) -> NDArrayFloat:
     """
     Return the *Camera Space* to *CIE XYZ* matrix for given *xy* white

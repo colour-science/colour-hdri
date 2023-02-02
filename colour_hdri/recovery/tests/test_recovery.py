@@ -96,10 +96,15 @@ highlights_recovery_blend` definition unit tests methods.
             self._temporary_directory, os.path.basename(reference_raw_file)
         )
         shutil.copyfile(reference_raw_file, test_raw_file)
-        command = [RAW_CONVERTER] + shlex.split(
-            RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
-            posix=not _IS_WINDOWS_PLATFORM,
-        )
+        command = [
+            RAW_CONVERTER,
+            *shlex.split(
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
+                    raw_file=test_raw_file
+                ),
+                posix=not _IS_WINDOWS_PLATFORM,
+            ),
+        ]
 
         subprocess.call(command)  # nosec
 
@@ -153,10 +158,15 @@ highlights_recovery_LCHab` definition unit tests methods.
             self._temporary_directory, os.path.basename(reference_raw_file)
         )
         shutil.copyfile(reference_raw_file, test_raw_file)
-        command = [RAW_CONVERTER] + shlex.split(
-            RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
-            posix=not _IS_WINDOWS_PLATFORM,
-        )
+        command = [
+            RAW_CONVERTER,
+            *shlex.split(
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
+                    raw_file=test_raw_file
+                ),
+                posix=not _IS_WINDOWS_PLATFORM,
+            ),
+        ]
 
         subprocess.call(command)  # nosec
 
