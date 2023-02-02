@@ -32,7 +32,6 @@ from colour.hints import (
     Callable,
     Dict,
     NDArrayFloat,
-    Optional,
     Tuple,
 )
 from colour.utilities import as_float_array, as_int_array, tstack
@@ -133,7 +132,7 @@ def extrapolating_function_polynomial(
     crfs: ArrayLike,
     weighting_function: Callable,
     degree: int = 7,
-    **kwargs: Any,
+    **kwargs: Any,  # noqa: ARG001
 ) -> NDArrayFloat:
     """
     Polynomial extrapolating function used to handle zero-weighted data of
@@ -178,11 +177,11 @@ def extrapolating_function_polynomial(
 def camera_response_functions_Debevec1997(
     image_stack: ImageStack,
     sampling_function: Callable = samples_Grossberg2003,
-    sampling_function_kwargs: Optional[Dict] = None,
+    sampling_function_kwargs: Dict | None = None,
     weighting_function: Callable = weighting_function_Debevec1997,
-    weighting_function_kwargs: Optional[Dict] = None,
+    weighting_function_kwargs: Dict | None = None,
     extrapolating_function: Callable = extrapolating_function_polynomial,
-    extrapolating_function_kwargs: Optional[Dict] = None,
+    extrapolating_function_kwargs: Dict | None = None,
     l_s: float = 30,
     n: int = 256,
     normalise: bool = True,

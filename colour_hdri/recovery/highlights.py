@@ -24,7 +24,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour.algebra import vector_dot
-from colour.hints import ArrayLike, NDArrayFloat, Optional
+from colour.hints import ArrayLike, NDArrayFloat
 from colour.models import (
     RGB_Colourspace,
     LCHab_to_Lab,
@@ -104,7 +104,7 @@ def highlights_recovery_blend(
 
 def highlights_recovery_LCHab(
     RGB: ArrayLike,
-    threshold: Optional[float] = None,
+    threshold: float | None = None,
     RGB_colourspace: RGB_Colourspace = RGB_COLOURSPACE_sRGB,
 ) -> NDArrayFloat:
     """

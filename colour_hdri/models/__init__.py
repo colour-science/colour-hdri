@@ -5,7 +5,7 @@ from colour.utilities.documentation import is_documentation_building
 
 from colour.hints import Any
 
-from .datasets import *  # noqa
+from .datasets import *  # noqa: F403
 from . import datasets
 from .dng import (
     xy_to_camera_neutral,

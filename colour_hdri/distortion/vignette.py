@@ -49,7 +49,6 @@ from colour.hints import (
     Literal,
     NDArrayFloat,
     Tuple,
-    Union,
     cast,
 )
 from colour.utilities import (
@@ -197,7 +196,7 @@ def vignette_principal_point(
     M = np.median(image, axis=-1)
 
     thresholded = zeros(M.shape)
-    thresholded[M > np.max(M) * threshold] = 1
+    thresholded[np.max(M) * threshold < M] = 1
 
     return center_of_mass(thresholded) / as_float_array([shape_x, shape_y])
 
@@ -390,9 +389,7 @@ References
 
 
 @dataclass
-class DataVignetteCharacterisation(
-    MixinDataclassIterable
-):  # noqa: D405,D407,D410,D411,D414
+class DataVignetteCharacterisation(MixinDataclassIterable):
     """
     Define the data of a vignette characterisation process.
 
@@ -402,7 +399,7 @@ class DataVignetteCharacterisation(
         Vignette characterisation parameters.
     principal_point
         Vignette principal point.
-    """
+    """  # noqa: D405, D407, D410, D411, D414
 
     parameters: ArrayLike
     principal_point: ArrayLike
@@ -410,9 +407,7 @@ class DataVignetteCharacterisation(
 
 def characterise_vignette_2D_function(
     image: ArrayLike,
-    function: Union[
-        Literal["Parabolic", "Hyperbolic Cosine"], str
-    ] = "Parabolic",
+    function: Literal["Parabolic", "Hyperbolic Cosine"] | str = "Parabolic",
 ) -> DataVignetteCharacterisation:
     """
     Characterise the vignette of given image using a given 2D function.
@@ -484,9 +479,7 @@ def characterise_vignette_2D_function(
 def correct_vignette_2D_function(
     image: ArrayLike,
     characterisation_data: DataVignetteCharacterisation,
-    function: Union[
-        Literal["Parabolic", "Hyperbolic Cosine"], str
-    ] = "Parabolic",
+    function: Literal["Parabolic", "Hyperbolic Cosine"] | str = "Parabolic",
 ) -> NDArrayFloat:
     """
     Correct the vignette of given image using given characterisation for a
@@ -986,9 +979,7 @@ Supported vignette characterisation methods.
 
 def characterise_vignette(
     image: ArrayLike,
-    method: Union[
-        Literal["2D Function", "Bivariate Spline", "RBF"], str
-    ] = "RBF",
+    method: Literal["2D Function", "Bivariate Spline", "RBF"] | str = "RBF",
     **kwargs,
 ) -> DataVignetteCharacterisation:
     """
@@ -1081,9 +1072,7 @@ Supported vignette correction methods.
 def correct_vignette(
     image: ArrayLike,
     characterisation_data: DataVignetteCharacterisation,
-    method: Union[
-        Literal["2D Function", "Bivariate Spline", "RBF"], str
-    ] = "RBF",
+    method: Literal["2D Function", "Bivariate Spline", "RBF"] | str = "RBF",
     **kwargs,
 ) -> NDArrayFloat:
     """

@@ -198,7 +198,7 @@ class TestReadExifTags(unittest.TestCase):
         ]
         exif_data = vivified_to_dict(read_exif_tags(test_jpg_image))
 
-        self.assertIsInstance(exif_data, type(dict()))
+        self.assertIsInstance(exif_data, type({}))
 
         self.assertListEqual(
             sorted(exif_data.keys()),

@@ -22,16 +22,15 @@ from colour.hints import (
     Callable,
     List,
     NDArrayFloat,
-    Optional,
     Real,
     Sequence,
-    Union,
     cast,
 )
 from colour import read_image
 from colour.utilities import (
     MixinDataclassArray,
     as_float_array,
+    attest,
     is_string,
     tsplit,
     tstack,
@@ -82,12 +81,12 @@ class Metadata(MixinDataclassArray):
         Image white balance multipliers, usually the *As Shot Neutral*  matrix.
     """
 
-    f_number: Optional[Real] = field(default_factory=lambda: None)
-    exposure_time: Optional[Real] = field(default_factory=lambda: None)
-    iso: Optional[Real] = field(default_factory=lambda: None)
-    black_level: Optional[NDArrayFloat] = field(default_factory=lambda: None)
-    white_level: Optional[NDArrayFloat] = field(default_factory=lambda: None)
-    white_balance_multipliers: Optional[NDArrayFloat] = field(
+    f_number: Real | None = field(default_factory=lambda: None)
+    exposure_time: Real | None = field(default_factory=lambda: None)
+    iso: Real | None = field(default_factory=lambda: None)
+    black_level: NDArrayFloat | None = field(default_factory=lambda: None)
+    white_level: NDArrayFloat | None = field(default_factory=lambda: None)
+    white_balance_multipliers: NDArrayFloat | None = field(
         default_factory=lambda: None
     )
 
@@ -121,19 +120,19 @@ class Image:
 
     def __init__(
         self,
-        path: Optional[str] = None,
-        data: Optional[ArrayLike] = None,
-        metadata: Optional[Metadata] = None,
+        path: str | None = None,
+        data: ArrayLike | None = None,
+        metadata: Metadata | None = None,
     ) -> None:
-        self._path: Optional[str] = None
+        self._path: str | None = None
         self.path = path
-        self._data: Optional[NDArrayFloat] = None
+        self._data: NDArrayFloat | None = None
         self.data = data
-        self._metadata: Optional[Metadata] = None
+        self._metadata: Metadata | None = None
         self.metadata = metadata
 
     @property
-    def path(self) -> Optional[str]:
+    def path(self) -> str | None:
         """
         Getter and setter property for the image path.
 
@@ -151,18 +150,19 @@ class Image:
         return self._path
 
     @path.setter
-    def path(self, value: Optional[str]):
+    def path(self, value: str | None):
         """Setter for the **self._path** property."""
 
         if value is not None:
-            assert is_string(
-                value
-            ), f'"path" property: "{value}" type is not "str"!'
+            attest(
+                is_string(value),
+                f'"path" property: "{value}" type is not "str"!',
+            )
 
         self._path = value
 
     @property
-    def data(self) -> Optional[NDArrayFloat]:
+    def data(self) -> NDArrayFloat | None:
         """
         Getter and setter property for the image data.
 
@@ -180,13 +180,16 @@ class Image:
         return self._data
 
     @data.setter
-    def data(self, value: Optional[ArrayLike]):
+    def data(self, value: ArrayLike | None):
         """Setter for the **self._data** property."""
 
         if value is not None:
-            assert isinstance(value, (tuple, list, np.ndarray, np.matrix)), (
-                f'"data" property: "{value!r}" is not a "tuple", "list", "ndarray" '
-                'or "matrix" instance!'
+            attest(
+                isinstance(value, (tuple, list, np.ndarray, np.matrix)),
+                (
+                    f'"data" property: "{value!r}" is not a "tuple", "list", '
+                    f'"ndarray" or "matrix" instance!'
+                ),
             )
 
             value = as_float_array(value)
@@ -194,7 +197,7 @@ class Image:
         self._data = value
 
     @property
-    def metadata(self) -> Optional[Metadata]:
+    def metadata(self) -> Metadata | None:
         """
         Getter and setter property for the image metadata.
 
@@ -216,15 +219,14 @@ class Image:
         """Setter for the **self._metadata** property."""
 
         if value is not None:
-            assert isinstance(
-                value, Metadata
-            ), f'"metadata" property: "{value}" is not a "Metadata" instance!'
+            attest(
+                isinstance(value, Metadata),
+                f'"metadata" property: "{value}" is not a "Metadata" instance!',
+            )
 
         self._metadata = value
 
-    def read_data(
-        self, cctf_decoding: Optional[Callable] = None
-    ) -> NDArrayFloat:
+    def read_data(self, cctf_decoding: Callable | None = None) -> NDArrayFloat:
         """
         Read image pixel data at :attr:`Image.path` attribute.
 
@@ -246,7 +248,7 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info(f'Reading "{self._path}" image.')
+            logging.info('Reading "{path}" image.', extra={"path": self._path})
 
             data = read_image(str(self._path))
             if cctf_decoding is not None:
@@ -274,7 +276,9 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info(f'Reading "{self._path}" image metadata.')
+            logging.info(
+                'Reading "{path}" image metadata.', extra={"path": self._path}
+            )
 
             exif_data = read_exif_tags(self._path)
 
@@ -358,9 +362,7 @@ class ImageStack(MutableSequence):
     def __init__(self) -> None:
         self._data: List = []
 
-    def __getitem__(
-        self, index: Union[int, slice]
-    ) -> Union[Any, MutableSequence[Any]]:
+    def __getitem__(self, index: int | slice) -> Any | MutableSequence[Any]:
         """
         Return the :class:`colour_hdri.Image` class instance at given index.
 
@@ -377,7 +379,7 @@ class ImageStack(MutableSequence):
 
         return self._data[index]
 
-    def __setitem__(self, index: Union[int, slice], value: Any):
+    def __setitem__(self, index: int | slice, value: Any):
         """
         Set given :class:`colour_hdri.Image` class instance at given index.
 
@@ -391,7 +393,7 @@ class ImageStack(MutableSequence):
 
         self._data[index] = value
 
-    def __delitem__(self, index: Union[int, slice]):
+    def __delitem__(self, index: int | slice):
         """
         Delete the :class:`colour_hdri.Image` class instance at given index.
 
@@ -431,7 +433,7 @@ class ImageStack(MutableSequence):
 
         try:
             return self.__dict__[attribute]
-        except KeyError:
+        except KeyError as error:
             if hasattr(Image, attribute):
                 value = [getattr(image, attribute) for image in self]
                 if attribute == "data":
@@ -446,7 +448,7 @@ class ImageStack(MutableSequence):
                 raise AttributeError(
                     f"'{self.__class__.__name__}' object has no attribute "
                     f"'{attribute}'"
-                )
+                ) from error
 
     def __setattr__(self, attribute: str, value: Any):
         """
@@ -488,7 +490,7 @@ class ImageStack(MutableSequence):
 
         self._data.insert(index, value)
 
-    def sort(self, key: Optional[Callable] = None):
+    def sort(self, key: Callable | None = None):
         """
         Sort the underlying data structure.
 
@@ -503,7 +505,7 @@ class ImageStack(MutableSequence):
 
     @staticmethod
     def from_files(
-        image_files: Sequence[str], cctf_decoding: Optional[Callable] = None
+        image_files: Sequence[str], cctf_decoding: Callable | None = None
     ) -> ImageStack:
         """
         Return a :class:`colour_hdri.ImageStack` instance from given image
@@ -529,7 +531,7 @@ class ImageStack(MutableSequence):
             image.read_metadata()
             image_stack.append(image)
 
-        def luminance_average_key(image: Image) -> Optional[NDArrayFloat]:
+        def luminance_average_key(image: Image) -> NDArrayFloat | None:
             """Comparison key function."""
 
             metadata = cast(Metadata, image.metadata)

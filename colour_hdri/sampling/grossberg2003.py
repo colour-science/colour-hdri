@@ -63,10 +63,7 @@ def samples_Grossberg2003(
 
     image_stack = as_float_array(image_stack)
 
-    if image_stack.ndim == 3:
-        channels_c = 1
-    else:
-        channels_c = image_stack.shape[-2]
+    channels_c = 1 if image_stack.ndim == 3 else image_stack.shape[-2]
 
     cdf_i = []
     for image in tsplit(image_stack):

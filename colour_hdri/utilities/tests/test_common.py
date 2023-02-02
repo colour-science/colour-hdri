@@ -61,7 +61,7 @@ class TestVivifiedToDict(unittest.TestCase):
         vivified = vivification()
         vivified["my"]["attribute"] = 1
         vivified_as_dict = vivified_to_dict(vivified)
-        self.assertIsInstance(dict(), type(vivified_as_dict))
+        self.assertIsInstance({}, type(vivified_as_dict))
         self.assertIn("attribute", vivified_as_dict["my"].keys())
         self.assertEqual(vivified_as_dict["my"]["attribute"], 1)
 

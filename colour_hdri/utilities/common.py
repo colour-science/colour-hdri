@@ -11,7 +11,7 @@ import os
 import re
 from collections import defaultdict
 
-from colour.hints import Dict, List, Optional, Sequence, Union
+from colour.hints import Dict, List, Sequence
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -50,7 +50,7 @@ def vivification() -> defaultdict:
     return defaultdict(vivification)
 
 
-def vivified_to_dict(vivified: Union[Dict, defaultdict]) -> Dict:
+def vivified_to_dict(vivified: Dict | defaultdict) -> Dict:
     """
     Convert given vivified data-structure to dictionary.
 
@@ -78,7 +78,7 @@ def vivified_to_dict(vivified: Union[Dict, defaultdict]) -> Dict:
     return vivified
 
 
-def path_exists(path: Optional[str]) -> bool:
+def path_exists(path: str | None) -> bool:
     """
     Return whether given path exists.
 

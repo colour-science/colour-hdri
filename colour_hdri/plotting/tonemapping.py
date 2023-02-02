@@ -9,7 +9,6 @@ Defines the tonemapping operators plotting objects:
 
 from __future__ import annotations
 
-import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
