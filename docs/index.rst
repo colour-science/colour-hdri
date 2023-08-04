@@ -5,7 +5,7 @@ A `Python <https://www.python.org/>`__ package implementing various
 HDRI processing algorithms.
 
 It is open source and freely available under the
-`New BSD License <https://opensource.org/licenses/BSD-3-Clause>`__ terms.
+`BSD-3-Clause <https://opensource.org/licenses/BSD-3-Clause>`__ terms.
 
 ..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/master/docs/_static/Radiance_001.png
 
@@ -97,5 +97,5 @@ About
 
 | **Colour - HDRI** by Colour Developers
 | Copyright 2015 Colour Developers – `colour-developers@colour-science.org <colour-developers@colour-science.org>`__
-| This software is released under terms of New BSD License: https://opensource.org/licenses/BSD-3-Clause
+| This software is released under terms of BSD-3-Clause: https://opensource.org/licenses/BSD-3-Clause
 | `https://github.com/colour-science/colour-hdri <https://github.com/colour-science/colour-hdri>`__
