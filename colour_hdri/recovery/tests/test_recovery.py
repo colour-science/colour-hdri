@@ -9,7 +9,7 @@ import platform
 import re
 import shlex
 import shutil
-import subprocess  # nosec
+import subprocess
 import tempfile
 import unittest
 
@@ -106,7 +106,7 @@ highlights_recovery_blend` definition unit tests methods.
             ),
         ]
 
-        subprocess.call(command)  # nosec
+        subprocess.call(command)
 
         test_tiff_file = read_image(
             str(re.sub("\\.CR2$", ".tiff", test_raw_file))
@@ -168,7 +168,7 @@ highlights_recovery_LCHab` definition unit tests methods.
             ),
         ]
 
-        subprocess.call(command)  # nosec
+        subprocess.call(command)
 
         test_tiff_file = read_image(
             str(re.sub("\\.CR2$", ".tiff", test_raw_file))

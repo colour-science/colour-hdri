@@ -19,7 +19,7 @@ import logging
 import numpy as np
 import platform
 import re
-import subprocess  # nosec
+import subprocess
 from collections import defaultdict
 from dataclasses import dataclass, field
 from fractions import Fraction
@@ -263,7 +263,7 @@ def read_exif_tags(image: str) -> defaultdict:
 
     exif_tags = vivification()
     lines = str(
-        subprocess.check_output(  # nosec
+        subprocess.check_output(
             [EXIF_EXECUTABLE, "-D", "-G", "-a", "-u", "-n", image],
             shell=_IS_WINDOWS_PLATFORM,
         ),
@@ -309,7 +309,7 @@ def copy_exif_tags(source: str, target: str) -> bool:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
-    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)  # nosec
+    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)
 
     return True
 
@@ -354,7 +354,7 @@ def delete_exif_tags(image: str) -> bool:
 
     logging.info("Deleting '{image}' image EXIF tags.", extra={"image": image})
 
-    subprocess.check_output(  # nosec
+    subprocess.check_output(
         [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
         shell=_IS_WINDOWS_PLATFORM,
     )
@@ -381,7 +381,7 @@ def read_exif_tag(image: str, tag: str) -> str:
 
     value = (
         str(
-            subprocess.check_output(  # nosec
+            subprocess.check_output(
                 [EXIF_EXECUTABLE, f"-{tag}", image], shell=_IS_WINDOWS_PLATFORM
             ),
             "utf-8",
@@ -426,6 +426,6 @@ def write_exif_tag(image: str, tag: str, value: str) -> bool:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
     arguments += [f"-{tag}={value}", image]
-    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)  # nosec
+    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)
 
     return True

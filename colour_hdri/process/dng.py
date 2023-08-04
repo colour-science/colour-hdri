@@ -18,7 +18,7 @@ import os
 import platform
 import re
 import shlex
-import subprocess  # nosec
+import subprocess
 
 from colour.hints import Callable, List, Mapping, Sequence, Tuple
 from colour.utilities import CanonicalMapping, optional
@@ -289,7 +289,7 @@ def convert_raw_files_to_dng_files(
             ),
         ]
 
-        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
+        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)
 
         dng_files.append(dng_file)
 
@@ -354,7 +354,7 @@ def convert_dng_files_to_intermediate_files(
             ),
         ]
 
-        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # nosec
+        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)
 
         tiff_file = os.path.join(
             output_directory, os.path.basename(intermediate_file)
