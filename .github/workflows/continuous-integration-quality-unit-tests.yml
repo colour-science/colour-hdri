@@ -75,7 +75,7 @@ jobs:
     - name: Install Package Dependencies
       run: |
         poetry run python -m pip install --upgrade pip
-        poetry install --extras "plotting"
+        poetry install
         poetry run python -c "import imageio;imageio.plugins.freeimage.download()"
       shell: bash
     - name: Pre-Commit (All Files)
