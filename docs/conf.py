@@ -4,8 +4,12 @@ Colour - HDRI - Documentation Configuration
 """
 
 import re
+import sys
+from pathlib import Path
 
-import colour_hdri as package
+sys.path.append(str(Path(__file__).parent.parent))
+
+import colour_hdri as package  # noqa: E402
 
 basename = re.sub(
     "_(\\w)", lambda x: x.group(1).upper(), package.__name__.title()

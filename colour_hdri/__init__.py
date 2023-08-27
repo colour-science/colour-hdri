@@ -129,6 +129,27 @@ from .tonemapping import (
     tonemapping_operator_Tumblin1999,
 )
 
+from colour.utilities import is_matplotlib_installed
+
+# Exposing "colour.plotting" sub-package if "Matplotlib" is available.
+if is_matplotlib_installed():
+    import colour_hdri.plotting as plotting  # noqa: F401, PLR0402
+else:
+
+    class MockPlotting:  # pragma: no cover
+        """
+        Mock object for :mod:`colour_hdri.plotting` sub-package raising an exception
+        if the sub-package is accessed but *Matplotlib* is not installed.
+        """
+
+        def __getattr__(self, attribute) -> Any:
+            """Return the value from the attribute with given name."""
+
+            is_matplotlib_installed(raise_exception=True)
+
+    globals()["plotting"] = MockPlotting()  # pragma: no cover
+
+
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
 __license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
