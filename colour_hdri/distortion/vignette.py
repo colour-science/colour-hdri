@@ -437,7 +437,7 @@ def characterise_vignette_2D_function(
     image = np.atleast_3d(image)
     function = validate_method(
         function,
-        VIGNETTE_CHARACTERISATION_2D_FUNCTIONS,
+        tuple(VIGNETTE_CHARACTERISATION_2D_FUNCTIONS.keys()),
         '"{0}" function is invalid, it must be one of {1}!',
     )
 
@@ -517,7 +517,7 @@ def correct_vignette_2D_function(
 
     function = validate_method(
         function,
-        VIGNETTE_CHARACTERISATION_2D_FUNCTIONS,
+        tuple(VIGNETTE_CHARACTERISATION_2D_FUNCTIONS.keys()),
         '"{0}" function is invalid, it must be one of {1}!',
     )
 
@@ -1052,7 +1052,9 @@ def characterise_vignette(
     array([ 0.4983333...,  0.49875   ])
     """
 
-    method = validate_method(method, VIGNETTE_CHARACTERISATION_METHODS)
+    method = validate_method(
+        method, tuple(VIGNETTE_CHARACTERISATION_METHODS.keys())
+    )
 
     return VIGNETTE_CHARACTERISATION_METHODS[method](image, **kwargs)
 
@@ -1161,7 +1163,7 @@ def correct_vignette(
            [  0.   ,   0.345,   3.059,   4.072,   3.059,   0.345,   0.   ]])
     """
 
-    method = validate_method(method, VIGNETTE_CORRECTION_METHODS)
+    method = validate_method(method, tuple(VIGNETTE_CORRECTION_METHODS.keys()))
 
     return VIGNETTE_CORRECTION_METHODS[method](
         image, characterisation_data, **kwargs
