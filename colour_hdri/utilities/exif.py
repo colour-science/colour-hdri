@@ -19,25 +19,20 @@ import logging
 import numpy as np
 import platform
 import re
-import subprocess  # nosec
+import subprocess
 from collections import defaultdict
 from dataclasses import dataclass, field
 from fractions import Fraction
 
 from colour.hints import (
-    Boolean,
-    DTypeFloating,
-    DTypeNumber,
-    Floating,
+    DTypeFloat,
+    DTypeReal,
     List,
     NDArray,
-    Number,
-    Optional,
+    Real,
     Sequence,
     SupportsIndex,
     Type,
-    Union,
-    cast,
 )
 
 from colour.constants import DEFAULT_FLOAT_DTYPE
@@ -51,7 +46,7 @@ from colour_hdri.utilities import vivification
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -72,7 +67,7 @@ __all__ = [
     "write_exif_tag",
 ]
 
-_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
+_IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
 EXIF_EXECUTABLE: str = "exiftool"
@@ -100,10 +95,10 @@ class EXIFTag:
         EXIF tag identifier.
     """
 
-    group: Optional[str] = field(default_factory=lambda: None)
-    name: Optional[str] = field(default_factory=lambda: None)
-    value: Optional[str] = field(default_factory=lambda: None)
-    identifier: Optional[str] = field(default_factory=lambda: None)
+    group: str | None = field(default_factory=lambda: None)
+    name: str | None = field(default_factory=lambda: None)
+    value: str | None = field(default_factory=lambda: None)
+    identifier: str | None = field(default_factory=lambda: None)
 
 
 def parse_exif_string(exif_tag: EXIFTag) -> str:
@@ -125,8 +120,8 @@ def parse_exif_string(exif_tag: EXIFTag) -> str:
 
 
 def parse_exif_number(
-    exif_tag: EXIFTag, dtype: Optional[Type[DTypeNumber]] = None
-) -> Number:
+    exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None
+) -> Real:
     """
     Parse given EXIF tag assuming it is a number type and return its value.
 
@@ -143,14 +138,14 @@ def parse_exif_number(
         Parsed EXIF tag value.
     """
 
-    dtype = cast(Type[DTypeNumber], optional(dtype, DEFAULT_FLOAT_DTYPE))
+    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
 
-    return dtype(exif_tag.value)  # type: ignore[arg-type, return-value]
+    return dtype(exif_tag.value)  # pyright: ignore
 
 
 def parse_exif_fraction(
-    exif_tag: EXIFTag, dtype: Optional[Type[DTypeFloating]] = None
-) -> Floating:
+    exif_tag: EXIFTag, dtype: Type[DTypeFloat] | None = None
+) -> float:
     """
     Parse given EXIF tag assuming it is a fraction and return its value.
 
@@ -167,7 +162,7 @@ def parse_exif_fraction(
         Parsed EXIF tag value.
     """
 
-    dtype = cast(Type[DTypeFloating], optional(dtype, DEFAULT_FLOAT_DTYPE))
+    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
 
     value = (
         exif_tag.value
@@ -175,13 +170,13 @@ def parse_exif_fraction(
         else float(Fraction(exif_tag.value))
     )
 
-    return as_float_scalar(value, dtype)  # type: ignore[arg-type]
+    return as_float_scalar(value, dtype)  # pyright: ignore
 
 
 def parse_exif_array(
     exif_tag: EXIFTag,
-    dtype: Optional[Type[DTypeNumber]] = None,
-    shape: Optional[Union[SupportsIndex, Sequence[SupportsIndex]]] = None,
+    dtype: Type[DTypeReal] | None = None,
+    shape: SupportsIndex | Sequence[SupportsIndex] | None = None,
 ) -> NDArray:
     """
     Parse given EXIF tag assuming it is an array and return its value.
@@ -201,13 +196,13 @@ def parse_exif_array(
         Parsed EXIF tag value.
     """
 
-    dtype = cast(Type[DTypeNumber], optional(dtype, DEFAULT_FLOAT_DTYPE))
+    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
 
     value = (
         exif_tag.value if exif_tag.value is None else exif_tag.value.split()
     )
 
-    return np.reshape(as_array(value, dtype), shape)  # type: ignore[arg-type]
+    return np.reshape(as_array(value, dtype), shape)  # pyright: ignore
 
 
 def parse_exif_data(data: str) -> List:
@@ -264,13 +259,13 @@ def read_exif_tags(image: str) -> defaultdict:
         EXIF tags.
     """
 
-    logging.info(f"Reading '{image}' image EXIF data.")
+    logging.info("Reading '{image}' image EXIF data.", extra={"image": image})
 
     exif_tags = vivification()
     lines = str(
-        subprocess.check_output(  # nosec
+        subprocess.check_output(
             [EXIF_EXECUTABLE, "-D", "-G", "-a", "-u", "-n", image],
-            shell=_IS_WINDOWS_PLATFORM,
+            shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
         ),
         "utf-8",
         "ignore",
@@ -290,7 +285,7 @@ def read_exif_tags(image: str) -> defaultdict:
     return exif_tags
 
 
-def copy_exif_tags(source: str, target: str) -> Boolean:
+def copy_exif_tags(source: str, target: str) -> bool:
     """
     Copy given source image file EXIF tag to given image target.
 
@@ -307,17 +302,22 @@ def copy_exif_tags(source: str, target: str) -> Boolean:
         Definition success.
     """
 
-    logging.info(f"Copying '{source}' file EXIF data to '{target}' file.")
+    logging.info(
+        "Copying '{source}' file EXIF data to '{target}' file.",
+        extra={"source": source, "target": target},
+    )
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
-    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)  # nosec
+    subprocess.check_output(
+        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+    )
 
     return True
 
 
 # TODO: Find a better name.
-def update_exif_tags(images: Sequence[Sequence[str]]) -> Boolean:
+def update_exif_tags(images: Sequence[Sequence[str]]) -> bool:
     """
     Update given images pairs EXIF tags.
 
@@ -333,13 +333,13 @@ def update_exif_tags(images: Sequence[Sequence[str]]) -> Boolean:
     """
 
     success = 1
-    for (source, target) in images:
+    for source, target in images:
         success *= int(copy_exif_tags(source, target))
 
     return bool(success)
 
 
-def delete_exif_tags(image: str) -> Boolean:
+def delete_exif_tags(image: str) -> bool:
     """
     Delete all given image EXIF tags.
 
@@ -354,11 +354,11 @@ def delete_exif_tags(image: str) -> Boolean:
         Definition success.
     """
 
-    logging.info(f"Deleting '{image}' image EXIF tags.")
+    logging.info("Deleting '{image}' image EXIF tags.", extra={"image": image})
 
-    subprocess.check_output(  # nosec
+    subprocess.check_output(
         [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
-        shell=_IS_WINDOWS_PLATFORM,
+        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
     )
 
     return True
@@ -383,8 +383,9 @@ def read_exif_tag(image: str, tag: str) -> str:
 
     value = (
         str(
-            subprocess.check_output(  # nosec
-                [EXIF_EXECUTABLE, f"-{tag}", image], shell=_IS_WINDOWS_PLATFORM
+            subprocess.check_output(
+                [EXIF_EXECUTABLE, f"-{tag}", image],
+                shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
             ),
             "utf-8",
             "ignore",
@@ -394,12 +395,15 @@ def read_exif_tag(image: str, tag: str) -> str:
         .strip()
     )
 
-    logging.info(f"Reading '{image}' image '{tag}' EXIF tag value: '{value}'")
+    logging.info(
+        "Reading '{image}' image '{tag}' EXIF tag value: '{value}'",
+        extra={"image": image, "tag": tag, "value": value},
+    )
 
     return value
 
 
-def write_exif_tag(image: str, tag: str, value: str) -> Boolean:
+def write_exif_tag(image: str, tag: str, value: str) -> bool:
     """
     Set given image EXIF tag value.
 
@@ -419,11 +423,14 @@ def write_exif_tag(image: str, tag: str, value: str) -> Boolean:
     """
 
     logging.info(
-        f"Writing '{image}' image '{tag}' EXIF tag with '{value}' value."
+        "Writing '{image}' image '{tag}' EXIF tag with '{value}' value.",
+        extra={"image": image, "tag": tag, "value": value},
     )
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
     arguments += [f"-{tag}={value}", image]
-    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)  # nosec
+    subprocess.check_output(
+        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+    )
 
     return True

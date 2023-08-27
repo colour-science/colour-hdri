@@ -46,12 +46,9 @@ from colour.algebra import (
 from colour.hints import (
     ArrayLike,
     Callable,
-    Floating,
-    Integer,
     Literal,
-    NDArray,
+    NDArrayFloat,
     Tuple,
-    Union,
     cast,
 )
 from colour.utilities import (
@@ -68,7 +65,7 @@ from colour.utilities import (
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -100,10 +97,10 @@ def apply_radial_gradient(
     image: ArrayLike,
     scale: ArrayLike = (1, 1),
     offset: ArrayLike = (0.5, 0.5),
-    intensity: Floating = 1,
-    bias: Floating = 1,
-    noise: Floating = 0,
-) -> NDArray:
+    intensity: float = 1,
+    bias: float = 1,
+    noise: float = 0,
+) -> NDArrayFloat:
     """
     Apply a radial gradient on given image.
 
@@ -139,7 +136,8 @@ def apply_radial_gradient(
            [ 0.   ,  0.023,  0.212,  0.286,  0.212,  0.023,  0.   ]])
     """
 
-    image = np.atleast_3d(image)
+    image = as_float_array(np.atleast_3d(image))
+
     scale_x, scale_y = tsplit(scale)
     offset_x, offset_y = tsplit(offset)
 
@@ -153,8 +151,9 @@ def apply_radial_gradient(
     samples_y *= 1 / scale_y
     samples_y += offset_y - 0.5
 
-    distance = np.sqrt(
-        (samples_x**2)[..., None] + (samples_y**2)[None, ...]
+    distance = cast(
+        NDArrayFloat,
+        np.sqrt((samples_x**2)[..., None] + (samples_y**2)[None, ...]),
     )
 
     image *= 1 - distance[..., None] * intensity
@@ -166,8 +165,8 @@ def apply_radial_gradient(
 
 
 def vignette_principal_point(
-    image: ArrayLike, threshold: Floating = 0.99
-) -> NDArray:
+    image: ArrayLike, threshold: float = 0.99
+) -> NDArrayFloat:
     """
     Return the vignette principal point for given image.
 
@@ -197,19 +196,19 @@ def vignette_principal_point(
     M = np.median(image, axis=-1)
 
     thresholded = zeros(M.shape)
-    thresholded[M > np.max(M) * threshold] = 1
+    thresholded[np.max(M) * threshold < M] = 1
 
     return center_of_mass(thresholded) / as_float_array([shape_x, shape_y])
 
 
 def parabolic_2D_function(
     x_y: Tuple,
-    a_x2: Floating,
-    a_x1: Floating,
-    a_x0: Floating,
-    a_y2: Floating,
-    a_y1: Floating,
-    a_y0: Floating,
+    a_x2: float,
+    a_x1: float,
+    a_x0: float,
+    a_y2: float,
+    a_y1: float,
+    a_y0: float,
 ):
     """
     Evaluate a parabolic 2D function on given coordinate matrices from
@@ -270,11 +269,11 @@ def parabolic_2D_function(
 
 def hyperbolic_cosine_2D_function(
     x_y: Tuple,
-    r_x: Floating,
-    x_0: Floating,
-    r_y: Floating,
-    y_0: Floating,
-    c: Floating,
+    r_x: float,
+    x_0: float,
+    r_y: float,
+    y_0: float,
+    c: float,
 ):
     """
     Evaluate a hyperbolic cosine 2D function on given coordinate matrices from
@@ -352,8 +351,8 @@ class FunctionVignetteCharacterisation(MixinDataclassIterable):
     """
 
     function: Callable
-    p0: NDArray
-    bounds: NDArray
+    p0: NDArrayFloat
+    bounds: NDArrayFloat
 
 
 VIGNETTE_CHARACTERISATION_2D_FUNCTIONS: CanonicalMapping = CanonicalMapping(
@@ -390,9 +389,7 @@ References
 
 
 @dataclass
-class DataVignetteCharacterisation(
-    MixinDataclassIterable
-):  # noqa: D405,D407,D410,D411,D414
+class DataVignetteCharacterisation(MixinDataclassIterable):
     """
     Define the data of a vignette characterisation process.
 
@@ -402,7 +399,7 @@ class DataVignetteCharacterisation(
         Vignette characterisation parameters.
     principal_point
         Vignette principal point.
-    """
+    """  # noqa: D405, D407, D410, D411, D414
 
     parameters: ArrayLike
     principal_point: ArrayLike
@@ -410,9 +407,7 @@ class DataVignetteCharacterisation(
 
 def characterise_vignette_2D_function(
     image: ArrayLike,
-    function: Union[
-        Literal["Parabolic", "Hyperbolic Cosine"], str
-    ] = "Parabolic",
+    function: Literal["Parabolic", "Hyperbolic Cosine"] | str = "Parabolic",
 ) -> DataVignetteCharacterisation:
     """
     Characterise the vignette of given image using a given 2D function.
@@ -442,7 +437,7 @@ def characterise_vignette_2D_function(
     image = np.atleast_3d(image)
     function = validate_method(
         function,
-        VIGNETTE_CHARACTERISATION_2D_FUNCTIONS,
+        tuple(VIGNETTE_CHARACTERISATION_2D_FUNCTIONS.keys()),
         '"{0}" function is invalid, it must be one of {1}!',
     )
 
@@ -484,10 +479,8 @@ def characterise_vignette_2D_function(
 def correct_vignette_2D_function(
     image: ArrayLike,
     characterisation_data: DataVignetteCharacterisation,
-    function: Union[
-        Literal["Parabolic", "Hyperbolic Cosine"], str
-    ] = "Parabolic",
-) -> NDArray:
+    function: Literal["Parabolic", "Hyperbolic Cosine"] | str = "Parabolic",
+) -> NDArrayFloat:
     """
     Correct the vignette of given image using given characterisation for a
     2D function.
@@ -524,7 +517,7 @@ def correct_vignette_2D_function(
 
     function = validate_method(
         function,
-        VIGNETTE_CHARACTERISATION_2D_FUNCTIONS,
+        tuple(VIGNETTE_CHARACTERISATION_2D_FUNCTIONS.keys()),
         '"{0}" function is invalid, it must be one of {1}!',
     )
 
@@ -552,10 +545,10 @@ def correct_vignette_2D_function(
 
 def characterise_vignette_bivariate_spline(
     image: ArrayLike,
-    pre_denoise_sigma: Floating = 6,
-    post_denoise_sigma: Floating = 1,
-    samples: Integer = 50,
-    degree: Integer = 3,
+    pre_denoise_sigma: float = 6,
+    post_denoise_sigma: float = 1,
+    samples: int = 50,
+    degree: int = 3,
 ) -> DataVignetteCharacterisation:
     """
     Characterise the vignette of given image using a bivariate spline.
@@ -633,8 +626,8 @@ def characterise_vignette_bivariate_spline(
 def correct_vignette_bivariate_spline(
     image: ArrayLike,
     characterisation_data: DataVignetteCharacterisation,
-    degree: Integer = 3,
-) -> NDArray:
+    degree: int = 3,
+) -> NDArrayFloat:
     """
     Correct the vignette of given image using given characterisation for a
     bivariate spline.
@@ -688,11 +681,11 @@ def correct_vignette_bivariate_spline(
 
 
 def radial_sampling_function(
-    samples_rho: Integer = 7,
-    samples_phi: Integer = 21,
-    radius: Floating = 1,
-    radial_bias: Floating = 1,
-) -> NDArray:
+    samples_rho: int = 7,
+    samples_phi: int = 21,
+    radius: float = 1,
+    radial_bias: float = 1,
+) -> NDArrayFloat:
     """
     Return a series of radial samples.
 
@@ -729,15 +722,15 @@ def radial_sampling_function(
 
 def vignette_sampling_coordinates(
     principal_point: ArrayLike = np.array([0.5, 0.5]),
-    aspect_ratio: Floating = 1,
-    diagonal_samples: Integer = 10,
-    diagonal_selection: Integer = 2,
-    edge_samples: Integer = 10,
-    samples_rho: Integer = 7,
-    samples_phi: Integer = 21,
-    radius: Floating = 0.9,
-    radial_bias: Floating = 1,
-) -> NDArray:
+    aspect_ratio: float = 1,
+    diagonal_samples: int = 10,
+    diagonal_selection: int = 2,
+    edge_samples: int = 10,
+    samples_rho: int = 7,
+    samples_phi: int = 21,
+    radius: float = 0.9,
+    radial_bias: float = 1,
+) -> NDArrayFloat:
     """
     Return a series of sampling coordinates appropriate for radial basis
     function (RBF) interpolation of a vignette function.
@@ -807,7 +800,7 @@ def vignette_sampling_coordinates(
     radial_samples = radial_sampling_function(
         samples_rho,
         samples_phi,
-        1 + (np.max(principal_point - 0.5) * 2),
+        cast(float, 1 + (np.max(principal_point - 0.5) * 2)),
         radial_bias,
     )
     # NOTE: Some randomisation is required to avoid a
@@ -833,7 +826,7 @@ def vignette_sampling_coordinates(
 
 
 def characterise_vignette_RBF(
-    image: ArrayLike, denoise_sigma: Floating = 6
+    image: ArrayLike, denoise_sigma: float = 6
 ) -> DataVignetteCharacterisation:
     """
     Characterise the vignette of given image using a series of sampling
@@ -891,7 +884,7 @@ def characterise_vignette_RBF(
 def correct_vignette_RBF(
     image: ArrayLike,
     characterisation_data: DataVignetteCharacterisation,
-    smoothing: Floating = 0.001,
+    smoothing: float = 0.001,
     kernel: Literal[
         "linear",
         "thin_plate_spline",
@@ -902,8 +895,8 @@ def correct_vignette_RBF(
         "inverse_quadratic",
         "gaussian",
     ] = "cubic",
-    epsilon: Floating = 1,
-) -> NDArray:
+    epsilon: float = 1,
+) -> NDArrayFloat:
     """
     Correct the vignette of given image using given characterisation for
     radial basis function (RBF) interpolation.
@@ -986,9 +979,7 @@ Supported vignette characterisation methods.
 
 def characterise_vignette(
     image: ArrayLike,
-    method: Union[
-        Literal["2D Function", "Bivariate Spline", "RBF"], str
-    ] = "RBF",
+    method: Literal["2D Function", "Bivariate Spline", "RBF"] | str = "RBF",
     **kwargs,
 ) -> DataVignetteCharacterisation:
     """
@@ -1061,7 +1052,9 @@ def characterise_vignette(
     array([ 0.4983333...,  0.49875   ])
     """
 
-    method = validate_method(method, VIGNETTE_CHARACTERISATION_METHODS)
+    method = validate_method(
+        method, tuple(VIGNETTE_CHARACTERISATION_METHODS.keys())
+    )
 
     return VIGNETTE_CHARACTERISATION_METHODS[method](image, **kwargs)
 
@@ -1081,11 +1074,9 @@ Supported vignette correction methods.
 def correct_vignette(
     image: ArrayLike,
     characterisation_data: DataVignetteCharacterisation,
-    method: Union[
-        Literal["2D Function", "Bivariate Spline", "RBF"], str
-    ] = "RBF",
+    method: Literal["2D Function", "Bivariate Spline", "RBF"] | str = "RBF",
     **kwargs,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Correct the vignette of given image using given method.
 
@@ -1172,7 +1163,7 @@ def correct_vignette(
            [  0.   ,   0.345,   3.059,   4.072,   3.059,   0.345,   0.   ]])
     """
 
-    method = validate_method(method, VIGNETTE_CORRECTION_METHODS)
+    method = validate_method(method, tuple(VIGNETTE_CORRECTION_METHODS.keys()))
 
     return VIGNETTE_CORRECTION_METHODS[method](
         image, characterisation_data, **kwargs

@@ -5,7 +5,7 @@ Colour - HDRI
 
 |actions| |coveralls| |codacy| |version|
 
-.. |actions| image:: https://img.shields.io/github/workflow/status/colour-science/colour-hdri/Continuous%20Integration%20-%20Quality%20&%20Unit%20Tests?label=actions&logo=github&style=flat-square
+.. |actions| image:: https://img.shields.io/github/actions/workflow/status/colour-science/colour-hdri/.github/workflows/continuous-integration-quality-unit-tests.yml?branch=develop&style=flat-square
     :target: https://github.com/colour-science/colour-hdri/actions
     :alt: Develop Build Status
 .. |coveralls| image:: http://img.shields.io/coveralls/colour-science/colour-hdri/develop.svg?style=flat-square
@@ -20,11 +20,11 @@ Colour - HDRI
 
 .. end-badges
 
-A `Python <https://www.python.org/>`__ package implementing various
+A `Python <https://www.python.org>`__ package implementing various
 HDRI processing algorithms.
 
 It is open source and freely available under the
-`New BSD License <https://opensource.org/licenses/BSD-3-Clause>`__ terms.
+`BSD-3-Clause <https://opensource.org/licenses/BSD-3-Clause>`__ terms.
 
 ..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/master/docs/_static/Radiance_001.png
 
@@ -74,20 +74,20 @@ Primary Dependencies
 
 **Colour - HDRI** requires various dependencies in order to run:
 
-- `python >= 3.8, < 4 <https://www.python.org/download/releases/>`__
-- `colour-science >= 4 <https://pypi.org/project/colour-science/>`__
-- `imageio >= 2, < 3 <https://imageio.github.io/>`__
-- `numpy >= 1.19, < 2 <https://pypi.org/project/numpy/>`__
-- `scipy >= 1.5, < 2 <https://pypi.org/project/scipy/>`__
+- `python >= 3.9, < 4 <https://www.python.org/download/releases>`__
+- `colour-science >= 4.3 <https://pypi.org/project/colour-science>`__
+- `imageio >= 2, < 3 <https://imageio.github.io>`__
+- `numpy >= 1.22, < 2 <https://pypi.org/project/numpy>`__
+- `scipy >= 1.8, < 2 <https://pypi.org/project/scipy>`__
 
 Optional Features Dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `colour-demosaicing <https://pypi.org/project/colour-demosaicing/>`__
+- `colour-demosaicing <https://pypi.org/project/colour-demosaicing>`__
 - `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
-- `dcraw <https://www.cybercom.net/~dcoffin/dcraw/>`__
-- `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool/>`__
-- `rawpy <https://pypi.org/project/rawpy/>`__
+- `dcraw <https://www.cybercom.net/~dcoffin/dcraw>`__
+- `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool>`__
+- `rawpy <https://pypi.org/project/rawpy>`__
 
 Pypi
 ~~~~
@@ -114,7 +114,7 @@ Contributing
 ^^^^^^^^^^^^
 
 If you would like to contribute to `Colour - HDRI <https://github.com/colour-science/colour-hdri>`__,
-please refer to the following `Contributing <https://www.colour-science.org/contributing/>`__
+please refer to the following `Contributing <https://www.colour-science.org/contributing>`__
 guide for `Colour <https://github.com/colour-science/colour>`__.
 
 Bibliography
@@ -146,7 +146,7 @@ Software
 
 **C/C++**
 
-- `OpenCV <https://opencv.org/>`__ by Bradski, G.
+- `OpenCV <https://opencv.org>`__ by Bradski, G.
 - `Piccante <https://github.com/cnr-isti-vclab/piccante>`__ by Banterle, F. and Benedetti, L.,
 
 *Piccante* was used to verify the Grossberg (2003) Histogram Based Image Sampling.
@@ -159,7 +159,7 @@ Code of Conduct
 ---------------
 
 The *Code of Conduct*, adapted from the `Contributor Covenant 1.4 <https://www.contributor-covenant.org/version/1/4/code-of-conduct.html>`__,
-is available on the `Code of Conduct <https://www.colour-science.org/code-of-conduct/>`__ page.
+is available on the `Code of Conduct <https://www.colour-science.org/code-of-conduct>`__ page.
 
 Contact & Social
 ----------------
@@ -167,7 +167,6 @@ Contact & Social
 The *Colour Developers* can be reached via different means:
 
 - `Email <mailto:colour-developers@colour-science.org>`__
-- `Discourse <https://colour-science.discourse.group/>`__
 - `Facebook <https://www.facebook.com/python.colour.science>`__
 - `Github Discussions <https://github.com/colour-science/colour-hdri/discussions>`__
 - `Gitter <https://gitter.im/colour-science/colour>`__
@@ -178,5 +177,5 @@ About
 
 | **Colour - HDRI** by Colour Developers
 | Copyright 2015 Colour Developers – `colour-developers@colour-science.org <colour-developers@colour-science.org>`__
-| This software is released under terms of New BSD License: https://opensource.org/licenses/BSD-3-Clause
+| This software is released under terms of BSD-3-Clause: https://opensource.org/licenses/BSD-3-Clause
 | `https://github.com/colour-science/colour-hdri <https://github.com/colour-science/colour-hdri>`__

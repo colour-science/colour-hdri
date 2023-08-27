@@ -47,7 +47,7 @@ API_CHANGES = {
 """Defines the *colour_hdri.generation* sub-package API changes."""
 
 if not is_documentation_building():
-    sys.modules["colour_hdri.generation"] = generation(  # type: ignore[assignment]
+    sys.modules["colour_hdri.generation"] = generation(  # pyright: ignore
         sys.modules["colour_hdri.generation"], build_API_changes(API_CHANGES)
     )
 

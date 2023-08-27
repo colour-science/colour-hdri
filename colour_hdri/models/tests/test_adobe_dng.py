@@ -13,7 +13,7 @@ from __future__ import annotations
 import numpy as np
 import unittest
 
-from colour.hints import Floating, NDArray
+from colour.hints import NDArrayFloat
 
 from colour_hdri.models.dng import matrix_interpolated
 from colour_hdri.models import (
@@ -25,7 +25,7 @@ from colour_hdri.models import (
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -47,17 +47,17 @@ __all__ = [
     "TestMatrix_Camera_space_to_XYZ",
 ]
 
-CCT_CALIBRATION_ILLUMINANT_1: Floating = 2850
-CCT_CALIBRATION_ILLUMINANT_2: Floating = 6500
+CCT_CALIBRATION_ILLUMINANT_1: float = 2850
+CCT_CALIBRATION_ILLUMINANT_2: float = 6500
 
-M_COLOR_MATRIX_1: NDArray = np.array(
+M_COLOR_MATRIX_1: NDArrayFloat = np.array(
     [
         [0.5309, -0.0229, -0.0336],
         [-0.6241, 1.3265, 0.3337],
         [-0.0817, 0.1215, 0.6664],
     ]
 )
-M_COLOR_MATRIX_2: NDArray = np.array(
+M_COLOR_MATRIX_2: NDArrayFloat = np.array(
     [
         [0.4716, 0.0603, -0.0830],
         [-0.7798, 1.5474, 0.2480],
@@ -65,14 +65,14 @@ M_COLOR_MATRIX_2: NDArray = np.array(
     ]
 )
 
-M_CAMERA_CALIBRATION_1: NDArray = np.array(
+M_CAMERA_CALIBRATION_1: NDArrayFloat = np.array(
     [
         [0.9603, 0.0000, 0.0000],
         [0.0000, 1.0000, 0.0000],
         [0.0000, 0.0000, 0.9664],
     ]
 )
-M_CAMERA_CALIBRATION_2: NDArray = np.array(
+M_CAMERA_CALIBRATION_2: NDArrayFloat = np.array(
     [
         [0.9603, 0.0000, 0.0000],
         [0.0000, 1.0000, 0.0000],
@@ -80,16 +80,16 @@ M_CAMERA_CALIBRATION_2: NDArray = np.array(
     ]
 )
 
-ANALOG_BALANCE: NDArray = np.ones(3)
+ANALOG_BALANCE: NDArrayFloat = np.ones(3)
 
-M_FORWARD_MATRIX_1: NDArray = np.array(
+M_FORWARD_MATRIX_1: NDArrayFloat = np.array(
     [
         [0.8924, -0.1041, 0.1760],
         [0.4351, 0.6621, -0.0972],
         [0.0505, -0.1562, 0.9308],
     ]
 )
-M_FORWARD_MATRIX_2: NDArray = np.array(
+M_FORWARD_MATRIX_2: NDArrayFloat = np.array(
     [
         [0.8924, -0.1041, 0.1760],
         [0.4351, 0.6621, -0.0972],

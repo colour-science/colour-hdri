@@ -25,7 +25,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour.utilities import as_float_array, tsplit, tstack, warning
-from colour.hints import ArrayLike, Callable, NDArray, Optional
+from colour.hints import ArrayLike, Callable, NDArrayFloat
 
 from colour_hdri.exposure import average_luminance
 from colour_hdri.generation import weighting_function_Debevec1997
@@ -33,7 +33,7 @@ from colour_hdri.utilities import ImageStack
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -46,8 +46,8 @@ __all__ = [
 def image_stack_to_HDRI(
     image_stack: ImageStack,
     weighting_function: Callable = weighting_function_Debevec1997,
-    camera_response_functions: Optional[ArrayLike] = None,
-) -> Optional[NDArray]:
+    camera_response_functions: ArrayLike | None = None,
+) -> NDArrayFloat | None:
     """
     Generate a HDRI from given image stack.
 
@@ -80,8 +80,8 @@ def image_stack_to_HDRI(
     :cite:`Banterle2011n`
     """
 
-    image_c: Optional[NDArray] = None
-    weight_c: Optional[NDArray] = None
+    image_c: NDArrayFloat | None = None
+    weight_c: NDArrayFloat | None = None
     for i, image in enumerate(image_stack):
         if image.data is not None and image.metadata is not None:
             if image_c is None:

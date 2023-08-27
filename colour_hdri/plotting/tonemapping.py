@@ -9,12 +9,11 @@ Defines the tonemapping operators plotting objects:
 
 from __future__ import annotations
 
-import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
 
-from colour.hints import Any, ArrayLike, Boolean, Callable, Dict, Tuple
+from colour.hints import Any, ArrayLike, Callable, Dict, Tuple
 from colour.plotting import (
     CONSTANTS_COLOUR_STYLE,
     artist,
@@ -25,7 +24,7 @@ from colour.utilities import as_float_array
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -39,7 +38,7 @@ __all__ = [
 def plot_tonemapping_operator_image(
     image: ArrayLike,
     luminance_function: ArrayLike,
-    log_scale: Boolean = False,
+    log_scale: bool = False,
     cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
     **kwargs: Any,
 ) -> Tuple[plt.Figure, plt.Axes]:

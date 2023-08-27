@@ -53,19 +53,13 @@ from __future__ import annotations
 import numpy as np
 
 from colour.constants import EPSILON
-from colour.hints import (
-    ArrayLike,
-    Floating,
-    FloatingOrArrayLike,
-    FloatingOrNDArray,
-    NDArray,
-)
+from colour.hints import ArrayLike, NDArrayFloat, cast
 from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
 from colour.utilities import as_float_array
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -86,9 +80,7 @@ __all__ = [
 ]
 
 
-def log_average(
-    a: FloatingOrArrayLike, epsilon: Floating = EPSILON
-) -> FloatingOrNDArray:
+def log_average(a: ArrayLike, epsilon: float = EPSILON) -> NDArrayFloat:
     """
     Compute the log average of given array.
 
@@ -117,7 +109,7 @@ def log_average(
     return average
 
 
-def tonemapping_operator_simple(RGB: ArrayLike) -> NDArray:
+def tonemapping_operator_simple(RGB: ArrayLike) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using the simple method:
     :math:`\\cfrac{RGB}{RGB + 1}`.
@@ -166,7 +158,7 @@ def tonemapping_operator_simple(RGB: ArrayLike) -> NDArray:
 
 def tonemapping_operator_normalisation(
     RGB: ArrayLike, colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"]
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using the normalisation method.
 
@@ -218,8 +210,8 @@ def tonemapping_operator_normalisation(
 
 
 def tonemapping_operator_gamma(
-    RGB: ArrayLike, gamma: Floating = 1, EV: Floating = 0
-) -> NDArray:
+    RGB: ArrayLike, gamma: float = 1, EV: float = 0
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using the gamma and exposure
     correction method.
@@ -277,10 +269,10 @@ def tonemapping_operator_gamma(
 
 def tonemapping_operator_logarithmic(
     RGB: ArrayLike,
-    q: Floating = 1,
-    k: Floating = 1,
+    q: float = 1,
+    k: float = 1,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using the logarithmic method.
 
@@ -345,10 +337,10 @@ def tonemapping_operator_logarithmic(
 
 def tonemapping_operator_exponential(
     RGB: ArrayLike,
-    q: Floating = 1,
-    k: Floating = 1,
+    q: float = 1,
+    k: float = 1,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using the exponential method.
 
@@ -413,10 +405,10 @@ def tonemapping_operator_exponential(
 
 def tonemapping_operator_logarithmic_mapping(
     RGB: ArrayLike,
-    p: Floating = 1,
-    q: Floating = 1,
+    p: float = 1,
+    q: float = 1,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using the logarithmic mapping
     method.
@@ -479,10 +471,10 @@ def tonemapping_operator_logarithmic_mapping(
 
 def tonemapping_operator_exponentiation_mapping(
     RGB: ArrayLike,
-    p: Floating = 1,
-    q: Floating = 1,
+    p: float = 1,
+    q: float = 1,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using the exponentiation mapping
     method.
@@ -543,9 +535,9 @@ def tonemapping_operator_exponentiation_mapping(
 
 def tonemapping_operator_Schlick1994(
     RGB: ArrayLike,
-    p: Floating = 1,
+    p: float = 1,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using *Schlick (1994)* method.
 
@@ -605,11 +597,11 @@ def tonemapping_operator_Schlick1994(
 
 def tonemapping_operator_Tumblin1999(
     RGB: ArrayLike,
-    L_da: Floating = 20,
-    C_max: Floating = 100,
-    L_max: Floating = 100,
+    L_da: float = 20,
+    C_max: float = 100,
+    L_max: float = 100,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using
     *Tumblin, Hodgins and Guenter (1999)* method.
@@ -665,7 +657,7 @@ def tonemapping_operator_Tumblin1999(
         RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     )
 
-    def f(x: FloatingOrNDArray) -> FloatingOrNDArray:
+    def f(x: float | NDArrayFloat) -> NDArrayFloat:
         return np.where(
             x > 100, 2.655, 1.855 + 0.4 * np.log10(x + 2.3 * 10**-5)
         )
@@ -684,12 +676,12 @@ def tonemapping_operator_Tumblin1999(
 
 def tonemapping_operator_Reinhard2004(
     RGB: ArrayLike,
-    f: Floating = 0,
-    m: Floating = 0.3,
-    a: Floating = 0,
-    c: Floating = 0,
+    f: float = 0,
+    m: float = 0.3,
+    a: float = 0,
+    c: float = 0,
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using *Reinhard and Devlin (2004)*
     method.
@@ -783,15 +775,15 @@ def tonemapping_operator_Reinhard2004(
 
 def tonemapping_operator_filmic(
     RGB: ArrayLike,
-    shoulder_strength: Floating = 0.22,
-    linear_strength: Floating = 0.3,
-    linear_angle: Floating = 0.1,
-    toe_strength: Floating = 0.2,
-    toe_numerator: Floating = 0.01,
-    toe_denominator: Floating = 0.3,
-    exposure_bias: Floating = 2,
-    linear_whitepoint: Floating = 11.2,
-) -> NDArray:
+    shoulder_strength: float = 0.22,
+    linear_strength: float = 0.3,
+    linear_angle: float = 0.1,
+    toe_strength: float = 0.2,
+    toe_numerator: float = 0.01,
+    toe_denominator: float = 0.3,
+    exposure_bias: float = 2,
+    linear_whitepoint: float = 11.2,
+) -> NDArrayFloat:
     """
     Perform given *RGB* array tonemapping using *Habble (2010)* method.
 
@@ -857,11 +849,21 @@ def tonemapping_operator_filmic(
     E = toe_numerator
     F = toe_denominator
 
-    def f(x: FloatingOrNDArray, A, B, C, D, E, F) -> FloatingOrNDArray:
+    def f(
+        x: float | NDArrayFloat,
+        A: float,
+        B: float,
+        C: float,
+        D: float,
+        E: float,
+        F: float,
+    ) -> float | NDArrayFloat:
         return (
             (x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)
         ) - E / F
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
 
-    return RGB * (1 / as_float_array(f(linear_whitepoint, A, B, C, D, E, F)))
+    return cast(
+        NDArrayFloat, RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F))
+    )

@@ -20,12 +20,12 @@ from __future__ import annotations
 
 import numpy as np
 
-from colour.hints import ArrayLike, Integer, NDArray
+from colour.hints import ArrayLike, NDArrayFloat
 from colour.utilities import as_float_array, tsplit, tstack
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -36,8 +36,8 @@ __all__ = [
 
 
 def samples_Grossberg2003(
-    image_stack: ArrayLike, samples: Integer = 1000, n: Integer = 256
-) -> NDArray:
+    image_stack: ArrayLike, samples: int = 1000, n: int = 256
+) -> NDArrayFloat:
     """
     Return the samples for given image stack intensity histograms using
     *Grossberg (2003)* method.
@@ -63,10 +63,7 @@ def samples_Grossberg2003(
 
     image_stack = as_float_array(image_stack)
 
-    if image_stack.ndim == 3:
-        channels_c = 1
-    else:
-        channels_c = image_stack.shape[-2]
+    channels_c = 1 if image_stack.ndim == 3 else image_stack.shape[-2]
 
     cdf_i = []
     for image in tsplit(image_stack):

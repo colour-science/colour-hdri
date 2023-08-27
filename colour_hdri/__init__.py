@@ -21,6 +21,9 @@ Subpackages
 -   utilities: Various utilities and data structures.
 """
 
+from __future__ import annotations
+
+import contextlib
 import sys
 
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
@@ -30,7 +33,7 @@ from colour.hints import Any
 
 import numpy as np
 import os
-import subprocess  # nosec
+import subprocess
 
 import colour
 
@@ -126,9 +129,30 @@ from .tonemapping import (
     tonemapping_operator_Tumblin1999,
 )
 
+from colour.utilities import is_matplotlib_installed
+
+# Exposing "colour.plotting" sub-package if "Matplotlib" is available.
+if is_matplotlib_installed():
+    import colour_hdri.plotting as plotting  # noqa: F401, PLR0402
+else:
+
+    class MockPlotting:  # pragma: no cover
+        """
+        Mock object for :mod:`colour_hdri.plotting` sub-package raising an exception
+        if the sub-package is accessed but *Matplotlib* is not installed.
+        """
+
+        def __getattr__(self, attribute) -> Any:
+            """Return the value from the attribute with given name."""
+
+            is_matplotlib_installed(raise_exception=True)
+
+    globals()["plotting"] = MockPlotting()  # pragma: no cover
+
+
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -228,11 +252,11 @@ __all__ += [
     "tonemapping_operator_Tumblin1999",
 ]
 
-ROOT_RESOURCES = os.path.join(os.path.dirname(__file__), "resources")
-ROOT_RESOURCES_EXAMPLES = os.path.join(
+ROOT_RESOURCES: str = os.path.join(os.path.dirname(__file__), "resources")
+ROOT_RESOURCES_EXAMPLES: str = os.path.join(
     ROOT_RESOURCES, "colour-hdri-examples-datasets"
 )
-ROOT_RESOURCES_TESTS = os.path.join(
+ROOT_RESOURCES_TESTS: str = os.path.join(
     ROOT_RESOURCES, "colour-hdri-tests-datasets"
 )
 
@@ -240,15 +264,15 @@ __application_name__ = "Colour - HDRI"
 
 __major_version__ = "0"
 __minor_version__ = "2"
-__change_version__ = "1"
+__change_version__ = "2"
 __version__ = ".".join(
     (__major_version__, __minor_version__, __change_version__)
 )
 
 try:
     _version: str = (
-        subprocess.check_output(  # nosec
-            ["git", "describe"],
+        subprocess.check_output(
+            ["git", "describe"],  # noqa: S603,S607
             cwd=os.path.dirname(__file__),
             stderr=subprocess.STDOUT,
         )
@@ -256,17 +280,17 @@ try:
         .decode("utf-8")
     )
 except Exception:
-    _version: str = __version__  # type: ignore[no-redef]
+    _version: str = __version__
 
-colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES["colour-hdri"] = _version
+colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES[  # pyright: ignore
+    "colour-hdri"
+] = _version
 
 del _version
 
 # TODO: Remove legacy printing support when deemed appropriate.
-try:
+with contextlib.suppress(TypeError):
     np.set_printoptions(legacy="1.13")
-except TypeError:
-    pass
 
 
 # ----------------------------------------------------------------------------#
@@ -301,7 +325,7 @@ API_CHANGES = {
 """Defines the *colour_hdri* package API changes."""
 
 if not is_documentation_building():
-    sys.modules["colour_hdri"] = colour_hdri(  # type: ignore[assignment]
+    sys.modules["colour_hdri"] = colour_hdri(  # pyright: ignore
         sys.modules["colour_hdri"], build_API_changes(API_CHANGES)
     )
 

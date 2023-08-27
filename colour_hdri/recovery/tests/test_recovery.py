@@ -9,12 +9,12 @@ import platform
 import re
 import shlex
 import shutil
-import subprocess  # nosec
+import subprocess
 import tempfile
 import unittest
 
 from colour import read_image
-from colour.hints import Boolean, List, NDArray
+from colour.hints import List, NDArrayFloat
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.process import (
@@ -30,7 +30,7 @@ from colour_hdri.utilities import filter_files
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -44,7 +44,7 @@ __all__ = [
     "TestHighlightsRecoveryLCHab",
 ]
 
-_IS_WINDOWS_PLATFORM: Boolean = platform.system() in ("Windows", "Microsoft")
+_IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
 ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
@@ -57,7 +57,7 @@ ROOT_RESOURCES_RECOVERY: str = os.path.join(
 
 IMAGES_RAW: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2",))
 
-matrix_XYZ_to_camera_space: NDArray = np.array(
+matrix_XYZ_to_camera_space: NDArrayFloat = np.array(
     [
         [0.47160000, 0.06030000, -0.08300000],
         [-0.77980000, 1.54740000, 0.24800000],
@@ -96,12 +96,17 @@ highlights_recovery_blend` definition unit tests methods.
             self._temporary_directory, os.path.basename(reference_raw_file)
         )
         shutil.copyfile(reference_raw_file, test_raw_file)
-        command = [RAW_CONVERTER] + shlex.split(
-            RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
-            posix=not _IS_WINDOWS_PLATFORM,
-        )
+        command = [
+            RAW_CONVERTER,
+            *shlex.split(
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
+                    raw_file=test_raw_file
+                ),
+                posix=not _IS_WINDOWS_PLATFORM,
+            ),
+        ]
 
-        subprocess.call(command)  # nosec
+        subprocess.call(command)  # noqa: S603
 
         test_tiff_file = read_image(
             str(re.sub("\\.CR2$", ".tiff", test_raw_file))
@@ -153,12 +158,17 @@ highlights_recovery_LCHab` definition unit tests methods.
             self._temporary_directory, os.path.basename(reference_raw_file)
         )
         shutil.copyfile(reference_raw_file, test_raw_file)
-        command = [RAW_CONVERTER] + shlex.split(
-            RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
-            posix=not _IS_WINDOWS_PLATFORM,
-        )
+        command = [
+            RAW_CONVERTER,
+            *shlex.split(
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
+                    raw_file=test_raw_file
+                ),
+                posix=not _IS_WINDOWS_PLATFORM,
+            ),
+        ]
 
-        subprocess.call(command)  # nosec
+        subprocess.call(command)  # noqa: S603
 
         test_tiff_file = read_image(
             str(re.sub("\\.CR2$", ".tiff", test_raw_file))

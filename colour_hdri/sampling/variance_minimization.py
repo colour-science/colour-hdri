@@ -18,12 +18,13 @@ References
 import numpy as np
 from collections import namedtuple
 
-from colour.models import RGB_COLOURSPACES, RGB_luminance
-from colour.utilities import as_float_array, centroid, warning
+from colour.hints import ArrayLike, List, NDArrayFloat, Tuple
+from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
+from colour.utilities import as_float_array, as_float_scalar, centroid, warning
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -54,18 +55,18 @@ class Light_Specification(
     """
 
 
-def luminance_variance(a):
+def luminance_variance(a: ArrayLike) -> float:
     """
     Compute the Luminance variance of given :math:`a` 2-D array.
 
     Parameters
     ----------
-    a : array_like
+    a
         :math:`a` 2-D array to compute the Luminance variation.
 
     Returns
     -------
-    numeric
+    :class:`float`
         :math:`a` 2-D array Luminance variance.
 
     Examples
@@ -83,24 +84,26 @@ def luminance_variance(a):
         np.sum(a * ((y - y_centroid) ** 2 + (x - x_centroid) ** 2))
     )
 
-    return variance
+    return as_float_scalar(variance)
 
 
-def find_regions_variance_minimization_Viriyothai2009(a, n=4):
+def find_regions_variance_minimization_Viriyothai2009(
+    a: ArrayLike, n: int = 4
+) -> List[Tuple[int, int, int, int]]:
     """
     Find the :math:`2^n` regions using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm on given :math:`a` 2-D array.
 
     Parameters
     ----------
-    a : array_like
+    a
         :math:`a` 2-D array to find the regions.
-    n : int
+    n
         Iterations count, the total regions count is :math:`2^n`.
 
     Returns
     -------
-    list
+    :class:`list`
         Regions with variance minimized.
     """
 
@@ -149,12 +152,14 @@ def find_regions_variance_minimization_Viriyothai2009(a, n=4):
 
         regions = sub_regions
 
-    return regions
+    return regions  # pyright: ignore
 
 
 def highlight_regions_variance_minimization(
-    a, regions, highlight_colour=np.array([0, 1, 0])
-):
+    a: ArrayLike,
+    regions: List[Tuple[int, int, int, int]],
+    highlight_colour=np.array([0, 1, 0]),
+) -> NDArrayFloat:
     """
     Highlight regions using with variance minimized on given :math:`a`
     3-D array.
@@ -170,7 +175,7 @@ def highlight_regions_variance_minimization(
 
     Returns
     -------
-    ndarray
+    :class:`numpy.ndarray`
         :math:`a` 3-D array with highlighted regions.
     """
 
@@ -188,24 +193,26 @@ def highlight_regions_variance_minimization(
 
 
 def light_probe_sampling_variance_minimization_Viriyothai2009(
-    light_probe, lights_count=16, colourspace=RGB_COLOURSPACES["sRGB"]
-):
+    light_probe: ArrayLike,
+    lights_count: int = 16,
+    colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
+) -> List[Light_Specification]:
     """
     Sample given light probe to find lights using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm.
 
     Parameters
     ----------
-    light_probe : array_like
+    light_probe
         Array to sample for lights.
-    lights_count : int
+    lights_count
         Amount of lights to generate.
-    colourspace : `colour.RGB_Colourspace`, optional
+    colourspace
         *RGB* colourspace used for internal *Luminance* computation.
 
     Returns
     -------
-    list
+    :class:`list`
         list of
         :class:`colour_hdri.sampling.variance_minimization.Light_Specification`
         lights.

@@ -119,7 +119,7 @@ from colour.algebra import (
     matrix_dot,
     vector_dot,
 )
-from colour.hints import ArrayLike, Floating, Literal, NDArray, Union
+from colour.hints import ArrayLike, Literal, NDArrayFloat
 from colour.constants import EPSILON
 from colour.models import UCS_to_uv, XYZ_to_UCS, XYZ_to_xy, xy_to_XYZ
 from colour.utilities import as_float_array, tstack
@@ -129,7 +129,7 @@ from colour_hdri.models import CCS_ILLUMINANT_ADOBEDNG
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -144,12 +144,12 @@ __all__ = [
 
 
 def matrix_interpolated(
-    CCT: Floating,
-    CCT_1: Floating,
-    CCT_2: Floating,
+    CCT: float,
+    CCT_1: float,
+    CCT_2: float,
     M_1: ArrayLike,
     M_2: ArrayLike,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Compute the matrix interpolated from :math:`CCT_1` and :math:`CCT_2`
     correlated colour temperatures to respectively :math:`M_T` and :math:`M_R`
@@ -204,10 +204,13 @@ def matrix_interpolated(
            [-0.1336946...,  0.1767874...,  0.6654045...]])
     """
 
+    M_1 = as_float_array(M_1)
+    M_2 = as_float_array(M_2)
+
     if CCT <= CCT_1:
-        return as_float_array(M_1)
+        return M_1
     elif CCT >= CCT_2:
-        return as_float_array(M_2)
+        return M_2
     else:
         return linear_conversion(
             1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2), tstack([M_1, M_2])
@@ -216,14 +219,14 @@ def matrix_interpolated(
 
 def xy_to_camera_neutral(
     xy: ArrayLike,
-    CCT_calibration_illuminant_1: Floating,
-    CCT_calibration_illuminant_2: Floating,
+    CCT_calibration_illuminant_1: float,
+    CCT_calibration_illuminant_2: float,
     M_color_matrix_1: ArrayLike,
     M_color_matrix_2: ArrayLike,
     M_camera_calibration_1: ArrayLike,
     M_camera_calibration_2: ArrayLike,
     analog_balance: ArrayLike,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Convert given *xy* white balance chromaticity coordinates to
     *Camera Neutral* coordinates.
@@ -308,15 +311,15 @@ def xy_to_camera_neutral(
 
 def camera_neutral_to_xy(
     camera_neutral: ArrayLike,
-    CCT_calibration_illuminant_1: Floating,
-    CCT_calibration_illuminant_2: Floating,
+    CCT_calibration_illuminant_1: float,
+    CCT_calibration_illuminant_2: float,
     M_color_matrix_1: ArrayLike,
     M_color_matrix_2: ArrayLike,
     M_camera_calibration_1: ArrayLike,
     M_camera_calibration_2: ArrayLike,
     analog_balance: ArrayLike,
-    epsilon: Floating = EPSILON,
-) -> NDArray:
+    epsilon: float = EPSILON,
+) -> NDArrayFloat:
     """
     Convert given *Camera Neutral* coordinates to *xy* white balance
     chromaticity coordinates.
@@ -420,14 +423,14 @@ def camera_neutral_to_xy(
 
 def matrix_XYZ_to_camera_space(
     xy: ArrayLike,
-    CCT_calibration_illuminant_1: Floating,
-    CCT_calibration_illuminant_2: Floating,
+    CCT_calibration_illuminant_1: float,
+    CCT_calibration_illuminant_2: float,
     M_color_matrix_1: ArrayLike,
     M_color_matrix_2: ArrayLike,
     M_camera_calibration_1: ArrayLike,
     M_camera_calibration_2: ArrayLike,
     analog_balance: ArrayLike,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Return the *CIE XYZ* to *Camera Space* matrix for given *xy* white balance
     chromaticity coordinates.
@@ -535,8 +538,8 @@ def matrix_XYZ_to_camera_space(
 
 def matrix_camera_space_to_XYZ(
     xy: ArrayLike,
-    CCT_calibration_illuminant_1: Floating,
-    CCT_calibration_illuminant_2: Floating,
+    CCT_calibration_illuminant_1: float,
+    CCT_calibration_illuminant_2: float,
     M_color_matrix_1: ArrayLike,
     M_color_matrix_2: ArrayLike,
     M_camera_calibration_1: ArrayLike,
@@ -544,24 +547,22 @@ def matrix_camera_space_to_XYZ(
     analog_balance: ArrayLike,
     M_forward_matrix_1: ArrayLike,
     M_forward_matrix_2: ArrayLike,
-    chromatic_adaptation_transform: Union[
-        Literal[
-            "Bianco 2010",
-            "Bianco PC 2010",
-            "Bradford",
-            "CAT02 Brill 2008",
-            "CAT02",
-            "CAT16",
-            "CMCCAT2000",
-            "CMCCAT97",
-            "Fairchild",
-            "Sharp",
-            "Von Kries",
-            "XYZ Scaling",
-        ],
-        str,
-    ] = "Bradford",
-) -> NDArray:
+    chromatic_adaptation_transform: Literal[
+        "Bianco 2010",
+        "Bianco PC 2010",
+        "Bradford",
+        "CAT02 Brill 2008",
+        "CAT02",
+        "CAT16",
+        "CMCCAT2000",
+        "CMCCAT97",
+        "Fairchild",
+        "Sharp",
+        "Von Kries",
+        "XYZ Scaling",
+    ]
+    | str = "Bradford",
+) -> NDArrayFloat:
     """
     Return the *Camera Space* to *CIE XYZ* matrix for given *xy* white
     balance chromaticity coordinates.

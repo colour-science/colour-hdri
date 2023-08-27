@@ -24,7 +24,7 @@ from __future__ import annotations
 import numpy as np
 
 from colour.algebra import vector_dot
-from colour.hints import ArrayLike, Floating, NDArray, Optional
+from colour.hints import ArrayLike, NDArrayFloat
 from colour.models import (
     RGB_Colourspace,
     LCHab_to_Lab,
@@ -39,7 +39,7 @@ from colour.utilities import tsplit, tstack
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -51,8 +51,8 @@ __all__ = [
 
 
 def highlights_recovery_blend(
-    RGB: ArrayLike, multipliers: ArrayLike, threshold: Floating = 0.99
-) -> NDArray:
+    RGB: ArrayLike, multipliers: ArrayLike, threshold: float = 0.99
+) -> NDArrayFloat:
     """
     Perform highlights recovery using *Coffin (1997)* method from *dcraw*.
 
@@ -104,9 +104,9 @@ def highlights_recovery_blend(
 
 def highlights_recovery_LCHab(
     RGB: ArrayLike,
-    threshold: Optional[Floating] = None,
+    threshold: float | None = None,
     RGB_colourspace: RGB_Colourspace = RGB_COLOURSPACE_sRGB,
-) -> NDArray:
+) -> NDArrayFloat:
     """
     Perform highlights recovery in *CIE L\\*C\\*Hab* colourspace.
 
@@ -129,12 +129,7 @@ def highlights_recovery_LCHab(
     L, _C, H = tsplit(
         Lab_to_LCHab(
             XYZ_to_Lab(
-                RGB_to_XYZ(
-                    RGB,
-                    RGB_colourspace.whitepoint,
-                    RGB_colourspace.whitepoint,
-                    RGB_colourspace.matrix_RGB_to_XYZ,
-                ),
+                RGB_to_XYZ(RGB, RGB_colourspace),
                 RGB_colourspace.whitepoint,
             )
         )
@@ -145,9 +140,7 @@ def highlights_recovery_LCHab(
             XYZ_to_Lab(
                 RGB_to_XYZ(
                     np.clip(RGB, 0, threshold),
-                    RGB_colourspace.whitepoint,
-                    RGB_colourspace.whitepoint,
-                    RGB_colourspace.matrix_RGB_to_XYZ,
+                    RGB_colourspace,
                 ),
                 RGB_colourspace.whitepoint,
             )
@@ -158,7 +151,5 @@ def highlights_recovery_LCHab(
         Lab_to_XYZ(
             LCHab_to_Lab(tstack([L, C_c, H])), RGB_colourspace.whitepoint
         ),
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.whitepoint,
-        RGB_colourspace.matrix_XYZ_to_RGB,
+        RGB_colourspace,
     )

@@ -26,12 +26,12 @@ References
 from __future__ import annotations
 
 from colour.colorimetry import CCS_ILLUMINANTS
-from colour.hints import Dict, NDArray
+from colour.hints import Dict, NDArrayFloat
 from colour.utilities import CanonicalMapping
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -42,7 +42,7 @@ __all__ = [
     "LIGHT_SOURCE_TAG_TO_DNG_ILLUMINANTS",
 ]
 
-CCS_ILLUMINANT_ADOBEDNG: NDArray = CCS_ILLUMINANTS[
+CCS_ILLUMINANT_ADOBEDNG: NDArrayFloat = CCS_ILLUMINANTS[
     "CIE 1931 2 Degree Standard Observer"
 ]["D50"]
 """*Adobe DNG SDK* default illuminant for *CIE XYZ* colourspace."""

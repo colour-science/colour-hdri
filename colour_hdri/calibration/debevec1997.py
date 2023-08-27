@@ -29,13 +29,9 @@ from functools import partial
 from colour.hints import (
     Any,
     ArrayLike,
-    Boolean,
     Callable,
     Dict,
-    Floating,
-    Integer,
-    NDArray,
-    Optional,
+    NDArrayFloat,
     Tuple,
 )
 from colour.utilities import as_float_array, as_int_array, tstack
@@ -47,7 +43,7 @@ from colour_hdri.utilities import ImageStack
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -62,10 +58,10 @@ __all__ = [
 def g_solve(
     Z: ArrayLike,
     B: ArrayLike,
-    l_s: Floating = 30,
+    l_s: float = 30,
     w: Callable = weighting_function_Debevec1997,
-    n: Integer = 256,
-) -> Tuple[NDArray, NDArray]:
+    n: int = 256,
+) -> Tuple[NDArrayFloat, NDArrayFloat]:
     """
     Given a set of pixel values observed for several pixels in several images
     with different exposure times, this function returns the imaging system's
@@ -135,9 +131,9 @@ def g_solve(
 def extrapolating_function_polynomial(
     crfs: ArrayLike,
     weighting_function: Callable,
-    degree: Integer = 7,
-    **kwargs: Any,
-) -> NDArray:
+    degree: int = 7,
+    **kwargs: Any,  # noqa: ARG001
+) -> NDArrayFloat:
     """
     Polynomial extrapolating function used to handle zero-weighted data of
     given camera response functions.
@@ -181,15 +177,15 @@ def extrapolating_function_polynomial(
 def camera_response_functions_Debevec1997(
     image_stack: ImageStack,
     sampling_function: Callable = samples_Grossberg2003,
-    sampling_function_kwargs: Optional[Dict] = None,
+    sampling_function_kwargs: Dict | None = None,
     weighting_function: Callable = weighting_function_Debevec1997,
-    weighting_function_kwargs: Optional[Dict] = None,
+    weighting_function_kwargs: Dict | None = None,
     extrapolating_function: Callable = extrapolating_function_polynomial,
-    extrapolating_function_kwargs: Optional[Dict] = None,
-    l_s: Floating = 30,
-    n: Integer = 256,
-    normalise: Boolean = True,
-) -> NDArray:
+    extrapolating_function_kwargs: Dict | None = None,
+    l_s: float = 30,
+    n: int = 256,
+    normalise: bool = True,
+) -> NDArrayFloat:
     """
     Return the camera response functions for given image stack using
     *Debevec (1997)* method.

@@ -24,7 +24,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from colour.hints import FloatingOrArrayLike, FloatingOrNDArray
+from colour.hints import ArrayLike, NDArrayFloat
 
 from colour.utilities import as_float, as_float_array
 from colour_hdri.exposure import (
@@ -34,7 +34,7 @@ from colour_hdri.exposure import (
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
-__license__ = "New BSD License - https://opensource.org/licenses/BSD-3-Clause"
+__license__ = "BSD-3-Clause - https://opensource.org/licenses/BSD-3-Clause"
 __maintainer__ = "Colour Developers"
 __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
@@ -51,10 +51,10 @@ __all__ = [
 
 
 def q_factor(
-    T: FloatingOrArrayLike = 9 / 10,
-    f_v: FloatingOrArrayLike = 98 / 100,
-    theta: FloatingOrArrayLike = 10,
-) -> FloatingOrNDArray:
+    T: ArrayLike = 9 / 10,
+    f_v: ArrayLike = 98 / 100,
+    theta: ArrayLike = 10,
+) -> NDArrayFloat:
     """
     Compute the :math:`q` factor modeling the total lens vignetting and
     transmission attenuation.
@@ -70,7 +70,7 @@ def q_factor(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         :math:`q` factor.
 
     References
@@ -91,16 +91,16 @@ def q_factor(
 
 
 def focal_plane_exposure(
-    L: FloatingOrArrayLike,
-    A: FloatingOrArrayLike,
-    t: FloatingOrArrayLike,
-    F: FloatingOrArrayLike,
-    i: FloatingOrArrayLike,
-    H_f: FloatingOrArrayLike,
-    T: FloatingOrArrayLike = 9 / 10,
-    f_v: FloatingOrArrayLike = 98 / 100,
-    theta: FloatingOrArrayLike = 10,
-) -> FloatingOrNDArray:
+    L: ArrayLike,
+    A: ArrayLike,
+    t: ArrayLike,
+    F: ArrayLike,
+    i: ArrayLike,
+    H_f: ArrayLike,
+    T: ArrayLike = 9 / 10,
+    f_v: ArrayLike = 98 / 100,
+    theta: ArrayLike = 10,
+) -> NDArrayFloat:
     """
     Compute the focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
 
@@ -128,7 +128,7 @@ def focal_plane_exposure(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Focal plane exposure :math:`H` in lux-seconds (:math:`lx.s`).
 
     Notes
@@ -168,8 +168,8 @@ def focal_plane_exposure(
 
 
 def arithmetic_mean_focal_plane_exposure(
-    L_a: FloatingOrArrayLike, A: FloatingOrArrayLike, t: FloatingOrArrayLike
-) -> FloatingOrNDArray:
+    L_a: ArrayLike, A: ArrayLike, t: ArrayLike
+) -> NDArrayFloat:
     """
     Compute the arithmetic mean focal plane exposure :math:`H_a` for a camera
     focused on infinity, :math:`H_f << H`, :math:`T=9/10`,
@@ -186,7 +186,7 @@ def arithmetic_mean_focal_plane_exposure(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Focal plane exposure :math:`H_a`.
 
     Notes
@@ -217,17 +217,17 @@ def arithmetic_mean_focal_plane_exposure(
 
 
 def saturation_based_speed_focal_plane_exposure(
-    L: FloatingOrArrayLike,
-    A: FloatingOrArrayLike,
-    t: FloatingOrArrayLike,
-    S: FloatingOrArrayLike,
-    F: FloatingOrArrayLike = 50 / 1000,
-    i: FloatingOrArrayLike = 1 / (-1 / 5 + 1 / (50 / 1000)),
-    H_f: FloatingOrArrayLike = 0,
-    T: FloatingOrArrayLike = 9 / 10,
-    f_v: FloatingOrArrayLike = 98 / 100,
-    theta: FloatingOrArrayLike = 10,
-) -> FloatingOrNDArray:
+    L: ArrayLike,
+    A: ArrayLike,
+    t: ArrayLike,
+    S: ArrayLike,
+    F: ArrayLike = 50 / 1000,
+    i: ArrayLike = 1 / (-1 / 5 + 1 / (50 / 1000)),
+    H_f: ArrayLike = 0,
+    T: ArrayLike = 9 / 10,
+    f_v: ArrayLike = 98 / 100,
+    theta: ArrayLike = 10,
+) -> NDArrayFloat:
     """
     Compute the Saturation-Based Speed (SBS) focal plane exposure
     :math:`H_{SBS}` in lux-seconds (:math:`lx.s`).
@@ -261,7 +261,7 @@ def saturation_based_speed_focal_plane_exposure(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Saturation-Based Speed focal plane exposure :math:`H_{SBS}` in
         lux-seconds (:math:`lx.s`).
 
@@ -310,7 +310,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
     return as_float(H_SBS)
 
 
-def exposure_index_values(H_a: FloatingOrArrayLike) -> FloatingOrNDArray:
+def exposure_index_values(H_a: ArrayLike) -> NDArrayFloat:
     """
     Compute the exposure index values :math:`I_{EI}` from given focal plane
     exposure :math:`H_a`.
@@ -322,7 +322,7 @@ def exposure_index_values(H_a: FloatingOrArrayLike) -> FloatingOrNDArray:
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Exposure index values :math:`I_{EI}`.
 
     References
@@ -339,8 +339,8 @@ def exposure_index_values(H_a: FloatingOrArrayLike) -> FloatingOrNDArray:
 
 
 def exposure_value_100(
-    N: FloatingOrArrayLike, t: FloatingOrArrayLike, S: FloatingOrArrayLike
-) -> FloatingOrNDArray:
+    N: ArrayLike, t: ArrayLike, S: ArrayLike
+) -> NDArrayFloat:
     """
     Compute the exposure value :math:`EV100` from given relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic
@@ -357,7 +357,7 @@ def exposure_value_100(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Exposure value :math:`EV100`.
 
     References
@@ -384,11 +384,11 @@ def exposure_value_100(
 
 
 def photometric_exposure_scale_factor_Lagarde2014(
-    EV100: FloatingOrArrayLike,
-    T: FloatingOrArrayLike = 9 / 10,
-    f_v: FloatingOrArrayLike = 98 / 100,
-    theta: FloatingOrArrayLike = 10,
-) -> FloatingOrNDArray:
+    EV100: ArrayLike,
+    T: ArrayLike = 9 / 10,
+    f_v: ArrayLike = 98 / 100,
+    theta: ArrayLike = 10,
+) -> NDArrayFloat:
     """
     Convert the exposure value :math:`EV100` to photometric exposure scale
     factor using *Lagarde and de Rousiers (2014)* formulation derived from the
@@ -410,7 +410,7 @@ def photometric_exposure_scale_factor_Lagarde2014(
 
     Returns
     -------
-    :class:`np.floating` or :class:`numpy.ndarray`
+    :class:`numpy.ndarray`
         Photometric exposure in lux-seconds (:math:`lx.s`).
 
     Notes
