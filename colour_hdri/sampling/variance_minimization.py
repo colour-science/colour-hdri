@@ -152,7 +152,7 @@ def find_regions_variance_minimization_Viriyothai2009(
 
         regions = sub_regions
 
-    return regions
+    return regions  # pyright: ignore
 
 
 def highlight_regions_variance_minimization(

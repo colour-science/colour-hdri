@@ -68,7 +68,7 @@ def plot_HDRI_strip(
 
     image = as_float_array(image)
 
-    grid = mpl.gridspec.GridSpec(1, count)
+    grid = mpl.gridspec.GridSpec(1, count)  # pyright: ignore
     grid.update(wspace=0, hspace=0)
 
     height, width, _channel = image.shape
