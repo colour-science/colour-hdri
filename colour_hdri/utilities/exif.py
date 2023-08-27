@@ -265,7 +265,7 @@ def read_exif_tags(image: str) -> defaultdict:
     lines = str(
         subprocess.check_output(
             [EXIF_EXECUTABLE, "-D", "-G", "-a", "-u", "-n", image],
-            shell=_IS_WINDOWS_PLATFORM,
+            shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
         ),
         "utf-8",
         "ignore",
@@ -309,7 +309,9 @@ def copy_exif_tags(source: str, target: str) -> bool:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
-    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)
+    subprocess.check_output(
+        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+    )
 
     return True
 
@@ -356,7 +358,7 @@ def delete_exif_tags(image: str) -> bool:
 
     subprocess.check_output(
         [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
-        shell=_IS_WINDOWS_PLATFORM,
+        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
     )
 
     return True
@@ -382,7 +384,8 @@ def read_exif_tag(image: str, tag: str) -> str:
     value = (
         str(
             subprocess.check_output(
-                [EXIF_EXECUTABLE, f"-{tag}", image], shell=_IS_WINDOWS_PLATFORM
+                [EXIF_EXECUTABLE, f"-{tag}", image],
+                shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
             ),
             "utf-8",
             "ignore",
@@ -426,6 +429,8 @@ def write_exif_tag(image: str, tag: str, value: str) -> bool:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
     arguments += [f"-{tag}={value}", image]
-    subprocess.check_output(arguments, shell=_IS_WINDOWS_PLATFORM)
+    subprocess.check_output(
+        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+    )
 
     return True

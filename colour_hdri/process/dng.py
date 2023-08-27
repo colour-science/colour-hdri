@@ -289,7 +289,7 @@ def convert_raw_files_to_dng_files(
             ),
         ]
 
-        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)
+        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # noqa: S603
 
         dng_files.append(dng_file)
 
@@ -354,7 +354,7 @@ def convert_dng_files_to_intermediate_files(
             ),
         ]
 
-        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)
+        subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # noqa: S603
 
         tiff_file = os.path.join(
             output_directory, os.path.basename(intermediate_file)

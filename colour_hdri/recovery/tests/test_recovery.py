@@ -106,7 +106,7 @@ highlights_recovery_blend` definition unit tests methods.
             ),
         ]
 
-        subprocess.call(command)
+        subprocess.call(command)  # noqa: S603
 
         test_tiff_file = read_image(
             str(re.sub("\\.CR2$", ".tiff", test_raw_file))
@@ -168,7 +168,7 @@ highlights_recovery_LCHab` definition unit tests methods.
             ),
         ]
 
-        subprocess.call(command)
+        subprocess.call(command)  # noqa: S603
 
         test_tiff_file = read_image(
             str(re.sub("\\.CR2$", ".tiff", test_raw_file))
