@@ -74,11 +74,11 @@ Primary Dependencies
 
 **Colour - HDRI** requires various dependencies in order to run:
 
-- `python >= 3.8, < 4 <https://www.python.org/download/releases>`__
-- `colour-science >= 4 <https://pypi.org/project/colour-science>`__
+- `python >= 3.9, < 4 <https://www.python.org/download/releases>`__
+- `colour-science >= 4.3 <https://pypi.org/project/colour-science>`__
 - `imageio >= 2, < 3 <https://imageio.github.io>`__
-- `numpy >= 1.19, < 2 <https://pypi.org/project/numpy>`__
-- `scipy >= 1.5, < 2 <https://pypi.org/project/scipy>`__
+- `numpy >= 1.22, < 2 <https://pypi.org/project/numpy>`__
+- `scipy >= 1.8, < 2 <https://pypi.org/project/scipy>`__
 
 Optional Features Dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -167,7 +167,6 @@ Contact & Social
 The *Colour Developers* can be reached via different means:
 
 - `Email <mailto:colour-developers@colour-science.org>`__
-- `Discourse <https://colour-science.discourse.group>`__
 - `Facebook <https://www.facebook.com/python.colour.science>`__
 - `Github Discussions <https://github.com/colour-science/colour-hdri/discussions>`__
 - `Gitter <https://gitter.im/colour-science/colour>`__
