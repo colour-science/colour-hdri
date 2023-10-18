@@ -12,6 +12,8 @@ from __future__ import annotations
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 from colour.hints import Any, ArrayLike, Callable, Dict, Tuple
 from colour.plotting import (
@@ -41,7 +43,7 @@ def plot_tonemapping_operator_image(
     log_scale: bool = False,
     cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
     **kwargs: Any,
-) -> Tuple[plt.Figure, plt.Axes]:
+) -> Tuple[Figure, Axes]:
     """
     Plot given tonemapped image with superimposed luminance mapping function.
 
