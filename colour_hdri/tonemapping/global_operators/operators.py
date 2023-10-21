@@ -51,7 +51,6 @@ References
 from __future__ import annotations
 
 import numpy as np
-
 from colour.constants import EPSILON
 from colour.hints import ArrayLike, NDArrayFloat, cast
 from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance

@@ -3,13 +3,13 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
+
 from colour_hdri import ROOT_RESOURCES_TESTS
-from colour_hdri.utilities import filter_files
-from colour_hdri.utilities import Image, ImageStack
+from colour_hdri.utilities import Image, ImageStack, filter_files
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"

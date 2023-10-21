@@ -1,15 +1,16 @@
 # !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.exposure.common` module."""
 
-import numpy as np
 import unittest
 
+import numpy as np
+
 from colour_hdri.exposure import (
-    average_luminance,
-    average_illuminance,
-    luminance_to_exposure_value,
-    illuminance_to_exposure_value,
     adjust_exposure,
+    average_illuminance,
+    average_luminance,
+    illuminance_to_exposure_value,
+    luminance_to_exposure_value,
 )
 
 __author__ = "Colour Developers"

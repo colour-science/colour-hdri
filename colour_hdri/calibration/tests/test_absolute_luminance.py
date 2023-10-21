@@ -6,16 +6,16 @@ Define the unit tests for the
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
 from colour import read_image
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import (
-    upper_hemisphere_illuminance_weights_Lagarde2016,
     absolute_luminance_calibration_Lagarde2016,
+    upper_hemisphere_illuminance_weights_Lagarde2016,
 )
 from colour_hdri.calibration.absolute_luminance import (
     upper_hemisphere_illuminance_Lagarde2016,

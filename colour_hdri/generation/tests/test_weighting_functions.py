@@ -4,12 +4,13 @@ Define the unit tests for the
 :mod:`colour_hdri.generation.weighting_functions` module.
 """
 
-import numpy as np
 import unittest
 
+import numpy as np
+
 from colour_hdri.generation import (
-    normal_distribution_function,
     hat_function,
+    normal_distribution_function,
     weighting_function_Debevec1997,
 )
 

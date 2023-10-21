@@ -1,18 +1,19 @@
 # !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.exposure.dsc` module."""
 
-import numpy as np
 import unittest
 
-from colour_hdri.exposure.dsc import q_factor
+import numpy as np
+
 from colour_hdri.exposure import (
-    focal_plane_exposure,
     arithmetic_mean_focal_plane_exposure,
-    saturation_based_speed_focal_plane_exposure,
     exposure_index_values,
     exposure_value_100,
+    focal_plane_exposure,
     photometric_exposure_scale_factor_Lagarde2014,
+    saturation_based_speed_focal_plane_exposure,
 )
+from colour_hdri.exposure.dsc import q_factor
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"

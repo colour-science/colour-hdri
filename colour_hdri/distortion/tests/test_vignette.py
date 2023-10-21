@@ -5,25 +5,26 @@ Define the unit tests for the :mod:`colour_hdri.distortion.vignette` module.
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
+
+import numpy as np
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.distortion import (
     apply_radial_gradient,
-    parabolic_2D_function,
-    hyperbolic_cosine_2D_function,
     characterise_vignette_2D_function,
-    correct_vignette_2D_function,
     characterise_vignette_bivariate_spline,
-    correct_vignette_bivariate_spline,
     characterise_vignette_RBF,
+    correct_vignette_2D_function,
+    correct_vignette_bivariate_spline,
     correct_vignette_RBF,
+    hyperbolic_cosine_2D_function,
+    parabolic_2D_function,
 )
 from colour_hdri.distortion.vignette import (
-    vignette_principal_point,
     radial_sampling_function,
+    vignette_principal_point,
     vignette_sampling_coordinates,
 )
 

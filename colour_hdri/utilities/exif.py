@@ -16,7 +16,6 @@ EXIF data manipulation routines based on *exiftool*:
 from __future__ import annotations
 
 import logging
-import numpy as np
 import platform
 import re
 import subprocess
@@ -24,6 +23,8 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from fractions import Fraction
 
+import numpy as np
+from colour.constants import DEFAULT_FLOAT_DTYPE
 from colour.hints import (
     DTypeFloat,
     DTypeReal,
@@ -34,8 +35,6 @@ from colour.hints import (
     SupportsIndex,
     Type,
 )
-
-from colour.constants import DEFAULT_FLOAT_DTYPE
 from colour.utilities import as_array, as_float_scalar, optional
 from colour.utilities.documentation import (
     DocstringText,

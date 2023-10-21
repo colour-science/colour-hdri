@@ -24,19 +24,86 @@ Subpackages
 from __future__ import annotations
 
 import contextlib
+import os
+import subprocess
 import sys
 
+import colour
+import numpy as np
+from colour.hints import Any
+from colour.utilities import is_matplotlib_installed
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
 
-from colour.hints import Any
-
-import numpy as np
-import os
-import subprocess
-
-import colour
-
+from .calibration import (
+    absolute_luminance_calibration_Lagarde2016,
+    camera_response_functions_Debevec1997,
+    g_solve,
+    upper_hemisphere_illuminance_weights_Lagarde2016,
+)
+from .distortion import (
+    VIGNETTE_CHARACTERISATION_METHODS,
+    VIGNETTE_CORRECTION_METHODS,
+    DataVignetteCharacterisation,
+    characterise_vignette,
+    correct_vignette,
+)
+from .exposure import (
+    adjust_exposure,
+    arithmetic_mean_focal_plane_exposure,
+    average_illuminance,
+    average_luminance,
+    exposure_index_values,
+    exposure_value_100,
+    focal_plane_exposure,
+    illuminance_to_exposure_value,
+    luminance_to_exposure_value,
+    photometric_exposure_scale_factor_Lagarde2014,
+    saturation_based_speed_focal_plane_exposure,
+)
+from .generation import (
+    hat_function,
+    image_stack_to_HDRI,
+    normal_distribution_function,
+    weighting_function_Debevec1997,
+)
+from .models import (
+    camera_neutral_to_xy,
+    camera_space_to_RGB,
+    camera_space_to_sRGB,
+    matrix_camera_space_to_XYZ,
+    matrix_XYZ_to_camera_space,
+    xy_to_camera_neutral,
+)
+from .process import (
+    DNG_CONVERTER,
+    DNG_CONVERTER_ARGUMENTS,
+    DNG_EXIF_TAGS_BINDING,
+    RAW_CONVERTER,
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA,
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
+    convert_dng_files_to_intermediate_files,
+    convert_raw_files_to_dng_files,
+    read_dng_files_exif_tags,
+)
+from .recovery import highlights_recovery_blend, highlights_recovery_LCHab
+from .sampling import (
+    light_probe_sampling_variance_minimization_Viriyothai2009,
+    samples_Grossberg2003,
+)
+from .tonemapping import (
+    tonemapping_operator_exponential,
+    tonemapping_operator_exponentiation_mapping,
+    tonemapping_operator_filmic,
+    tonemapping_operator_gamma,
+    tonemapping_operator_logarithmic,
+    tonemapping_operator_logarithmic_mapping,
+    tonemapping_operator_normalisation,
+    tonemapping_operator_Reinhard2004,
+    tonemapping_operator_Schlick1994,
+    tonemapping_operator_simple,
+    tonemapping_operator_Tumblin1999,
+)
 from .utilities import (
     EXIF_EXECUTABLE,
     EXIFTag,
@@ -59,77 +126,6 @@ from .utilities import (
     vivified_to_dict,
     write_exif_tag,
 )
-from .distortion import (
-    DataVignetteCharacterisation,
-    VIGNETTE_CHARACTERISATION_METHODS,
-    characterise_vignette,
-    VIGNETTE_CORRECTION_METHODS,
-    correct_vignette,
-)
-from .sampling import (
-    light_probe_sampling_variance_minimization_Viriyothai2009,
-    samples_Grossberg2003,
-)
-from .exposure import (
-    adjust_exposure,
-    arithmetic_mean_focal_plane_exposure,
-    average_illuminance,
-    average_luminance,
-    exposure_index_values,
-    exposure_value_100,
-    photometric_exposure_scale_factor_Lagarde2014,
-    focal_plane_exposure,
-    illuminance_to_exposure_value,
-    luminance_to_exposure_value,
-    saturation_based_speed_focal_plane_exposure,
-)
-from .generation import (
-    normal_distribution_function,
-    hat_function,
-    weighting_function_Debevec1997,
-    image_stack_to_HDRI,
-)
-from .calibration import (
-    absolute_luminance_calibration_Lagarde2016,
-    camera_response_functions_Debevec1997,
-    g_solve,
-    upper_hemisphere_illuminance_weights_Lagarde2016,
-)
-from .models import (
-    camera_neutral_to_xy,
-    camera_space_to_RGB,
-    camera_space_to_sRGB,
-    matrix_camera_space_to_XYZ,
-    matrix_XYZ_to_camera_space,
-    xy_to_camera_neutral,
-)
-from .process import (
-    DNG_CONVERTER,
-    DNG_CONVERTER_ARGUMENTS,
-    DNG_EXIF_TAGS_BINDING,
-    RAW_CONVERTER,
-    RAW_CONVERTER_ARGUMENTS_BAYER_CFA,
-    RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
-    convert_dng_files_to_intermediate_files,
-    convert_raw_files_to_dng_files,
-    read_dng_files_exif_tags,
-)
-from .recovery import highlights_recovery_blend, highlights_recovery_LCHab
-from .tonemapping import (
-    tonemapping_operator_exponential,
-    tonemapping_operator_exponentiation_mapping,
-    tonemapping_operator_filmic,
-    tonemapping_operator_gamma,
-    tonemapping_operator_logarithmic,
-    tonemapping_operator_logarithmic_mapping,
-    tonemapping_operator_normalisation,
-    tonemapping_operator_Reinhard2004,
-    tonemapping_operator_Schlick1994,
-    tonemapping_operator_simple,
-    tonemapping_operator_Tumblin1999,
-)
-
-from colour.utilities import is_matplotlib_installed
 
 # Exposing "colour.plotting" sub-package if "Matplotlib" is available.
 if is_matplotlib_installed():

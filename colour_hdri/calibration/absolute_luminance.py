@@ -20,7 +20,6 @@ s2016_pbs_unity_hdri_notes.pdf
 from __future__ import annotations
 
 import numpy as np
-
 from colour import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
 from colour.hints import ArrayLike, NDArrayFloat
 from colour.utilities import as_float_array

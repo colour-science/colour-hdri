@@ -10,18 +10,18 @@ Notes
 
 from __future__ import annotations
 
-import numpy as np
 import unittest
 
+import numpy as np
 from colour.hints import NDArrayFloat
 
-from colour_hdri.models.dng import matrix_interpolated
 from colour_hdri.models import (
-    xy_to_camera_neutral,
     camera_neutral_to_xy,
-    matrix_XYZ_to_camera_space,
     matrix_camera_space_to_XYZ,
+    matrix_XYZ_to_camera_space,
+    xy_to_camera_neutral,
 )
+from colour_hdri.models.dng import matrix_interpolated
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"

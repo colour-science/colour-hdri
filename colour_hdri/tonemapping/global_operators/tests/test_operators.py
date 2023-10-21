@@ -4,21 +4,22 @@ Define the unit tests for the
 :mod:`colour_hdri.tonemapping.global_operators.operators` module.
 """
 
-import numpy as np
 import unittest
 
+import numpy as np
+
 from colour_hdri.tonemapping import (
-    tonemapping_operator_simple,
-    tonemapping_operator_normalisation,
+    tonemapping_operator_exponential,
+    tonemapping_operator_exponentiation_mapping,
+    tonemapping_operator_filmic,
     tonemapping_operator_gamma,
     tonemapping_operator_logarithmic,
-    tonemapping_operator_exponential,
     tonemapping_operator_logarithmic_mapping,
-    tonemapping_operator_exponentiation_mapping,
-    tonemapping_operator_Schlick1994,
-    tonemapping_operator_Tumblin1999,
+    tonemapping_operator_normalisation,
     tonemapping_operator_Reinhard2004,
-    tonemapping_operator_filmic,
+    tonemapping_operator_Schlick1994,
+    tonemapping_operator_simple,
+    tonemapping_operator_Tumblin1999,
 )
 from colour_hdri.tonemapping.global_operators.operators import log_average
 

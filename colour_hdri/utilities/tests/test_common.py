@@ -8,10 +8,10 @@ import unittest
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.utilities import (
+    filter_files,
+    path_exists,
     vivification,
     vivified_to_dict,
-    path_exists,
-    filter_files,
 )
 
 __author__ = "Colour Developers"

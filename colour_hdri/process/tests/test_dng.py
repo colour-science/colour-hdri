@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import platform
 import shutil
@@ -11,13 +10,14 @@ import tempfile
 import unittest
 import zipfile
 
+import numpy as np
 from colour import read_image
 from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.process import (
-    convert_raw_files_to_dng_files,
     convert_dng_files_to_intermediate_files,
+    convert_raw_files_to_dng_files,
     read_dng_files_exif_tags,
 )
 from colour_hdri.utilities import filter_files

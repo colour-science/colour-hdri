@@ -1,8 +1,9 @@
 # !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.models.rgb` module."""
 
-import numpy as np
 import unittest
+
+import numpy as np
 
 from colour_hdri.models import camera_space_to_RGB, camera_space_to_sRGB
 

@@ -12,9 +12,6 @@ from __future__ import annotations
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-
 from colour.hints import Any, ArrayLike, Callable, Dict, Tuple
 from colour.plotting import (
     CONSTANTS_COLOUR_STYLE,
@@ -23,6 +20,8 @@ from colour.plotting import (
     render,
 )
 from colour.utilities import as_float_array
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"

@@ -9,7 +9,6 @@ the plotting unittests to run without creating windows in IDEs such as
 
 import matplotlib as mpl
 import pytest
-
 from colour.hints import Generator
 
 __author__ = "Colour Developers"

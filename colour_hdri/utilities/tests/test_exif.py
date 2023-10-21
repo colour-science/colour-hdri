@@ -3,26 +3,28 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import shutil
 import tempfile
 import unittest
 
+import numpy as np
+
 from colour_hdri import ROOT_RESOURCES_TESTS
-from colour_hdri.utilities import filter_files, vivified_to_dict
 from colour_hdri.utilities import (
     EXIFTag,
-    parse_exif_string,
-    parse_exif_number,
-    parse_exif_fraction,
+    copy_exif_tags,
+    delete_exif_tags,
+    filter_files,
     parse_exif_array,
     parse_exif_data,
-    read_exif_tags,
-    copy_exif_tags,
-    update_exif_tags,
-    delete_exif_tags,
+    parse_exif_fraction,
+    parse_exif_number,
+    parse_exif_string,
     read_exif_tag,
+    read_exif_tags,
+    update_exif_tags,
+    vivified_to_dict,
     write_exif_tag,
 )
 

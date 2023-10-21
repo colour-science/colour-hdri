@@ -32,12 +32,9 @@ References
 
 from __future__ import annotations
 
-import numpy as np
 from dataclasses import dataclass
-from scipy.interpolate import RBFInterpolator, RectBivariateSpline
-from scipy.ndimage import center_of_mass, gaussian_filter
-from scipy.optimize import curve_fit
 
+import numpy as np
 from colour.algebra import (
     LinearInterpolator,
     linear_conversion,
@@ -62,6 +59,9 @@ from colour.utilities import (
     validate_method,
     zeros,
 )
+from scipy.interpolate import RBFInterpolator, RectBivariateSpline
+from scipy.ndimage import center_of_mass, gaussian_filter
+from scipy.optimize import curve_fit
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"

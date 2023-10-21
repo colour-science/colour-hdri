@@ -3,16 +3,16 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
 from colour import RGB_COLOURSPACES
 from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
-from colour_hdri.generation import image_stack_to_HDRI
 from colour_hdri.calibration import camera_response_functions_Debevec1997
+from colour_hdri.generation import image_stack_to_HDRI
 from colour_hdri.utilities import ImageStack, filter_files
 
 __author__ = "Colour Developers"

@@ -15,9 +15,9 @@ References
     Egsr, 1-1. doi:10.1145/1599301.1599393
 """
 
-import numpy as np
 from collections import namedtuple
 
+import numpy as np
 from colour.hints import ArrayLike, List, NDArrayFloat, Tuple
 from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
 from colour.utilities import as_float_array, as_float_scalar, centroid, warning
