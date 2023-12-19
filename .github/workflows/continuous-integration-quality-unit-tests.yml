@@ -8,89 +8,89 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-22.04, windows-latest]
-        python-version: [3.9, '3.10', 3.11]
+        python-version: [3.9, "3.10", 3.11]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: true
-    - name: Environment Variables
-      run: |
-        echo "CI_PYTHON_VERSION=${{ matrix.python-version }}" >> $GITHUB_ENV
-        echo "CI_PACKAGE=colour_hdri" >> $GITHUB_ENV
-        echo "CI_SHA=${{ github.sha }}" >> $GITHUB_ENV
-        echo "COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}" >> $GITHUB_ENV
-        echo "MPLBACKEND=AGG" >> $GITHUB_ENV
-      shell: bash
-    - name: Set up Python 3.9 for Pre-Commit
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies (macOS)
-      if: matrix.os == 'macOS-latest'
-      run: |
-        brew install dcraw exiftool
-        brew install --cask adobe-dng-converter
-      shell: bash
-    - name: Install Dependencies (Ubuntu)
-      if: matrix.os == 'ubuntu-22.04'
-      run: |
-        sudo apt-get update
-        sudo apt-get --yes install dcraw exiftool
-      shell: bash
-    - name: Install Dependencies (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        curl -L https://exiftool.org/exiftool-12.51.zip -o exiftool-12.51.zip
-        unzip -d exiftool exiftool-12.51.zip
-        cp exiftool/exiftool\(-k\).exe exiftool/exiftool.exe
-        echo "$PWD/exiftool" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
-        curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
-        unzip -d dcraw dcraw.zip
-        echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
-      shell: bash
-    - name: Install Adobe DNG Converter (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        curl -L https://download.adobe.com/pub/adobe/dng/win/DNGConverter_11_4.exe -o DNGConverter_11_4.exe
-        DNGConverter_11_4.exe /S
-      shell: cmd
-    - name: Add Adobe DNG Converter to %PATH% (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        echo "C:\Program Files\Adobe\Adobe DNG Converter" >> $GITHUB_PATH
-      shell: bash
-    - name: Install Poetry
-      env:
-        POETRY_VERSION: 1.4.0
-      run: |
-        curl -sSL https://install.python-poetry.org | POETRY_HOME=$HOME/.poetry python3 -
-        echo "$HOME/.poetry/bin" >> $GITHUB_PATH
-      shell: bash
-    - name: Install Package Dependencies
-      run: |
-        poetry run python -m pip install --upgrade pip
-        poetry install
-        poetry run python -c "import imageio;imageio.plugins.freeimage.download()"
-      shell: bash
-    - name: Pre-Commit (All Files)
-      run: |
-        poetry run pre-commit run --all-files
-      shell: bash
-    - name: Test Optimised Python Execution
-      run: |
-        poetry run python -OO -c "import $CI_PACKAGE"
-      shell: bash
-    - name: Test with Pytest
-      run: |
-        poetry run python -W ignore -m pytest --doctest-modules --ignore=$CI_PACKAGE/examples --cov=$CI_PACKAGE $CI_PACKAGE
-      shell: bash
-    - name: Upload Coverage to coveralls.io
-      run: |
-        if [ -z "$COVERALLS_REPO_TOKEN" ]; then echo \"COVERALLS_REPO_TOKEN\" secret is undefined!; else poetry run coveralls; fi
-      shell: bash
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: Environment Variables
+        run: |
+          echo "CI_PYTHON_VERSION=${{ matrix.python-version }}" >> $GITHUB_ENV
+          echo "CI_PACKAGE=colour_hdri" >> $GITHUB_ENV
+          echo "CI_SHA=${{ github.sha }}" >> $GITHUB_ENV
+          echo "COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}" >> $GITHUB_ENV
+          echo "MPLBACKEND=AGG" >> $GITHUB_ENV
+        shell: bash
+      - name: Set up Python 3.9 for Pre-Commit
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies (macOS)
+        if: matrix.os == 'macOS-latest'
+        run: |
+          brew install dcraw exiftool
+          brew install --cask adobe-dng-converter
+        shell: bash
+      - name: Install Dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get --yes install dcraw exiftool
+        shell: bash
+      - name: Install Dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          curl -L https://exiftool.org/exiftool-12.51.zip -o exiftool-12.51.zip
+          unzip -d exiftool exiftool-12.51.zip
+          cp exiftool/exiftool\(-k\).exe exiftool/exiftool.exe
+          echo "$PWD/exiftool" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
+          curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
+          unzip -d dcraw dcraw.zip
+          echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
+        shell: bash
+      - name: Install Adobe DNG Converter (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          curl -L https://download.adobe.com/pub/adobe/dng/win/DNGConverter_11_4.exe -o DNGConverter_11_4.exe
+          DNGConverter_11_4.exe /S
+        shell: cmd
+      - name: Add Adobe DNG Converter to %PATH% (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          echo "C:\Program Files\Adobe\Adobe DNG Converter" >> $GITHUB_PATH
+        shell: bash
+      - name: Install Poetry
+        env:
+          POETRY_VERSION: 1.4.0
+        run: |
+          curl -sSL https://install.python-poetry.org | POETRY_HOME=$HOME/.poetry python3 -
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+        shell: bash
+      - name: Install Package Dependencies
+        run: |
+          poetry run python -m pip install --upgrade pip
+          poetry install
+          poetry run python -c "import imageio;imageio.plugins.freeimage.download()"
+        shell: bash
+      - name: Pre-Commit (All Files)
+        run: |
+          poetry run pre-commit run --all-files
+        shell: bash
+      - name: Test Optimised Python Execution
+        run: |
+          poetry run python -OO -c "import $CI_PACKAGE"
+        shell: bash
+      - name: Test with Pytest
+        run: |
+          poetry run python -W ignore -m pytest --doctest-modules --ignore=$CI_PACKAGE/examples --cov=$CI_PACKAGE $CI_PACKAGE
+        shell: bash
+      - name: Upload Coverage to coveralls.io
+        run: |
+          if [ -z "$COVERALLS_REPO_TOKEN" ]; then echo \"COVERALLS_REPO_TOKEN\" secret is undefined!; else poetry run coveralls; fi
+        shell: bash

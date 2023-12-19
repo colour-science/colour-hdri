@@ -7,7 +7,7 @@ Development & Technical Support
 -   **Thomas Mansencal**, *Technology Supervisor @ Wētā FX*
 
     Project coordination, overall development.
-    
+
 About
 -----
 

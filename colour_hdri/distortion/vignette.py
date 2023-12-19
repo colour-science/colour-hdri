@@ -111,7 +111,7 @@ def apply_radial_gradient(
     scale
         Radial gradient scale as a ratio of the image height.
     offset
-        Radial gradiant offset from the image center and as a ratio of image
+        Radial gradient offset from the image center and as a ratio of image
         dimensions.
     intensity
         Radial gradient intensity where a value of 1 produces black at the
