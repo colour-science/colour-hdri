@@ -79,7 +79,7 @@ def plot_tonemapping_operator_image(
     figure, axes = artist(**settings)
 
     shape = image.shape
-    bounding_box = [0, 1, 0, 1]
+    bounding_box = (0.0, 1.0, 0.0, 1.0)
 
     image = np.clip(cctf_encoding(image), 0, 1)
     axes.imshow(
@@ -109,7 +109,9 @@ def plot_tonemapping_operator_image(
         settings.update(
             {
                 "x_label": "$log_2$ Input Luminance",
-                "x_ticker_locator": matplotlib.ticker.AutoMinorLocator(0.5),
+                "x_ticker_locator": matplotlib.ticker.AutoMinorLocator(
+                    0.5  # pyright: ignore
+                ),
             }
         )
         plt.gca().set_xscale("log", basex=2)
