@@ -7,6 +7,7 @@ Define the unit tests for the
 import unittest
 
 import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri.generation import (
     hat_function,
@@ -40,7 +41,7 @@ normal_distribution_function` definition unit tests methods.
 normal_distribution_function` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             normal_distribution_function(np.linspace(0, 1, 10)),
             np.array(
                 [
@@ -56,10 +57,10 @@ normal_distribution_function` definition.
                     0.00386592,
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             normal_distribution_function(np.linspace(0, 1, 10), 0, 1),
             np.array(
                 [
@@ -75,10 +76,10 @@ normal_distribution_function` definition.
                     0.60653066,
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             normal_distribution_function(np.linspace(0, 1, 10), 0.5, 0.5),
             np.array(
                 [
@@ -94,7 +95,7 @@ normal_distribution_function` definition.
                     0.60653066,
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -110,7 +111,7 @@ class TestHatFunction(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             hat_function(np.linspace(0, 1, 10)),
             np.array(
                 [
@@ -126,7 +127,7 @@ class TestHatFunction(unittest.TestCase):
                     0.00000000,
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -142,7 +143,7 @@ weighting_function_Debevec1997` definition unit tests methods.
 weighting_function_Debevec1997` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             weighting_function_Debevec1997(np.linspace(0, 1, 10)),
             np.array(
                 [
@@ -158,10 +159,10 @@ weighting_function_Debevec1997` definition.
                     0.00000000,
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             weighting_function_Debevec1997(np.linspace(0, 1, 10), 0, 1),
             np.array(
                 [
@@ -177,10 +178,10 @@ weighting_function_Debevec1997` definition.
                     0.00000000,
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             weighting_function_Debevec1997(np.linspace(0, 1, 10), 0.25, 0.75),
             np.array(
                 [
@@ -196,7 +197,7 @@ weighting_function_Debevec1997` definition.
                     0.00000000,
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

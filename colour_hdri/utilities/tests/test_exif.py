@@ -9,6 +9,7 @@ import tempfile
 import unittest
 
 import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.utilities import (
@@ -97,13 +98,17 @@ class TestParseExifFraction(unittest.TestCase):
         """
 
         exif_tag = EXIFTag("EXIF", "Exposure Time", "0.01666666667", "33434")
-        self.assertAlmostEqual(
-            parse_exif_fraction(exif_tag), 0.01666666, places=7
+        np.testing.assert_allclose(
+            parse_exif_fraction(exif_tag),
+            0.01666666,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         exif_tag = EXIFTag("EXIF", "Exposure Time", "10/4000", "33434")
-        self.assertAlmostEqual(
-            parse_exif_fraction(exif_tag), 0.00250000, places=7
+        np.testing.assert_allclose(
+            parse_exif_fraction(exif_tag),
+            0.00250000,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

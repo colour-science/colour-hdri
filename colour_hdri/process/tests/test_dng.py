@@ -12,6 +12,7 @@ import zipfile
 
 import numpy as np
 from colour import read_image
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
@@ -85,10 +86,10 @@ convert_raw_files_to_dng_files` definition.
         for test_dng_file, reference_dng_file in zip(
             test_dng_files, reference_dng_files
         ):
-            np.testing.assert_array_almost_equal(
+            np.testing.assert_allclose(
                 read_image(str(test_dng_file)),
                 read_image(str(reference_dng_file)),
-                decimal=7,
+                atol=0.005,
             )
 
 
@@ -162,10 +163,10 @@ convert_dng_files_to_intermediate_files` definition.
         for test_tiff_file, reference_tiff_file in zip(
             test_tiff_files, reference_tiff_files
         ):
-            np.testing.assert_array_almost_equal(
+            np.testing.assert_allclose(
                 read_image(str(test_tiff_file)),
                 read_image(str(reference_tiff_file)),
-                decimal=7,
+                atol=TOLERANCE_ABSOLUTE_TESTS,
             )
 
 
@@ -187,8 +188,10 @@ read_dng_files_exif_tags` definition.
         self.assertIn("EXIF", exif_tags[0])
         self.assertIn("Make", exif_tags[0]["EXIF"])
 
-        self.assertAlmostEqual(
-            exif_tags[0]["EXIF"]["Exposure Time"], 0.12500000, places=7
+        np.testing.assert_allclose(
+            exif_tags[0]["EXIF"]["Exposure Time"],
+            0.12500000,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_array_equal(

@@ -7,6 +7,7 @@ Define the unit tests for the
 import unittest
 
 import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri.tonemapping import (
     tonemapping_operator_exponential,
@@ -75,7 +76,7 @@ tonemapping_operator_simple` definition unit tests methods.
 tonemapping_operator_simple` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_simple(
                 np.array(
                     [
@@ -102,7 +103,7 @@ tonemapping_operator_simple` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -118,7 +119,7 @@ tonemapping_operator_normalisation` definition unit tests methods.
 tonemapping_operator_normalisation` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_normalisation(
                 np.array(
                     [
@@ -145,7 +146,7 @@ tonemapping_operator_normalisation` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -161,7 +162,7 @@ tonemapping_operator_gamma` definition unit tests methods.
 tonemapping_operator_gamma` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_gamma(
                 np.array(
                     [
@@ -190,7 +191,7 @@ tonemapping_operator_gamma` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -206,7 +207,7 @@ tonemapping_operator_logarithmic` definition unit tests methods.
 tonemapping_operator_logarithmic` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_logarithmic(
                 np.array(
                     [
@@ -235,7 +236,7 @@ tonemapping_operator_logarithmic` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -251,7 +252,7 @@ tonemapping_operator_exponential` definition unit tests methods.
 tonemapping_operator_exponential` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_exponential(
                 np.array(
                     [
@@ -280,7 +281,7 @@ tonemapping_operator_exponential` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -296,7 +297,7 @@ tonemapping_operator_logarithmic_mapping` definition unit tests methods.
 tonemapping_operator_logarithmic_mapping` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_logarithmic_mapping(
                 np.array(
                     [
@@ -325,7 +326,7 @@ tonemapping_operator_logarithmic_mapping` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -341,7 +342,7 @@ tonemapping_operator_exponentiation_mapping` definition unit tests methods.
 tonemapping_operator_exponentiation_mapping` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_exponentiation_mapping(
                 np.array(
                     [
@@ -370,7 +371,7 @@ tonemapping_operator_exponentiation_mapping` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -386,7 +387,7 @@ tonemapping_operator_Schlick1994` definition unit tests methods.
 tonemapping_operator_Schlick1994` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_Schlick1994(
                 np.array(
                     [
@@ -414,7 +415,7 @@ tonemapping_operator_Schlick1994` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -430,7 +431,7 @@ tonemapping_operator_Tumblin1999` definition unit tests methods.
 tonemapping_operator_Tumblin1999` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_Tumblin1999(
                 np.array(
                     [
@@ -460,7 +461,7 @@ tonemapping_operator_Tumblin1999` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -476,7 +477,7 @@ tonemapping_operator_Reinhard2004` definition unit tests methods.
 tonemapping_operator_Reinhard2004` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_Reinhard2004(
                 np.array(
                     [
@@ -507,7 +508,7 @@ tonemapping_operator_Reinhard2004` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=1e-6,
         )
 
 
@@ -523,7 +524,7 @@ tonemapping_operator_filmic` definition unit tests methods.
 tonemapping_operator_filmic` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             tonemapping_operator_filmic(
                 np.array(
                     [
@@ -558,7 +559,7 @@ tonemapping_operator_filmic` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

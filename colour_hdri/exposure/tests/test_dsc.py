@@ -4,6 +4,7 @@
 import unittest
 
 import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri.exposure import (
     arithmetic_mean_focal_plane_exposure,
@@ -42,14 +43,14 @@ class TestQFactor(unittest.TestCase):
     def test_q_factor(self):
         """Test :func:`colour_hdri.exposure.dsc.q_factor` definition."""
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             q_factor(
                 np.array([9 / 10, 8 / 10, 9 / 10]),
                 np.array([98 / 100, 98 / 100, 94 / 100]),
                 np.array([10, 10, 20]),
             ),
             np.array([0.65157483, 0.57917763, 0.51808797]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -62,7 +63,7 @@ class TestFocalPlaneExposure(unittest.TestCase):
     def test_focal_plane_exposure(self):
         """Test :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition."""
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             focal_plane_exposure(
                 np.array([4000, 2000, 1000]),
                 np.array([8, 5.6, 2.8]),
@@ -75,7 +76,7 @@ class TestFocalPlaneExposure(unittest.TestCase):
                 10,
             ),
             np.array([0.16439371, 0.08810904, 0.09310904]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -91,14 +92,14 @@ arithmetic_mean_focal_plane_exposure` definition unit tests methods.
 arithmetic_mean_focal_plane_exposure` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             arithmetic_mean_focal_plane_exposure(
                 np.array([4000, 2000, 1000]),
                 np.array([8, 5.6, 2.8]),
                 np.array([1 / 250, 1 / 500, 1 / 1000]),
             ),
             np.array([0.16289371, 0.08310904, 0.08310904]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -114,7 +115,7 @@ saturation_based_speed_focal_plane_exposure` definition unit tests methods.
 saturation_based_speed_focal_plane_exposure` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             saturation_based_speed_focal_plane_exposure(
                 np.array([4000, 2000, 1000]),
                 np.array([8, 5.6, 2.8]),
@@ -128,7 +129,7 @@ saturation_based_speed_focal_plane_exposure` definition.
                 10,
             ),
             np.array([0.21076116, 0.90368241, 1.90992892]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -144,12 +145,12 @@ class TestExposureIndexValues(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             exposure_index_values(
                 np.array([0.16439371, 0.08810904, 0.09310904])
             ),
             np.array([60.82957797, 113.49573211, 107.40095699]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -165,14 +166,14 @@ class TestExposureValue100(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             exposure_value_100(
                 np.array([8, 5.6, 2.8]),
                 np.array([1 / 250, 1 / 500, 1 / 1000]),
                 np.array([100, 800, 1600]),
             ),
             np.array([13.96578428, 10.93663794, 8.93663794]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -189,7 +190,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition unit tests
 photometric_exposure_scale_factor_Lagarde2014` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             photometric_exposure_scale_factor_Lagarde2014(
                 np.array([13.96578428, 10.93663794, 8.93663794]),
                 np.array([9 / 10, 8 / 10, 9 / 10]),
@@ -197,7 +198,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
                 np.array([10, 10, 20]),
             ),
             np.array([0.00005221, 0.00037884, 0.00135554]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

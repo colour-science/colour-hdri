@@ -4,6 +4,7 @@
 import unittest
 
 import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri.models import camera_space_to_RGB, camera_space_to_sRGB
 
@@ -29,7 +30,7 @@ class TestCameraSpaceToRGB(unittest.TestCase):
     def test_camera_space_to_RGB(self):
         """Test :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition."""
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             camera_space_to_RGB(
                 np.array([0.80660, 0.81638, 0.65885]),
                 np.array(
@@ -48,7 +49,7 @@ class TestCameraSpaceToRGB(unittest.TestCase):
                 ),
             ),
             np.array([0.75641808, 0.86831924, 0.60445896]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -61,7 +62,7 @@ class TestCameraSpaceTosRGB(unittest.TestCase):
     def test_camera_space_to_sRGB(self):
         """Test :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition."""
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             camera_space_to_sRGB(
                 np.array([0.80660, 0.81638, 0.65885]),
                 np.array(
@@ -73,7 +74,7 @@ class TestCameraSpaceTosRGB(unittest.TestCase):
                 ),
             ),
             np.array([0.75643502, 0.86831555, 0.60447061]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

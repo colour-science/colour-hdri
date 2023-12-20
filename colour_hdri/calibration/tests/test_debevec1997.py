@@ -78,7 +78,6 @@ class TestGSolve(unittest.TestCase):
                         ROOT_RESOURCES_CALIBRATION, f"test_g_solve_g_{i}.npy"
                     )
                 ),
-                rtol=0.001,
                 atol=0.001,
             )
 
@@ -90,7 +89,6 @@ class TestGSolve(unittest.TestCase):
                         ROOT_RESOURCES_CALIBRATION, f"test_g_solve_lE_{i}.npy"
                     )
                 ),
-                rtol=0.001,
                 atol=0.001,
             )
 
@@ -118,7 +116,6 @@ camera_response_functions_Debevec1997` definition.
                     "test_camera_response_function_Debevec1997_crfs.npy",
                 )
             ),
-            rtol=0.00001,
             atol=0.00001,
         )
 

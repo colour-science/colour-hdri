@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from fractions import Fraction
 
 import numpy as np
-from colour.constants import DEFAULT_FLOAT_DTYPE
+from colour.constants import DTYPE_FLOAT_DEFAULT
 from colour.hints import (
     DTypeFloat,
     DTypeReal,
@@ -137,7 +137,7 @@ def parse_exif_number(
         Parsed EXIF tag value.
     """
 
-    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
+    dtype = optional(dtype, DTYPE_FLOAT_DEFAULT)
 
     return dtype(exif_tag.value)  # pyright: ignore
 
@@ -161,7 +161,7 @@ def parse_exif_fraction(
         Parsed EXIF tag value.
     """
 
-    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
+    dtype = optional(dtype, DTYPE_FLOAT_DEFAULT)
 
     value = (
         exif_tag.value
@@ -195,7 +195,7 @@ def parse_exif_array(
         Parsed EXIF tag value.
     """
 
-    dtype = optional(dtype, DEFAULT_FLOAT_DTYPE)
+    dtype = optional(dtype, DTYPE_FLOAT_DEFAULT)
 
     value = (
         exif_tag.value if exif_tag.value is None else exif_tag.value.split()

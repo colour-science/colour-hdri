@@ -13,6 +13,7 @@ from __future__ import annotations
 import unittest
 
 import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 from colour.hints import NDArrayFloat
 
 from colour_hdri.models import (
@@ -117,44 +118,44 @@ class TestMatrixInterpolated(unittest.TestCase):
                 [-0.13369466, 0.17678740, 0.66540452],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_interpolated(
                 5000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_interpolated(
                 2850, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_1,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_interpolated(
                 1000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_1,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_interpolated(
                 6500, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_2,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_interpolated(
                 10000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
             ),
             M_COLOR_MATRIX_2,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -170,7 +171,7 @@ xy_to_camera_neutral` definition unit tests methods.
 xy_to_camera_neutral` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -182,10 +183,10 @@ xy_to_camera_neutral` definition.
                 ANALOG_BALANCE,
             ),
             np.array([0.41306999, 1.00000000, 0.64646500]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -197,10 +198,10 @@ xy_to_camera_neutral` definition.
                 ANALOG_BALANCE,
             ),
             np.array([0.42696744, 1.00000000, 0.63712786]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             xy_to_camera_neutral(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -212,7 +213,7 @@ xy_to_camera_neutral` definition.
                 ANALOG_BALANCE,
             ),
             np.array([0.39667111, 1.00000000, 0.62474378]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -228,7 +229,7 @@ camera_neutral_to_xy` definition unit tests methods.
 camera_neutral_to_xy` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             camera_neutral_to_xy(
                 np.array([0.41306999, 1.00000000, 0.64646500]),
                 2850,
@@ -240,10 +241,10 @@ camera_neutral_to_xy` definition.
                 ANALOG_BALANCE,
             ),
             np.array([0.32816244, 0.34698169]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             camera_neutral_to_xy(
                 np.array([0.42696744, 1.00000000, 0.63712786]),
                 2850,
@@ -255,10 +256,10 @@ camera_neutral_to_xy` definition.
                 ANALOG_BALANCE,
             ),
             np.array([0.32816244, 0.34698169]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             camera_neutral_to_xy(
                 np.array([0.39667111, 1.00000000, 0.62474378]),
                 2850,
@@ -270,7 +271,7 @@ camera_neutral_to_xy` definition.
                 ANALOG_BALANCE,
             ),
             np.array([0.32816244, 0.34698169]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -292,7 +293,7 @@ matrix_XYZ_to_camera_space` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -304,7 +305,7 @@ matrix_XYZ_to_camera_space` definition.
                 ANALOG_BALANCE,
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         M_reference = np.array(
@@ -314,7 +315,7 @@ matrix_XYZ_to_camera_space` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -326,7 +327,7 @@ matrix_XYZ_to_camera_space` definition.
                 ANALOG_BALANCE,
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         M_reference = np.array(
@@ -336,7 +337,7 @@ matrix_XYZ_to_camera_space` definition.
                 [-0.14199759, 0.18561614, 0.66524555],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_XYZ_to_camera_space(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -348,7 +349,7 @@ matrix_XYZ_to_camera_space` definition.
                 ANALOG_BALANCE,
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -371,7 +372,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -385,7 +386,7 @@ matrix_camera_space_to_XYZ` definition.
                 M_FORWARD_MATRIX_2,
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         M_reference = np.array(
@@ -395,7 +396,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -409,7 +410,7 @@ matrix_camera_space_to_XYZ` definition.
                 M_FORWARD_MATRIX_2,
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         M_reference = np.array(
@@ -419,7 +420,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.12225531, -0.15620000, 1.43983046],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -433,7 +434,7 @@ matrix_camera_space_to_XYZ` definition.
                 M_FORWARD_MATRIX_2,
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         M_reference = np.array(
@@ -443,7 +444,7 @@ matrix_camera_space_to_XYZ` definition.
                 [0.13472434, -0.17097714, 1.40232276],
             ]
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             matrix_camera_space_to_XYZ(
                 np.array([0.32816244, 0.34698169]),
                 2850,
@@ -457,7 +458,7 @@ matrix_camera_space_to_XYZ` definition.
                 np.identity(3),
             ),
             M_reference,
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

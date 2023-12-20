@@ -9,6 +9,7 @@ import os
 import unittest
 
 import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.distortion import (
@@ -66,7 +67,7 @@ class TestApplyRadialGradient(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             apply_radial_gradient(np.ones([5, 7])),
             np.array(
                 [
@@ -117,7 +118,7 @@ class TestApplyRadialGradient(unittest.TestCase):
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -134,7 +135,7 @@ class TestParabolic2DFunction(unittest.TestCase):
         """
 
         x_1, y_1 = np.meshgrid(np.linspace(0, 1, 5), np.linspace(0, 1, 7))
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             parabolic_2D_function((x_1, y_1), -0.5, 0, 1, -0.5, 0, 1),
             np.array(
                 [
@@ -189,7 +190,7 @@ class TestParabolic2DFunction(unittest.TestCase):
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -206,7 +207,7 @@ class TestHyperbolicCosine2DFunction(unittest.TestCase):
         """
 
         x_1, y_1 = np.meshgrid(np.linspace(0, 1, 5), np.linspace(0, 1, 7))
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             hyperbolic_cosine_2D_function((x_1, y_1), 1, -0.5, 1, -0.5, 1),
             np.array(
                 [
@@ -261,7 +262,7 @@ class TestHyperbolicCosine2DFunction(unittest.TestCase):
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -277,12 +278,12 @@ class TestVignettePrincipalPoint(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             vignette_principal_point(
                 apply_radial_gradient(np.ones([50, 70, 3]))
             ),
             np.array([0.49000000, 0.49285714]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -301,7 +302,7 @@ characterise_vignette_2D_function` definition.
         parameters, principal_point = characterise_vignette_2D_function(
             apply_radial_gradient(np.ones([50, 70, 3]))
         ).values
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             parameters,
             np.array(
                 [
@@ -331,19 +332,19 @@ characterise_vignette_2D_function` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             principal_point,
             np.array([0.49000000, 0.49285714]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         parameters, principal_point = characterise_vignette_2D_function(
             apply_radial_gradient(np.ones([50, 70, 3])),
             function="Hyperbolic Cosine",
         ).values
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             parameters,
             np.array(
                 [
@@ -370,12 +371,12 @@ characterise_vignette_2D_function` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             principal_point,
             np.array([0.49000000, 0.49285714]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -394,7 +395,7 @@ class TestCorrectVignette2DFunction(unittest.TestCase):
         image = apply_radial_gradient(np.ones([5, 7]))
         characterisation_data = characterise_vignette_2D_function(image)
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             correct_vignette_2D_function(image, characterisation_data),
             np.array(
                 [
@@ -445,14 +446,14 @@ class TestCorrectVignette2DFunction(unittest.TestCase):
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         characterisation_data = characterise_vignette_2D_function(
             image, function="Hyperbolic Cosine"
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             correct_vignette_2D_function(
                 image, characterisation_data, function="Hyperbolic Cosine"
             ),
@@ -505,7 +506,7 @@ class TestCorrectVignette2DFunction(unittest.TestCase):
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -525,7 +526,7 @@ characterise_vignette_bivariate_spline` definition.
             apply_radial_gradient(np.ones([200, 300, 3]))
         ).values
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             parameters,
             np.load(
                 os.path.join(
@@ -533,12 +534,12 @@ characterise_vignette_bivariate_spline` definition.
                     "test_characterise_vignette_bivariate_spline.npy",
                 )
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             principal_point,
             np.array([0.49750000, 0.49833333]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -557,7 +558,7 @@ correct_vignette_bivariate_spline` definition.
         image = apply_radial_gradient(np.ones([5, 7]))
         characterisation_data = characterise_vignette_bivariate_spline(image)
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             correct_vignette_bivariate_spline(image, characterisation_data),
             np.array(
                 [
@@ -608,7 +609,7 @@ correct_vignette_bivariate_spline` definition.
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -624,7 +625,7 @@ class TestRadialSamplingFunction(unittest.TestCase):
         definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             radial_sampling_function(),
             np.array(
                 [
@@ -819,7 +820,7 @@ class TestRadialSamplingFunction(unittest.TestCase):
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -835,7 +836,7 @@ class TestVignetteSamplingCoordinates(unittest.TestCase):
 vignette_sampling_coordinates` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             vignette_sampling_coordinates(
                 principal_point=(0.55, 0.55), aspect_ratio=1.5
             ),
@@ -1006,7 +1007,7 @@ vignette_sampling_coordinates` definition.
                     [0.05501353, 0.55007621],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -1026,7 +1027,7 @@ class TestCharacteriseVignetteRBF(unittest.TestCase):
             apply_radial_gradient(np.ones([200, 300, 3]))
         ).values
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             parameters,
             np.array(
                 [
@@ -1203,12 +1204,12 @@ class TestCharacteriseVignetteRBF(unittest.TestCase):
                     [0.39424641, 0.39424641, 0.39424641],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             principal_point,
             np.array([0.49750000, 0.49833333]),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -1227,7 +1228,7 @@ class TestCorrectVignetteRBF(unittest.TestCase):
         image = apply_radial_gradient(np.ones([5, 7]))
         characterisation_data = characterise_vignette_RBF(image)
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             correct_vignette_RBF(image, characterisation_data),
             np.array(
                 [
@@ -1278,7 +1279,7 @@ class TestCorrectVignetteRBF(unittest.TestCase):
                     ],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
