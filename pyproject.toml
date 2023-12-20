@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "colour-hdri"
-version = "0.2.2"
+version = "0.2.3"
 description = "HDRI processing algorithms for Python"
 license = "BSD-3-Clause"
 authors = [ "Colour Developers <colour-developers@colour-science.org>" ]
