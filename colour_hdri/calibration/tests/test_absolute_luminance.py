@@ -6,16 +6,17 @@ Define the unit tests for the
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
 from colour import read_image
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import (
-    upper_hemisphere_illuminance_weights_Lagarde2016,
     absolute_luminance_calibration_Lagarde2016,
+    upper_hemisphere_illuminance_weights_Lagarde2016,
 )
 from colour_hdri.calibration.absolute_luminance import (
     upper_hemisphere_illuminance_Lagarde2016,
@@ -53,26 +54,26 @@ upper_hemisphere_illuminance_Lagarde2016` definition unit tests methods.
 upper_hemisphere_illuminance_Lagarde2016` definition.
         """
 
-        self.assertAlmostEqual(
+        np.testing.assert_allclose(
             upper_hemisphere_illuminance_Lagarde2016(np.ones((16, 32, 3))),
             2.934469165342606,
-            places=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        self.assertAlmostEqual(
+        np.testing.assert_allclose(
             upper_hemisphere_illuminance_Lagarde2016(
                 np.ones((16, 32, 3)) * 10
             ),
             29.344691653426061,
-            places=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        self.assertAlmostEqual(
+        np.testing.assert_allclose(
             upper_hemisphere_illuminance_Lagarde2016(
                 np.ones((16, 32, 3)) * 0.1
             ),
             0.293446916534261,
-            places=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -126,10 +127,10 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition.
             ]
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             upper_hemisphere_illuminance_weights_Lagarde2016(32, 16),
             np.tile(weights, (1, 16)),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

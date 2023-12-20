@@ -24,5 +24,3 @@ Grossberg (2013)
     :toctree: generated/
 
     samples_Grossberg2003
-
-

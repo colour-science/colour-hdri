@@ -22,18 +22,17 @@ References
 from __future__ import annotations
 
 import numpy as np
-
 from colour.algebra import vector_dot
 from colour.hints import ArrayLike, NDArrayFloat
 from colour.models import (
-    RGB_Colourspace,
-    LCHab_to_Lab,
     Lab_to_LCHab,
     Lab_to_XYZ,
+    LCHab_to_Lab,
+    RGB_Colourspace,
+    RGB_COLOURSPACE_sRGB,
     RGB_to_XYZ,
     XYZ_to_Lab,
     XYZ_to_RGB,
-    RGB_COLOURSPACE_sRGB,
 )
 from colour.utilities import tsplit, tstack
 

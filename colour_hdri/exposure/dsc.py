@@ -23,10 +23,9 @@ References
 from __future__ import annotations
 
 import numpy as np
-
 from colour.hints import ArrayLike, NDArrayFloat
-
 from colour.utilities import as_float, as_float_array
+
 from colour_hdri.exposure import (
     average_luminance,
     luminance_to_exposure_value,

@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import platform
 import re
@@ -13,10 +12,12 @@ import subprocess
 import tempfile
 import unittest
 
+import numpy as np
 from colour import read_image
 from colour.hints import List, NDArrayFloat
 
 from colour_hdri import ROOT_RESOURCES_TESTS
+from colour_hdri.models import camera_space_to_sRGB
 from colour_hdri.process import (
     RAW_CONVERTER,
     RAW_CONVERTER_ARGUMENTS_DEMOSAICING,
@@ -25,7 +26,6 @@ from colour_hdri.recovery import (
     highlights_recovery_blend,
     highlights_recovery_LCHab,
 )
-from colour_hdri.models import camera_space_to_sRGB
 from colour_hdri.utilities import filter_files
 
 __author__ = "Colour Developers"

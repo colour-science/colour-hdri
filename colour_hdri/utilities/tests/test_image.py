@@ -3,13 +3,14 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
+
 from colour_hdri import ROOT_RESOURCES_TESTS
-from colour_hdri.utilities import filter_files
-from colour_hdri.utilities import Image, ImageStack
+from colour_hdri.utilities import Image, ImageStack, filter_files
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -158,14 +159,18 @@ class TestImageStack(unittest.TestCase):
 
         self.assertTupleEqual(self._image_stack.data.shape, (426, 640, 3, 3))
 
-        np.testing.assert_array_almost_equal(
-            self._image_stack.f_number, np.array([8, 8, 8]), decimal=7
+        np.testing.assert_allclose(
+            self._image_stack.f_number,
+            np.array([8, 8, 8]),
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         self.assertEqual(self._image_stack[0].metadata.f_number, 8)
 
-        np.testing.assert_array_almost_equal(
-            self._image_stack.exposure_time, np.array([0.125, 1, 8]), decimal=7
+        np.testing.assert_allclose(
+            self._image_stack.exposure_time,
+            np.array([0.125, 1, 8]),
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         self.assertEqual(self._image_stack[0].metadata.exposure_time, 0.125)
@@ -190,14 +195,18 @@ class TestImageStack(unittest.TestCase):
 
         self.assertTupleEqual(image_stack.data.shape, (20, 10, 3, 3))
 
-        np.testing.assert_array_almost_equal(
-            image_stack.f_number, np.array([8, 8, 8]), decimal=7
+        np.testing.assert_allclose(
+            image_stack.f_number,
+            np.array([8, 8, 8]),
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         image_stack.f_number = np.array([1, 2, 3])
 
-        np.testing.assert_array_almost_equal(
-            image_stack.f_number, np.array([1, 2, 3]), decimal=7
+        np.testing.assert_allclose(
+            image_stack.f_number,
+            np.array([1, 2, 3]),
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         self.assertEqual(image_stack[0].metadata.f_number, 1)
@@ -208,8 +217,10 @@ class TestImageStack(unittest.TestCase):
 
         image_stack.black_level = np.array([2048, 2048, 2048])
 
-        np.testing.assert_array_almost_equal(
-            image_stack.black_level, np.array([2048, 2048, 2048]), decimal=7
+        np.testing.assert_allclose(
+            image_stack.black_level,
+            np.array([2048, 2048, 2048]),
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         self.assertEqual(image_stack[0].metadata.black_level, 2048)

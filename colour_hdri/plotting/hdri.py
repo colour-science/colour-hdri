@@ -12,10 +12,11 @@ from __future__ import annotations
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-
 from colour.hints import Any, ArrayLike, Callable, Tuple
 from colour.plotting import CONSTANTS_COLOUR_STYLE, override_style, render
 from colour.utilities import as_float_array
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 from colour_hdri.exposure import adjust_exposure
 
@@ -38,7 +39,7 @@ def plot_HDRI_strip(
     ev_steps: float = -2,
     cctf_encoding: Callable = CONSTANTS_COLOUR_STYLE.colour.colourspace.cctf_encoding,
     **kwargs: Any,
-) -> Tuple[plt.Figure, plt.Axes]:
+) -> Tuple[Figure, Axes]:
     """
     Plot given HDRI as strip of images of varying exposure.
 

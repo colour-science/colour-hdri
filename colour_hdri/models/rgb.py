@@ -11,7 +11,6 @@ Defines the following *RGB* colourspace transformations:
 from __future__ import annotations
 
 import numpy as np
-
 from colour.algebra import matrix_dot, vector_dot
 from colour.hints import ArrayLike, NDArrayFloat
 from colour.models import RGB_COLOURSPACES

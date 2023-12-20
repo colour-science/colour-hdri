@@ -6,20 +6,21 @@ Define the unit tests for the
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
 from colour import RGB_COLOURSPACES, RGB_luminance, read_image
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
 )
 from colour_hdri.sampling.variance_minimization import (
-    luminance_variance,
     find_regions_variance_minimization_Viriyothai2009,
     highlight_regions_variance_minimization,
+    luminance_variance,
 )
 
 __author__ = "Colour Developers"
@@ -55,7 +56,9 @@ luminance_variance` definition.
 
         a = np.tile(np.arange(5), (5, 1))
 
-        self.assertAlmostEqual(luminance_variance(a), 12.24744871, places=7)
+        np.testing.assert_allclose(
+            luminance_variance(a), 12.24744871, atol=TOLERANCE_ABSOLUTE_TESTS
+        )
 
 
 class TestFindRegionsVarianceMinimizationViriyothai2009(unittest.TestCase):
@@ -149,7 +152,7 @@ highlight_regions_variance_minimization` definition.
 
         Y = RGB_luminance(image, colourspace.primaries, colourspace.whitepoint)
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             highlight_regions_variance_minimization(image, regions),
             read_image(
                 str(
@@ -159,7 +162,7 @@ highlight_regions_variance_minimization` definition.
                     )
                 )
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
@@ -195,7 +198,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         colours = np.array([light[1] for light in lights])
         indexes = np.array([light[2] for light in lights])
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             uvs,
             np.array(
                 [
@@ -217,10 +220,10 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
                     [0.87500000, 0.80078125],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             colours,
             np.array(
                 [
@@ -242,7 +245,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
                     [253.65272349, 50.30476046, 303.96245855],
                 ]
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_array_equal(

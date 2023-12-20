@@ -12,10 +12,11 @@ Defines various image data and metadata utilities classes:
 from __future__ import annotations
 
 import logging
-import numpy as np
 from collections.abc import MutableSequence
 from dataclasses import dataclass, field, fields
 
+import numpy as np
+from colour import read_image
 from colour.hints import (
     Any,
     ArrayLike,
@@ -26,7 +27,6 @@ from colour.hints import (
     Sequence,
     cast,
 )
-from colour import read_image
 from colour.utilities import (
     MixinDataclassArray,
     as_float_array,
