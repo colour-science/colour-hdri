@@ -6,17 +6,17 @@ TODO
 
 -   colour_hdri/__init__.py
 
-    -   Line 291 : # TODO: Remove legacy printing support when deemed appropriate.
+    -   Line 287 : # TODO: Remove legacy printing support when deemed appropriate.
 
 
 -   colour_hdri/tonemapping/global_operators/operators.py
 
-    -   Line 585 : # TODO: Implement automatic *p* and *non-uniform* computations support.
+    -   Line 584 : # TODO: Implement automatic *p* and *non-uniform* computations support.
 
 
 -   colour_hdri/utilities/exif.py
 
-    -   Line 319 : # TODO: Find a better name.
+    -   Line 318 : # TODO: Find a better name.
 
 
 -   colour_hdri/utilities/image.py

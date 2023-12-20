@@ -23,9 +23,8 @@ References
 from __future__ import annotations
 
 import numpy as np
-
-from colour.utilities import as_float_array, tsplit, tstack, warning
 from colour.hints import ArrayLike, Callable, NDArrayFloat
+from colour.utilities import as_float_array, tsplit, tstack, warning
 
 from colour_hdri.exposure import average_luminance
 from colour_hdri.generation import weighting_function_Debevec1997

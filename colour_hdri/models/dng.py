@@ -111,7 +111,6 @@ References
 from __future__ import annotations
 
 import numpy as np
-
 from colour.adaptation import matrix_chromatic_adaptation_VonKries
 from colour.algebra import (
     is_identity,
@@ -119,11 +118,11 @@ from colour.algebra import (
     matrix_dot,
     vector_dot,
 )
-from colour.hints import ArrayLike, Literal, NDArrayFloat
 from colour.constants import EPSILON
+from colour.hints import ArrayLike, Literal, NDArrayFloat
 from colour.models import UCS_to_uv, XYZ_to_UCS, XYZ_to_xy, xy_to_XYZ
-from colour.utilities import as_float_array, tstack
 from colour.temperature import uv_to_CCT_Robertson1968
+from colour.utilities import as_float_array, tstack
 
 from colour_hdri.models import CCS_ILLUMINANT_ADOBEDNG
 

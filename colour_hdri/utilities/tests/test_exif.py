@@ -3,26 +3,29 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import shutil
 import tempfile
 import unittest
 
+import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
+
 from colour_hdri import ROOT_RESOURCES_TESTS
-from colour_hdri.utilities import filter_files, vivified_to_dict
 from colour_hdri.utilities import (
     EXIFTag,
-    parse_exif_string,
-    parse_exif_number,
-    parse_exif_fraction,
+    copy_exif_tags,
+    delete_exif_tags,
+    filter_files,
     parse_exif_array,
     parse_exif_data,
-    read_exif_tags,
-    copy_exif_tags,
-    update_exif_tags,
-    delete_exif_tags,
+    parse_exif_fraction,
+    parse_exif_number,
+    parse_exif_string,
     read_exif_tag,
+    read_exif_tags,
+    update_exif_tags,
+    vivified_to_dict,
     write_exif_tag,
 )
 
@@ -95,13 +98,17 @@ class TestParseExifFraction(unittest.TestCase):
         """
 
         exif_tag = EXIFTag("EXIF", "Exposure Time", "0.01666666667", "33434")
-        self.assertAlmostEqual(
-            parse_exif_fraction(exif_tag), 0.01666666, places=7
+        np.testing.assert_allclose(
+            parse_exif_fraction(exif_tag),
+            0.01666666,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         exif_tag = EXIFTag("EXIF", "Exposure Time", "10/4000", "33434")
-        self.assertAlmostEqual(
-            parse_exif_fraction(exif_tag), 0.00250000, places=7
+        np.testing.assert_allclose(
+            parse_exif_fraction(exif_tag),
+            0.00250000,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 

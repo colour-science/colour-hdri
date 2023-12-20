@@ -13,13 +13,13 @@ and *dcraw*:
 from __future__ import annotations
 
 import logging
-import numpy as np
 import os
 import platform
 import re
 import shlex
 import subprocess
 
+import numpy as np
 from colour.hints import Callable, List, Mapping, Sequence, Tuple
 from colour.utilities import CanonicalMapping, optional
 from colour.utilities.documentation import (

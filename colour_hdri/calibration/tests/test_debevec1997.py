@@ -6,16 +6,16 @@ module.
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
 from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import (
-    g_solve,
     camera_response_functions_Debevec1997,
+    g_solve,
 )
 from colour_hdri.exposure import average_luminance
 from colour_hdri.sampling import samples_Grossberg2003
@@ -78,7 +78,6 @@ class TestGSolve(unittest.TestCase):
                         ROOT_RESOURCES_CALIBRATION, f"test_g_solve_g_{i}.npy"
                     )
                 ),
-                rtol=0.001,
                 atol=0.001,
             )
 
@@ -90,7 +89,6 @@ class TestGSolve(unittest.TestCase):
                         ROOT_RESOURCES_CALIBRATION, f"test_g_solve_lE_{i}.npy"
                     )
                 ),
-                rtol=0.001,
                 atol=0.001,
             )
 
@@ -118,7 +116,6 @@ camera_response_functions_Debevec1997` definition.
                     "test_camera_response_function_Debevec1997_crfs.npy",
                 )
             ),
-            rtol=0.00001,
             atol=0.00001,
         )
 

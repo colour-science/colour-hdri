@@ -6,10 +6,11 @@ module.
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import unittest
 
+import numpy as np
+from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
@@ -53,14 +54,14 @@ samples_Grossberg2003` definition unit tests methods.
 samples_Grossberg2003` definition.
         """
 
-        np.testing.assert_array_almost_equal(
+        np.testing.assert_allclose(
             samples_Grossberg2003(ImageStack.from_files(IMAGES_JPG).data),
             np.load(
                 os.path.join(
                     ROOT_RESOURCES_SAMPLING, "test_samples_Grossberg2003.npy"
                 )
             ),
-            decimal=7,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
