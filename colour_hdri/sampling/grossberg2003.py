@@ -46,7 +46,7 @@ def samples_Grossberg2003(
     image_stack
         Stack of single channel or multi-channel floating point images.
     samples
-        Samples count.
+        Sample count.
     n
         Histograms bins count.
 

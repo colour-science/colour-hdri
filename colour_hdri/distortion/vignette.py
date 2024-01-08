@@ -564,7 +564,7 @@ def characterise_vignette_bivariate_spline(
         Standard deviation of the gaussian filtering kernel applied on the
         resampled image at given ``samples`` count.
     samples
-        Samples count of the resampled image on the long edge.
+        Sample count of the resampled image on the long edge.
     degree
         Degree of the bivariate spline.
 
@@ -1007,7 +1007,7 @@ def characterise_vignette(
         resampled image at given ``samples`` count.
     samples
         {:func:`colour_hdri.distortion.characterise_vignette_bivariate_spline`},
-        Samples count of the resampled image on the long edge.
+        Sample count of the resampled image on the long edge.
     degree
         {:func:`colour_hdri.distortion.characterise_vignette_bivariate_spline`},
         Degree of the bivariate spline.
