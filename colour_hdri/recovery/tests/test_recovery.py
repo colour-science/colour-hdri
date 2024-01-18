@@ -68,8 +68,8 @@ matrix_XYZ_to_camera_space: NDArrayFloat = np.array(
 
 class TestHighlightsRecoveryBlend(unittest.TestCase):
     """
-    Define :func:`colour_hdri.recovery.highlights.\
-highlights_recovery_blend` definition unit tests methods.
+    Define :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`
+    definition unit tests methods.
     """
 
     def setUp(self):
@@ -130,8 +130,8 @@ highlights_recovery_blend` definition unit tests methods.
 
 class TestHighlightsRecoveryLCHab(unittest.TestCase):
     """
-    Define :func:`colour_hdri.recovery.highlights.\
-highlights_recovery_LCHab` definition unit tests methods.
+    Define :func:`colour_hdri.recovery.highlights.highlights_recovery_LCHab`
+    definition unit tests methods.
     """
 
     def setUp(self):
