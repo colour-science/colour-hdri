@@ -23,8 +23,8 @@ Optional Features Dependencies
 ------------------------------
 
 - `colour-demosaicing <https://pypi.org/project/colour-demosaicing>`__
-- `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
-- `dcraw <https://www.cybercom.net/~dcoffin/dcraw>`__
+- `Adobe DNG Converter <https://helpx.adobe.com/nz/camera-raw/using/adobe-dng-converter.html>`__
+- `dcraw <https://dechifro.org/dcraw/>`__
 - `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool>`__
 - `rawpy <https://pypi.org/project/rawpy>`__
 

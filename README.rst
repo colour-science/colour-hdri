@@ -12,7 +12,7 @@ Colour - HDRI
     :target: https://coveralls.io/r/colour-science/colour-hdri
     :alt: Coverage Status
 .. |codacy| image:: https://img.shields.io/codacy/grade/f422dc0703dd4653b2b766217c745813/develop.svg?style=flat-square
-    :target: https://www.codacy.com/app/colour-science/colour-hdri
+    :target: https://app.codacy.com/gh/colour-science/colour-hdri
     :alt: Code Grade
 .. |version| image:: https://img.shields.io/pypi/v/colour-hdri.svg?style=flat-square
     :target: https://pypi.org/project/colour-hdri
@@ -84,8 +84,8 @@ Optional Features Dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `colour-demosaicing <https://pypi.org/project/colour-demosaicing>`__
-- `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
-- `dcraw <https://www.cybercom.net/~dcoffin/dcraw>`__
+- `Adobe DNG Converter <https://helpx.adobe.com/nz/camera-raw/using/adobe-dng-converter.html>`__
+- `dcraw <https://dechifro.org/dcraw/>`__
 - `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool>`__
 - `rawpy <https://pypi.org/project/rawpy>`__
 
