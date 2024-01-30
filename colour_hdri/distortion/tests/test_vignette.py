@@ -279,9 +279,7 @@ class TestVignettePrincipalPoint(unittest.TestCase):
         """
 
         np.testing.assert_allclose(
-            vignette_principal_point(
-                apply_radial_gradient(np.ones([50, 70, 3]))
-            ),
+            vignette_principal_point(apply_radial_gradient(np.ones([50, 70, 3]))),
             np.array([0.49000000, 0.49285714]),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )

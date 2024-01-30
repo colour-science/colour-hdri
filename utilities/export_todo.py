@@ -40,9 +40,7 @@ About
 https://opensource.org/licenses/BSD-3-Clause
 | `https://github.com/colour-science/colour-hdri \
 <https://github.com/colour-science/colour-hdri>`__
-"""[
-    1:
-]
+"""[1:]
 
 
 def extract_todo_items(root_directory: str) -> dict:

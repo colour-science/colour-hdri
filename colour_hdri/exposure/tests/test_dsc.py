@@ -146,9 +146,7 @@ class TestExposureIndexValues(unittest.TestCase):
         """
 
         np.testing.assert_allclose(
-            exposure_index_values(
-                np.array([0.16439371, 0.08810904, 0.09310904])
-            ),
+            exposure_index_values(np.array([0.16439371, 0.08810904, 0.09310904])),
             np.array([60.82957797, 113.49573211, 107.40095699]),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )

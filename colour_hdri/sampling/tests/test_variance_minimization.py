@@ -166,9 +166,7 @@ highlight_regions_variance_minimization` definition.
         )
 
 
-class TestLightProbeSamplingVarianceMinimizationViriyothai2009(
-    unittest.TestCase
-):
+class TestLightProbeSamplingVarianceMinimizationViriyothai2009(unittest.TestCase):
     """
     Define :func:`colour_hdri.sampling.variance_minimization.\
 light_probe_sampling_variance_minimization_Viriyothai2009` definition unit
@@ -191,9 +189,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
             )
         )
 
-        lights = light_probe_sampling_variance_minimization_Viriyothai2009(
-            image
-        )
+        lights = light_probe_sampling_variance_minimization_Viriyothai2009(image)
         uvs = np.array([light[0] for light in lights])
         colours = np.array([light[1] for light in lights])
         indexes = np.array([light[2] for light in lights])

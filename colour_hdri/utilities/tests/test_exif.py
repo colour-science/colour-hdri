@@ -51,9 +51,7 @@ __all__ = [
     "TestWriteExifTag",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 
 class TestParseExifString(unittest.TestCase):
@@ -170,9 +168,7 @@ class TestParseExifData(unittest.TestCase):
         """Test :func:`colour_hdri.utilities.exif.parse_exif_data` definition."""
 
         self.assertListEqual(
-            parse_exif_data(
-                "[XMP]               - Description                     :"
-            ),
+            parse_exif_data("[XMP]               - Description                     :"),
             ["XMP", "-", "Description", ""],
         )
 
@@ -200,9 +196,7 @@ class TestReadExifTags(unittest.TestCase):
     def test_read_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.read_exif_tags` definition."""
 
-        test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[
-            0
-        ]
+        test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
         exif_data = vivified_to_dict(read_exif_tags(test_jpg_image))
 
         self.assertIsInstance(exif_data, type({}))
@@ -224,16 +218,8 @@ class TestReadExifTags(unittest.TestCase):
         self.assertListEqual(
             sorted(exif_data["EXIF"].values(), key=lambda x: x[0].name),
             [
-                [
-                    EXIFTag(
-                        "EXIF", "Camera Model Name", "EOS 5D Mark II", "272"
-                    )
-                ],
-                [
-                    EXIFTag(
-                        "EXIF", "Create Date", "2015:09:19 03:39:20", "36868"
-                    )
-                ],
+                [EXIFTag("EXIF", "Camera Model Name", "EOS 5D Mark II", "272")],
+                [EXIFTag("EXIF", "Create Date", "2015:09:19 03:39:20", "36868")],
                 [
                     EXIFTag(
                         "EXIF",
@@ -279,9 +265,7 @@ class TestCopyExifTags(unittest.TestCase):
     def test_copy_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.copy_exif_tags` definition."""
 
-        reference_jpg_image = filter_files(
-            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
-        )[0]
+        reference_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
         test_jpg_image = os.path.join(
             self._temporary_directory, os.path.basename(reference_jpg_image)
         )
@@ -313,9 +297,7 @@ class TestUpdateExifTags(unittest.TestCase):
     def test_update_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.update_exif_tags` definition."""
 
-        reference_jpg_images = filter_files(
-            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
-        )
+        reference_jpg_images = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
         test_jpg_images = []
         for reference_jpg_image in reference_jpg_images:
             test_jpg_image = os.path.join(
@@ -351,9 +333,7 @@ class TestDeleteExifTags(unittest.TestCase):
     def test_delete_exif_tags(self):
         """Test :func:`colour_hdri.utilities.exif.delete_exif_tags` definition."""
 
-        reference_jpg_image = filter_files(
-            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
-        )[0]
+        reference_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
         test_jpg_image = os.path.join(
             self._temporary_directory, os.path.basename(reference_jpg_image)
         )
@@ -373,9 +353,7 @@ class TestReadExifTag(unittest.TestCase):
     def test_read_exif_tag(self):
         """Test :func:`colour_hdri.utilities.exif.read_exif_tag` definition."""
 
-        test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[
-            0
-        ]
+        test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
 
         self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "8.0")
         self.assertEqual(read_exif_tag(test_jpg_image, "ExposureTime"), "1/8")
@@ -401,9 +379,7 @@ class TestWriteExifTag(unittest.TestCase):
     def test_write_exif_tag(self):
         """Test :func:`colour_hdri.utilities.exif.write_exif_tag` definition."""
 
-        reference_jpg_image = filter_files(
-            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
-        )[0]
+        reference_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
         test_jpg_image = os.path.join(
             self._temporary_directory, os.path.basename(reference_jpg_image)
         )

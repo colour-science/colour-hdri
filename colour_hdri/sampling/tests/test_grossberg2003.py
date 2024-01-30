@@ -31,9 +31,7 @@ __all__ = [
     "TestSamplesGrossberg2003",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 ROOT_RESOURCES_SAMPLING: str = os.path.join(
     ROOT_RESOURCES_TESTS, "colour_hdri", "sampling"
@@ -57,9 +55,7 @@ samples_Grossberg2003` definition.
         np.testing.assert_allclose(
             samples_Grossberg2003(ImageStack.from_files(IMAGES_JPG).data),
             np.load(
-                os.path.join(
-                    ROOT_RESOURCES_SAMPLING, "test_samples_Grossberg2003.npy"
-                )
+                os.path.join(ROOT_RESOURCES_SAMPLING, "test_samples_Grossberg2003.npy")
             ),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )

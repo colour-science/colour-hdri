@@ -80,8 +80,6 @@ def samples_Grossberg2003(
     for i in np.arange(samples):
         for j in np.arange(channels_c):
             for k, cdf in enumerate(cdf_i):
-                samples_cdf_i[i, k, j] = np.argmin(
-                    np.abs(cdf[:, j] - samples_u[i])
-                )
+                samples_cdf_i[i, k, j] = np.argmin(np.abs(cdf[:, j] - samples_u[i]))
 
     return samples_cdf_i

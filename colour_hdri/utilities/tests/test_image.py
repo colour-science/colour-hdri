@@ -24,9 +24,7 @@ __all__ = [
     "TestImageStack",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 
 class TestImage(unittest.TestCase):
@@ -38,9 +36,7 @@ class TestImage(unittest.TestCase):
     def setUp(self):
         """Initialise the common tests attributes."""
 
-        self._test_jpg_image = filter_files(
-            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
-        )[0]
+        self._test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
 
     def test_required_attributes(self):
         """Test the presence of required attributes."""
@@ -87,9 +83,7 @@ class TestImageStack(unittest.TestCase):
     def setUp(self):
         """Initialise the common tests attributes."""
 
-        self._test_jpg_images = filter_files(
-            ROOT_RESOURCES_FROBISHER_001, ("jpg",)
-        )
+        self._test_jpg_images = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
 
         self._image_stack = ImageStack().from_files(self._test_jpg_images)
 

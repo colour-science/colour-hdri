@@ -246,9 +246,7 @@ def camera_response_functions_Debevec1997(
 
     w = partial(weighting_function, **weighting_function_kwargs)
 
-    g_c = [
-        g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])
-    ]
+    g_c = [g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])]
     crfs = np.exp(tstack(np.array(g_c)))
 
     if extrapolating_function is not None:

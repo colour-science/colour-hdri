@@ -38,13 +38,9 @@ __all__ = [
     "TestConvertDngFilesToIntermediateFiles",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
-ROOT_PROCESS: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "colour_hdri", "process"
-)
+ROOT_PROCESS: str = os.path.join(ROOT_RESOURCES_TESTS, "colour_hdri", "process")
 
 IMAGES_RAW: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2",))
 
@@ -78,9 +74,7 @@ convert_raw_files_to_dng_files` definition.
 
         reference_dng_files = sorted(filter_files(ROOT_PROCESS, ("dng",)))
         test_dng_files = sorted(
-            convert_raw_files_to_dng_files(
-                IMAGES_RAW, self._temporary_directory
-            )
+            convert_raw_files_to_dng_files(IMAGES_RAW, self._temporary_directory)
         )
 
         for test_dng_file, reference_dng_file in zip(

@@ -47,9 +47,7 @@ __all__ = [
 _IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 ROOT_RESOURCES_RECOVERY: str = os.path.join(
     ROOT_RESOURCES_TESTS, "colour_hdri", "recovery"
@@ -99,18 +97,16 @@ class TestHighlightsRecoveryBlend(unittest.TestCase):
         command = [
             RAW_CONVERTER,
             *shlex.split(
-                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
-                    raw_file=test_raw_file
-                ),
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
                 posix=not _IS_WINDOWS_PLATFORM,
             ),
         ]
 
         subprocess.call(command)  # noqa: S603
 
-        test_tiff_file = read_image(
-            str(re.sub("\\.CR2$", ".tiff", test_raw_file))
-        )[::10, ::10, :]
+        test_tiff_file = read_image(str(re.sub("\\.CR2$", ".tiff", test_raw_file)))[
+            ::10, ::10, :
+        ]
 
         test_tiff_file *= multipliers
         test_tiff_file = highlights_recovery_blend(test_tiff_file, multipliers)
@@ -161,23 +157,19 @@ class TestHighlightsRecoveryLCHab(unittest.TestCase):
         command = [
             RAW_CONVERTER,
             *shlex.split(
-                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
-                    raw_file=test_raw_file
-                ),
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
                 posix=not _IS_WINDOWS_PLATFORM,
             ),
         ]
 
         subprocess.call(command)  # noqa: S603
 
-        test_tiff_file = read_image(
-            str(re.sub("\\.CR2$", ".tiff", test_raw_file))
-        )[::10, ::10, :]
+        test_tiff_file = read_image(str(re.sub("\\.CR2$", ".tiff", test_raw_file)))[
+            ::10, ::10, :
+        ]
 
         test_tiff_file *= multipliers
-        test_tiff_file = highlights_recovery_LCHab(
-            test_tiff_file, min(multipliers)
-        )
+        test_tiff_file = highlights_recovery_LCHab(test_tiff_file, min(multipliers))
         test_tiff_file = camera_space_to_sRGB(
             test_tiff_file, matrix_XYZ_to_camera_space
         )

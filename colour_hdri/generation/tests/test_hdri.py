@@ -29,9 +29,7 @@ __all__ = [
     "TestImageStackToHDRI",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 ROOT_RESOURCES_GENERATION: str = os.path.join(
     ROOT_RESOURCES_TESTS, "colour_hdri", "generation"
@@ -53,9 +51,7 @@ class TestImageStackToHDRI(unittest.TestCase):
         """
 
         image_stack = ImageStack.from_files(IMAGES_JPG)
-        image_stack.data = RGB_COLOURSPACES["sRGB"].cctf_decoding(
-            image_stack.data
-        )
+        image_stack.data = RGB_COLOURSPACES["sRGB"].cctf_decoding(image_stack.data)
 
         # Lower precision for unit tests under *travis-ci*.
         np.testing.assert_allclose(

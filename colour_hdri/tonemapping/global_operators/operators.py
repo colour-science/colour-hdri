@@ -461,9 +461,7 @@ def tonemapping_operator_logarithmic_mapping(
         RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
     )
     L_max = np.max(L)
-    L_d = as_float_array(
-        (np.log(1 + p * L) / np.log(1 + p * L_max)) ** (1 / q)
-    )
+    L_d = as_float_array((np.log(1 + p * L) / np.log(1 + p * L_max)) ** (1 / q))
 
     return RGB * L_d[..., None] / L[..., None]
 
@@ -657,9 +655,7 @@ def tonemapping_operator_Tumblin1999(
     )
 
     def f(x: float | NDArrayFloat) -> NDArrayFloat:
-        return np.where(
-            x > 100, 2.655, 1.855 + 0.4 * np.log10(x + 2.3 * 10**-5)
-        )
+        return np.where(x > 100, 2.655, 1.855 + 0.4 * np.log10(x + 2.3 * 10**-5))
 
     L_wa = np.exp(np.mean(np.log(L_w + 2.3 * 10**-5)))
     g_d = f(L_da)
@@ -757,11 +753,7 @@ def tonemapping_operator_Reinhard2004(
         if m > 0
         else (
             0.3
-            + 0.7
-            * (
-                (np.log(L_max) - L_lav)
-                / (np.log(L_max) - np.log(L_min)) ** 1.4
-            )
+            + 0.7 * ((np.log(L_max) - L_lav) / (np.log(L_max) - np.log(L_min)) ** 1.4)
         )
     )
 
@@ -857,12 +849,8 @@ def tonemapping_operator_filmic(
         E: float,
         F: float,
     ) -> float | NDArrayFloat:
-        return (
-            (x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)
-        ) - E / F
+        return ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
 
-    return cast(
-        NDArrayFloat, RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F))
-    )
+    return cast(NDArrayFloat, RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F)))

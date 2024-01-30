@@ -61,17 +61,13 @@ upper_hemisphere_illuminance_Lagarde2016` definition.
         )
 
         np.testing.assert_allclose(
-            upper_hemisphere_illuminance_Lagarde2016(
-                np.ones((16, 32, 3)) * 10
-            ),
+            upper_hemisphere_illuminance_Lagarde2016(np.ones((16, 32, 3)) * 10),
             29.344691653426061,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_allclose(
-            upper_hemisphere_illuminance_Lagarde2016(
-                np.ones((16, 32, 3)) * 0.1
-            ),
+            upper_hemisphere_illuminance_Lagarde2016(np.ones((16, 32, 3)) * 0.1),
             0.293446916534261,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
@@ -170,9 +166,7 @@ absolute_luminance_calibration_Lagarde2016` definition.
         )
 
         np.testing.assert_allclose(
-            absolute_luminance_calibration_Lagarde2016(
-                reference_exr_file, 51000
-            ),
+            absolute_luminance_calibration_Lagarde2016(reference_exr_file, 51000),
             test_exr_file,
             rtol=0.0000001,
             atol=0.0000001,

@@ -119,41 +119,31 @@ class TestMatrixInterpolated(unittest.TestCase):
             ]
         )
         np.testing.assert_allclose(
-            matrix_interpolated(
-                5000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
-            ),
+            matrix_interpolated(5000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2),
             M_reference,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_allclose(
-            matrix_interpolated(
-                2850, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
-            ),
+            matrix_interpolated(2850, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2),
             M_COLOR_MATRIX_1,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_allclose(
-            matrix_interpolated(
-                1000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
-            ),
+            matrix_interpolated(1000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2),
             M_COLOR_MATRIX_1,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_allclose(
-            matrix_interpolated(
-                6500, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
-            ),
+            matrix_interpolated(6500, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2),
             M_COLOR_MATRIX_2,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_allclose(
-            matrix_interpolated(
-                10000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2
-            ),
+            matrix_interpolated(10000, 2850, 6500, M_COLOR_MATRIX_1, M_COLOR_MATRIX_2),
             M_COLOR_MATRIX_2,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )

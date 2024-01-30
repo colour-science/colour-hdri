@@ -164,9 +164,7 @@ def apply_radial_gradient(
     return np.squeeze(np.nan_to_num(np.clip(image, 0, 1)))
 
 
-def vignette_principal_point(
-    image: ArrayLike, threshold: float = 0.99
-) -> NDArrayFloat:
+def vignette_principal_point(image: ArrayLike, threshold: float = 0.99) -> NDArrayFloat:
     """
     Return the vignette principal point for given image.
 
@@ -471,9 +469,7 @@ def characterise_vignette_2D_function(
             )[0]
         )
 
-    return DataVignetteCharacterisation(
-        as_float_array(parameters), principal_point
-    )
+    return DataVignetteCharacterisation(as_float_array(parameters), principal_point)
 
 
 def correct_vignette_2D_function(
@@ -503,9 +499,7 @@ def correct_vignette_2D_function(
     --------
     >>> image = apply_radial_gradient(np.ones([5, 7]))
     >>> characterisation_data = characterise_vignette_2D_function(image)
-    >>> np.around(
-    ...     correct_vignette_2D_function(image, characterisation_data), 3
-    ... )
+    >>> np.around(correct_vignette_2D_function(image, characterisation_data), 3)
     array([[-0.   ,  0.122,  0.597,  0.747,  0.781,  1.08 , -0.   ],
            [ 0.   ,  0.413,  0.676,  0.82 ,  0.76 ,  0.576,  0.   ],
            [ 0.   ,  0.468,  0.759,  1.103,  0.838,  0.611,  0.   ],
@@ -521,9 +515,9 @@ def correct_vignette_2D_function(
         '"{0}" function is invalid, it must be one of {1}!',
     )
 
-    vignette_characterisation_function = (
-        VIGNETTE_CHARACTERISATION_2D_FUNCTIONS[function]
-    )
+    vignette_characterisation_function = VIGNETTE_CHARACTERISATION_2D_FUNCTIONS[
+        function
+    ]
 
     parameters, principal_point = characterisation_data.values
 
@@ -650,9 +644,7 @@ def correct_vignette_bivariate_spline(
     --------
     >>> image = apply_radial_gradient(np.ones([5, 7]))
     >>> characterisation_data = characterise_vignette_bivariate_spline(image)
-    >>> np.around(
-    ...     correct_vignette_bivariate_spline(image, characterisation_data), 3
-    ... )
+    >>> np.around(correct_vignette_bivariate_spline(image, characterisation_data), 3)
     array([[  0.   ,   0.345,   3.059,   4.072,   3.059,   0.345,   0.   ],
            [  0.   ,   3.624,   7.304,   9.058,   7.304,   3.624,   0.   ],
            [  0.   ,   4.936,   9.481,  14.032,   9.481,   4.936,   0.   ],
@@ -790,12 +782,12 @@ def vignette_sampling_coordinates(
 
     coordinates = np.vstack(samples)
 
-    coordinates[..., 0] = LinearInterpolator(
-        [0, 0.5, 1], [0, principal_point[0], 1]
-    )(coordinates[..., 0])
-    coordinates[..., 1] = LinearInterpolator(
-        [0, 0.5, 1], [0, principal_point[1], 1]
-    )(coordinates[..., 1])
+    coordinates[..., 0] = LinearInterpolator([0, 0.5, 1], [0, principal_point[0], 1])(
+        coordinates[..., 0]
+    )
+    coordinates[..., 1] = LinearInterpolator([0, 0.5, 1], [0, principal_point[1], 1])(
+        coordinates[..., 1]
+    )
 
     radial_samples = radial_sampling_function(
         samples_rho,
@@ -871,14 +863,10 @@ def characterise_vignette_RBF(
 
     parameters = []
     for i in range(channels):
-        filtered = gaussian_filter(
-            image[..., i], denoise_sigma, truncate=denoise_sigma
-        )
+        filtered = gaussian_filter(image[..., i], denoise_sigma, truncate=denoise_sigma)
         parameters.append(filtered[x_indices, y_indices])
 
-    return DataVignetteCharacterisation(
-        np.transpose(parameters), principal_point
-    )
+    return DataVignetteCharacterisation(np.transpose(parameters), principal_point)
 
 
 def correct_vignette_RBF(
@@ -956,9 +944,7 @@ def correct_vignette_RBF(
             epsilon=epsilon,
         )
 
-        I_v = interpolator(tstack([y_1, x_1]).reshape([-1, 2])).reshape(
-            height, width
-        )
+        I_v = interpolator(tstack([y_1, x_1]).reshape([-1, 2])).reshape(height, width)
 
         image[..., i] /= I_v
 
@@ -1029,9 +1015,7 @@ def characterise_vignette(
     (180, 1)
     >>> principal_point  # doctest: +ELLIPSIS
     array([ 0.4983333...,  0.49875   ])
-    >>> parameters, principal_point = characterise_vignette(
-    ...     image, method="RBF"
-    ... ).values
+    >>> parameters, principal_point = characterise_vignette(image, method="RBF").values
     >>> parameters.shape
     (180, 1)
     >>> principal_point  # doctest: +ELLIPSIS
@@ -1052,9 +1036,7 @@ def characterise_vignette(
     array([ 0.4983333...,  0.49875   ])
     """
 
-    method = validate_method(
-        method, tuple(VIGNETTE_CHARACTERISATION_METHODS.keys())
-    )
+    method = validate_method(method, tuple(VIGNETTE_CHARACTERISATION_METHODS.keys()))
 
     return VIGNETTE_CHARACTERISATION_METHODS[method](image, **kwargs)
 
@@ -1125,21 +1107,15 @@ def correct_vignette(
            [ 0.   ,  0.967,  2.03 ,  2.552,  2.03 ,  0.967,  0.   ],
            [ 0.   ,  0.091,  0.841,  1.134,  0.841,  0.091,  0.   ]])
     >>> characterisation_data = characterise_vignette(image, method="RBF")
-    >>> np.around(
-    ...     correct_vignette(image, characterisation_data, method="RBF"), 3
-    ... )
+    >>> np.around(correct_vignette(image, characterisation_data, method="RBF"), 3)
     array([[ 0.   ,  0.091,  0.841,  1.134,  0.841,  0.091,  0.   ],
            [ 0.   ,  0.967,  2.03 ,  2.552,  2.03 ,  0.967,  0.   ],
            [ 0.   ,  1.323,  2.647,  3.97 ,  2.647,  1.323,  0.   ],
            [ 0.   ,  0.967,  2.03 ,  2.552,  2.03 ,  0.967,  0.   ],
            [ 0.   ,  0.091,  0.841,  1.134,  0.841,  0.091,  0.   ]])
-    >>> characterisation_data = characterise_vignette(
-    ...     image, method="2D Function"
-    ... )
+    >>> characterisation_data = characterise_vignette(image, method="2D Function")
     >>> np.around(
-    ...     correct_vignette(
-    ...         image, characterisation_data, method="2D Function"
-    ...     ),
+    ...     correct_vignette(image, characterisation_data, method="2D Function"),
     ...     3,
     ... )
     array([[-0.   ,  0.122,  0.597,  0.747,  0.781,  1.08 , -0.   ],
@@ -1147,13 +1123,9 @@ def correct_vignette(
            [ 0.   ,  0.468,  0.759,  1.103,  0.838,  0.611,  0.   ],
            [ 0.   ,  0.439,  0.709,  0.858,  0.801,  0.628, -0.   ],
            [-0.   ,  0.193,  0.742,  0.913,  1.049, -0.477, -0.   ]])
-    >>> characterisation_data = characterise_vignette(
-    ...     image, method="Bivariate Spline"
-    ... )
+    >>> characterisation_data = characterise_vignette(image, method="Bivariate Spline")
     >>> np.around(
-    ...     correct_vignette(
-    ...         image, characterisation_data, method="Bivariate Spline"
-    ...     ),
+    ...     correct_vignette(image, characterisation_data, method="Bivariate Spline"),
     ...     3,
     ... )
     array([[  0.   ,   0.345,   3.059,   4.072,   3.059,   0.345,   0.   ],
@@ -1165,6 +1137,4 @@ def correct_vignette(
 
     method = validate_method(method, tuple(VIGNETTE_CORRECTION_METHODS.keys()))
 
-    return VIGNETTE_CORRECTION_METHODS[method](
-        image, characterisation_data, **kwargs
-    )
+    return VIGNETTE_CORRECTION_METHODS[method](image, characterisation_data, **kwargs)
