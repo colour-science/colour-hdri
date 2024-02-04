@@ -77,9 +77,7 @@ def plot_HDRI_strip(
         ev = i * ev_steps
         axis = plt.subplot(grid[i])
         axis.imshow(np.clip(cctf_encoding(adjust_exposure(image, ev)), 0, 1))
-        axis.text(
-            width * 0.05, height - height * 0.05, f"EV {ev}", color=(1, 1, 1)
-        )
+        axis.text(width * 0.05, height - height * 0.05, f"EV {ev}", color=(1, 1, 1))
         axis.set_xticks([])
         axis.set_yticks([])
         axis.set_aspect("equal")

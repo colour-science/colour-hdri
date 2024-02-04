@@ -29,9 +29,7 @@ __all__ = [
     "TestFilterFiles",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 
 class TestVivification(unittest.TestCase):

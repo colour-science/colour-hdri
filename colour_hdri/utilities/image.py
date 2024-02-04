@@ -86,9 +86,7 @@ class Metadata(MixinDataclassArray):
     iso: Real | None = field(default_factory=lambda: None)
     black_level: NDArrayFloat | None = field(default_factory=lambda: None)
     white_level: NDArrayFloat | None = field(default_factory=lambda: None)
-    white_balance_multipliers: NDArrayFloat | None = field(
-        default_factory=lambda: None
-    )
+    white_balance_multipliers: NDArrayFloat | None = field(default_factory=lambda: None)
 
 
 class Image:
@@ -276,9 +274,7 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info(
-                'Reading "{path}" image metadata.', extra={"path": self._path}
-            )
+            logging.info('Reading "{path}" image metadata.', extra={"path": self._path})
 
             exif_data = read_exif_tags(self._path)
 
@@ -312,9 +308,7 @@ class Image:
                 white_level = parse_exif_array(white_level[0])
                 white_level = as_float_array(white_level) / 65535
 
-            white_balance_multipliers = exif_data["EXIF"].get(
-                "As Shot Neutral"
-            )
+            white_balance_multipliers = exif_data["EXIF"].get("As Shot Neutral")
             if white_balance_multipliers is not None:
                 white_balance_multipliers = parse_exif_array(
                     white_balance_multipliers[0]

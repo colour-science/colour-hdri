@@ -70,7 +70,7 @@ colour-demosaicing = ">= 0.2.4"
 matplotlib = ">= 3.5, != 3.5.0, != 3.5.1"
 
 [tool.poetry.group.dev.dependencies]
-coverage = "!= 6.3"
+coverage = ">= 6, < 7"
 coveralls = "*"
 invoke = "*"
 jupyter = "*"
@@ -89,15 +89,8 @@ restructuredtext-lint = "*"
 sphinx = "*"
 sphinxcontrib-bibtex = "*"
 
-[tool.black]
-line-length = 79
-exclude = '''
-/(
-    \.git
-  | build
-  | dist
-)/
-'''
+[tool.codespell]
+skip = 'BIBLIOGRAPHY.bib,CONTRIBUTORS.rst,*.ipynb'
 
 [tool.flynt]
 line_length=999
@@ -215,6 +208,9 @@ convention = "numpy"
 "tasks.py" = ["INP"]
 "utilities/*" = ["EXE001", "INP"]
 "utilities/unicode_to_ascii.py" = ["RUF001"]
+
+[tool.ruff.format]
+docstring-code-format = true
 
 [build-system]
 requires = [ "poetry_core>=1.0.0" ]

@@ -147,8 +147,6 @@ def highlights_recovery_LCHab(
     )
 
     return XYZ_to_RGB(
-        Lab_to_XYZ(
-            LCHab_to_Lab(tstack([L, C_c, H])), RGB_colourspace.whitepoint
-        ),
+        Lab_to_XYZ(LCHab_to_Lab(tstack([L, C_c, H])), RGB_colourspace.whitepoint),
         RGB_colourspace,
     )

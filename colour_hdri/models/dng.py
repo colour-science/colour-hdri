@@ -508,11 +508,7 @@ def matrix_XYZ_to_camera_space(
     CCT, _D_uv = uv_to_CCT_Robertson1968(uv)
 
     if is_identity(M_color_matrix_1) or is_identity(M_color_matrix_2):
-        M_CM = (
-            M_color_matrix_1
-            if is_identity(M_color_matrix_2)
-            else M_color_matrix_2
-        )
+        M_CM = M_color_matrix_1 if is_identity(M_color_matrix_2) else M_color_matrix_2
     else:
         M_CM = matrix_interpolated(
             CCT,
@@ -546,21 +542,23 @@ def matrix_camera_space_to_XYZ(
     analog_balance: ArrayLike,
     M_forward_matrix_1: ArrayLike,
     M_forward_matrix_2: ArrayLike,
-    chromatic_adaptation_transform: Literal[
-        "Bianco 2010",
-        "Bianco PC 2010",
-        "Bradford",
-        "CAT02 Brill 2008",
-        "CAT02",
-        "CAT16",
-        "CMCCAT2000",
-        "CMCCAT97",
-        "Fairchild",
-        "Sharp",
-        "Von Kries",
-        "XYZ Scaling",
-    ]
-    | str = "Bradford",
+    chromatic_adaptation_transform: (
+        Literal[
+            "Bianco 2010",
+            "Bianco PC 2010",
+            "Bradford",
+            "CAT02 Brill 2008",
+            "CAT02",
+            "CAT16",
+            "CMCCAT2000",
+            "CMCCAT97",
+            "Fairchild",
+            "Sharp",
+            "Von Kries",
+            "XYZ Scaling",
+        ]
+        | str
+    ) = "Bradford",
 ) -> NDArrayFloat:
     """
     Return the *Camera Space* to *CIE XYZ* matrix for given *xy* white

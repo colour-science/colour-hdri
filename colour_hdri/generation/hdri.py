@@ -109,9 +109,7 @@ def image_stack_to_HDRI(
 
             image_data = image.data
             if camera_response_functions is not None:
-                camera_response_functions = as_float_array(
-                    camera_response_functions
-                )
+                camera_response_functions = as_float_array(camera_response_functions)
                 samples = np.linspace(0, 1, camera_response_functions.shape[0])
 
                 R, G, B = tsplit(image.data)

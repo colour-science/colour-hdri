@@ -36,9 +36,7 @@ __all__ = [
     "TestCameraResponseFunctionsDebevec1997",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 ROOT_RESOURCES_CALIBRATION: str = os.path.join(
     ROOT_RESOURCES_TESTS, "colour_hdri", "calibration"
@@ -74,9 +72,7 @@ class TestGSolve(unittest.TestCase):
             np.testing.assert_allclose(
                 g,
                 np.load(
-                    os.path.join(
-                        ROOT_RESOURCES_CALIBRATION, f"test_g_solve_g_{i}.npy"
-                    )
+                    os.path.join(ROOT_RESOURCES_CALIBRATION, f"test_g_solve_g_{i}.npy")
                 ),
                 atol=0.001,
             )
@@ -85,9 +81,7 @@ class TestGSolve(unittest.TestCase):
             np.testing.assert_allclose(
                 lE,
                 np.load(
-                    os.path.join(
-                        ROOT_RESOURCES_CALIBRATION, f"test_g_solve_lE_{i}.npy"
-                    )
+                    os.path.join(ROOT_RESOURCES_CALIBRATION, f"test_g_solve_lE_{i}.npy")
                 ),
                 atol=0.001,
             )
@@ -107,9 +101,7 @@ camera_response_functions_Debevec1997` definition.
 
         # Lower precision for unit tests under *Github Actions*.
         np.testing.assert_allclose(
-            camera_response_functions_Debevec1997(
-                ImageStack.from_files(IMAGES_JPG)
-            ),
+            camera_response_functions_Debevec1997(ImageStack.from_files(IMAGES_JPG)),
             np.load(
                 os.path.join(
                     ROOT_RESOURCES_CALIBRATION,

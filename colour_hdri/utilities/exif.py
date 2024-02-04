@@ -118,9 +118,7 @@ def parse_exif_string(exif_tag: EXIFTag) -> str:
     return str(exif_tag.value)
 
 
-def parse_exif_number(
-    exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None
-) -> Real:
+def parse_exif_number(exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None) -> Real:
     """
     Parse given EXIF tag assuming it is a number type and return its value.
 
@@ -164,9 +162,7 @@ def parse_exif_fraction(
     dtype = optional(dtype, DTYPE_FLOAT_DEFAULT)
 
     value = (
-        exif_tag.value
-        if exif_tag.value is None
-        else float(Fraction(exif_tag.value))
+        exif_tag.value if exif_tag.value is None else float(Fraction(exif_tag.value))
     )
 
     return as_float_scalar(value, dtype)  # pyright: ignore
@@ -197,9 +193,7 @@ def parse_exif_array(
 
     dtype = optional(dtype, DTYPE_FLOAT_DEFAULT)
 
-    value = (
-        exif_tag.value if exif_tag.value is None else exif_tag.value.split()
-    )
+    value = exif_tag.value if exif_tag.value is None else exif_tag.value.split()
 
     return np.reshape(as_array(value, dtype), shape)  # pyright: ignore
 
@@ -309,7 +303,8 @@ def copy_exif_tags(source: str, target: str) -> bool:
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
     subprocess.check_output(
-        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+        arguments,
+        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
     )
 
     return True
@@ -429,7 +424,8 @@ def write_exif_tag(image: str, tag: str, value: str) -> bool:
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
     arguments += [f"-{tag}={value}", image]
     subprocess.check_output(
-        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+        arguments,
+        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
     )
 
     return True

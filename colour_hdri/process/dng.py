@@ -70,13 +70,11 @@ Command line raw conversion application, typically Dave Coffin's *dcraw*.
 
 RAW_CONVERTER_ARGUMENTS_BAYER_CFA: str = '-t 0 -D -W -4 -T "{raw_file}"'
 if _IS_WINDOWS_PLATFORM:
-    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = (
-        RAW_CONVERTER_ARGUMENTS_BAYER_CFA.replace('"', "")
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = RAW_CONVERTER_ARGUMENTS_BAYER_CFA.replace(
+        '"', ""
     )
 if is_documentation_building():  # pragma: no cover
-    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = DocstringText(
-        RAW_CONVERTER_ARGUMENTS_BAYER_CFA
-    )
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = DocstringText(RAW_CONVERTER_ARGUMENTS_BAYER_CFA)
     RAW_CONVERTER_ARGUMENTS_BAYER_CFA.__doc__ = """
 Arguments for the command line raw conversion application for non
 demosaiced linear *tiff* file format output.
@@ -86,8 +84,8 @@ RAW_CONVERTER_ARGUMENTS_DEMOSAICING: str = (
     '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{raw_file}"'
 )
 if _IS_WINDOWS_PLATFORM:
-    RAW_CONVERTER_ARGUMENTS_DEMOSAICING = (
-        RAW_CONVERTER_ARGUMENTS_DEMOSAICING.replace('"', "")
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING = RAW_CONVERTER_ARGUMENTS_DEMOSAICING.replace(
+        '"', ""
     )
 if is_documentation_building():  # pragma: no cover
     RAW_CONVERTER_ARGUMENTS_DEMOSAICING = DocstringText(
@@ -100,8 +98,7 @@ linear *tiff* file format output.
 
 if _IS_MACOS_PLATFORM:
     DNG_CONVERTER: str = (
-        "/Applications/Adobe DNG Converter.app/Contents/"
-        "MacOS/Adobe DNG Converter"
+        "/Applications/Adobe DNG Converter.app/Contents/MacOS/Adobe DNG Converter"
     )
 elif _IS_WINDOWS_PLATFORM:
     DNG_CONVERTER: str = "Adobe DNG Converter"
@@ -257,18 +254,14 @@ def convert_raw_files_to_dng_files(
     """
 
     dng_converter = optional(dng_converter, DNG_CONVERTER)
-    dng_converter_arguments = optional(
-        dng_converter_arguments, DNG_CONVERTER_ARGUMENTS
-    )
+    dng_converter_arguments = optional(dng_converter_arguments, DNG_CONVERTER_ARGUMENTS)
 
     dng_files = []
     for raw_file in raw_files:
         raw_file_extension = os.path.splitext(raw_file)[1]
         dng_file = os.path.join(
             output_directory,
-            os.path.basename(
-                re.sub(f"{raw_file_extension}$", ".dng", raw_file)
-            ),
+            os.path.basename(re.sub(f"{raw_file_extension}$", ".dng", raw_file)),
         )
 
         if path_exists(dng_file):
@@ -356,9 +349,7 @@ def convert_dng_files_to_intermediate_files(
 
         subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # noqa: S603
 
-        tiff_file = os.path.join(
-            output_directory, os.path.basename(intermediate_file)
-        )
+        tiff_file = os.path.join(output_directory, os.path.basename(intermediate_file))
         if tiff_file != intermediate_file:
             if path_exists(tiff_file):
                 os.remove(tiff_file)
@@ -402,9 +393,7 @@ def read_dng_files_exif_tags(
                 exif_tag = exif_tags[group].get(tag)
                 if exif_tag is None:
                     binding[group][tag] = (
-                        default
-                        if default is None
-                        else parser(EXIFTag(value=default))
+                        default if default is None else parser(EXIFTag(value=default))
                     )
                 else:
                     binding[group][tag] = parser(exif_tag[0])

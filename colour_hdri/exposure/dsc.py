@@ -337,9 +337,7 @@ def exposure_index_values(H_a: ArrayLike) -> NDArrayFloat:
     return as_float(10 / as_float_array(H_a))
 
 
-def exposure_value_100(
-    N: ArrayLike, t: ArrayLike, S: ArrayLike
-) -> NDArrayFloat:
+def exposure_value_100(N: ArrayLike, t: ArrayLike, S: ArrayLike) -> NDArrayFloat:
     """
     Compute the exposure value :math:`EV100` from given relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic
