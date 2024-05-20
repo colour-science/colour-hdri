@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.utilities.exif` module."""
 
 from __future__ import annotations
@@ -6,7 +5,6 @@ from __future__ import annotations
 import os
 import shutil
 import tempfile
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -54,7 +52,7 @@ __all__ = [
 ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 
-class TestParseExifString(unittest.TestCase):
+class TestParseExifString:
     """
     Define :func:`colour_hdri.utilities.exif.parse_exif_string` definition
     unit tests methods.
@@ -64,10 +62,10 @@ class TestParseExifString(unittest.TestCase):
         """Test :func:`colour_hdri.utilities.exif.parse_exif_string` definition."""
 
         exif_tag = EXIFTag("EXIF", "Make", "Canon", "271")
-        self.assertEqual(parse_exif_string(exif_tag), "Canon")
+        assert parse_exif_string(exif_tag) == "Canon"
 
 
-class TestParseExifNumber(unittest.TestCase):
+class TestParseExifNumber:
     """
     Define :func:`colour_hdri.utilities.exif.parse_exif_number` definition
     unit tests methods.
@@ -77,13 +75,13 @@ class TestParseExifNumber(unittest.TestCase):
         """Test :func:`colour_hdri.utilities.exif.parse_exif_number` definition."""
 
         exif_tag = EXIFTag("EXIF", "Focal Length", "16", "37386")
-        self.assertEqual(parse_exif_number(exif_tag), 16)
+        assert parse_exif_number(exif_tag) == 16
 
         exif_tag = EXIFTag("EXIF", "Focal Length", "16", "37386")
-        self.assertIsInstance(parse_exif_number(exif_tag, np.int_), np.int_)
+        assert isinstance(parse_exif_number(exif_tag, np.int_), np.int_)
 
 
-class TestParseExifFraction(unittest.TestCase):
+class TestParseExifFraction:
     """
     Define :func:`colour_hdri.utilities.exif.parse_exif_fraction` definition
     unit tests methods.
@@ -110,7 +108,7 @@ class TestParseExifFraction(unittest.TestCase):
         )
 
 
-class TestParseExifArray(unittest.TestCase):
+class TestParseExifArray:
     """
     Define :func:`colour_hdri.utilities.exif.parse_exif_array` definition
     unit tests methods.
@@ -158,7 +156,7 @@ class TestParseExifArray(unittest.TestCase):
         )
 
 
-class TestParseExifData(unittest.TestCase):
+class TestParseExifData:
     """
     Define :func:`colour_hdri.utilities.exif.parse_exif_data` definition
     unit tests methods.
@@ -167,27 +165,20 @@ class TestParseExifData(unittest.TestCase):
     def test_parse_exif_data(self):
         """Test :func:`colour_hdri.utilities.exif.parse_exif_data` definition."""
 
-        self.assertListEqual(
-            parse_exif_data("[XMP]               - Description                     :"),
-            ["XMP", "-", "Description", ""],
-        )
+        assert parse_exif_data(
+            "[XMP]               - Description                     :"
+        ) == ["XMP", "-", "Description", ""]
 
-        self.assertListEqual(
-            parse_exif_data(
-                "[EXIF]            296 Resolution Unit                 : 2"
-            ),
-            ["EXIF", "296", "Resolution Unit", "2"],
-        )
+        assert parse_exif_data(
+            "[EXIF]            296 Resolution Unit                 : 2"
+        ) == ["EXIF", "296", "Resolution Unit", "2"]
 
-        self.assertListEqual(
-            parse_exif_data(
-                "[ICC_Profile]       8 Profile Version                 : 528"
-            ),
-            ["ICC_Profile", "8", "Profile Version", "528"],
-        )
+        assert parse_exif_data(
+            "[ICC_Profile]       8 Profile Version                 : 528"
+        ) == ["ICC_Profile", "8", "Profile Version", "528"]
 
 
-class TestReadExifTags(unittest.TestCase):
+class TestReadExifTags:
     """
     Define :func:`colour_hdri.utilities.exif.read_exif_tags` definition unit
     tests methods.
@@ -199,65 +190,59 @@ class TestReadExifTags(unittest.TestCase):
         test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
         exif_data = vivified_to_dict(read_exif_tags(test_jpg_image))
 
-        self.assertIsInstance(exif_data, type({}))
+        assert isinstance(exif_data, type({}))
 
-        self.assertListEqual(
-            sorted(exif_data.keys()),
+        assert sorted(exif_data.keys()) == [
+            "Composite",
+            "EXIF",
+            "ExifTool",
+            "File",
+            "ICC_Profile",
+            "JFIF",
+            "Photoshop",
+            "XMP",
+        ]
+
+        assert sorted(exif_data["EXIF"].values(), key=lambda x: x[0].name) == [
+            [EXIFTag("EXIF", "Camera Model Name", "EOS 5D Mark II", "272")],
+            [EXIFTag("EXIF", "Create Date", "2015:09:19 03:39:20", "36868")],
             [
-                "Composite",
-                "EXIF",
-                "ExifTool",
-                "File",
-                "ICC_Profile",
-                "JFIF",
-                "Photoshop",
-                "XMP",
+                EXIFTag(
+                    "EXIF",
+                    "Date/Time Original",
+                    "2015:09:19 03:39:20",
+                    "36867",
+                )
             ],
-        )
-
-        self.assertListEqual(
-            sorted(exif_data["EXIF"].values(), key=lambda x: x[0].name),
-            [
-                [EXIFTag("EXIF", "Camera Model Name", "EOS 5D Mark II", "272")],
-                [EXIFTag("EXIF", "Create Date", "2015:09:19 03:39:20", "36868")],
-                [
-                    EXIFTag(
-                        "EXIF",
-                        "Date/Time Original",
-                        "2015:09:19 03:39:20",
-                        "36867",
-                    )
-                ],
-                [EXIFTag("EXIF", "Exif Image Height", "426", "40963")],
-                [EXIFTag("EXIF", "Exif Image Width", "640", "40962")],
-                [EXIFTag("EXIF", "Exposure Time", "0.125", "33434")],
-                [EXIFTag("EXIF", "F Number", "8", "33437")],
-                [EXIFTag("EXIF", "Focal Length", "16", "37386")],
-                [EXIFTag("EXIF", "ISO", "100", "34855")],
-                [EXIFTag("EXIF", "Make", "Canon", "271")],
-                [EXIFTag("EXIF", "Modify Date", "2015:09:19 03:39:20", "306")],
-                [EXIFTag("EXIF", "Orientation", "1", "274")],
-                [EXIFTag("EXIF", "Photometric Interpretation", "2", "262")],
-                [EXIFTag("EXIF", "Resolution Unit", "2", "296")],
-                [EXIFTag("EXIF", "Software", "Photos 1.0.1", "305")],
-                [EXIFTag("EXIF", "X Resolution", "72", "282")],
-                [EXIFTag("EXIF", "Y Resolution", "72", "283")],
-            ],
-        )
+            [EXIFTag("EXIF", "Exif Image Height", "426", "40963")],
+            [EXIFTag("EXIF", "Exif Image Width", "640", "40962")],
+            [EXIFTag("EXIF", "Exposure Time", "0.125", "33434")],
+            [EXIFTag("EXIF", "F Number", "8", "33437")],
+            [EXIFTag("EXIF", "Focal Length", "16", "37386")],
+            [EXIFTag("EXIF", "ISO", "100", "34855")],
+            [EXIFTag("EXIF", "Make", "Canon", "271")],
+            [EXIFTag("EXIF", "Modify Date", "2015:09:19 03:39:20", "306")],
+            [EXIFTag("EXIF", "Orientation", "1", "274")],
+            [EXIFTag("EXIF", "Photometric Interpretation", "2", "262")],
+            [EXIFTag("EXIF", "Resolution Unit", "2", "296")],
+            [EXIFTag("EXIF", "Software", "Photos 1.0.1", "305")],
+            [EXIFTag("EXIF", "X Resolution", "72", "282")],
+            [EXIFTag("EXIF", "Y Resolution", "72", "283")],
+        ]
 
 
-class TestCopyExifTags(unittest.TestCase):
+class TestCopyExifTags:
     """
     Define :func:`colour_hdri.utilities.exif.copy_exif_tags` definition unit
     tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -271,25 +256,25 @@ class TestCopyExifTags(unittest.TestCase):
         )
 
         shutil.copyfile(reference_jpg_image, test_jpg_image)
-        self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "8.0")
+        assert read_exif_tag(test_jpg_image, "Aperture") == "8.0"
         delete_exif_tags(test_jpg_image)
-        self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "")
+        assert read_exif_tag(test_jpg_image, "Aperture") == ""
         copy_exif_tags(reference_jpg_image, test_jpg_image)
-        self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "8.0")
+        assert read_exif_tag(test_jpg_image, "Aperture") == "8.0"
 
 
-class TestUpdateExifTags(unittest.TestCase):
+class TestUpdateExifTags:
     """
     Define :func:`colour_hdri.utilities.exif.update_exif_tags` definition unit
     tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -306,26 +291,26 @@ class TestUpdateExifTags(unittest.TestCase):
             )
             shutil.copyfile(reference_jpg_image, test_jpg_image)
             delete_exif_tags(test_jpg_image)
-            self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "")
+            assert read_exif_tag(test_jpg_image, "Aperture") == ""
             test_jpg_images.append(test_jpg_image)
 
         update_exif_tags(zip(reference_jpg_images, test_jpg_images))
         for test_jpg_image in test_jpg_images:
-            self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "8.0")
+            assert read_exif_tag(test_jpg_image, "Aperture") == "8.0"
 
 
-class TestDeleteExifTags(unittest.TestCase):
+class TestDeleteExifTags:
     """
     Define :func:`colour_hdri.utilities.exif.delete_exif_tags` definition unit
     tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -339,12 +324,12 @@ class TestDeleteExifTags(unittest.TestCase):
         )
 
         shutil.copyfile(reference_jpg_image, test_jpg_image)
-        self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "8.0")
+        assert read_exif_tag(test_jpg_image, "Aperture") == "8.0"
         delete_exif_tags(test_jpg_image)
-        self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "")
+        assert read_exif_tag(test_jpg_image, "Aperture") == ""
 
 
-class TestReadExifTag(unittest.TestCase):
+class TestReadExifTag:
     """
     Define :func:`colour_hdri.utilities.exif.read_exif_tag` definition unit
     tests methods.
@@ -355,23 +340,23 @@ class TestReadExifTag(unittest.TestCase):
 
         test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
 
-        self.assertEqual(read_exif_tag(test_jpg_image, "Aperture"), "8.0")
-        self.assertEqual(read_exif_tag(test_jpg_image, "ExposureTime"), "1/8")
-        self.assertEqual(read_exif_tag(test_jpg_image, "ISO"), "100")
+        assert read_exif_tag(test_jpg_image, "Aperture") == "8.0"
+        assert read_exif_tag(test_jpg_image, "ExposureTime") == "1/8"
+        assert read_exif_tag(test_jpg_image, "ISO") == "100"
 
 
-class TestWriteExifTag(unittest.TestCase):
+class TestWriteExifTag:
     """
     Define :func:`colour_hdri.utilities.exif.write_exif_tag` definition unit
     tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -386,10 +371,6 @@ class TestWriteExifTag(unittest.TestCase):
 
         shutil.copyfile(reference_jpg_image, test_jpg_image)
         # *Aperture* exif tag is not writeable, changing for *FNumber*.
-        self.assertEqual(read_exif_tag(test_jpg_image, "FNumber"), "8.0")
+        assert read_exif_tag(test_jpg_image, "FNumber") == "8.0"
         write_exif_tag(test_jpg_image, "FNumber", "16.0")
-        self.assertEqual(read_exif_tag(test_jpg_image, "FNumber"), "16.0")
-
-
-if __name__ == "__main__":
-    unittest.main()
+        assert read_exif_tag(test_jpg_image, "FNumber") == "16.0"

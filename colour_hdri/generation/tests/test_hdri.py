@@ -1,10 +1,8 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.generation.radiance` module."""
 
 from __future__ import annotations
 
 import os
-import unittest
 
 import numpy as np
 from colour import RGB_COLOURSPACES
@@ -38,7 +36,7 @@ ROOT_RESOURCES_GENERATION: str = os.path.join(
 IMAGES_JPG: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
 
 
-class TestImageStackToHDRI(unittest.TestCase):
+class TestImageStackToHDRI:
     """
     Define :func:`colour_hdri.generation.radiance.image_stack_to_HDRI`
     definition unit tests methods.
@@ -84,7 +82,3 @@ class TestImageStackToHDRI(unittest.TestCase):
             rtol=0.0001,
             atol=0.0001,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

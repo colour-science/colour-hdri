@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.recovery.highlights` module."""
 
 from __future__ import annotations
@@ -10,7 +9,6 @@ import shlex
 import shutil
 import subprocess
 import tempfile
-import unittest
 
 import numpy as np
 from colour import read_image
@@ -64,18 +62,18 @@ matrix_XYZ_to_camera_space: NDArrayFloat = np.array(
 )
 
 
-class TestHighlightsRecoveryBlend(unittest.TestCase):
+class TestHighlightsRecoveryBlend:
     """
     Define :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`
     definition unit tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -124,18 +122,18 @@ class TestHighlightsRecoveryBlend(unittest.TestCase):
         )
 
 
-class TestHighlightsRecoveryLCHab(unittest.TestCase):
+class TestHighlightsRecoveryLCHab:
     """
     Define :func:`colour_hdri.recovery.highlights.highlights_recovery_LCHab`
     definition unit tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -183,7 +181,3 @@ class TestHighlightsRecoveryLCHab(unittest.TestCase):
         np.testing.assert_allclose(
             test_tiff_file, reference_exr_file, rtol=0.0001, atol=0.0001
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

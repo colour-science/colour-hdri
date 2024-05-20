@@ -1,10 +1,8 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.utilities.image` module."""
 
 from __future__ import annotations
 
 import os
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -27,13 +25,13 @@ __all__ = [
 ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 
-class TestImage(unittest.TestCase):
+class TestImage:
     """
     Define :class:`colour_hdri.utilities.image.Image` class unit tests
     methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._test_jpg_image = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))[0]
@@ -44,7 +42,7 @@ class TestImage(unittest.TestCase):
         required_attributes = ("path", "data", "metadata")
 
         for attribute in required_attributes:
-            self.assertIn(attribute, dir(Image))
+            assert attribute in dir(Image)
 
     def test_required_methods(self):
         """Test the presence of required methods."""
@@ -52,35 +50,35 @@ class TestImage(unittest.TestCase):
         required_methods = ("__init__", "read_data", "read_metadata")
 
         for method in required_methods:
-            self.assertIn(method, dir(Image))
+            assert method in dir(Image)
 
     def test_read_data(self):
         """Test :attr:`colour_hdri.utilities.image.Image.read_data` method."""
 
         image = Image(self._test_jpg_image)
 
-        self.assertIsNone(image.data)
-        self.assertTupleEqual(image.read_data().shape, (426, 640, 3))
+        assert image.data is None
+        assert image.read_data().shape == (426, 640, 3)
 
     def test_read_metadata(self):
         """Test :attr:`colour_hdri.utilities.image.Image.end` method."""
 
         image = Image(self._test_jpg_image)
 
-        self.assertEqual(image.metadata, None)
+        assert image.metadata is None
         np.testing.assert_array_equal(
             np.array(image.read_metadata()),
             np.array([8.0, 0.125, 100.0, np.nan, np.nan, np.nan]),
         )
 
 
-class TestImageStack(unittest.TestCase):
+class TestImageStack:
     """
     Define :class:`colour_hdri.utilities.image.ImageStack` class unit tests
     methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._test_jpg_images = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
@@ -103,7 +101,7 @@ class TestImageStack(unittest.TestCase):
         )
 
         for method in required_methods:
-            self.assertIn(method, dir(ImageStack))
+            assert method in dir(ImageStack)
 
     def test__getitem__(self):
         """
@@ -112,7 +110,7 @@ class TestImageStack(unittest.TestCase):
         """
 
         for image in self._image_stack:
-            self.assertIsInstance(image, Image)
+            assert isinstance(image, Image)
 
     def test__setitem__(self):
         """
@@ -126,7 +124,7 @@ class TestImageStack(unittest.TestCase):
         image.read_metadata()
         image_stack.insert(0, image)
 
-        self.assertEqual(image_stack[0], image)
+        assert image_stack[0] == image
 
     def test__delitem__(self):
         """
@@ -138,12 +136,12 @@ class TestImageStack(unittest.TestCase):
 
         del image_stack[0]
 
-        self.assertEqual(len(image_stack), 2)
+        assert len(image_stack) == 2
 
     def test__len__(self):
         """Test :attr:`colour_hdri.utilities.image.ImageStack.__len__` method."""
 
-        self.assertEqual(len(self._image_stack), 3)
+        assert len(self._image_stack) == 3
 
     def test__getattr__(self):
         """
@@ -151,7 +149,7 @@ class TestImageStack(unittest.TestCase):
         method.
         """
 
-        self.assertTupleEqual(self._image_stack.data.shape, (426, 640, 3, 3))
+        assert self._image_stack.data.shape == (426, 640, 3, 3)
 
         np.testing.assert_allclose(
             self._image_stack.f_number,
@@ -159,7 +157,7 @@ class TestImageStack(unittest.TestCase):
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        self.assertEqual(self._image_stack[0].metadata.f_number, 8)
+        assert self._image_stack[0].metadata.f_number == 8
 
         np.testing.assert_allclose(
             self._image_stack.exposure_time,
@@ -167,13 +165,13 @@ class TestImageStack(unittest.TestCase):
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        self.assertEqual(self._image_stack[0].metadata.exposure_time, 0.125)
+        assert self._image_stack[0].metadata.exposure_time == 0.125
 
         np.testing.assert_array_equal(
             self._image_stack.black_level, np.array([np.nan, np.nan, np.nan])
         )
 
-        self.assertEqual(self._image_stack[0].metadata.black_level, None)
+        assert self._image_stack[0].metadata.black_level is None
 
     def test__setattr__(self):
         """
@@ -183,11 +181,11 @@ class TestImageStack(unittest.TestCase):
 
         image_stack = ImageStack().from_files(self._test_jpg_images)
 
-        self.assertTupleEqual(image_stack.data.shape, (426, 640, 3, 3))
+        assert image_stack.data.shape == (426, 640, 3, 3)
 
         image_stack.data = np.random.random((20, 10, 3, 3))
 
-        self.assertTupleEqual(image_stack.data.shape, (20, 10, 3, 3))
+        assert image_stack.data.shape == (20, 10, 3, 3)
 
         np.testing.assert_allclose(
             image_stack.f_number,
@@ -203,7 +201,7 @@ class TestImageStack(unittest.TestCase):
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        self.assertEqual(image_stack[0].metadata.f_number, 1)
+        assert image_stack[0].metadata.f_number == 1
 
         np.testing.assert_array_equal(
             image_stack.black_level, np.array([np.nan, np.nan, np.nan])
@@ -217,7 +215,7 @@ class TestImageStack(unittest.TestCase):
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        self.assertEqual(image_stack[0].metadata.black_level, 2048)
+        assert image_stack[0].metadata.black_level == 2048
 
     def test_from_files(self):
         """
@@ -226,8 +224,4 @@ class TestImageStack(unittest.TestCase):
         """
 
         image_stack = ImageStack().from_files(reversed(self._test_jpg_images))
-        self.assertListEqual(list(image_stack.path), self._test_jpg_images)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        assert list(image_stack.path) == self._test_jpg_images

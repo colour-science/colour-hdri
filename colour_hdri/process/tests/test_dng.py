@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.process.adobe_dng` module."""
 
 from __future__ import annotations
@@ -7,7 +6,6 @@ import os
 import platform
 import shutil
 import tempfile
-import unittest
 import zipfile
 
 import numpy as np
@@ -45,18 +43,18 @@ ROOT_PROCESS: str = os.path.join(ROOT_RESOURCES_TESTS, "colour_hdri", "process")
 IMAGES_RAW: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2",))
 
 
-class TestConvertRawFilesToDngFiles(unittest.TestCase):
+class TestConvertRawFilesToDngFiles:
     """
     Define :func:`colour_hdri.process.adobe_dng.\
 convert_raw_files_to_dng_files` definition unit tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -87,18 +85,18 @@ convert_raw_files_to_dng_files` definition.
             )
 
 
-class TestConvertDngFilesToIntermediateFiles(unittest.TestCase):
+class TestConvertDngFilesToIntermediateFiles:
     """
     Define :func:`colour_hdri.process.adobe_dng.\
 convert_dng_files_to_intermediate_files` definition unit tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -164,7 +162,7 @@ convert_dng_files_to_intermediate_files` definition.
             )
 
 
-class TestReadDngFilesExifTags(unittest.TestCase):
+class TestReadDngFilesExifTags:
     """
     Define :func:`colour_hdri.process.adobe_dng.\
 read_dng_files_exif_tags` definition unit tests methods.
@@ -178,9 +176,9 @@ read_dng_files_exif_tags` definition.
 
         reference_dng_files = sorted(filter_files(ROOT_PROCESS, ("dng",)))
         exif_tags = read_dng_files_exif_tags(reference_dng_files)
-        self.assertEqual(len(exif_tags), 3)
-        self.assertIn("EXIF", exif_tags[0])
-        self.assertIn("Make", exif_tags[0]["EXIF"])
+        assert len(exif_tags) == 3
+        assert "EXIF" in exif_tags[0]
+        assert "Make" in exif_tags[0]["EXIF"]
 
         np.testing.assert_allclose(
             exif_tags[0]["EXIF"]["Exposure Time"],
@@ -191,7 +189,3 @@ read_dng_files_exif_tags` definition.
         np.testing.assert_array_equal(
             exif_tags[0]["EXIF"]["Reduction Matrix 1"], np.identity(3)
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

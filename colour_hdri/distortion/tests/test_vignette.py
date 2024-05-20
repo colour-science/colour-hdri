@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """
 Define the unit tests for the :mod:`colour_hdri.distortion.vignette` module.
 """
@@ -6,7 +5,6 @@ Define the unit tests for the :mod:`colour_hdri.distortion.vignette` module.
 from __future__ import annotations
 
 import os
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -55,7 +53,7 @@ DIRECTORY_DISTORTION: str = os.path.join(
 )
 
 
-class TestApplyRadialGradient(unittest.TestCase):
+class TestApplyRadialGradient:
     """
     Define :func:`colour_hdri.distortion.vignette.apply_radial_gradient`
     definition unit tests methods.
@@ -122,7 +120,7 @@ class TestApplyRadialGradient(unittest.TestCase):
         )
 
 
-class TestParabolic2DFunction(unittest.TestCase):
+class TestParabolic2DFunction:
     """
     Define :func:`colour_hdri.distortion.vignette.parabolic_2D_function`
     definition unit tests methods.
@@ -194,7 +192,7 @@ class TestParabolic2DFunction(unittest.TestCase):
         )
 
 
-class TestHyperbolicCosine2DFunction(unittest.TestCase):
+class TestHyperbolicCosine2DFunction:
     """
     Define :func:`colour_hdri.distortion.vignette.hyperbolic_cosine_2D_function`
     definition unit tests methods.
@@ -266,7 +264,7 @@ class TestHyperbolicCosine2DFunction(unittest.TestCase):
         )
 
 
-class TestVignettePrincipalPoint(unittest.TestCase):
+class TestVignettePrincipalPoint:
     """
     Define :func:`colour_hdri.distortion.vignette.vignette_principal_point`
     definition unit tests methods.
@@ -285,7 +283,7 @@ class TestVignettePrincipalPoint(unittest.TestCase):
         )
 
 
-class TestCharacteriseVignette2DFunction(unittest.TestCase):
+class TestCharacteriseVignette2DFunction:
     """
     Define :func:`colour_hdri.distortion.vignette.\
 characterise_vignette_2D_function` definition unit tests methods.
@@ -378,7 +376,7 @@ characterise_vignette_2D_function` definition.
         )
 
 
-class TestCorrectVignette2DFunction(unittest.TestCase):
+class TestCorrectVignette2DFunction:
     """
     Define :func:`colour_hdri.distortion.vignette.correct_vignette_2D_function`
     definition unit tests methods.
@@ -508,7 +506,7 @@ class TestCorrectVignette2DFunction(unittest.TestCase):
         )
 
 
-class TestCharacteriseVignetteBivariateSpline(unittest.TestCase):
+class TestCharacteriseVignetteBivariateSpline:
     """
     Define :func:`colour_hdri.distortion.vignette.\
 characterise_vignette_bivariate_spline` definition unit tests methods.
@@ -541,7 +539,7 @@ characterise_vignette_bivariate_spline` definition.
         )
 
 
-class TestCorrectVignetteBivariateSpline(unittest.TestCase):
+class TestCorrectVignetteBivariateSpline:
     """
     Define :func:`colour_hdri.distortion.vignette.\
 correct_vignette_bivariate_spline` definition unit tests methods.
@@ -611,7 +609,7 @@ correct_vignette_bivariate_spline` definition.
         )
 
 
-class TestRadialSamplingFunction(unittest.TestCase):
+class TestRadialSamplingFunction:
     """
     Define :func:`colour_hdri.distortion.vignette.radial_sampling_function`
     definition unit tests methods.
@@ -822,7 +820,7 @@ class TestRadialSamplingFunction(unittest.TestCase):
         )
 
 
-class TestVignetteSamplingCoordinates(unittest.TestCase):
+class TestVignetteSamplingCoordinates:
     """
     Define :func:`colour_hdri.distortion.vignette.vignette_sampling_coordinates`
     definition unit tests methods.
@@ -1009,7 +1007,7 @@ vignette_sampling_coordinates` definition.
         )
 
 
-class TestCharacteriseVignetteRBF(unittest.TestCase):
+class TestCharacteriseVignetteRBF:
     """
     Define :func:`colour_hdri.distortion.vignette.characterise_vignette_RBF`
     definition unit tests methods.
@@ -1211,7 +1209,7 @@ class TestCharacteriseVignetteRBF(unittest.TestCase):
         )
 
 
-class TestCorrectVignetteRBF(unittest.TestCase):
+class TestCorrectVignetteRBF:
     """
     Define :func:`colour_hdri.distortion.vignette.correct_vignette_RBF`
     definition unit tests methods.
@@ -1279,7 +1277,3 @@ class TestCorrectVignetteRBF(unittest.TestCase):
             ),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

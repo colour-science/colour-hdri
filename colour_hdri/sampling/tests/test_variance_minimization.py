@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """
 Define the unit tests for the
 :mod:`colour_hdri.sampling.variance_minimization` module.
@@ -7,7 +6,6 @@ Define the unit tests for the
 from __future__ import annotations
 
 import os
-import unittest
 
 import numpy as np
 from colour import RGB_COLOURSPACES, RGB_luminance, read_image
@@ -42,7 +40,7 @@ ROOT_RESOURCES_SAMPLING: str = os.path.join(
 )
 
 
-class TestLuminanceVariance(unittest.TestCase):
+class TestLuminanceVariance:
     """
     Define :func:`colour_hdri.sampling.variance_minimization.\
 luminance_variance` definition unit tests methods.
@@ -61,7 +59,7 @@ luminance_variance` definition.
         )
 
 
-class TestFindRegionsVarianceMinimizationViriyothai2009(unittest.TestCase):
+class TestFindRegionsVarianceMinimizationViriyothai2009:
     """
     Define :func:`colour_hdri.sampling.variance_minimization.\
 find_regions_variance_minimization_Viriyothai2009` definition unit tests
@@ -89,44 +87,38 @@ find_regions_variance_minimization_Viriyothai2009` definition.
         Y = RGB_luminance(image, colourspace.primaries, colourspace.whitepoint)
 
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=1)
-        self.assertListEqual(regions, [(0, 256, 0, 156), (0, 256, 156, 256)])
+        assert regions == [(0, 256, 0, 156), (0, 256, 156, 256)]
 
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=2)
-        self.assertListEqual(
-            regions,
-            [
-                (0, 97, 0, 156),
-                (97, 256, 0, 156),
-                (0, 100, 156, 256),
-                (100, 256, 156, 256),
-            ],
-        )
+        assert regions == [
+            (0, 97, 0, 156),
+            (97, 256, 0, 156),
+            (0, 100, 156, 256),
+            (100, 256, 156, 256),
+        ]
 
         regions = find_regions_variance_minimization_Viriyothai2009(Y, n=4)
-        self.assertListEqual(
-            regions,
-            [
-                (0, 39, 0, 91),
-                (39, 97, 0, 91),
-                (0, 39, 91, 156),
-                (39, 97, 91, 156),
-                (97, 159, 0, 92),
-                (97, 159, 92, 156),
-                (159, 256, 0, 93),
-                (159, 256, 93, 156),
-                (0, 42, 156, 216),
-                (42, 100, 156, 216),
-                (0, 44, 216, 256),
-                (44, 100, 216, 256),
-                (100, 163, 156, 215),
-                (100, 163, 215, 256),
-                (163, 256, 156, 216),
-                (163, 256, 216, 256),
-            ],
-        )
+        assert regions == [
+            (0, 39, 0, 91),
+            (39, 97, 0, 91),
+            (0, 39, 91, 156),
+            (39, 97, 91, 156),
+            (97, 159, 0, 92),
+            (97, 159, 92, 156),
+            (159, 256, 0, 93),
+            (159, 256, 93, 156),
+            (0, 42, 156, 216),
+            (42, 100, 156, 216),
+            (0, 44, 216, 256),
+            (44, 100, 216, 256),
+            (100, 163, 156, 215),
+            (100, 163, 215, 256),
+            (163, 256, 156, 216),
+            (163, 256, 216, 256),
+        ]
 
 
-class TestHighlightRegionsVarianceMinimization(unittest.TestCase):
+class TestHighlightRegionsVarianceMinimization:
     """
     Define :func:`colour_hdri.sampling.variance_minimization.\
 highlight_regions_variance_minimization` definition unit tests methods.
@@ -166,7 +158,7 @@ highlight_regions_variance_minimization` definition.
         )
 
 
-class TestLightProbeSamplingVarianceMinimizationViriyothai2009(unittest.TestCase):
+class TestLightProbeSamplingVarianceMinimizationViriyothai2009:
     """
     Define :func:`colour_hdri.sampling.variance_minimization.\
 light_probe_sampling_variance_minimization_Viriyothai2009` definition unit
@@ -267,7 +259,3 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
                 ]
             ),
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -1,7 +1,5 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.exposure.common` module."""
 
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -29,7 +27,7 @@ __all__ = [
 ]
 
 
-class TestAverageLuminance(unittest.TestCase):
+class TestAverageLuminance:
     """
     Define :func:`colour_hdri.exposure.common.average_luminance` definition
     unit tests methods.
@@ -49,7 +47,7 @@ class TestAverageLuminance(unittest.TestCase):
         )
 
 
-class TestAverageIlluminance(unittest.TestCase):
+class TestAverageIlluminance:
     """
     Define :func:`colour_hdri.exposure.common.average_illuminance` definition
     unit tests methods.
@@ -72,7 +70,7 @@ class TestAverageIlluminance(unittest.TestCase):
         )
 
 
-class TestLuminanceToExposureValue(unittest.TestCase):
+class TestLuminanceToExposureValue:
     """
     Define :func:`colour_hdri.exposure.common.luminance_to_exposure_value`
     definition unit tests methods.
@@ -95,7 +93,7 @@ class TestLuminanceToExposureValue(unittest.TestCase):
         )
 
 
-class TestIlluminanceToExposureValue(unittest.TestCase):
+class TestIlluminanceToExposureValue:
     """
     Define :func:`colour_hdri.exposure.common.illuminance_to_exposure_value`
     definition unit tests methods.
@@ -118,7 +116,7 @@ class TestIlluminanceToExposureValue(unittest.TestCase):
         )
 
 
-class TestAdjustExposure(unittest.TestCase):
+class TestAdjustExposure:
     """
     Define :func:`colour_hdri.exposure.common.adjust_exposure` definition
     unit tests methods.
@@ -132,7 +130,3 @@ class TestAdjustExposure(unittest.TestCase):
             np.array([0.5, 1.0, 1.5, 2.0]),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

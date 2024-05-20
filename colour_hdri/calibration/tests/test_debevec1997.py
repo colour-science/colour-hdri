@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """
 Define the unit tests for the :mod:`colour_hdri.calibration.debevec1997`
 module.
@@ -7,7 +6,6 @@ module.
 from __future__ import annotations
 
 import os
-import unittest
 
 import numpy as np
 from colour.hints import List
@@ -45,7 +43,7 @@ ROOT_RESOURCES_CALIBRATION: str = os.path.join(
 IMAGES_JPG: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
 
 
-class TestGSolve(unittest.TestCase):
+class TestGSolve:
     """
     Define :func:`colour_hdri.calibration.debevec1997.g_solve` definition
     unit tests methods.
@@ -87,7 +85,7 @@ class TestGSolve(unittest.TestCase):
             )
 
 
-class TestCameraResponseFunctionsDebevec1997(unittest.TestCase):
+class TestCameraResponseFunctionsDebevec1997:
     """
     Define :func:`colour_hdri.calibration.debevec1997.\
 camera_response_functions_Debevec1997` definition unit tests methods.
@@ -110,7 +108,3 @@ camera_response_functions_Debevec1997` definition.
             ),
             atol=0.00001,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()
