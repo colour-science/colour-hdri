@@ -2,7 +2,7 @@
 Viriyothai (2009) Variance Minimization Light Probe Sampling
 ============================================================
 
-Defines the *Viriyothai (2009)* variance minimization light probe sampling
+Define the *Viriyothai (2009)* variance minimization light probe sampling
 objects:
 
 -   :func:`colour_hdri.\

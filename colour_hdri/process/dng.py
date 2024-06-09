@@ -2,7 +2,7 @@
 Adobe DNG SDK Conversion Process
 ================================
 
-Defines various objects implementing raw conversion based on *Adobe DNG SDK*
+Define various objects implementing raw conversion based on *Adobe DNG SDK*
 and *dcraw*:
 
 -   :func:`colour_hdri.convert_raw_files_to_dng_files`

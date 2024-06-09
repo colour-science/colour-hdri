@@ -2,7 +2,7 @@
 Lens Vignette Characterisation & Correction
 ===========================================
 
-Defines various objects to correct camera lens vignette:
+Define various objects to correct camera lens vignette:
 
 -   :func:`colour_hdri.distortion.apply_radial_gradient`
 -   :func:`colour_hdri.distortion.parabolic_2D_function`

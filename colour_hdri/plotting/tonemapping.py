@@ -2,7 +2,7 @@
 Tonemapping Operators Plotting
 ==============================
 
-Defines the tonemapping operators plotting objects:
+Define the tonemapping operators plotting objects:
 
 -   :func:`colour_hdri.plotting.plot_tonemapping_operator_image`
 """

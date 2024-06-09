@@ -2,7 +2,7 @@
 Image Data & Metadata Utilities
 ===============================
 
-Defines various image data and metadata utilities classes:
+Define various image data and metadata utilities classes:
 
 -   :class:`colour_hdri.Metadata`
 -   :class:`colour_hdri.Image`

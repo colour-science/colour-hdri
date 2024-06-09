@@ -2,7 +2,7 @@
 HDRI Generation
 ===============
 
-Defines the HDRI generation objects:
+Define the HDRI generation objects:
 
 -   :func:`colour_hdri.image_stack_to_HDRI`
 
