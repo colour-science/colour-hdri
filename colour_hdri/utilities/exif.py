@@ -66,6 +66,8 @@ __all__ = [
     "write_exif_tag",
 ]
 
+LOGGER = logging.getLogger(__name__)
+
 _IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
@@ -252,7 +254,7 @@ def read_exif_tags(image: str) -> defaultdict:
         EXIF tags.
     """
 
-    logging.info("Reading '{image}' image EXIF data.", extra={"image": image})
+    LOGGER.info('Reading "%s" image EXIF data.', image)
 
     exif_tags = vivification()
     lines = str(
@@ -295,10 +297,7 @@ def copy_exif_tags(source: str, target: str) -> bool:
         Definition success.
     """
 
-    logging.info(
-        "Copying '{source}' file EXIF data to '{target}' file.",
-        extra={"source": source, "target": target},
-    )
+    LOGGER.info('Copying "%s" file EXIF data to "%s" file.', source, target)
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
@@ -348,7 +347,7 @@ def delete_exif_tags(image: str) -> bool:
         Definition success.
     """
 
-    logging.info("Deleting '{image}' image EXIF tags.", extra={"image": image})
+    LOGGER.info('Deleting "%s" image EXIF tags.', image)
 
     subprocess.check_output(
         [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
@@ -389,9 +388,11 @@ def read_exif_tag(image: str, tag: str) -> str:
         .strip()
     )
 
-    logging.info(
-        "Reading '{image}' image '{tag}' EXIF tag value: '{value}'",
-        extra={"image": image, "tag": tag, "value": value},
+    LOGGER.info(
+        'Reading "%s" image "%s" EXIF tag value: "%s"',
+        image,
+        tag,
+        value,
     )
 
     return value
@@ -416,9 +417,11 @@ def write_exif_tag(image: str, tag: str, value: str) -> bool:
         Definition success.
     """
 
-    logging.info(
-        "Writing '{image}' image '{tag}' EXIF tag with '{value}' value.",
-        extra={"image": image, "tag": tag, "value": value},
+    LOGGER.info(
+        'Writing "%s" image "%s" EXIF tag with "%s" value.',
+        image,
+        tag,
+        value,
     )
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
