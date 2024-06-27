@@ -58,6 +58,8 @@ __all__ = [
     "ImageStack",
 ]
 
+LOGGER = logging.getLogger(__name__)
+
 
 @dataclass
 class Metadata(MixinDataclassArray):
@@ -246,7 +248,7 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info('Reading "{path}" image.', extra={"path": self._path})
+            LOGGER.info('Reading "%s" image.', self._path)
 
             data = read_image(str(self._path))
             if cctf_decoding is not None:
@@ -274,7 +276,7 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info('Reading "{path}" image metadata.', extra={"path": self._path})
+            LOGGER.info('Reading "%s" image metadata.', self._path)
 
             exif_data = read_exif_tags(self._path)
 

@@ -55,6 +55,8 @@ __all__ = [
     "read_dng_files_exif_tags",
 ]
 
+LOGGER = logging.getLogger(__name__)
+
 _IS_MACOS_PLATFORM: bool = platform.system() == "Darwin"
 """Whether the current platform is *macOS*."""
 
@@ -267,9 +269,10 @@ def convert_raw_files_to_dng_files(
         if path_exists(dng_file):
             os.remove(dng_file)
 
-        logging.info(
-            'Converting "{raw_file}" file to "{dng_file}" file.',
-            extra={"raw_file": raw_file, "dng_file": dng_file},
+        LOGGER.info(
+            'Converting "%s" file to "%s" file.',
+            raw_file,
+            dng_file,
         )
 
         command = [
@@ -329,12 +332,10 @@ def convert_dng_files_to_intermediate_files(
         if path_exists(intermediate_file):
             os.remove(intermediate_file)
 
-        logging.info(
-            'Converting "{dng_file}" file to "{intermediate_file}" file.',
-            extra={
-                "dng_file": dng_file,
-                "intermediate_file": intermediate_file,
-            },
+        LOGGER.info(
+            'Converting "%s" file to "%s" file.',
+            dng_file,
+            intermediate_file,
         )
 
         command = [
