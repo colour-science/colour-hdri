@@ -2,7 +2,7 @@
 Adobe DNG SDK Colour Processing
 ===============================
 
-Defines various objects implementing *Adobe DNG SDK* colour processing:
+Define various objects implementing *Adobe DNG SDK* colour processing:
 
 -   :func:`colour_hdri.xy_to_camera_neutral`
 -   :func:`colour_hdri.camera_neutral_to_xy`
@@ -115,7 +115,6 @@ from colour.adaptation import matrix_chromatic_adaptation_VonKries
 from colour.algebra import (
     is_identity,
     linear_conversion,
-    matrix_dot,
     vector_dot,
 )
 from colour.constants import EPSILON
@@ -526,7 +525,7 @@ def matrix_XYZ_to_camera_space(
         M_camera_calibration_2,
     )
 
-    M_XYZ_to_camera_space = matrix_dot(matrix_dot(M_AB, M_CC), M_CM)
+    M_XYZ_to_camera_space = np.matmul(np.matmul(M_AB, M_CC), M_CM)
 
     return M_XYZ_to_camera_space
 
@@ -675,7 +674,7 @@ def matrix_camera_space_to_XYZ(
             xy_to_XYZ(CCS_ILLUMINANT_ADOBEDNG),
             chromatic_adaptation_transform,
         )
-        M_camera_space_to_XYZ = matrix_dot(M_CAT, M_camera_to_XYZ)
+        M_camera_space_to_XYZ = np.matmul(M_CAT, M_camera_to_XYZ)
     else:
         uv = UCS_to_uv(XYZ_to_UCS(xy_to_XYZ(xy)))
         CCT, _D_uv = uv_to_CCT_Robertson1968(uv)
@@ -711,7 +710,7 @@ def matrix_camera_space_to_XYZ(
         M_AB = np.diagflat(analog_balance)
 
         M_reference_neutral = vector_dot(
-            np.linalg.inv(matrix_dot(M_AB, M_CC)), camera_neutral
+            np.linalg.inv(np.matmul(M_AB, M_CC)), camera_neutral
         )
         M_D = np.linalg.inv(np.diagflat(M_reference_neutral))
         M_FM = matrix_interpolated(
@@ -721,8 +720,8 @@ def matrix_camera_space_to_XYZ(
             M_forward_matrix_1,
             M_forward_matrix_2,
         )
-        M_camera_space_to_XYZ = matrix_dot(
-            matrix_dot(M_FM, M_D), np.linalg.inv(matrix_dot(M_AB, M_CC))
+        M_camera_space_to_XYZ = np.matmul(
+            np.matmul(M_FM, M_D), np.linalg.inv(np.matmul(M_AB, M_CC))
         )
 
     return M_camera_space_to_XYZ

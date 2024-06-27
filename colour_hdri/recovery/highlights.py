@@ -2,7 +2,7 @@
 Clipped Highlights Recovery
 ===========================
 
-Defines the clipped highlights recovery objects:
+Define the clipped highlights recovery objects:
 
 -   :func:`colour_hdri.highlights_recovery_blend`
 -   :func:`colour_hdri.highlights_recovery_LCHab`

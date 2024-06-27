@@ -2,7 +2,7 @@
 Lens Vignette Characterisation & Correction
 ===========================================
 
-Defines various objects to correct camera lens vignette:
+Define various objects to correct camera lens vignette:
 
 -   :func:`colour_hdri.distortion.apply_radial_gradient`
 -   :func:`colour_hdri.distortion.parabolic_2D_function`
@@ -944,7 +944,9 @@ def correct_vignette_RBF(
             epsilon=epsilon,
         )
 
-        I_v = interpolator(tstack([y_1, x_1]).reshape([-1, 2])).reshape(height, width)
+        I_v = np.reshape(
+            interpolator(np.reshape(tstack([y_1, x_1]), (-1, 2))), (height, width)
+        )
 
         image[..., i] /= I_v
 

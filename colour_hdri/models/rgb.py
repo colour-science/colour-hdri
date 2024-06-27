@@ -2,7 +2,7 @@
 RGB Colourspace & Transformations
 =================================
 
-Defines the following *RGB* colourspace transformations:
+Define the following *RGB* colourspace transformations:
 
 -   :func:`colour_hdri.camera_space_to_RGB`
 -   :func:`colour_hdri.camera_space_to_sRGB`
@@ -11,7 +11,7 @@ Defines the following *RGB* colourspace transformations:
 from __future__ import annotations
 
 import numpy as np
-from colour.algebra import matrix_dot, vector_dot
+from colour.algebra import vector_dot
 from colour.hints import ArrayLike, NDArrayFloat
 from colour.models import RGB_COLOURSPACES
 
@@ -74,7 +74,7 @@ def camera_space_to_RGB(
     array([ 0.7564180...,  0.8683192...,  0.6044589...])
     """
 
-    M_RGB_camera = matrix_dot(M_XYZ_to_camera_space, matrix_RGB_to_XYZ)
+    M_RGB_camera = np.matmul(M_XYZ_to_camera_space, matrix_RGB_to_XYZ)
 
     M_RGB_camera /= np.transpose(np.sum(M_RGB_camera, axis=1)[None])
 

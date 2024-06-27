@@ -1,7 +1,5 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.models.rgb` module."""
 
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -21,7 +19,7 @@ __all__ = [
 ]
 
 
-class TestCameraSpaceToRGB(unittest.TestCase):
+class TestCameraSpaceToRGB:
     """
     Define :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition
     unit tests methods.
@@ -53,7 +51,7 @@ class TestCameraSpaceToRGB(unittest.TestCase):
         )
 
 
-class TestCameraSpaceTosRGB(unittest.TestCase):
+class TestCameraSpaceTosRGB:
     """
     Define :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition
     unit tests methods.
@@ -76,7 +74,3 @@ class TestCameraSpaceTosRGB(unittest.TestCase):
             np.array([0.75643502, 0.86831555, 0.60447061]),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

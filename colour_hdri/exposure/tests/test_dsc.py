@@ -1,7 +1,5 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.exposure.dsc` module."""
 
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -34,7 +32,7 @@ __all__ = [
 ]
 
 
-class TestQFactor(unittest.TestCase):
+class TestQFactor:
     """
     Define :func:`colour_hdri.exposure.dsc.q_factor` definition
     unit tests methods.
@@ -54,7 +52,7 @@ class TestQFactor(unittest.TestCase):
         )
 
 
-class TestFocalPlaneExposure(unittest.TestCase):
+class TestFocalPlaneExposure:
     """
     Define :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition
     unit tests methods.
@@ -80,7 +78,7 @@ class TestFocalPlaneExposure(unittest.TestCase):
         )
 
 
-class TestArithmeticMeanFocalPlaneExposure(unittest.TestCase):
+class TestArithmeticMeanFocalPlaneExposure:
     """
     Define :func:`colour_hdri.exposure.dsc.\
 arithmetic_mean_focal_plane_exposure` definition unit tests methods.
@@ -103,7 +101,7 @@ arithmetic_mean_focal_plane_exposure` definition.
         )
 
 
-class TestSaturationBasedSpeedFocalPlaneExposure(unittest.TestCase):
+class TestSaturationBasedSpeedFocalPlaneExposure:
     """
     Define :func:`colour_hdri.exposure.dsc.\
 saturation_based_speed_focal_plane_exposure` definition unit tests methods.
@@ -133,7 +131,7 @@ saturation_based_speed_focal_plane_exposure` definition.
         )
 
 
-class TestExposureIndexValues(unittest.TestCase):
+class TestExposureIndexValues:
     """
     Define :func:`colour_hdri.exposure.dsc.exposure_index_values` definition
     unit tests methods.
@@ -152,7 +150,7 @@ class TestExposureIndexValues(unittest.TestCase):
         )
 
 
-class TestExposureValue100(unittest.TestCase):
+class TestExposureValue100:
     """
     Define :func:`colour_hdri.exposure.dsc.exposure_value_100` definition
     unit tests methods.
@@ -175,7 +173,7 @@ class TestExposureValue100(unittest.TestCase):
         )
 
 
-class TestPhotometricExposureScaleFactorLagarde2014(unittest.TestCase):
+class TestPhotometricExposureScaleFactorLagarde2014:
     """
     Define :func:`colour_hdri.exposure.dsc.\
 photometric_exposure_scale_factor_Lagarde2014` definition unit tests
@@ -198,7 +196,3 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
             np.array([0.00005221, 0.00037884, 0.00135554]),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

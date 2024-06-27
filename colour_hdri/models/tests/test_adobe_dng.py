@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """
 Define the unit tests for the :mod:`colour_hdri.models.dng` module.
 
@@ -9,8 +8,6 @@ Notes
 """
 
 from __future__ import annotations
-
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -99,7 +96,7 @@ M_FORWARD_MATRIX_2: NDArrayFloat = np.array(
 )
 
 
-class TestMatrixInterpolated(unittest.TestCase):
+class TestMatrixInterpolated:
     """
     Define :func:`colour_hdri.models.adobe_dng.matrix_interpolated` definition
     unit tests methods.
@@ -149,7 +146,7 @@ class TestMatrixInterpolated(unittest.TestCase):
         )
 
 
-class TestXy_to_camera_neutral(unittest.TestCase):
+class TestXy_to_camera_neutral:
     """
     Define :func:`colour_hdri.models.adobe_dng.\
 xy_to_camera_neutral` definition unit tests methods.
@@ -207,7 +204,7 @@ xy_to_camera_neutral` definition.
         )
 
 
-class TestCamera_neutral_to_xy(unittest.TestCase):
+class TestCamera_neutral_to_xy:
     """
     Define :func:`colour_hdri.models.adobe_dng.\
 camera_neutral_to_xy` definition unit tests methods.
@@ -265,7 +262,7 @@ camera_neutral_to_xy` definition.
         )
 
 
-class TestMatrix_XYZ_to_camera_space(unittest.TestCase):
+class TestMatrix_XYZ_to_camera_space:
     """
     Define :func:`colour_hdri.models.adobe_dng.\
 matrix_XYZ_to_camera_space` definition unit tests methods.
@@ -343,7 +340,7 @@ matrix_XYZ_to_camera_space` definition.
         )
 
 
-class TestMatrix_Camera_space_to_XYZ(unittest.TestCase):
+class TestMatrix_Camera_space_to_XYZ:
     """
     Define :func:`colour_hdri.models.adobe_dng.\
 matrix_camera_space_to_XYZ` definition unit tests methods.
@@ -450,7 +447,3 @@ matrix_camera_space_to_XYZ` definition.
             M_reference,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -1,10 +1,8 @@
-# !/usr/bin/env python
 """
 Define the unit tests for the
 :mod:`colour_hdri.tonemapping.global_operators.operators` module.
 """
 
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -47,7 +45,7 @@ __all__ = [
 ]
 
 
-class TestLogAverage(unittest.TestCase):
+class TestLogAverage:
     """
     Define :func:`colour_hdri.utilities.common.log_average` definition unit
     tests methods.
@@ -64,7 +62,7 @@ class TestLogAverage(unittest.TestCase):
         )
 
 
-class TestTonemappingOperatorSimple(unittest.TestCase):
+class TestTonemappingOperatorSimple:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_simple` definition unit tests methods.
@@ -107,7 +105,7 @@ tonemapping_operator_simple` definition.
         )
 
 
-class TestTonemappingOperatorNormalisation(unittest.TestCase):
+class TestTonemappingOperatorNormalisation:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_normalisation` definition unit tests methods.
@@ -150,7 +148,7 @@ tonemapping_operator_normalisation` definition.
         )
 
 
-class TestTonemappingOperatorGamma(unittest.TestCase):
+class TestTonemappingOperatorGamma:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_gamma` definition unit tests methods.
@@ -195,7 +193,7 @@ tonemapping_operator_gamma` definition.
         )
 
 
-class TestTonemappingOperatorLogarithmic(unittest.TestCase):
+class TestTonemappingOperatorLogarithmic:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_logarithmic` definition unit tests methods.
@@ -240,7 +238,7 @@ tonemapping_operator_logarithmic` definition.
         )
 
 
-class TestTonemappingOperatorExponential(unittest.TestCase):
+class TestTonemappingOperatorExponential:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_exponential` definition unit tests methods.
@@ -285,7 +283,7 @@ tonemapping_operator_exponential` definition.
         )
 
 
-class TestTonemappingOperatorLogarithmicMapping(unittest.TestCase):
+class TestTonemappingOperatorLogarithmicMapping:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_logarithmic_mapping` definition unit tests methods.
@@ -330,7 +328,7 @@ tonemapping_operator_logarithmic_mapping` definition.
         )
 
 
-class TestTonemappingOperatorExponentiationMapping(unittest.TestCase):
+class TestTonemappingOperatorExponentiationMapping:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_exponentiation_mapping` definition unit tests methods.
@@ -375,7 +373,7 @@ tonemapping_operator_exponentiation_mapping` definition.
         )
 
 
-class TestTonemappingOperatorSchlick1994(unittest.TestCase):
+class TestTonemappingOperatorSchlick1994:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_Schlick1994` definition unit tests methods.
@@ -419,7 +417,7 @@ tonemapping_operator_Schlick1994` definition.
         )
 
 
-class TestTonemappingOperatorTumblin1999(unittest.TestCase):
+class TestTonemappingOperatorTumblin1999:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_Tumblin1999` definition unit tests methods.
@@ -465,7 +463,7 @@ tonemapping_operator_Tumblin1999` definition.
         )
 
 
-class TestTonemappingOperatorReinhard2004(unittest.TestCase):
+class TestTonemappingOperatorReinhard2004:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_Reinhard2004` definition unit tests methods.
@@ -512,7 +510,7 @@ tonemapping_operator_Reinhard2004` definition.
         )
 
 
-class TestTonemappingOperatorFilmic(unittest.TestCase):
+class TestTonemappingOperatorFilmic:
     """
     Define :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_filmic` definition unit tests methods.
@@ -561,7 +559,3 @@ tonemapping_operator_filmic` definition.
             ),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

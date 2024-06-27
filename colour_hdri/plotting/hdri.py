@@ -2,7 +2,7 @@
 HDRI Plotting
 =============
 
-Defines the HDRI plotting objects:
+Define the HDRI plotting objects:
 
 -   :func:`colour_hdri.plotting.plot_HDRI_strip`
 """

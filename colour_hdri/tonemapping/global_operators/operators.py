@@ -2,7 +2,7 @@
 Global Tonemapping Operators
 ============================
 
-Defines the global tonemapping operators objects:
+Define the global tonemapping operators objects:
 
 -   :func:`colour_hdri.tonemapping_operator_simple`
 -   :func:`colour_hdri.tonemapping_operator_normalisation`

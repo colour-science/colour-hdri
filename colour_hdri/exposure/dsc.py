@@ -2,7 +2,7 @@
 Digital Still Camera Exposure
 =============================
 
-Defines various objects for modeling Digital Still Camera (DSC) exposure:
+Define various objects for modeling Digital Still Camera (DSC) exposure:
 
 -   :func:`colour_hdri.focal_plane_exposure`
 -   :func:`colour_hdri.arithmetic_mean_focal_plane_exposure`
