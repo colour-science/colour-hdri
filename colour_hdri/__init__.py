@@ -62,6 +62,7 @@ from .exposure import (
     saturation_based_speed_focal_plane_exposure,
 )
 from .generation import (
+    double_sigmoid_anchored_function,
     hat_function,
     image_stack_to_HDRI,
     normal_distribution_function,
@@ -200,6 +201,7 @@ __all__ += [
     "saturation_based_speed_focal_plane_exposure",
 ]
 __all__ += [
+    "double_sigmoid_anchored_function",
     "normal_distribution_function",
     "hat_function",
     "weighting_function_Debevec1997",
@@ -253,6 +255,8 @@ ROOT_RESOURCES_EXAMPLES: str = os.path.join(
     ROOT_RESOURCES, "colour-hdri-examples-datasets"
 )
 ROOT_RESOURCES_TESTS: str = os.path.join(ROOT_RESOURCES, "colour-hdri-tests-datasets")
+
+__all__ += ["ROOT_RESOURCES", "ROOT_RESOURCES_EXAMPLES", "ROOT_RESOURCES_TESTS"]
 
 __application_name__ = "Colour - HDRI"
 

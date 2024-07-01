@@ -101,18 +101,19 @@ def image_stack_to_HDRI(
                     f"colourspace or clamp negative values."
                 )
 
-            weights = weighting_function(image.data)
-            if i == 0:
-                weights[image.data >= 0.5] = 1
-            if i == len(image_stack) - 1:
-                weights[image.data <= 0.5] = 1
+            image_data = np.clip(image.data, 0, 1)
 
-            image_data = image.data
+            weights = weighting_function(image_data)
+            if i == 0:
+                weights[image_data >= 0.5] = 1
+            if i == len(image_stack) - 1:
+                weights[image_data <= 0.5] = 1
+
             if camera_response_functions is not None:
                 camera_response_functions = as_float_array(camera_response_functions)
                 samples = np.linspace(0, 1, camera_response_functions.shape[0])
 
-                R, G, B = tsplit(image.data)
+                R, G, B = tsplit(image_data)
                 R = np.interp(R, samples, camera_response_functions[..., 0])
                 G = np.interp(G, samples, camera_response_functions[..., 1])
                 B = np.interp(B, samples, camera_response_functions[..., 2])
