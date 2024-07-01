@@ -11,7 +11,9 @@ Define various image data and metadata utilities classes:
 
 from __future__ import annotations
 
+import json
 import logging
+import os
 from collections.abc import MutableSequence
 from dataclasses import dataclass, field, fields
 
@@ -274,65 +276,84 @@ class Image:
             If the image path is undefined.
         """
 
-        if self._path is not None:
-            LOGGER.info('Reading "%s" image metadata.', self._path)
+        if self._path is None:
+            raise ValueError('The image "path" is undefined!')
 
+        LOGGER.info('Reading "%s" image metadata.', self._path)
+
+        is_exif_data_parsed = False
+        exif_data = {}
+        extension = os.path.splitext(self._path)[-1]
+        if extension.lower() == ".exr":
+            # NOTE: When read from an EXR file, the EXIF data has been written
+            # after having been parsed once usually from DNG data.
+            is_exif_data_parsed = True
+            _data, attributes = read_image(self._path, attributes=True)
+
+            for attribute in attributes:
+                if attribute.name == "EXIF":
+                    exif_data = {"EXIF": json.loads(attribute.value)}
+                    break
+        else:
             exif_data = read_exif_tags(self._path)
 
-            if not exif_data.get("EXIF"):
-                warning(
-                    f'"{self._path}" file has no "Exif" data, metadata will '
-                    f"be undefined!"
-                )
-                self.metadata = Metadata(*[None] * 6)
-                return self.metadata
+        if not exif_data.get("EXIF"):
+            warning(
+                f'"{self._path}" file has no "Exif" data, metadata will '
+                f"be undefined!"
+            )
+            self.metadata = Metadata(*[None] * 6)
+            return self.metadata
 
-            f_number = exif_data["EXIF"].get("F Number")
-            if f_number is not None:
-                f_number = parse_exif_number(f_number[0])
+        f_number = exif_data["EXIF"].get("F Number")
+        if f_number is not None and not is_exif_data_parsed:
+            f_number = parse_exif_number(f_number[0])
 
-            exposure_time = exif_data["EXIF"].get("Exposure Time")
-            if exposure_time is not None:
-                exposure_time = parse_exif_fraction(exposure_time[0])
+        exposure_time = exif_data["EXIF"].get("Exposure Time")
+        if exposure_time is not None and not is_exif_data_parsed:
+            exposure_time = parse_exif_fraction(exposure_time[0])
 
-            iso = exif_data["EXIF"].get("ISO")
-            if iso is not None:
-                iso = parse_exif_number(iso[0])
+        iso = exif_data["EXIF"].get("ISO")
+        if iso is not None and not is_exif_data_parsed:
+            iso = parse_exif_number(iso[0])
 
-            black_level = exif_data["EXIF"].get("Black Level")
-            if black_level is not None:
+        black_level = exif_data["EXIF"].get("Black Level")
+        if black_level is not None:
+            if not is_exif_data_parsed:
                 black_level = parse_exif_array(black_level[0])
-                black_level = as_float_array(black_level) / 65535
 
-            white_level = exif_data["EXIF"].get("White Level")
-            if white_level is not None:
+            black_level = as_float_array(black_level) / 65535
+
+        white_level = exif_data["EXIF"].get("White Level")
+        if white_level is not None and is_exif_data_parsed:
+            if not is_exif_data_parsed:
                 white_level = parse_exif_array(white_level[0])
-                white_level = as_float_array(white_level) / 65535
 
-            white_balance_multipliers = exif_data["EXIF"].get("As Shot Neutral")
-            if white_balance_multipliers is not None:
+            white_level = as_float_array(white_level) / 65535
+
+        white_balance_multipliers = exif_data["EXIF"].get("As Shot Neutral")
+        if white_balance_multipliers is not None:
+            if not is_exif_data_parsed:
                 white_balance_multipliers = parse_exif_array(
                     white_balance_multipliers[0]
                 )
-                white_balance_multipliers = (
-                    as_float_array(white_balance_multipliers)
-                    / white_balance_multipliers[1]
-                )
 
-            metadata = Metadata(
-                f_number,
-                exposure_time,
-                iso,
-                black_level,
-                white_level,
-                white_balance_multipliers,
+            white_balance_multipliers = (
+                as_float_array(white_balance_multipliers) / white_balance_multipliers[1]
             )
 
-            self._metadata = metadata
+        metadata = Metadata(
+            f_number,
+            exposure_time,
+            iso,
+            black_level,
+            white_level,
+            white_balance_multipliers,
+        )
 
-            return metadata
-        else:
-            raise ValueError('The image "path" is undefined!')
+        self._metadata = metadata
+
+        return metadata
 
 
 class ImageStack(MutableSequence):
