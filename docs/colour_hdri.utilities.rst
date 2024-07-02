@@ -54,3 +54,17 @@ Image Data & Metadata Utilities
     Metadata
     Image
     ImageStack
+
+Requirements
+------------
+
+``colour_hdri.utilities``
+
+.. currentmodule:: colour_hdri.utilities
+
+.. autosummary::
+    :toctree: generated/
+
+    is_rawpy_installed
+    is_lensfunpy_installed
+    is_opencv_installed

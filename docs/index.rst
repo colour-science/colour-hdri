@@ -26,6 +26,7 @@ The following features are available:
 - Digital Still Camera (DSC) Exposure Model
 - Raw Processing Helpers
 - Vignette Characterisation & Correction
+- Graph and Node Network-Based Processing
 
 Examples
 ^^^^^^^^

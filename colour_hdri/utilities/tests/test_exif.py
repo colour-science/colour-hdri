@@ -204,8 +204,163 @@ class TestReadExifTags:
         ]
 
         assert sorted(exif_data["EXIF"].values(), key=lambda x: x[0].name) == [
-            [EXIFTag("EXIF", "Camera Model Name", "EOS 5D Mark II", "272")],
-            [EXIFTag("EXIF", "Create Date", "2015:09:19 03:39:20", "36868")],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Camera Model Name",
+                    value="EOS 5D Mark II",
+                    identifier="272",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Create Date",
+                    value="2015:09:19 03:39:20",
+                    identifier="36868",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Date/Time Original",
+                    value="2015:09:19 03:39:20",
+                    identifier="36867",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Exif Image Height",
+                    value="426",
+                    identifier="40963",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Exif Image Width",
+                    value="640",
+                    identifier="40962",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Exposure Time",
+                    value="1/8",
+                    identifier="33434",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="F Number",
+                    value="8.0",
+                    identifier="33437",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Focal Length",
+                    value="16.0 mm",
+                    identifier="37386",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="ISO",
+                    value="100",
+                    identifier="34855",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Make",
+                    value="Canon",
+                    identifier="271",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Modify Date",
+                    value="2015:09:19 03:39:20",
+                    identifier="306",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Orientation",
+                    value="Horizontal (normal)",
+                    identifier="274",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Photometric Interpretation",
+                    value="RGB",
+                    identifier="262",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Resolution Unit",
+                    value="inches",
+                    identifier="296",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Software",
+                    value="Photos 1.0.1",
+                    identifier="305",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="X Resolution",
+                    value="72",
+                    identifier="282",
+                )
+            ],
+            [
+                EXIFTag(
+                    group="EXIF",
+                    name="Y Resolution",
+                    value="72",
+                    identifier="283",
+                )
+            ],
+        ]
+
+        exif_data = vivified_to_dict(read_exif_tags(test_jpg_image, numeric=True))
+
+        assert sorted(exif_data["EXIF"].values(), key=lambda x: x[0].name) == [
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Camera Model Name",
+                    "EOS 5D Mark II",
+                    "272",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Create Date",
+                    "2015:09:19 03:39:20",
+                    "36868",
+                )
+            ],
             [
                 EXIFTag(
                     "EXIF",
@@ -214,20 +369,118 @@ class TestReadExifTags:
                     "36867",
                 )
             ],
-            [EXIFTag("EXIF", "Exif Image Height", "426", "40963")],
-            [EXIFTag("EXIF", "Exif Image Width", "640", "40962")],
-            [EXIFTag("EXIF", "Exposure Time", "0.125", "33434")],
-            [EXIFTag("EXIF", "F Number", "8", "33437")],
-            [EXIFTag("EXIF", "Focal Length", "16", "37386")],
-            [EXIFTag("EXIF", "ISO", "100", "34855")],
-            [EXIFTag("EXIF", "Make", "Canon", "271")],
-            [EXIFTag("EXIF", "Modify Date", "2015:09:19 03:39:20", "306")],
-            [EXIFTag("EXIF", "Orientation", "1", "274")],
-            [EXIFTag("EXIF", "Photometric Interpretation", "2", "262")],
-            [EXIFTag("EXIF", "Resolution Unit", "2", "296")],
-            [EXIFTag("EXIF", "Software", "Photos 1.0.1", "305")],
-            [EXIFTag("EXIF", "X Resolution", "72", "282")],
-            [EXIFTag("EXIF", "Y Resolution", "72", "283")],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Exif Image Height",
+                    "426",
+                    "40963",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Exif Image Width",
+                    "640",
+                    "40962",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Exposure Time",
+                    "0.125",
+                    "33434",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "F Number",
+                    "8",
+                    "33437",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Focal Length",
+                    "16",
+                    "37386",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "ISO",
+                    "100",
+                    "34855",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Make",
+                    "Canon",
+                    "271",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Modify Date",
+                    "2015:09:19 03:39:20",
+                    "306",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Orientation",
+                    "1",
+                    "274",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Photometric Interpretation",
+                    "2",
+                    "262",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Resolution Unit",
+                    "2",
+                    "296",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Software",
+                    "Photos 1.0.1",
+                    "305",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "X Resolution",
+                    "72",
+                    "282",
+                )
+            ],
+            [
+                EXIFTag(
+                    "EXIF",
+                    "Y Resolution",
+                    "72",
+                    "283",
+                )
+            ],
         ]
 
 
@@ -343,6 +596,8 @@ class TestReadExifTag:
         assert read_exif_tag(test_jpg_image, "Aperture") == "8.0"
         assert read_exif_tag(test_jpg_image, "ExposureTime") == "1/8"
         assert read_exif_tag(test_jpg_image, "ISO") == "100"
+        assert read_exif_tag(test_jpg_image, "FocalLength") == "16.0 mm"
+        assert read_exif_tag(test_jpg_image, "FocalLength", numeric=True) == "16"
 
 
 class TestWriteExifTag:

@@ -30,6 +30,7 @@ from colour.utilities.documentation import (
 from colour_hdri.utilities import (
     EXIFTag,
     parse_exif_array,
+    parse_exif_fraction,
     parse_exif_number,
     parse_exif_string,
     path_exists,
@@ -133,7 +134,7 @@ DNG_EXIF_TAGS_BINDING: CanonicalMapping = CanonicalMapping(
                 "Lens Model": (parse_exif_string, None),
                 "DNG Lens Info": (parse_exif_string, None),
                 "Focal Length": (parse_exif_number, None),
-                "Exposure Time": (parse_exif_number, None),
+                "Exposure Time": (parse_exif_fraction, None),
                 "F Number": (parse_exif_number, None),
                 "ISO": (parse_exif_number, None),
                 "CFA Pattern 2": (
@@ -386,7 +387,7 @@ def read_dng_files_exif_tags(
 
     dng_files_exif_tags = []
     for dng_file in dng_files:
-        exif_tags = read_exif_tags(dng_file)
+        exif_tags = read_exif_tags(dng_file, numeric=True)
         binding = CanonicalMapping()
         for group, tags in exif_tags_binding.items():
             binding[group] = CanonicalMapping()

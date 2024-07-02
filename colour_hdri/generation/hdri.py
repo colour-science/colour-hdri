@@ -23,6 +23,7 @@ References
 from __future__ import annotations
 
 import numpy as np
+from colour.constants import EPSILON
 from colour.hints import ArrayLike, Callable, NDArrayFloat
 from colour.utilities import as_float_array, tsplit, tstack, warning
 
@@ -53,7 +54,7 @@ def image_stack_to_HDRI(
     Parameters
     ----------
     image_stack
-        Stack of single channel or multi-channel floating point images. The
+        Stack of single channel or multichannel floating point images. The
         stack is assumed to be representing linear values except if
         ``camera_response_functions`` argument is provided.
     weighting_function
@@ -71,8 +72,13 @@ def image_stack_to_HDRI(
     --------
     If the image stack contains images with negative or equal to zero values,
     unpredictable results may occur and NaNs might be generated. It is
-    thus recommended encoding the images in a wider RGB colourspace or clamp
-    negative values.
+    thus recommended encoding the images in a wider RGB colourspace. This
+    definition avoids NaNs creation by ensuring that all values are greater or
+    equal to current floating point format epsilon. In practical applications
+    such as HDRI merging with photographic material there should never be a
+    pixel with a value exactly equal to zero. Ideally, the process should not
+    be presented by any negative photometric quantity  even though RGB
+    colourspace encodings allows to do so.
 
     References
     ----------
@@ -98,14 +104,16 @@ def image_stack_to_HDRI(
                     f'"{image.path}" image channels contain negative or equal '
                     f"to zero values, unpredictable results may occur! Please "
                     f"consider encoding your images in a wider gamut RGB "
-                    f"colourspace or clamp negative values."
+                    f"colourspace."
                 )
 
-            image_data = np.clip(image.data, 0, 1)
+            image_data = np.clip(image.data, EPSILON, 1)
 
-            weights = weighting_function(image_data)
+            weights = np.clip(weighting_function(image_data), EPSILON, 1)
+
             if i == 0:
                 weights[image_data >= 0.5] = 1
+
             if i == len(image_stack) - 1:
                 weights[image_data <= 0.5] = 1
 
