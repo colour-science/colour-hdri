@@ -848,9 +848,6 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
         ]:
             self.add_node(node)
 
-        self.nodes["GraphMergeHDRI"].is_subgraph = True
-        self.nodes["GraphPostMergeHDRI"].is_subgraph = True
-
         for connection in [
             (
                 ("CreateBatches", "execution_output"),
@@ -979,9 +976,6 @@ class GraphHDRI(ExecutionNode, PortGraph):
             GraphBatchMergeHDRI("GraphBatchMergeHDRI"),
         ]:
             self.add_node(node)
-
-        self.nodes["GraphRawProcessingCameraSensitivities"].is_subgraph = True
-        self.nodes["GraphBatchMergeHDRI"].is_subgraph = True
 
         for connection in [
             (
