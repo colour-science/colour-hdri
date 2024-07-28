@@ -776,6 +776,7 @@ class GraphPostMergeHDRI(ExecutionNode, PortGraph):
 
         self.add_input_port("array", [])
         self.add_output_port("output")
+        self.add_input_port("processes")
 
         for node in [
             NodeNormaliseExposure("NormaliseExposure"),
@@ -801,8 +802,21 @@ class GraphPostMergeHDRI(ExecutionNode, PortGraph):
                 output_port,
             )
 
-        self.connect("array", self.nodes["NormaliseExposure"], "image_paths")
-        self.connect("array", self.nodes["ParallelForMultiprocess"], "array")
+        self.connect(
+            "array",
+            self.nodes["NormaliseExposure"],
+            "image_paths",
+        )
+        self.connect(
+            "array",
+            self.nodes["ParallelForMultiprocess"],
+            "array",
+        )
+        self.connect(
+            "processes",
+            self.nodes["ParallelForMultiprocess"],
+            "processes",
+        )
         self.nodes["ParallelForMultiprocess"].set_input(
             "task", _task_multiprocess_post_merge_hdr
         )
@@ -837,6 +851,7 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
         self.add_input_port("array", [])
         self.add_input_port("batch_size", 3)
         self.add_input_port("bypass_watermark", False)
+        self.add_input_port("processes")
 
         self.add_output_port("output")
 
@@ -891,6 +906,11 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
             "bypass_watermark",
             self.nodes["GraphMergeHDRI"],
             "bypass_watermark",
+        )
+        self.connect(
+            "processes",
+            self.nodes["ParallelForMultiprocess"],
+            "processes",
         )
         self.nodes["ParallelForMultiprocess"].connect(
             "execution_output", self.nodes["GraphPostMergeHDRI"], "execution_input"
@@ -965,6 +985,7 @@ class GraphHDRI(ExecutionNode, PortGraph):
         self.add_input_port("bypass_correct_lens_aberration", False)
         self.add_input_port("bypass_watermark", False)
         self.add_input_port("batch_size", 3)
+        self.add_input_port("processes")
 
         self.add_output_port("output")
 
@@ -1060,6 +1081,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "batch_size",
             self.nodes["GraphBatchMergeHDRI"],
             "batch_size",
+        )
+        self.connect(
+            "processes",
+            self.nodes["ParallelForMultiprocess"],
+            "processes",
         )
         self.nodes["ParallelForMultiprocess"].set_input(
             "task", _task_multiprocess_graph_hdri
