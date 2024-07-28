@@ -815,7 +815,12 @@ class NodeComputeInputTransformCameraSensitivities(ExecutionNode):
                 )
                 return
 
+            camera_make = exif_group["Make"]
             camera_model = exif_group["Camera Model Name"]
+
+            if not camera_model.startswith(camera_make):
+                self.log(f'Prepending "{camera_make}" camera make.', "warning")
+                camera_model = f"{camera_make} {camera_model}"
 
             self.log(
                 f'Using "{camera_model}" camera model sensitivities.',
@@ -990,6 +995,11 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
 
         camera_make = exif_group["Make"]
         camera_model = exif_group["Camera Model Name"]
+
+        if not camera_model.startswith(camera_make):
+            self.log(f'Prepending "{camera_make}" camera make.', "warning")
+            camera_model = f"{camera_make} {camera_model}"
+
         self.log(
             f'Searching for "{camera_make}" "{camera_model}" camera model.',
         )

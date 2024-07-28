@@ -58,6 +58,9 @@ __all__ = [
 
 LOGGER = logging.getLogger(__name__)
 
+_IS_LINUX_PLATFORM: bool = platform.system() == "Linux"
+"""Whether the current platform is *Linux*."""
+
 _IS_MACOS_PLATFORM: bool = platform.system() == "Darwin"
 """Whether the current platform is *macOS*."""
 
@@ -106,8 +109,7 @@ if _IS_MACOS_PLATFORM:
 elif _IS_WINDOWS_PLATFORM:
     DNG_CONVERTER: str = "Adobe DNG Converter"
 else:
-    # https://rawpedia.rawtherapee.com/How_to_convert_raw_formats_to_DNG
-    DNG_CONVERTER: str = "Adobe-DNG-Converter"
+    DNG_CONVERTER: str = "dnglab"
 
 if is_documentation_building():  # pragma: no cover
     DNG_CONVERTER = DocstringText(DNG_CONVERTER)
@@ -118,6 +120,8 @@ Command line *DNG* conversion application, typically *Adobe DNG Converter*.
 DNG_CONVERTER_ARGUMENTS: str = '-cr7.1 -l -d "{output_directory}" "{raw_file}"'
 if _IS_WINDOWS_PLATFORM:
     DNG_CONVERTER_ARGUMENTS = DNG_CONVERTER_ARGUMENTS.replace('"', "")
+elif _IS_LINUX_PLATFORM:
+    DNG_CONVERTER_ARGUMENTS = 'convert "{raw_file}" "{output_directory}"'
 if is_documentation_building():  # pragma: no cover
     DNG_CONVERTER_ARGUMENTS = DocstringText(DNG_CONVERTER_ARGUMENTS)
     DNG_CONVERTER_ARGUMENTS.__doc__ = """
