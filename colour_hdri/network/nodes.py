@@ -1009,7 +1009,12 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
             f'Searching for "{camera_make}" "{camera_model}" camera model.',
         )
         camera = next(
-            iter(database.find_cameras(maker=camera_make, model=camera_model)), None
+            iter(
+                database.find_cameras(
+                    maker=camera_make, model=camera_model, loose_search=True
+                )
+            ),
+            None,
         )
         self.log(
             f'Using "{camera}" camera for lens aberrations correction.',
@@ -1019,7 +1024,9 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
         self.log(
             f'Searching for "{lens_model}" lens model.',
         )
-        lens = next(iter(database.find_lenses(camera, lens=lens_model)), None)
+        lens = next(
+            iter(database.find_lenses(camera, lens=lens_model, loose_search=True)), None
+        )
         self.log(
             f'Using "{lens}" lens for lens aberrations correction.',
         )
