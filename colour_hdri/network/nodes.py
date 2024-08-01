@@ -66,6 +66,7 @@ from colour_hdri.models import (
     matrix_XYZ_to_camera_space,
     xy_to_camera_neutral,
 )
+from colour_hdri.process import DNG_CONVERTER
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -818,8 +819,10 @@ class NodeComputeInputTransformCameraSensitivities(ExecutionNode):
             camera_make = exif_group["Make"]
             camera_model = exif_group["Camera Model Name"]
 
-            if not camera_model.startswith(camera_make):
-                self.log(f'Prepending "{camera_make}" camera make.', "warning")
+            if DNG_CONVERTER == "dnglab":
+                self.log(
+                    f'"dnglab" used, prepending "{camera_make}" camera make.', "warning"
+                )
                 camera_model = f"{camera_make} {camera_model}"
 
             self.log(
@@ -996,8 +999,10 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
         camera_make = exif_group["Make"]
         camera_model = exif_group["Camera Model Name"]
 
-        if not camera_model.startswith(camera_make):
-            self.log(f'Prepending "{camera_make}" camera make.', "warning")
+        if DNG_CONVERTER == "dnglab":
+            self.log(
+                f'"dnglab" used, prepending "{camera_make}" camera make.', "warning"
+            )
             camera_model = f"{camera_make} {camera_model}"
 
         self.log(
