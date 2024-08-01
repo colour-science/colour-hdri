@@ -16,6 +16,7 @@ Nodes
     NodeWriteImage
     NodeWritePreviewImage
     NodeRemoveFile
+    NodeOrient
     NodeWatermark
     NodeProcessingMetadata
     NodeReadFileMetadataDNG

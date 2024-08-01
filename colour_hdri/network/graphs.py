@@ -29,6 +29,7 @@ from colour_hdri.network import (
     NodeDownsample,
     NodeMergeImageStack,
     NodeNormaliseExposure,
+    NodeOrient,
     NodeProcessingMetadata,
     NodeProcessRawFileRawpy,
     NodeReadFileMetadataDNG,
@@ -83,9 +84,11 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
         self.add_input_port("correct_vignette", True)
         self.add_input_port("correct_chromatic_aberration", True)
         self.add_input_port("correct_distortion", True)
+        self.add_input_port("orientation")
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
         self.add_input_port("bypass_watermark", False)
+        self.add_input_port("bypass_orient", False)
 
         self.add_output_port("output")
 
@@ -100,6 +103,7 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             NodeApplyInputTransformDNG("ApplyInputTransformDNG"),
             NodeProcessingMetadata("ProcessingMetadata"),
             NodeWatermark("Watermark"),
+            NodeOrient("Orient"),
             NodeWriteImage("WriteImage"),
         ]:
             self.add_node(node)
@@ -211,10 +215,18 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             ),
             (
                 ("Watermark", "execution_output"),
-                ("WriteImage", "execution_input"),
+                ("Orient", "execution_input"),
             ),
             (
                 ("Watermark", "output_image"),
+                ("Orient", "input_image"),
+            ),
+            (
+                ("Orient", "execution_output"),
+                ("WriteImage", "execution_input"),
+            ),
+            (
+                ("Orient", "output_image"),
                 ("WriteImage", "image"),
             ),
         ]:
@@ -271,6 +283,16 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             "factor",
         )
         self.connect(
+            "orientation",
+            self.nodes["Orient"],
+            "orientation",
+        )
+        self.connect(
+            "orientation",
+            self.nodes["ProcessingMetadata"],
+            "orientation",
+        )
+        self.connect(
             "bypass_input_transform",
             self.nodes["ComputeInputTransformDNG"],
             "bypass",
@@ -283,6 +305,11 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
         self.connect(
             "bypass_watermark",
             self.nodes["Watermark"],
+            "bypass",
+        )
+        self.connect(
+            "bypass_orient",
+            self.nodes["Orient"],
             "bypass",
         )
         self.connect(
@@ -339,9 +366,11 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
         self.add_input_port("correct_vignette", True)
         self.add_input_port("correct_chromatic_aberration", True)
         self.add_input_port("correct_distortion", True)
+        self.add_input_port("orientation")
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
         self.add_input_port("bypass_watermark", False)
+        self.add_input_port("bypass_orient", False)
 
         self.add_output_port("output")
 
@@ -360,6 +389,7 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             ),
             NodeProcessingMetadata("ProcessingMetadata"),
             NodeWatermark("Watermark"),
+            NodeOrient("Orient"),
             NodeWriteImage("WriteImage"),
         ]:
             self.add_node(node)
@@ -471,10 +501,18 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             ),
             (
                 ("Watermark", "execution_output"),
-                ("WriteImage", "execution_input"),
+                ("Orient", "execution_input"),
             ),
             (
                 ("Watermark", "output_image"),
+                ("Orient", "input_image"),
+            ),
+            (
+                ("Orient", "execution_output"),
+                ("WriteImage", "execution_input"),
+            ),
+            (
+                ("Orient", "output_image"),
                 ("WriteImage", "image"),
             ),
         ]:
@@ -536,6 +574,16 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             "factor",
         )
         self.connect(
+            "orientation",
+            self.nodes["Orient"],
+            "orientation",
+        )
+        self.connect(
+            "orientation",
+            self.nodes["ProcessingMetadata"],
+            "orientation",
+        )
+        self.connect(
             "bypass_input_transform",
             self.nodes["ComputeInputTransformCameraSensitivities"],
             "bypass",
@@ -548,6 +596,11 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
         self.connect(
             "bypass_watermark",
             self.nodes["Watermark"],
+            "bypass",
+        )
+        self.connect(
+            "bypass_orient",
+            self.nodes["Orient"],
             "bypass",
         )
         self.connect(
@@ -981,9 +1034,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
         self.add_input_port("correct_vignette", True)
         self.add_input_port("correct_chromatic_aberration", True)
         self.add_input_port("correct_distortion", True)
+        self.add_input_port("orientation", None)
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
         self.add_input_port("bypass_watermark", False)
+        self.add_input_port("bypass_orient", False)
         self.add_input_port("batch_size", 3)
         self.add_input_port("processes")
 
@@ -1058,6 +1113,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "correct_distortion",
         )
         self.connect(
+            "orientation",
+            self.nodes["GraphRawProcessingCameraSensitivities"],
+            "orientation",
+        )
+        self.connect(
             "bypass_input_transform",
             self.nodes["GraphRawProcessingCameraSensitivities"],
             "bypass_input_transform",
@@ -1076,6 +1136,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "bypass_watermark",
             self.nodes["GraphBatchMergeHDRI"],
             "bypass_watermark",
+        )
+        self.connect(
+            "bypass_orient",
+            self.nodes["GraphRawProcessingCameraSensitivities"],
+            "bypass_orient",
         )
         self.connect(
             "batch_size",

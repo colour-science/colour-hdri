@@ -45,6 +45,7 @@ from colour.utilities import (
     as_float_array,
     batch,
     ones,
+    orient,
     required,
     slugify,
     zeros,
@@ -83,6 +84,7 @@ __all__ = [
     "NodeWriteImage",
     "NodeWritePreviewImage",
     "NodeRemoveFile",
+    "NodeOrient",
     "NodeWatermark",
     "NodeProcessingMetadata",
     "NodeReadFileMetadataDNG",
@@ -450,6 +452,51 @@ class NodeRemoveFile(ExecutionNode):
             return
 
         os.remove(path)
+
+        self.dirty = False
+
+
+class NodeOrient(ExecutionNode):
+    """
+    Orient the input image.
+
+    Methods
+    -------
+    -   :meth:`~colour_hdri.NodeRemoveFile.__init__`
+    -   :meth:`~colour_hdri.NodeRemoveFile.process`
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.description = "Orient the input image"
+
+        self.add_input_port("input_image")
+        self.add_input_port("orientation")
+        self.add_input_port("bypass", False)
+        self.add_output_port("output_image")
+
+    def process(self, **kwargs) -> None:  # noqa: ARG002
+        """
+        Process the node.
+        """
+
+        input_image = self.get_input("input_image")
+        if input_image is None:
+            return
+
+        self.set_output("output_image", input_image)
+
+        if self.get_input("bypass"):
+            return
+
+        orientation = self.get_input("orientation")
+        if orientation is None:
+            return
+
+        self.log(f'Orienting image "{orientation}"...')
+
+        self.set_output("output_image", orient(input_image, orientation))
 
         self.dirty = False
 
