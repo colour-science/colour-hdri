@@ -1042,6 +1042,7 @@ class GraphHDRI(ExecutionNode, PortGraph):
 
         self.add_input_port("array", [])
         self.add_input_port("camera_sensitivities")
+        self.add_input_port("output_colourspace")
         self.add_input_port("CCT_D_uv", [6500, 0])
         self.add_input_port("downsample", 1)
         self.add_input_port("correct_vignette", True)
@@ -1104,6 +1105,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "camera_sensitivities",
             self.nodes["GraphRawProcessingCameraSensitivities"],
             "camera_sensitivities",
+        )
+        self.connect(
+            "output_colourspace",
+            self.nodes["GraphRawProcessingCameraSensitivities"],
+            "output_colourspace",
         )
         self.connect(
             "CCT_D_uv",
