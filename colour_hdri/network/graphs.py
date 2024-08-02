@@ -80,10 +80,11 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
         self.add_input_port("raw_file_path", None)
         self.add_input_port("output_file_path", None)
         self.add_input_port("output_colourspace", "sRGB")
-        self.add_input_port("downsample", 1)
+        self.add_input_port("CCT_D_uv", [6500, 0])
         self.add_input_port("correct_vignette", True)
         self.add_input_port("correct_chromatic_aberration", True)
         self.add_input_port("correct_distortion", True)
+        self.add_input_port("downsample", 1)
         self.add_input_port("orientation")
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
@@ -258,6 +259,11 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             "output_colourspace",
         )
         self.connect(
+            "CCT_D_uv",
+            self.nodes["ComputeInputTransformDN"],
+            "CCT_D_uv",
+        )
+        self.connect(
             "correct_vignette",
             self.nodes["CorrectLensAberrationLensFun"],
             "correct_vignette",
@@ -271,11 +277,6 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             "correct_distortion",
             self.nodes["CorrectLensAberrationLensFun"],
             "correct_distortion",
-        )
-        self.connect(
-            "bypass_correct_lens_aberration",
-            self.nodes["CorrectLensAberrationLensFun"],
-            "bypass",
         )
         self.connect(
             "downsample",
@@ -291,6 +292,11 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             "orientation",
             self.nodes["ProcessingMetadata"],
             "orientation",
+        )
+        self.connect(
+            "bypass_correct_lens_aberration",
+            self.nodes["CorrectLensAberrationLensFun"],
+            "bypass",
         )
         self.connect(
             "bypass_input_transform",
@@ -361,11 +367,12 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
         self.add_input_port("raw_file_path", None)
         self.add_input_port("output_file_path", None)
         self.add_input_port("output_colourspace", "sRGB")
+        self.add_input_port("CCT_D_uv", [6500, 0])
         self.add_input_port("camera_sensitivities")
-        self.add_input_port("downsample", 1)
         self.add_input_port("correct_vignette", True)
         self.add_input_port("correct_chromatic_aberration", True)
         self.add_input_port("correct_distortion", True)
+        self.add_input_port("downsample", 1)
         self.add_input_port("orientation")
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
@@ -544,6 +551,11 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             "output_colourspace",
         )
         self.connect(
+            "CCT_D_uv",
+            self.nodes["ComputeInputTransformCameraSensitivities"],
+            "CCT_D_uv",
+        )
+        self.connect(
             "camera_sensitivities",
             self.nodes["ComputeInputTransformCameraSensitivities"],
             "camera_sensitivities",
@@ -564,11 +576,6 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             "correct_distortion",
         )
         self.connect(
-            "bypass_correct_lens_aberration",
-            self.nodes["CorrectLensAberrationLensFun"],
-            "bypass",
-        )
-        self.connect(
             "downsample",
             self.nodes["Downsample"],
             "factor",
@@ -582,6 +589,11 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             "orientation",
             self.nodes["ProcessingMetadata"],
             "orientation",
+        )
+        self.connect(
+            "bypass_correct_lens_aberration",
+            self.nodes["CorrectLensAberrationLensFun"],
+            "bypass",
         )
         self.connect(
             "bypass_input_transform",
@@ -1030,6 +1042,7 @@ class GraphHDRI(ExecutionNode, PortGraph):
 
         self.add_input_port("array", [])
         self.add_input_port("camera_sensitivities")
+        self.add_input_port("CCT_D_uv", [6500, 0])
         self.add_input_port("downsample", 1)
         self.add_input_port("correct_vignette", True)
         self.add_input_port("correct_chromatic_aberration", True)
@@ -1091,6 +1104,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "camera_sensitivities",
             self.nodes["GraphRawProcessingCameraSensitivities"],
             "camera_sensitivities",
+        )
+        self.connect(
+            "CCT_D_uv",
+            self.nodes["GraphRawProcessingCameraSensitivities"],
+            "CCT_D_uv",
         )
         self.connect(
             "downsample",
