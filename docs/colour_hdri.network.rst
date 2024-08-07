@@ -19,6 +19,7 @@ Nodes
     NodeOrient
     NodeWatermark
     NodeProcessingMetadata
+    NodeReadFileExifData
     NodeReadFileMetadataDNG
     NodeComputeInputTransformDNG
     NodeComputeInputTransformCameraSensitivities

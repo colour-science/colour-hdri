@@ -57,6 +57,7 @@ from colour_hdri import (
     double_sigmoid_anchored_function,
     image_stack_to_HDRI,
     read_dng_files_exif_tags,
+    read_exif_tags,
     tonemapping_operator_Reinhard2004,
 )
 from colour_hdri.models import (
@@ -68,6 +69,7 @@ from colour_hdri.models import (
     xy_to_camera_neutral,
 )
 from colour_hdri.process import DNG_CONVERTER
+from colour_hdri.utilities import vivified_to_dict
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -87,6 +89,7 @@ __all__ = [
     "NodeOrient",
     "NodeWatermark",
     "NodeProcessingMetadata",
+    "NodeReadFileExifData",
     "NodeReadFileMetadataDNG",
     "NodeComputeInputTransformDNG",
     "NodeComputeInputTransformCameraSensitivities",
@@ -262,6 +265,7 @@ class NodeReadImage(ExecutionNode):
         self.add_input_port("input_colourspace", "sRGB")
         self.add_output_port("image")
         self.add_output_port("metadata")
+        self.add_output_port("exif_tags")
 
     @required("OpenImageIO")
     def process(self, **kwargs) -> None:  # noqa: ARG002
@@ -286,8 +290,11 @@ class NodeReadImage(ExecutionNode):
         if not _is_linear_file_format(path):
             image = input_colourspace.cctf_decoding(image)
 
+        tags = read_exif_tags(path)
+
         self.set_output("image", image)
         self.set_output("metadata", metadata)
+        self.set_output("exif_tags", tags)
 
         self.dirty = False
 
@@ -314,6 +321,7 @@ class NodeWriteImage(ExecutionNode):
         self.add_input_port("image")
         self.add_input_port("metadata")
         self.add_input_port("path")
+        self.add_input_port("exif_tags")
         self.add_input_port("output_colourspace")
         self.add_input_port("bypass", False)
 
@@ -648,6 +656,42 @@ class NodeProcessingMetadata(ExecutionNode):
         output_metadata = dict(**input_metadata, **processing_metadata)
 
         self.set_output("output_metadata", output_metadata)
+
+        self.dirty = False
+
+
+class NodeReadFileExifData(ExecutionNode):
+    """
+    Return the EXIF tags from the input image.
+
+    Methods
+    -------
+    -   :meth:`~colour_hdri.NodeReadFileExifData.__init__`
+    -   :meth:`~colour_hdri.NodeReadFileExifData.process`
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.description = "Return the EXIF tags from the input image."
+
+        self.add_input_port("file_path")
+        self.add_output_port("exif_tags")
+
+    def process(self, **kwargs) -> None:  # noqa: ARG002
+        """
+        Process the node.
+        """
+
+        file_path = self.get_input("file_path")
+        if file_path is None:
+            return
+
+        if not os.path.exists(file_path):
+            self.log(f'"{file_path}" file does not exist!', "error")
+            return
+
+        self.set_output("exif_tags", vivified_to_dict(read_exif_tags(file_path)))
 
         self.dirty = False
 
