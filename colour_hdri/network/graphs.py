@@ -260,7 +260,7 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
         )
         self.connect(
             "CCT_D_uv",
-            self.nodes["ComputeInputTransformDN"],
+            self.nodes["ComputeInputTransformDNG"],
             "CCT_D_uv",
         )
         self.connect(
