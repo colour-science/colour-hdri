@@ -16,6 +16,7 @@ from colour.utilities import (
     PortGraph,
 )
 
+from colour_hdri.generation import double_sigmoid_anchored_function
 from colour_hdri.network import (
     InputTransform,
     NodeApplyInputTransformCameraSensitivities,
@@ -660,6 +661,7 @@ class GraphMergeHDRI(ExecutionNode, PortGraph):
         self.add_input_port("exr_file_paths", None)
         self.add_input_port("metadata", None)
         self.add_input_port("input_transform", InputTransform())
+        self.add_input_port("weighting_function", double_sigmoid_anchored_function)
         self.add_input_port("output_colourspace", "sRGB")
         self.add_input_port("output_file_path", None)
         self.add_input_port("bypass_watermark", False)
@@ -748,6 +750,11 @@ class GraphMergeHDRI(ExecutionNode, PortGraph):
             "input_transform",
             self.nodes["ProcessingMetadata"],
             "input_transform",
+        )
+        self.connect(
+            "weighting_function",
+            self.nodes["MergeImageStack"],
+            "weighting_function",
         )
         self.connect(
             "output_colourspace",
@@ -915,6 +922,7 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
 
         self.add_input_port("array", [])
         self.add_input_port("batch_size", 3)
+        self.add_input_port("weighting_function", double_sigmoid_anchored_function)
         self.add_input_port("bypass_watermark", False)
         self.add_input_port("processes")
 
@@ -966,6 +974,11 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
             "batch_size",
             self.nodes["CreateBatches"],
             "batch_size",
+        )
+        self.connect(
+            "weighting_function",
+            self.nodes["GraphMergeHDRI"],
+            "weighting_function",
         )
         self.connect(
             "bypass_watermark",
@@ -1054,6 +1067,7 @@ class GraphHDRI(ExecutionNode, PortGraph):
         self.add_input_port("bypass_watermark", False)
         self.add_input_port("bypass_orient", False)
         self.add_input_port("batch_size", 3)
+        self.add_input_port("weighting_function", double_sigmoid_anchored_function)
         self.add_input_port("processes")
 
         self.add_output_port("output")
@@ -1170,6 +1184,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "batch_size",
             self.nodes["GraphBatchMergeHDRI"],
             "batch_size",
+        )
+        self.connect(
+            "weighting_function",
+            self.nodes["GraphBatchMergeHDRI"],
+            "weighting_function",
         )
         self.connect(
             "processes",
