@@ -3,7 +3,6 @@ Define the unit tests for the
 :mod:`colour_hdri.tonemapping.global_operators.operators` module.
 """
 
-
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
