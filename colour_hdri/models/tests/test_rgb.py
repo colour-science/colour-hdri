@@ -1,6 +1,5 @@
 """Define the unit tests for the :mod:`colour_hdri.models.rgb` module."""
 
-
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
