@@ -60,7 +60,6 @@ class TestImageStackToHDRI:
                     "test_image_stack_to_hdri_linear.npy",
                 )
             ),
-            rtol=0.0001,
             atol=0.0001,
         )
 
@@ -79,6 +78,5 @@ class TestImageStackToHDRI:
                     "test_image_stack_to_hdri_crfs.npy",
                 )
             ),
-            rtol=0.0001,
             atol=0.0001,
         )

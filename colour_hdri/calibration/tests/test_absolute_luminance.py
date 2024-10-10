@@ -166,6 +166,5 @@ absolute_luminance_calibration_Lagarde2016` definition.
         np.testing.assert_allclose(
             absolute_luminance_calibration_Lagarde2016(reference_exr_file, 51000),
             test_exr_file,
-            rtol=0.0000001,
             atol=0.0000001,
         )
