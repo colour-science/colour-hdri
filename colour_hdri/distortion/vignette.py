@@ -590,7 +590,7 @@ def characterise_vignette_bivariate_spline(
     x_1_n, y_1_n = np.linspace(0, 1, height_n), np.linspace(0, 1, width_n)
 
     # NOTE: Here "parameters" represent a lower resolution version of the
-    # image, i.e. the "I_v" function directly.
+    # image, i.e., the "I_v" function directly.
     parameters = zeros((height_n, width_n, channels))
 
     for i in range(channels):
@@ -690,7 +690,7 @@ def radial_sampling_function(
     radius
         Sample distribution radius.
     radial_bias
-        Sample distribution bias, i.e. an exponent affecting the radial
+        Sample distribution bias, i.e., an exponent affecting the radial
         distribution.
 
     Returns
@@ -749,7 +749,7 @@ def vignette_sampling_coordinates(
     radius
         Sample distribution radius.
     radial_bias
-        Sample distribution bias, i.e. an exponent affecting the radial
+        Sample distribution bias, i.e., an exponent affecting the radial
         distribution.
 
     Returns

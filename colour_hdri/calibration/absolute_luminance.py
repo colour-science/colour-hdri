@@ -91,7 +91,7 @@ def upper_hemisphere_illuminance_weights_Lagarde2016(
 ) -> NDArrayFloat:
     """
     Compute upper hemisphere illuminance weights for use with applications
-    unable to perform the computation directly, i.e. *Adobe Photoshop*.
+    unable to perform the computation directly, i.e., *Adobe Photoshop*.
 
     Parameters
     ----------
