@@ -137,29 +137,29 @@ DNG_EXIF_TAGS_BINDING: CanonicalMapping = CanonicalMapping(
                 "F Number": (parse_exif_number, None),
                 "ISO": (parse_exif_number, None),
                 "CFA Pattern 2": (
-                    lambda x: parse_exif_array(x, np.int_),
+                    lambda x: parse_exif_array(x, np.int64),
                     None,
                 ),
                 "CFA Plane Color": (
-                    lambda x: parse_exif_array(x, np.int_),
+                    lambda x: parse_exif_array(x, np.int64),
                     None,
                 ),
                 "Black Level Repeat Dim": (
-                    lambda x: parse_exif_array(x, np.int_),
+                    lambda x: parse_exif_array(x, np.int64),
                     None,
                 ),
-                "Black Level": (lambda x: parse_exif_array(x, np.int_), None),
-                "White Level": (lambda x: parse_exif_array(x, np.int_), None),
+                "Black Level": (lambda x: parse_exif_array(x, np.int64), None),
+                "White Level": (lambda x: parse_exif_array(x, np.int64), None),
                 "Samples Per Pixel": (
-                    lambda x: parse_exif_number(x, np.int_),
+                    lambda x: parse_exif_number(x, np.int64),
                     None,
                 ),
-                "Active Area": (lambda x: parse_exif_array(x, np.int_), None),
-                "Orientation": (lambda x: parse_exif_number(x, np.int_), None),
+                "Active Area": (lambda x: parse_exif_array(x, np.int64), None),
+                "Orientation": (lambda x: parse_exif_number(x, np.int64), None),
                 "Camera Calibration Sig": (parse_exif_string, None),
                 "Profile Calibration Sig": (parse_exif_string, None),
                 "Calibration Illuminant 1": (
-                    lambda x: parse_exif_number(x, np.int_),
+                    lambda x: parse_exif_number(x, np.int64),
                     17,
                 ),
                 "Calibration Illuminant 2": (
@@ -167,51 +167,51 @@ DNG_EXIF_TAGS_BINDING: CanonicalMapping = CanonicalMapping(
                     21,
                 ),
                 "Color Matrix 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Color Matrix 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Camera Calibration 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Camera Calibration 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Analog Balance": (
-                    lambda x: parse_exif_array(x, np.float_),
+                    lambda x: parse_exif_array(x, np.float64),
                     "1 1 1",
                 ),
                 "Reduction Matrix 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Reduction Matrix 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Forward Matrix 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Forward Matrix 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "As Shot Neutral": (
-                    lambda x: parse_exif_array(x, np.float_),
+                    lambda x: parse_exif_array(x, np.float64),
                     "1 1 1",
                 ),
                 "Baseline Exposure": (
-                    lambda x: parse_exif_number(x, np.float_),
+                    lambda x: parse_exif_number(x, np.float64),
                     None,
                 ),
                 "Baseline Noise": (
-                    lambda x: parse_exif_number(x, np.float_),
+                    lambda x: parse_exif_number(x, np.float64),
                     None,
                 ),
             }

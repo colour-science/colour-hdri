@@ -31,7 +31,6 @@ from colour.utilities import (
     MixinDataclassArray,
     as_float_array,
     attest,
-    is_string,
     tsplit,
     tstack,
     warning,
@@ -155,7 +154,7 @@ class Image:
 
         if value is not None:
             attest(
-                is_string(value),
+                isinstance(value, str),
                 f'"path" property: "{value}" type is not "str"!',
             )
 

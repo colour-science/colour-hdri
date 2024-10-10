@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-latest, windows-latest]
-        python-version: [3.9, "3.10", 3.11, 3.12]
+        python-version: ["3.10", 3.11, 3.12, 3.13]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -23,10 +23,10 @@ jobs:
           echo "COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}" >> $GITHUB_ENV
           echo "MPLBACKEND=AGG" >> $GITHUB_ENV
         shell: bash
-      - name: Set up Python 3.9 for Pre-Commit
+      - name: Set up Python 3.10 for Pre-Commit
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: "3.10"
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -36,20 +36,21 @@ jobs:
         run: |
           brew install dcraw exiftool
           brew install --cask adobe-dng-converter
-        shell: bash
+          brew install freeimage
+          # TODO: Drop when https://github.com/imageio/imageio/issues/628 is addressed
+          echo "IMAGEIO_FREEIMAGE_LIB=/opt/homebrew/Cellar/freeimage/3.18.0/lib/libfreeimage.3.18.0.dylib" >> $GITHUB_ENV
       - name: Install Dependencies (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get --yes install dcraw exiftool
-        shell: bash
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          curl -L https://exiftool.org/exiftool-12.74.zip -o exiftool-12.74.zip
-          unzip -d exiftool exiftool-12.74.zip
-          cp exiftool/exiftool\(-k\).exe exiftool/exiftool.exe
-          echo "$PWD/exiftool" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
+          curl -L https://exiftool.org/exiftool-12.98_64.zip -o exiftool-12.98_64.zip
+          unzip -d exiftool exiftool-12.98_64.zip
+          cp exiftool/exiftool-12.98_64/exiftool\(-k\).exe exiftool/exiftool-12.98_64/exiftool.exe
+          echo "$PWD/exiftool/exiftool-12.98_64" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
           curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
           unzip -d dcraw dcraw.zip
           echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
@@ -65,31 +66,29 @@ jobs:
         run: |
           echo "C:\Program Files\Adobe\Adobe DNG Converter" >> $GITHUB_PATH
         shell: bash
-      - name: Install Poetry
+      - name: Install uv
         run: |
-          curl -sSL https://install.python-poetry.org | POETRY_HOME=$HOME/.poetry python3 -
-          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+          pip install uv
         shell: bash
       - name: Install Package Dependencies
         run: |
-          poetry run python -m pip install --upgrade pip
-          poetry install
-          poetry run python -c "import imageio;imageio.plugins.freeimage.download()"
+          uv sync --all-extras --no-dev
+          uv run python -c "import imageio;imageio.plugins.freeimage.download()"
         shell: bash
       - name: Pre-Commit (All Files)
         run: |
-          poetry run pre-commit run --all-files
+          uv run pre-commit run --all-files
         shell: bash
       - name: Test Optimised Python Execution
         run: |
-          poetry run python -OO -c "import $CI_PACKAGE"
+          uv run python -OO -c "import $CI_PACKAGE"
         shell: bash
       - name: Test with Pytest
         run: |
-          poetry run python -W ignore -m pytest --doctest-modules --ignore=$CI_PACKAGE/examples --cov=$CI_PACKAGE $CI_PACKAGE
+          uv run python -W ignore -m pytest --doctest-modules --ignore=$CI_PACKAGE/examples --cov=$CI_PACKAGE $CI_PACKAGE
         shell: bash
       - name: Upload Coverage to coveralls.io
         if: matrix.os == 'macOS-latest' && matrix.python-version == '3.12'
         run: |
-          if [ -z "$COVERALLS_REPO_TOKEN" ]; then echo \"COVERALLS_REPO_TOKEN\" secret is undefined!; else poetry run coveralls; fi
+          if [ -z "$COVERALLS_REPO_TOKEN" ]; then echo \"COVERALLS_REPO_TOKEN\" secret is undefined!; else uv run coveralls; fi
         shell: bash
