@@ -115,7 +115,7 @@ from colour.adaptation import matrix_chromatic_adaptation_VonKries
 from colour.algebra import (
     is_identity,
     linear_conversion,
-    vector_dot,
+    vecmul,
 )
 from colour.constants import EPSILON
 from colour.hints import ArrayLike, Literal, NDArrayFloat
@@ -301,7 +301,7 @@ def xy_to_camera_neutral(
         analog_balance,
     )
 
-    camera_neutral = vector_dot(M_XYZ_to_camera, xy_to_XYZ(xy))
+    camera_neutral = vecmul(M_XYZ_to_camera, xy_to_XYZ(xy))
     camera_neutral /= camera_neutral[1]
 
     return camera_neutral
@@ -407,7 +407,7 @@ def camera_neutral_to_xy(
             analog_balance,
         )
 
-        XYZ = vector_dot(np.linalg.inv(M_XYZ_to_camera), camera_neutral)
+        XYZ = vecmul(np.linalg.inv(M_XYZ_to_camera), camera_neutral)
         xy = XYZ_to_xy(XYZ)
 
         if np.abs(np.sum(xy_p - xy)) <= epsilon:
@@ -709,7 +709,7 @@ def matrix_camera_space_to_XYZ(
 
         M_AB = np.diagflat(analog_balance)
 
-        M_reference_neutral = vector_dot(
+        M_reference_neutral = vecmul(
             np.linalg.inv(np.matmul(M_AB, M_CC)), camera_neutral
         )
         M_D = np.linalg.inv(np.diagflat(M_reference_neutral))

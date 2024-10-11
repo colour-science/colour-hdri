@@ -73,7 +73,7 @@ def samples_Grossberg2003(
             ]
         )
         cdf = np.cumsum(histograms, axis=0)
-        cdf_i.append(cdf.astype(np.float_) / np.max(cdf, axis=0))
+        cdf_i.append(cdf.astype(np.float64) / np.max(cdf, axis=0))
 
     samples_cdf_i = np.zeros((samples, len(cdf_i), channels_c))
     samples_u = np.linspace(0, 1, samples)

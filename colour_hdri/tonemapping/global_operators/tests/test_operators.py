@@ -57,7 +57,6 @@ class TestLogAverage:
         np.testing.assert_allclose(
             log_average(np.linspace(0, 10, 10)),
             np.array(0.125071409675722),
-            rtol=0.025,
             atol=0.025,
         )
 

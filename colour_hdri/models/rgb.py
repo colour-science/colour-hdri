@@ -11,7 +11,7 @@ Define the following *RGB* colourspace transformations:
 from __future__ import annotations
 
 import numpy as np
-from colour.algebra import vector_dot
+from colour.algebra import vecmul
 from colour.hints import ArrayLike, NDArrayFloat
 from colour.models import RGB_COLOURSPACES
 
@@ -78,7 +78,7 @@ def camera_space_to_RGB(
 
     M_RGB_camera /= np.transpose(np.sum(M_RGB_camera, axis=1)[None])
 
-    RGB_f = vector_dot(np.linalg.inv(M_RGB_camera), RGB)
+    RGB_f = vecmul(np.linalg.inv(M_RGB_camera), RGB)
 
     return RGB_f
 

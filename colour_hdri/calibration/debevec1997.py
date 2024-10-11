@@ -139,7 +139,7 @@ def extrapolating_function_polynomial(
     given camera response functions.
 
     The extrapolation occurs where the weighting function masks fully the
-    camera response functions, e.g. at both ends for *Debevec (1997)*.
+    camera response functions, e.g., at both ends for *Debevec (1997)*.
 
     Parameters
     ----------

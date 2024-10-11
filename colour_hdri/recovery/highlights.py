@@ -22,12 +22,12 @@ References
 from __future__ import annotations
 
 import numpy as np
-from colour.algebra import vector_dot
+from colour.algebra import vecmul
 from colour.hints import ArrayLike, NDArrayFloat
+from colour.models import Lab_to_LCHab  # pyright: ignore
+from colour.models import LCHab_to_Lab  # pyright: ignore
 from colour.models import (
-    Lab_to_LCHab,
     Lab_to_XYZ,
-    LCHab_to_Lab,
     RGB_Colourspace,
     RGB_COLOURSPACE_sRGB,
     RGB_to_XYZ,
@@ -84,9 +84,9 @@ def highlights_recovery_blend(
 
     clipping_level = np.min(multipliers) * threshold
 
-    Lab = vector_dot(M, RGB)
+    Lab = vecmul(M, RGB)
 
-    Lab_c = vector_dot(M, np.minimum(RGB, clipping_level))
+    Lab_c = vecmul(M, np.minimum(RGB, clipping_level))
 
     s = np.sum((Lab * Lab)[..., 1:3], axis=2)
     s_c = np.sum((Lab_c * Lab_c)[..., 1:3], axis=2)
@@ -96,7 +96,7 @@ def highlights_recovery_blend(
 
     Lab[:, :, 1:3] *= np.rollaxis(ratio[None], 0, 3)
 
-    RGB_o = vector_dot(np.linalg.inv(M), Lab)
+    RGB_o = vecmul(np.linalg.inv(M), Lab)
 
     return RGB_o
 

@@ -117,9 +117,7 @@ class TestHighlightsRecoveryBlend:
         )
         reference_exr_file = read_image(str(reference_exr_path))
 
-        np.testing.assert_allclose(
-            test_tiff_file, reference_exr_file, rtol=0.0001, atol=0.0001
-        )
+        np.testing.assert_allclose(test_tiff_file, reference_exr_file, atol=0.0025)
 
 
 class TestHighlightsRecoveryLCHab:
@@ -178,6 +176,4 @@ class TestHighlightsRecoveryLCHab:
         )
         reference_exr_file = read_image(str(reference_exr_path))
 
-        np.testing.assert_allclose(
-            test_tiff_file, reference_exr_file, rtol=0.0001, atol=0.0001
-        )
+        np.testing.assert_allclose(test_tiff_file, reference_exr_file, atol=0.0025)

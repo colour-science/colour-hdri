@@ -197,7 +197,12 @@ def parse_exif_array(
 
     value = exif_tag.value if exif_tag.value is None else exif_tag.value.split()
 
-    return np.reshape(as_array(value, dtype), shape)  # pyright: ignore
+    array = as_array(value, dtype)  # pyright: ignore
+
+    if shape is not None:
+        array = np.reshape(array, shape)
+
+    return array
 
 
 def parse_exif_data(data: str) -> List:

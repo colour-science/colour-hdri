@@ -6,22 +6,22 @@ TODO
 
 -   colour_hdri/__init__.py
 
-    -   Line 287 : # TODO: Remove legacy printing support when deemed appropriate.
+    -   Line 281 : # TODO: Remove legacy printing support when deemed appropriate.
 
 
 -   colour_hdri/tonemapping/global_operators/operators.py
 
-    -   Line 584 : # TODO: Implement automatic *p* and *non-uniform* computations support.
+    -   Line 582 : # TODO: Implement automatic *p* and *non-uniform* computations support.
 
 
 -   colour_hdri/utilities/exif.py
 
-    -   Line 318 : # TODO: Find a better name.
+    -   Line 312 : # TODO: Find a better name.
 
 
 -   colour_hdri/utilities/image.py
 
-    -   Line 443 : # TODO: Revise then "MixinDataclassArray" is improved.
+    -   Line 438 : # TODO: Revise then "MixinDataclassArray" is improved.
 
 About
 -----
