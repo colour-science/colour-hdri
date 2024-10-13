@@ -16,7 +16,7 @@ TODO
 
 -   colour_hdri/utilities/exif.py
 
-    -   Line 312 : # TODO: Find a better name.
+    -   Line 317 : # TODO: Find a better name.
 
 
 -   colour_hdri/utilities/image.py
