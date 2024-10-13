@@ -2,7 +2,7 @@
 Exposure Value Computation
 ==========================
 
-Defines the exposure value computation objects:
+Define the exposure value computation objects:
 
 -   :func:`colour_hdri.average_luminance`
 -   :func:`colour_hdri.average_illuminance`
@@ -177,7 +177,7 @@ def luminance_to_exposure_value(
     Notes
     -----
     -   The exposure value :math:`EV` indicates a combination of camera
-        settings rather than the focal plane exposure, i.e. luminous exposure,
+        settings rather than the focal plane exposure, i.e., luminous exposure,
         photometric exposure, :math:`H`. The focal plane exposure is
         time-integrated illuminance.
 
@@ -233,7 +233,7 @@ def illuminance_to_exposure_value(
     Notes
     -----
     -   The exposure value :math:`EV` indicates a combination of camera
-        settings rather than the focal plane exposure, i.e. luminous exposure,
+        settings rather than the focal plane exposure, i.e., luminous exposure,
         photometric exposure, :math:`H`. The focal plane exposure is
         time-integrated illuminance.
 

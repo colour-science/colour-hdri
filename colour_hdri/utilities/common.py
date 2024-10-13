@@ -2,7 +2,7 @@
 Common Utilities
 ================
 
-Defines the common utilities objects that don't fall in any specific category.
+Define the common utilities objects that don't fall in any specific category.
 """
 
 from __future__ import annotations
@@ -72,9 +72,7 @@ def vivified_to_dict(vivified: Dict | defaultdict) -> Dict:
     """
 
     if isinstance(vivified, defaultdict):
-        vivified = {
-            key: vivified_to_dict(value) for key, value in vivified.items()
-        }
+        vivified = {key: vivified_to_dict(value) for key, value in vivified.items()}
     return vivified
 
 

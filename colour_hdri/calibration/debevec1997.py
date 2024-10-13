@@ -2,7 +2,7 @@
 Debevec (1997) Camera Response Function Computation
 ===================================================
 
-Defines the *Debevec (1997)* camera responses computation objects:
+Define the *Debevec (1997)* camera responses computation objects:
 
 -   :func:`colour_hdri.g_solve`
 -   :func:`colour_hdri.camera_response_functions_Debevec1997`
@@ -139,7 +139,7 @@ def extrapolating_function_polynomial(
     given camera response functions.
 
     The extrapolation occurs where the weighting function masks fully the
-    camera response functions, e.g. at both ends for *Debevec (1997)*.
+    camera response functions, e.g., at both ends for *Debevec (1997)*.
 
     Parameters
     ----------
@@ -246,9 +246,7 @@ def camera_response_functions_Debevec1997(
 
     w = partial(weighting_function, **weighting_function_kwargs)
 
-    g_c = [
-        g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])
-    ]
+    g_c = [g_solve(s_o[..., x], L_l, l_s, w, n)[0] for x in range(s_o.shape[-1])]
     crfs = np.exp(tstack(np.array(g_c)))
 
     if extrapolating_function is not None:

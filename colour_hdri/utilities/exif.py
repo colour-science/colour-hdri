@@ -66,6 +66,8 @@ __all__ = [
     "write_exif_tag",
 ]
 
+LOGGER = logging.getLogger(__name__)
+
 _IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
@@ -118,9 +120,7 @@ def parse_exif_string(exif_tag: EXIFTag) -> str:
     return str(exif_tag.value)
 
 
-def parse_exif_number(
-    exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None
-) -> Real:
+def parse_exif_number(exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None) -> Real:
     """
     Parse given EXIF tag assuming it is a number type and return its value.
 
@@ -164,9 +164,7 @@ def parse_exif_fraction(
     dtype = optional(dtype, DTYPE_FLOAT_DEFAULT)
 
     value = (
-        exif_tag.value
-        if exif_tag.value is None
-        else float(Fraction(exif_tag.value))
+        exif_tag.value if exif_tag.value is None else float(Fraction(exif_tag.value))
     )
 
     return as_float_scalar(value, dtype)  # pyright: ignore
@@ -197,11 +195,14 @@ def parse_exif_array(
 
     dtype = optional(dtype, DTYPE_FLOAT_DEFAULT)
 
-    value = (
-        exif_tag.value if exif_tag.value is None else exif_tag.value.split()
-    )
+    value = exif_tag.value if exif_tag.value is None else exif_tag.value.split()
 
-    return np.reshape(as_array(value, dtype), shape)  # pyright: ignore
+    array = as_array(value, dtype)  # pyright: ignore
+
+    if shape is not None:
+        array = np.reshape(array, shape)
+
+    return array
 
 
 def parse_exif_data(data: str) -> List:
@@ -258,7 +259,7 @@ def read_exif_tags(image: str) -> defaultdict:
         EXIF tags.
     """
 
-    logging.info("Reading '{image}' image EXIF data.", extra={"image": image})
+    LOGGER.info('Reading "%s" image EXIF data.', image)
 
     exif_tags = vivification()
     lines = str(
@@ -301,15 +302,13 @@ def copy_exif_tags(source: str, target: str) -> bool:
         Definition success.
     """
 
-    logging.info(
-        "Copying '{source}' file EXIF data to '{target}' file.",
-        extra={"source": source, "target": target},
-    )
+    LOGGER.info('Copying "%s" file EXIF data to "%s" file.', source, target)
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
     subprocess.check_output(
-        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+        arguments,
+        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
     )
 
     return True
@@ -353,7 +352,7 @@ def delete_exif_tags(image: str) -> bool:
         Definition success.
     """
 
-    logging.info("Deleting '{image}' image EXIF tags.", extra={"image": image})
+    LOGGER.info('Deleting "%s" image EXIF tags.', image)
 
     subprocess.check_output(
         [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
@@ -394,9 +393,11 @@ def read_exif_tag(image: str, tag: str) -> str:
         .strip()
     )
 
-    logging.info(
-        "Reading '{image}' image '{tag}' EXIF tag value: '{value}'",
-        extra={"image": image, "tag": tag, "value": value},
+    LOGGER.info(
+        'Reading "%s" image "%s" EXIF tag value: "%s"',
+        image,
+        tag,
+        value,
     )
 
     return value
@@ -421,15 +422,18 @@ def write_exif_tag(image: str, tag: str, value: str) -> bool:
         Definition success.
     """
 
-    logging.info(
-        "Writing '{image}' image '{tag}' EXIF tag with '{value}' value.",
-        extra={"image": image, "tag": tag, "value": value},
+    LOGGER.info(
+        'Writing "%s" image "%s" EXIF tag with "%s" value.',
+        image,
+        tag,
+        value,
     )
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
     arguments += [f"-{tag}={value}", image]
     subprocess.check_output(
-        arguments, shell=_IS_WINDOWS_PLATFORM  # noqa: S603
+        arguments,
+        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
     )
 
     return True

@@ -2,7 +2,7 @@
 HDRI Generation
 ===============
 
-Defines the HDRI generation objects:
+Define the HDRI generation objects:
 
 -   :func:`colour_hdri.image_stack_to_HDRI`
 
@@ -109,9 +109,7 @@ def image_stack_to_HDRI(
 
             image_data = image.data
             if camera_response_functions is not None:
-                camera_response_functions = as_float_array(
-                    camera_response_functions
-                )
+                camera_response_functions = as_float_array(camera_response_functions)
                 samples = np.linspace(0, 1, camera_response_functions.shape[0])
 
                 R, G, B = tsplit(image.data)

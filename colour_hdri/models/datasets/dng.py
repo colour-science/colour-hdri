@@ -2,7 +2,7 @@
 Adobe DNG SDK Dataset
 =====================
 
-Defines various datasets objects for *Adobe DNG SDK*:
+Define various datasets objects for *Adobe DNG SDK*:
 
 -   :attr:`colour_hdri.models.datasets.dng.CCS_ILLUMINANT_ADOBEDNG`
 -   :attr:`colour_hdri.models.datasets.dng.\

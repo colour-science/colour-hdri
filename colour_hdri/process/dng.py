@@ -2,7 +2,7 @@
 Adobe DNG SDK Conversion Process
 ================================
 
-Defines various objects implementing raw conversion based on *Adobe DNG SDK*
+Define various objects implementing raw conversion based on *Adobe DNG SDK*
 and *dcraw*:
 
 -   :func:`colour_hdri.convert_raw_files_to_dng_files`
@@ -55,6 +55,8 @@ __all__ = [
     "read_dng_files_exif_tags",
 ]
 
+LOGGER = logging.getLogger(__name__)
+
 _IS_MACOS_PLATFORM: bool = platform.system() == "Darwin"
 """Whether the current platform is *macOS*."""
 
@@ -70,13 +72,11 @@ Command line raw conversion application, typically Dave Coffin's *dcraw*.
 
 RAW_CONVERTER_ARGUMENTS_BAYER_CFA: str = '-t 0 -D -W -4 -T "{raw_file}"'
 if _IS_WINDOWS_PLATFORM:
-    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = (
-        RAW_CONVERTER_ARGUMENTS_BAYER_CFA.replace('"', "")
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = RAW_CONVERTER_ARGUMENTS_BAYER_CFA.replace(
+        '"', ""
     )
 if is_documentation_building():  # pragma: no cover
-    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = DocstringText(
-        RAW_CONVERTER_ARGUMENTS_BAYER_CFA
-    )
+    RAW_CONVERTER_ARGUMENTS_BAYER_CFA = DocstringText(RAW_CONVERTER_ARGUMENTS_BAYER_CFA)
     RAW_CONVERTER_ARGUMENTS_BAYER_CFA.__doc__ = """
 Arguments for the command line raw conversion application for non
 demosaiced linear *tiff* file format output.
@@ -86,8 +86,8 @@ RAW_CONVERTER_ARGUMENTS_DEMOSAICING: str = (
     '-t 0 -H 1 -r 1 1 1 1 -4 -q 3 -o 0 -T "{raw_file}"'
 )
 if _IS_WINDOWS_PLATFORM:
-    RAW_CONVERTER_ARGUMENTS_DEMOSAICING = (
-        RAW_CONVERTER_ARGUMENTS_DEMOSAICING.replace('"', "")
+    RAW_CONVERTER_ARGUMENTS_DEMOSAICING = RAW_CONVERTER_ARGUMENTS_DEMOSAICING.replace(
+        '"', ""
     )
 if is_documentation_building():  # pragma: no cover
     RAW_CONVERTER_ARGUMENTS_DEMOSAICING = DocstringText(
@@ -100,8 +100,7 @@ linear *tiff* file format output.
 
 if _IS_MACOS_PLATFORM:
     DNG_CONVERTER: str = (
-        "/Applications/Adobe DNG Converter.app/Contents/"
-        "MacOS/Adobe DNG Converter"
+        "/Applications/Adobe DNG Converter.app/Contents/MacOS/Adobe DNG Converter"
     )
 elif _IS_WINDOWS_PLATFORM:
     DNG_CONVERTER: str = "Adobe DNG Converter"
@@ -138,29 +137,29 @@ DNG_EXIF_TAGS_BINDING: CanonicalMapping = CanonicalMapping(
                 "F Number": (parse_exif_number, None),
                 "ISO": (parse_exif_number, None),
                 "CFA Pattern 2": (
-                    lambda x: parse_exif_array(x, np.int_),
+                    lambda x: parse_exif_array(x, np.int64),
                     None,
                 ),
                 "CFA Plane Color": (
-                    lambda x: parse_exif_array(x, np.int_),
+                    lambda x: parse_exif_array(x, np.int64),
                     None,
                 ),
                 "Black Level Repeat Dim": (
-                    lambda x: parse_exif_array(x, np.int_),
+                    lambda x: parse_exif_array(x, np.int64),
                     None,
                 ),
-                "Black Level": (lambda x: parse_exif_array(x, np.int_), None),
-                "White Level": (lambda x: parse_exif_array(x, np.int_), None),
+                "Black Level": (lambda x: parse_exif_array(x, np.int64), None),
+                "White Level": (lambda x: parse_exif_array(x, np.int64), None),
                 "Samples Per Pixel": (
-                    lambda x: parse_exif_number(x, np.int_),
+                    lambda x: parse_exif_number(x, np.int64),
                     None,
                 ),
-                "Active Area": (lambda x: parse_exif_array(x, np.int_), None),
-                "Orientation": (lambda x: parse_exif_number(x, np.int_), None),
+                "Active Area": (lambda x: parse_exif_array(x, np.int64), None),
+                "Orientation": (lambda x: parse_exif_number(x, np.int64), None),
                 "Camera Calibration Sig": (parse_exif_string, None),
                 "Profile Calibration Sig": (parse_exif_string, None),
                 "Calibration Illuminant 1": (
-                    lambda x: parse_exif_number(x, np.int_),
+                    lambda x: parse_exif_number(x, np.int64),
                     17,
                 ),
                 "Calibration Illuminant 2": (
@@ -168,51 +167,51 @@ DNG_EXIF_TAGS_BINDING: CanonicalMapping = CanonicalMapping(
                     21,
                 ),
                 "Color Matrix 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Color Matrix 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Camera Calibration 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Camera Calibration 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Analog Balance": (
-                    lambda x: parse_exif_array(x, np.float_),
+                    lambda x: parse_exif_array(x, np.float64),
                     "1 1 1",
                 ),
                 "Reduction Matrix 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Reduction Matrix 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Forward Matrix 1": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "Forward Matrix 2": (
-                    lambda x: parse_exif_array(x, np.float_, (3, 3)),
+                    lambda x: parse_exif_array(x, np.float64, (3, 3)),
                     "1 0 0 0 1 0 0 0 1",
                 ),
                 "As Shot Neutral": (
-                    lambda x: parse_exif_array(x, np.float_),
+                    lambda x: parse_exif_array(x, np.float64),
                     "1 1 1",
                 ),
                 "Baseline Exposure": (
-                    lambda x: parse_exif_number(x, np.float_),
+                    lambda x: parse_exif_number(x, np.float64),
                     None,
                 ),
                 "Baseline Noise": (
-                    lambda x: parse_exif_number(x, np.float_),
+                    lambda x: parse_exif_number(x, np.float64),
                     None,
                 ),
             }
@@ -257,26 +256,23 @@ def convert_raw_files_to_dng_files(
     """
 
     dng_converter = optional(dng_converter, DNG_CONVERTER)
-    dng_converter_arguments = optional(
-        dng_converter_arguments, DNG_CONVERTER_ARGUMENTS
-    )
+    dng_converter_arguments = optional(dng_converter_arguments, DNG_CONVERTER_ARGUMENTS)
 
     dng_files = []
     for raw_file in raw_files:
         raw_file_extension = os.path.splitext(raw_file)[1]
         dng_file = os.path.join(
             output_directory,
-            os.path.basename(
-                re.sub(f"{raw_file_extension}$", ".dng", raw_file)
-            ),
+            os.path.basename(re.sub(f"{raw_file_extension}$", ".dng", raw_file)),
         )
 
         if path_exists(dng_file):
             os.remove(dng_file)
 
-        logging.info(
-            'Converting "{raw_file}" file to "{dng_file}" file.',
-            extra={"raw_file": raw_file, "dng_file": dng_file},
+        LOGGER.info(
+            'Converting "%s" file to "%s" file.',
+            raw_file,
+            dng_file,
         )
 
         command = [
@@ -336,12 +332,10 @@ def convert_dng_files_to_intermediate_files(
         if path_exists(intermediate_file):
             os.remove(intermediate_file)
 
-        logging.info(
-            'Converting "{dng_file}" file to "{intermediate_file}" file.',
-            extra={
-                "dng_file": dng_file,
-                "intermediate_file": intermediate_file,
-            },
+        LOGGER.info(
+            'Converting "%s" file to "%s" file.',
+            dng_file,
+            intermediate_file,
         )
 
         command = [
@@ -356,9 +350,7 @@ def convert_dng_files_to_intermediate_files(
 
         subprocess.call(command, shell=_IS_WINDOWS_PLATFORM)  # noqa: S603
 
-        tiff_file = os.path.join(
-            output_directory, os.path.basename(intermediate_file)
-        )
+        tiff_file = os.path.join(output_directory, os.path.basename(intermediate_file))
         if tiff_file != intermediate_file:
             if path_exists(tiff_file):
                 os.remove(tiff_file)
@@ -402,9 +394,7 @@ def read_dng_files_exif_tags(
                 exif_tag = exif_tags[group].get(tag)
                 if exif_tag is None:
                     binding[group][tag] = (
-                        default
-                        if default is None
-                        else parser(EXIFTag(value=default))
+                        default if default is None else parser(EXIFTag(value=default))
                     )
                 else:
                     binding[group][tag] = parser(exif_tag[0])

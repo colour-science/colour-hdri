@@ -1,10 +1,8 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.generation.radiance` module."""
 
 from __future__ import annotations
 
 import os
-import unittest
 
 import numpy as np
 from colour import RGB_COLOURSPACES
@@ -29,9 +27,7 @@ __all__ = [
     "TestImageStackToHDRI",
 ]
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 ROOT_RESOURCES_GENERATION: str = os.path.join(
     ROOT_RESOURCES_TESTS, "colour_hdri", "generation"
@@ -40,7 +36,7 @@ ROOT_RESOURCES_GENERATION: str = os.path.join(
 IMAGES_JPG: List[str] = filter_files(ROOT_RESOURCES_FROBISHER_001, ("jpg",))
 
 
-class TestImageStackToHDRI(unittest.TestCase):
+class TestImageStackToHDRI:
     """
     Define :func:`colour_hdri.generation.radiance.image_stack_to_HDRI`
     definition unit tests methods.
@@ -53,9 +49,7 @@ class TestImageStackToHDRI(unittest.TestCase):
         """
 
         image_stack = ImageStack.from_files(IMAGES_JPG)
-        image_stack.data = RGB_COLOURSPACES["sRGB"].cctf_decoding(
-            image_stack.data
-        )
+        image_stack.data = RGB_COLOURSPACES["sRGB"].cctf_decoding(image_stack.data)
 
         # Lower precision for unit tests under *travis-ci*.
         np.testing.assert_allclose(
@@ -66,7 +60,6 @@ class TestImageStackToHDRI(unittest.TestCase):
                     "test_image_stack_to_hdri_linear.npy",
                 )
             ),
-            rtol=0.0001,
             atol=0.0001,
         )
 
@@ -85,10 +78,5 @@ class TestImageStackToHDRI(unittest.TestCase):
                     "test_image_stack_to_hdri_crfs.npy",
                 )
             ),
-            rtol=0.0001,
             atol=0.0001,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

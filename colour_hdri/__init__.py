@@ -252,18 +252,14 @@ ROOT_RESOURCES: str = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_RESOURCES_EXAMPLES: str = os.path.join(
     ROOT_RESOURCES, "colour-hdri-examples-datasets"
 )
-ROOT_RESOURCES_TESTS: str = os.path.join(
-    ROOT_RESOURCES, "colour-hdri-tests-datasets"
-)
+ROOT_RESOURCES_TESTS: str = os.path.join(ROOT_RESOURCES, "colour-hdri-tests-datasets")
 
 __application_name__ = "Colour - HDRI"
 
 __major_version__ = "0"
 __minor_version__ = "2"
-__change_version__ = "3"
-__version__ = ".".join(
-    (__major_version__, __minor_version__, __change_version__)
-)
+__change_version__ = "4"
+__version__ = ".".join((__major_version__, __minor_version__, __change_version__))
 
 try:
     _version: str = (
@@ -278,9 +274,7 @@ try:
 except Exception:
     _version: str = __version__
 
-colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES[  # pyright: ignore
-    "colour-hdri"
-] = _version
+colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES["colour-hdri"] = _version  # pyright: ignore
 
 del _version
 

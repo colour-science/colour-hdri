@@ -2,7 +2,7 @@
 Grossberg (2003) Histogram Based Image Sampling
 ===============================================
 
-Defines the *Grossberg (2003)* histogram based image sampling objects:
+Define the *Grossberg (2003)* histogram based image sampling objects:
 
 -   :func:`colour_hdri.samples_Grossberg2003`
 
@@ -46,7 +46,7 @@ def samples_Grossberg2003(
     image_stack
         Stack of single channel or multi-channel floating point images.
     samples
-        Samples count.
+        Sample count.
     n
         Histograms bins count.
 
@@ -73,15 +73,13 @@ def samples_Grossberg2003(
             ]
         )
         cdf = np.cumsum(histograms, axis=0)
-        cdf_i.append(cdf.astype(np.float_) / np.max(cdf, axis=0))
+        cdf_i.append(cdf.astype(np.float64) / np.max(cdf, axis=0))
 
     samples_cdf_i = np.zeros((samples, len(cdf_i), channels_c))
     samples_u = np.linspace(0, 1, samples)
     for i in np.arange(samples):
         for j in np.arange(channels_c):
             for k, cdf in enumerate(cdf_i):
-                samples_cdf_i[i, k, j] = np.argmin(
-                    np.abs(cdf[:, j] - samples_u[i])
-                )
+                samples_cdf_i[i, k, j] = np.argmin(np.abs(cdf[:, j] - samples_u[i]))
 
     return samples_cdf_i

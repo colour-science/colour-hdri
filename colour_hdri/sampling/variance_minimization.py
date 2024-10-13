@@ -2,7 +2,7 @@
 Viriyothai (2009) Variance Minimization Light Probe Sampling
 ============================================================
 
-Defines the *Viriyothai (2009)* variance minimization light probe sampling
+Define the *Viriyothai (2009)* variance minimization light probe sampling
 objects:
 
 -   :func:`colour_hdri.\
@@ -38,9 +38,7 @@ __all__ = [
 ]
 
 
-class Light_Specification(
-    namedtuple("Light_Specification", ("uv", "colour", "index"))
-):
+class Light_Specification(namedtuple("Light_Specification", ("uv", "colour", "index"))):
     """
     Define a light probe sampling resulting light specification.
 
@@ -80,9 +78,7 @@ def luminance_variance(a: ArrayLike) -> float:
 
     x_centroid, y_centroid = centroid(a)
 
-    variance = np.sqrt(
-        np.sum(a * ((y - y_centroid) ** 2 + (x - x_centroid) ** 2))
-    )
+    variance = np.sqrt(np.sum(a * ((y - y_centroid) ** 2 + (x - x_centroid) ** 2)))
 
     return as_float_scalar(variance)
 
@@ -152,7 +148,7 @@ def find_regions_variance_minimization_Viriyothai2009(
 
         regions = sub_regions
 
-    return regions  # pyright: ignore
+    return regions
 
 
 def highlight_regions_variance_minimization(
@@ -231,9 +227,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
             f"effectively computed!"
         )
 
-    Y = RGB_luminance(
-        light_probe, colourspace.primaries, colourspace.whitepoint
-    )
+    Y = RGB_luminance(light_probe, colourspace.primaries, colourspace.whitepoint)
     regions = find_regions_variance_minimization_Viriyothai2009(Y, iterations)
 
     lights = []

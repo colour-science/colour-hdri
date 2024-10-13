@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """
 Define the unit tests for the
 :mod:`colour_hdri.calibration.absolute_luminance` module.
@@ -7,7 +6,6 @@ Define the unit tests for the
 from __future__ import annotations
 
 import os
-import unittest
 
 import numpy as np
 from colour import read_image
@@ -42,7 +40,7 @@ ROOT_RESOURCES_CALIBRATION: str = os.path.join(
 )
 
 
-class TestUpperHemisphereIlluminanceLagarde2016(unittest.TestCase):
+class TestUpperHemisphereIlluminanceLagarde2016:
     """
     Define :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_Lagarde2016` definition unit tests methods.
@@ -61,23 +59,19 @@ upper_hemisphere_illuminance_Lagarde2016` definition.
         )
 
         np.testing.assert_allclose(
-            upper_hemisphere_illuminance_Lagarde2016(
-                np.ones((16, 32, 3)) * 10
-            ),
+            upper_hemisphere_illuminance_Lagarde2016(np.ones((16, 32, 3)) * 10),
             29.344691653426061,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
         np.testing.assert_allclose(
-            upper_hemisphere_illuminance_Lagarde2016(
-                np.ones((16, 32, 3)) * 0.1
-            ),
+            upper_hemisphere_illuminance_Lagarde2016(np.ones((16, 32, 3)) * 0.1),
             0.293446916534261,
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
 
-class TestUpperHemisphereIlluminanceWeightsLagarde2016(unittest.TestCase):
+class TestUpperHemisphereIlluminanceWeightsLagarde2016:
     """
     Define :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_weights_Lagarde2016` definition unit tests
@@ -134,7 +128,7 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition.
         )
 
 
-class TestAbsoluteLuminanceCalibrationLagarde2016(unittest.TestCase):
+class TestAbsoluteLuminanceCalibrationLagarde2016:
     """
     Define :func:`colour_hdri.calibration.absolute_luminance.\
 absolute_luminance_calibration_Lagarde2016` definition unit tests methods.
@@ -170,14 +164,7 @@ absolute_luminance_calibration_Lagarde2016` definition.
         )
 
         np.testing.assert_allclose(
-            absolute_luminance_calibration_Lagarde2016(
-                reference_exr_file, 51000
-            ),
+            absolute_luminance_calibration_Lagarde2016(reference_exr_file, 51000),
             test_exr_file,
-            rtol=0.0000001,
             atol=0.0000001,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

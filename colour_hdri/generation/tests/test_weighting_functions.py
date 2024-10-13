@@ -1,10 +1,8 @@
-# !/usr/bin/env python
 """
 Define the unit tests for the
 :mod:`colour_hdri.generation.weighting_functions` module.
 """
 
-import unittest
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -29,7 +27,7 @@ __all__ = [
 ]
 
 
-class TestNormalDistributionFunction(unittest.TestCase):
+class TestNormalDistributionFunction:
     """
     Define :func:`colour_hdri.generation.weighting_functions.\
 normal_distribution_function` definition unit tests methods.
@@ -99,7 +97,7 @@ normal_distribution_function` definition.
         )
 
 
-class TestHatFunction(unittest.TestCase):
+class TestHatFunction:
     """
     Define :func:`colour_hdri.generation.weighting_functions.hat_function`
     definition unit tests methods.
@@ -131,7 +129,7 @@ class TestHatFunction(unittest.TestCase):
         )
 
 
-class TestWeightingFunctionDebevec1997(unittest.TestCase):
+class TestWeightingFunctionDebevec1997:
     """
     Define :func:`colour_hdri.generation.weighting_functions.\
 weighting_function_Debevec1997` definition unit tests methods.
@@ -199,7 +197,3 @@ weighting_function_Debevec1997` definition.
             ),
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

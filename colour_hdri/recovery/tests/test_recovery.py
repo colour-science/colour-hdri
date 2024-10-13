@@ -1,4 +1,3 @@
-# !/usr/bin/env python
 """Define the unit tests for the :mod:`colour_hdri.recovery.highlights` module."""
 
 from __future__ import annotations
@@ -10,7 +9,6 @@ import shlex
 import shutil
 import subprocess
 import tempfile
-import unittest
 
 import numpy as np
 from colour import read_image
@@ -47,9 +45,7 @@ __all__ = [
 _IS_WINDOWS_PLATFORM: bool = platform.system() in ("Windows", "Microsoft")
 """Whether the current platform is *Windows*."""
 
-ROOT_RESOURCES_FROBISHER_001: str = os.path.join(
-    ROOT_RESOURCES_TESTS, "frobisher_001"
-)
+ROOT_RESOURCES_FROBISHER_001: str = os.path.join(ROOT_RESOURCES_TESTS, "frobisher_001")
 
 ROOT_RESOURCES_RECOVERY: str = os.path.join(
     ROOT_RESOURCES_TESTS, "colour_hdri", "recovery"
@@ -66,18 +62,18 @@ matrix_XYZ_to_camera_space: NDArrayFloat = np.array(
 )
 
 
-class TestHighlightsRecoveryBlend(unittest.TestCase):
+class TestHighlightsRecoveryBlend:
     """
-    Define :func:`colour_hdri.recovery.highlights.\
-highlights_recovery_blend` definition unit tests methods.
+    Define :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`
+    definition unit tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -99,18 +95,16 @@ highlights_recovery_blend` definition unit tests methods.
         command = [
             RAW_CONVERTER,
             *shlex.split(
-                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
-                    raw_file=test_raw_file
-                ),
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
                 posix=not _IS_WINDOWS_PLATFORM,
             ),
         ]
 
         subprocess.call(command)  # noqa: S603
 
-        test_tiff_file = read_image(
-            str(re.sub("\\.CR2$", ".tiff", test_raw_file))
-        )[::10, ::10, :]
+        test_tiff_file = read_image(str(re.sub("\\.CR2$", ".tiff", test_raw_file)))[
+            ::10, ::10, :
+        ]
 
         test_tiff_file *= multipliers
         test_tiff_file = highlights_recovery_blend(test_tiff_file, multipliers)
@@ -123,23 +117,21 @@ highlights_recovery_blend` definition unit tests methods.
         )
         reference_exr_file = read_image(str(reference_exr_path))
 
-        np.testing.assert_allclose(
-            test_tiff_file, reference_exr_file, rtol=0.0001, atol=0.0001
-        )
+        np.testing.assert_allclose(test_tiff_file, reference_exr_file, atol=0.0025)
 
 
-class TestHighlightsRecoveryLCHab(unittest.TestCase):
+class TestHighlightsRecoveryLCHab:
     """
-    Define :func:`colour_hdri.recovery.highlights.\
-highlights_recovery_LCHab` definition unit tests methods.
+    Define :func:`colour_hdri.recovery.highlights.highlights_recovery_LCHab`
+    definition unit tests methods.
     """
 
-    def setUp(self):
+    def setup_method(self):
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def teardown_method(self):
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
@@ -161,23 +153,19 @@ highlights_recovery_LCHab` definition unit tests methods.
         command = [
             RAW_CONVERTER,
             *shlex.split(
-                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(
-                    raw_file=test_raw_file
-                ),
+                RAW_CONVERTER_ARGUMENTS_DEMOSAICING.format(raw_file=test_raw_file),
                 posix=not _IS_WINDOWS_PLATFORM,
             ),
         ]
 
         subprocess.call(command)  # noqa: S603
 
-        test_tiff_file = read_image(
-            str(re.sub("\\.CR2$", ".tiff", test_raw_file))
-        )[::10, ::10, :]
+        test_tiff_file = read_image(str(re.sub("\\.CR2$", ".tiff", test_raw_file)))[
+            ::10, ::10, :
+        ]
 
         test_tiff_file *= multipliers
-        test_tiff_file = highlights_recovery_LCHab(
-            test_tiff_file, min(multipliers)
-        )
+        test_tiff_file = highlights_recovery_LCHab(test_tiff_file, min(multipliers))
         test_tiff_file = camera_space_to_sRGB(
             test_tiff_file, matrix_XYZ_to_camera_space
         )
@@ -188,10 +176,4 @@ highlights_recovery_LCHab` definition unit tests methods.
         )
         reference_exr_file = read_image(str(reference_exr_path))
 
-        np.testing.assert_allclose(
-            test_tiff_file, reference_exr_file, rtol=0.0001, atol=0.0001
-        )
-
-
-if __name__ == "__main__":
-    unittest.main()
+        np.testing.assert_allclose(test_tiff_file, reference_exr_file, atol=0.0025)

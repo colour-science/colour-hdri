@@ -12,7 +12,7 @@ Colour - HDRI
     :target: https://coveralls.io/r/colour-science/colour-hdri
     :alt: Coverage Status
 .. |codacy| image:: https://img.shields.io/codacy/grade/f422dc0703dd4653b2b766217c745813/develop.svg?style=flat-square
-    :target: https://www.codacy.com/app/colour-science/colour-hdri
+    :target: https://app.codacy.com/gh/colour-science/colour-hdri
     :alt: Code Grade
 .. |version| image:: https://img.shields.io/pypi/v/colour-hdri.svg?style=flat-square
     :target: https://pypi.org/project/colour-hdri
@@ -74,18 +74,18 @@ Primary Dependencies
 
 **Colour - HDRI** requires various dependencies in order to run:
 
-- `python >= 3.9, < 4 <https://www.python.org/download/releases>`__
-- `colour-science >= 4.3 <https://pypi.org/project/colour-science>`__
+- `python >= 3.10, < 3.14 <https://www.python.org/download/releases>`__
+- `colour-science >= 4.4 <https://pypi.org/project/colour-science>`__
 - `imageio >= 2, < 3 <https://imageio.github.io>`__
-- `numpy >= 1.22, < 2 <https://pypi.org/project/numpy>`__
-- `scipy >= 1.8, < 2 <https://pypi.org/project/scipy>`__
+- `numpy >= 1.24, < 3 <https://pypi.org/project/numpy>`__
+- `scipy >= 1.10, < 2 <https://pypi.org/project/scipy>`__
 
 Optional Features Dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `colour-demosaicing <https://pypi.org/project/colour-demosaicing>`__
-- `Adobe DNG Converter <https://www.adobe.com/support/downloads/product.jsp?product=106&platform=Mac>`__
-- `dcraw <https://www.cybercom.net/~dcoffin/dcraw>`__
+- `Adobe DNG Converter <https://helpx.adobe.com/nz/camera-raw/using/adobe-dng-converter.html>`__
+- `dcraw <https://dechifro.org/dcraw/>`__
 - `ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool>`__
 - `rawpy <https://pypi.org/project/rawpy>`__
 

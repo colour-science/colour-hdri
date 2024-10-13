@@ -2,7 +2,7 @@
 Digital Still Camera Exposure
 =============================
 
-Defines various objects for modeling Digital Still Camera (DSC) exposure:
+Define various objects for modeling Digital Still Camera (DSC) exposure:
 
 -   :func:`colour_hdri.focal_plane_exposure`
 -   :func:`colour_hdri.arithmetic_mean_focal_plane_exposure`
@@ -337,9 +337,7 @@ def exposure_index_values(H_a: ArrayLike) -> NDArrayFloat:
     return as_float(10 / as_float_array(H_a))
 
 
-def exposure_value_100(
-    N: ArrayLike, t: ArrayLike, S: ArrayLike
-) -> NDArrayFloat:
+def exposure_value_100(N: ArrayLike, t: ArrayLike, S: ArrayLike) -> NDArrayFloat:
     """
     Compute the exposure value :math:`EV100` from given relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic

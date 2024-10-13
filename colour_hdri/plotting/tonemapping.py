@@ -2,7 +2,7 @@
 Tonemapping Operators Plotting
 ==============================
 
-Defines the tonemapping operators plotting objects:
+Define the tonemapping operators plotting objects:
 
 -   :func:`colour_hdri.plotting.plot_tonemapping_operator_image`
 """
@@ -115,8 +115,6 @@ def plot_tonemapping_operator_image(
             }
         )
         plt.gca().set_xscale("log", basex=2)
-        plt.gca().xaxis.set_major_formatter(
-            matplotlib.ticker.ScalarFormatter()
-        )
+        plt.gca().xaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter())
 
     return render(**settings)

@@ -2,7 +2,7 @@
 Image Data & Metadata Utilities
 ===============================
 
-Defines various image data and metadata utilities classes:
+Define various image data and metadata utilities classes:
 
 -   :class:`colour_hdri.Metadata`
 -   :class:`colour_hdri.Image`
@@ -31,7 +31,6 @@ from colour.utilities import (
     MixinDataclassArray,
     as_float_array,
     attest,
-    is_string,
     tsplit,
     tstack,
     warning,
@@ -57,6 +56,8 @@ __all__ = [
     "Image",
     "ImageStack",
 ]
+
+LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
@@ -86,9 +87,7 @@ class Metadata(MixinDataclassArray):
     iso: Real | None = field(default_factory=lambda: None)
     black_level: NDArrayFloat | None = field(default_factory=lambda: None)
     white_level: NDArrayFloat | None = field(default_factory=lambda: None)
-    white_balance_multipliers: NDArrayFloat | None = field(
-        default_factory=lambda: None
-    )
+    white_balance_multipliers: NDArrayFloat | None = field(default_factory=lambda: None)
 
 
 class Image:
@@ -155,7 +154,7 @@ class Image:
 
         if value is not None:
             attest(
-                is_string(value),
+                isinstance(value, str),
                 f'"path" property: "{value}" type is not "str"!',
             )
 
@@ -248,7 +247,7 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info('Reading "{path}" image.', extra={"path": self._path})
+            LOGGER.info('Reading "%s" image.', self._path)
 
             data = read_image(str(self._path))
             if cctf_decoding is not None:
@@ -276,9 +275,7 @@ class Image:
         """
 
         if self._path is not None:
-            logging.info(
-                'Reading "{path}" image metadata.', extra={"path": self._path}
-            )
+            LOGGER.info('Reading "%s" image metadata.', self._path)
 
             exif_data = read_exif_tags(self._path)
 
@@ -312,9 +309,7 @@ class Image:
                 white_level = parse_exif_array(white_level[0])
                 white_level = as_float_array(white_level) / 65535
 
-            white_balance_multipliers = exif_data["EXIF"].get(
-                "As Shot Neutral"
-            )
+            white_balance_multipliers = exif_data["EXIF"].get("As Shot Neutral")
             if white_balance_multipliers is not None:
                 white_balance_multipliers = parse_exif_array(
                     white_balance_multipliers[0]

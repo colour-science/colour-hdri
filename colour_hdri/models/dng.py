@@ -2,7 +2,7 @@
 Adobe DNG SDK Colour Processing
 ===============================
 
-Defines various objects implementing *Adobe DNG SDK* colour processing:
+Define various objects implementing *Adobe DNG SDK* colour processing:
 
 -   :func:`colour_hdri.xy_to_camera_neutral`
 -   :func:`colour_hdri.camera_neutral_to_xy`
@@ -115,8 +115,7 @@ from colour.adaptation import matrix_chromatic_adaptation_VonKries
 from colour.algebra import (
     is_identity,
     linear_conversion,
-    matrix_dot,
-    vector_dot,
+    vecmul,
 )
 from colour.constants import EPSILON
 from colour.hints import ArrayLike, Literal, NDArrayFloat
@@ -302,7 +301,7 @@ def xy_to_camera_neutral(
         analog_balance,
     )
 
-    camera_neutral = vector_dot(M_XYZ_to_camera, xy_to_XYZ(xy))
+    camera_neutral = vecmul(M_XYZ_to_camera, xy_to_XYZ(xy))
     camera_neutral /= camera_neutral[1]
 
     return camera_neutral
@@ -408,7 +407,7 @@ def camera_neutral_to_xy(
             analog_balance,
         )
 
-        XYZ = vector_dot(np.linalg.inv(M_XYZ_to_camera), camera_neutral)
+        XYZ = vecmul(np.linalg.inv(M_XYZ_to_camera), camera_neutral)
         xy = XYZ_to_xy(XYZ)
 
         if np.abs(np.sum(xy_p - xy)) <= epsilon:
@@ -508,11 +507,7 @@ def matrix_XYZ_to_camera_space(
     CCT, _D_uv = uv_to_CCT_Robertson1968(uv)
 
     if is_identity(M_color_matrix_1) or is_identity(M_color_matrix_2):
-        M_CM = (
-            M_color_matrix_1
-            if is_identity(M_color_matrix_2)
-            else M_color_matrix_2
-        )
+        M_CM = M_color_matrix_1 if is_identity(M_color_matrix_2) else M_color_matrix_2
     else:
         M_CM = matrix_interpolated(
             CCT,
@@ -530,7 +525,7 @@ def matrix_XYZ_to_camera_space(
         M_camera_calibration_2,
     )
 
-    M_XYZ_to_camera_space = matrix_dot(matrix_dot(M_AB, M_CC), M_CM)
+    M_XYZ_to_camera_space = np.matmul(np.matmul(M_AB, M_CC), M_CM)
 
     return M_XYZ_to_camera_space
 
@@ -546,21 +541,23 @@ def matrix_camera_space_to_XYZ(
     analog_balance: ArrayLike,
     M_forward_matrix_1: ArrayLike,
     M_forward_matrix_2: ArrayLike,
-    chromatic_adaptation_transform: Literal[
-        "Bianco 2010",
-        "Bianco PC 2010",
-        "Bradford",
-        "CAT02 Brill 2008",
-        "CAT02",
-        "CAT16",
-        "CMCCAT2000",
-        "CMCCAT97",
-        "Fairchild",
-        "Sharp",
-        "Von Kries",
-        "XYZ Scaling",
-    ]
-    | str = "Bradford",
+    chromatic_adaptation_transform: (
+        Literal[
+            "Bianco 2010",
+            "Bianco PC 2010",
+            "Bradford",
+            "CAT02 Brill 2008",
+            "CAT02",
+            "CAT16",
+            "CMCCAT2000",
+            "CMCCAT97",
+            "Fairchild",
+            "Sharp",
+            "Von Kries",
+            "XYZ Scaling",
+        ]
+        | str
+    ) = "Bradford",
 ) -> NDArrayFloat:
     """
     Return the *Camera Space* to *CIE XYZ* matrix for given *xy* white
@@ -677,7 +674,7 @@ def matrix_camera_space_to_XYZ(
             xy_to_XYZ(CCS_ILLUMINANT_ADOBEDNG),
             chromatic_adaptation_transform,
         )
-        M_camera_space_to_XYZ = matrix_dot(M_CAT, M_camera_to_XYZ)
+        M_camera_space_to_XYZ = np.matmul(M_CAT, M_camera_to_XYZ)
     else:
         uv = UCS_to_uv(XYZ_to_UCS(xy_to_XYZ(xy)))
         CCT, _D_uv = uv_to_CCT_Robertson1968(uv)
@@ -712,8 +709,8 @@ def matrix_camera_space_to_XYZ(
 
         M_AB = np.diagflat(analog_balance)
 
-        M_reference_neutral = vector_dot(
-            np.linalg.inv(matrix_dot(M_AB, M_CC)), camera_neutral
+        M_reference_neutral = vecmul(
+            np.linalg.inv(np.matmul(M_AB, M_CC)), camera_neutral
         )
         M_D = np.linalg.inv(np.diagflat(M_reference_neutral))
         M_FM = matrix_interpolated(
@@ -723,8 +720,8 @@ def matrix_camera_space_to_XYZ(
             M_forward_matrix_1,
             M_forward_matrix_2,
         )
-        M_camera_space_to_XYZ = matrix_dot(
-            matrix_dot(M_FM, M_D), np.linalg.inv(matrix_dot(M_AB, M_CC))
+        M_camera_space_to_XYZ = np.matmul(
+            np.matmul(M_FM, M_D), np.linalg.inv(np.matmul(M_AB, M_CC))
         )
 
     return M_camera_space_to_XYZ
