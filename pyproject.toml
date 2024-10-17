@@ -48,20 +48,20 @@ classifiers = [
 dependencies = [
     "colour-science>=0.4.5",
     "imageio>=2,<3",
-    "numpy>=1.24,<3",
+    "numpy>=1.24,<2",
     "scipy>=1.10,<2",
     "typing-extensions>=4,<5",
 ]
 
 [project.optional-dependencies]
 optional = [
+    "colour-datasets>=0.2.6",
     "colour-demosaicing>=0.2.4",
+    "lensfunpy<2;python_version<'3.13'",
     "matplotlib>=3.7",
-    "colour-datasets",
     "networkx >=3,<4",
     "opencv-python>=4,<5",
     "pydot>=3,<4",
-    "lensfunpy<2;python_version<'3.13'",
     "rawpy<1;python_version<'3.13'",
 ]
 docs = [
@@ -95,9 +95,6 @@ dev-dependencies = [
     "toml",
     "twine",
 ]
-
-[tool.uv.sources]
-"colour-datasets" = { git = "https://github.com/colour-science/colour-datasets.git", branch = "develop" }
 
 [build-system]
 requires = ["hatchling"]
