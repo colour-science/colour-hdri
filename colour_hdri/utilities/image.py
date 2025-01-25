@@ -150,7 +150,7 @@ class Image:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Image path.
         """
 
@@ -180,7 +180,7 @@ class Image:
 
         Returns
         -------
-        :py:data:`None` or :class:`numpy.ndarray`
+        :class:`numpy.ndarray` or :py:data:`None`
             Image data.
         """
 
@@ -215,7 +215,7 @@ class Image:
 
         Returns
         -------
-        :py:data:`None` or :class:`colour_hdri.Metadata`
+        :class:`colour_hdri.Metadata` or :py:data:`None`
             Image metadata.
         """
 
@@ -434,7 +434,7 @@ class ImageStack(MutableSequence[Image]):
 
         Returns
         -------
-        :py:data:`None` or Callable
+        Callable or :py:data:`None`
             Decoding colour component transfer function (Decoding CCTF) /
             electro-optical transfer function (EOTF).
         """
