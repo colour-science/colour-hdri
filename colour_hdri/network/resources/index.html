@@ -1,0 +1,369 @@
+<!doctype html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./assets/litegraph.js/css/litegraph.css"
+    />
+    <script
+      type="text/javascript"
+      src="./assets/litegraph.js/js/litegraph.js"
+    ></script>
+    <script type="text/javascript" src="./assets/anime.js/js/anime.js"></script>
+    <script
+      type="text/javascript"
+      src="qrc:///qtwebchannel/qwebchannel.js"
+    ></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+          window.backend = channel.objects.backend;
+        });
+      };
+    </script>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #222222;
+      }
+
+      graph-editor {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="graph-editor"></div>
+    <script>
+      class HistoryManager {
+        constructor(initialState) {
+          this.initialise(initialState);
+        }
+
+        changeState(newState) {
+          this.undoStack.push(this.currentState);
+          this.redoStack = [];
+          this.currentState = newState;
+        }
+
+        undo() {
+          if (this.undoStack.length === 0) {
+            console.log("Nothing to undo!");
+            return;
+          }
+          this.redoStack.push(this.currentState);
+          this.currentState = this.undoStack.pop();
+        }
+
+        redo() {
+          if (this.redoStack.length === 0) {
+            console.log("Nothing to redo!");
+            return;
+          }
+          this.undoStack.push(this.currentState);
+          this.currentState = this.redoStack.pop();
+        }
+
+        getState() {
+          return this.currentState;
+        }
+
+        initialise(initialState) {
+          this.currentState = initialState;
+          this.undoStack = [];
+          this.redoStack = [];
+        }
+      }
+
+      function filterRegisteredNodeTypes() {
+        for (const nodeType in LiteGraph.registered_node_types) {
+          if (
+            !nodeType.startsWith("graph/") &&
+            nodeType !== "basic/array" &&
+            nodeType !== "basic/boolean" &&
+            nodeType !== "basic/const" &&
+            nodeType !== "basic/string"
+          ) {
+            LiteGraph.unregisterNodeType(nodeType);
+          }
+        }
+      }
+
+      function sortRegisteredNodeTypes() {
+        let registeredNodeTypes = {};
+        for (const nodeType in LiteGraph.registered_node_types) {
+          registeredNodeTypes[nodeType] =
+            LiteGraph.registered_node_types[nodeType];
+          LiteGraph.unregisterNodeType(nodeType);
+        }
+
+        const sortedNodeTypes = Object.keys(registeredNodeTypes).sort();
+        for (let key of sortedNodeTypes) {
+          LiteGraph.registerNodeType(key, registeredNodeTypes[key]);
+        }
+      }
+
+      const customLinkTypeColors = {
+        executionPort: "#0050FF",
+      };
+
+      function GraphEditor(container) {
+        var html =
+          "<div class='content'><div class='editor-area'><canvas class='graph-canvas' width='2560' height='1440'></canvas></div></div>";
+
+        var root = document.createElement("div");
+        this.root = root;
+        root.className = "litegraph litegraph-editor";
+        root.innerHTML = html;
+
+        this.content = root.querySelector(".content");
+
+        var canvas = (this.canvas = root.querySelector(".graph-canvas"));
+
+        var lgGraph = (this.lgGraph = new LGraph());
+        var lgCanvas = (this.lgCanvas = new LGraphCanvas(canvas, lgGraph));
+
+        var parent = document.getElementById(container);
+        if (parent) {
+          parent.appendChild(root);
+        }
+
+        window.addEventListener("resize", function () {
+          lgCanvas.resize();
+        });
+
+        lgCanvas.resize();
+      }
+
+      filterRegisteredNodeTypes();
+
+      const editor = new GraphEditor("graph-editor");
+      const lgCanvas = editor.lgCanvas;
+      const lgGraph = editor.lgGraph;
+
+      lgCanvas.allow_searchbox = false;
+      lgCanvas.align_to_grid = true;
+      lgCanvas.default_connection_color_byType = customLinkTypeColors;
+      lgCanvas.default_connection_color_byTypeOff = customLinkTypeColors;
+
+      const historyManager = new HistoryManager(serializeGraph());
+
+      function serializeGraph() {
+        return JSON.stringify(lgGraph.serialize());
+      }
+
+      function deserializeGraph(graph) {
+        lgGraph.clear();
+        lgGraph.configure(JSON.parse(graph));
+      }
+
+      function undo() {
+        historyManager.undo();
+        deserializeGraph(historyManager.getState());
+      }
+
+      function redo() {
+        historyManager.redo();
+        deserializeGraph(historyManager.getState());
+      }
+
+      function copy() {
+        lgCanvas.copyToClipboard();
+      }
+
+      function paste() {
+        lgCanvas.pasteFromClipboard();
+      }
+
+      function selectAll() {
+        lgCanvas.selectNodes(lgGraph._nodes);
+      }
+
+      function onAfterChange() {
+        historyManager.changeState(serializeGraph());
+
+        backend.canvas_changed();
+      }
+
+      lgCanvas.onAfterChange = onAfterChange;
+
+      function onBeforeAction() {
+        lgCanvas.onAfterChange = null;
+      };
+
+      function onAfterAction () {
+        lgCanvas.onAfterChange = onAfterChange;
+
+        onAfterChange();
+      };
+
+      lgGraph.onBeforePaste = onBeforeAction;
+      lgGraph.onAfterPaste = onAfterAction;
+      lgGraph.onBeforeDelete = onBeforeAction;
+      lgGraph.onAfterDelete = onAfterAction;
+
+      function exportGraph() {
+        return serializeGraph();
+      }
+
+      function importGraph(graph) {
+        deserializeGraph(graph);
+
+        resetNodesColor(lgGraph);
+
+        historyManager.initialise(serializeGraph());
+      }
+
+      function getNodeByPath(graph, path) {
+        if (!Array.isArray(path) || path.length === 0) {
+          throw new Error("Path must be a non-empty array of node IDs.");
+        }
+
+        let currentGraph = graph;
+        let currentNode = null;
+
+        for (let i = 0; i < path.length; i++) {
+          const nodeId = path[i];
+          currentNode = currentGraph.getNodeById(nodeId);
+
+          if (!currentNode) {
+            return null;
+          }
+
+          if (i < path.length - 1) {
+            if (!currentNode.subgraph) {
+              return null;
+            }
+            currentGraph = currentNode.subgraph;
+          }
+        }
+
+        return currentNode;
+      }
+
+      function alignSelectedNodesToGrid() {
+        for (let id in lgCanvas.selected_nodes) {
+          lgCanvas.getCurrentGraph().getNodeById(id).alignToGrid();
+        }
+      }
+
+      function offsetSelectedNodes(offset) {
+        for (let id in lgCanvas.selected_nodes) {
+          const node = lgCanvas.getCurrentGraph().getNodeById(id);
+          node.pos = [node.pos[0] + offset[0], node.pos[1] + offset[1]];
+          node.setDirtyCanvas(true, true);
+        }
+      }
+
+      function resetNodesColor(graph) {
+        if (graph?._nodes === undefined) {
+          return;
+        }
+
+        graph._nodes.forEach((node) => {
+          if (node.properties.bgColor !== undefined) {
+            node.bgcolor = node.properties.bgColor;
+            node.setDirtyCanvas(true, true);
+          }
+
+          if (node.subgraph !== undefined) {
+            resetNodesColor(node.subgraph);
+          }
+        });
+      }
+
+      function removeNodeProcessAnimation(graph) {
+        if (graph?._nodes === undefined) {
+          return;
+        }
+
+        graph._nodes.forEach((node) => {
+          if (node.processAnimation) {
+            node.processAnimation.pause();
+
+            delete node.processAnimation;
+
+            if (node.properties.bgColor !== undefined) {
+              node.bgcolor = node.properties.bgColor;
+              node.setDirtyCanvas(true, true);
+            }
+          }
+
+          if (node.subgraph !== undefined) {
+            resetNodesColor(node.subgraph);
+          }
+        });
+      }
+
+      function onGraphProcessStarted() {
+        resetNodesColor(lgGraph);
+      }
+
+      function onGraphProcessEnded() {}
+
+      function onGraphProcessException() {
+        removeNodeProcessAnimation(lgGraph);
+      }
+
+      function onNodeProcessStarted(path) {
+        const node = getNodeByPath(lgGraph, path);
+
+        if (node === undefined) return;
+
+        if (node.bgcolor === undefined) {
+          node.properties.bgColor = node.bgcolor;
+        } else {
+          node.properties.bgColor = "#333";
+        }
+
+        node.processAnimation = anime({
+          targets: node,
+          bgcolor: [node.properties.bgColor, "#512DA8"],
+          easing: "linear",
+          duration: 500,
+          direction: "alternate",
+          loop: true,
+          update: function () {
+            node.setDirtyCanvas(true, true);
+          },
+        });
+      }
+
+      function onNodeProcessEnded(path) {
+        const node = getNodeByPath(lgGraph, path);
+
+        if (node === undefined) return;
+
+        if (node.processAnimation) {
+          node.processAnimation.pause();
+
+          delete node.processAnimation;
+        }
+
+        node.bgcolor = "#00695C";
+        node.setDirtyCanvas(true, true);
+      }
+
+      function onNodeProcessException(path) {
+        const node = getNodeByPath(lgGraph, path);
+
+        if (node === undefined) return;
+
+        if (node.processAnimation) {
+          node.processAnimation.pause();
+
+          delete node.processAnimation;
+        }
+
+        node.bgcolor = "#B71C1C";
+        node.setDirtyCanvas(true, true);
+      }
+    </script>
+  </body>
+</html>

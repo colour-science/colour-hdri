@@ -1,4 +1,10 @@
-from .common import filter_files, path_exists, vivification, vivified_to_dict
+from .common import (
+    filter_files,
+    notify_process_state,
+    path_exists,
+    vivification,
+    vivified_to_dict,
+)
 from .exif import (
     EXIF_EXECUTABLE,
     EXIFTag,
@@ -16,6 +22,7 @@ from .exif import (
 )
 from .image import Image, ImageStack, Metadata
 from .requirements import (
+    is_colour_datasets_installed,
     is_lensfunpy_installed,
     is_opencv_installed,
     is_rawpy_installed,
@@ -23,6 +30,7 @@ from .requirements import (
 
 __all__ = [
     "filter_files",
+    "notify_process_state",
     "path_exists",
     "vivification",
     "vivified_to_dict",
@@ -48,6 +56,7 @@ __all__ += [
     "Metadata",
 ]
 __all__ += [
+    "is_colour_datasets_installed",
     "is_lensfunpy_installed",
     "is_opencv_installed",
     "is_rawpy_installed",

@@ -20,6 +20,7 @@ Nodes
     NodeCreateBatches
     NodeCreateImageStack
     NodeDownsample
+    NodeFetchCameraSensitivities
     NodeMergeImageStack
     NodeNormaliseExposure
     NodeOrient

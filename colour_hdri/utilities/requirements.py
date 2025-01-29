@@ -20,6 +20,7 @@ __all__ = [
     "is_rawpy_installed",
     "is_lensfunpy_installed",
     "is_opencv_installed",
+    "is_colour_datasets_installed",
 ]
 
 
@@ -124,10 +125,44 @@ def is_opencv_installed(raise_exception: bool = False) -> bool:
         return True
 
 
+def is_colour_datasets_installed(raise_exception: bool = False) -> bool:
+    """
+    Return whether *colour-datasets* is installed and available.
+
+    Parameters
+    ----------
+    raise_exception
+        Whether to raise an exception if *colour-datasets* is unavailable.
+
+    Returns
+    -------
+    :class:`bool`
+        Whether *colour-datasets* is installed.
+
+    Raises
+    ------
+    :class:`ImportError`
+        If *colour-datasets* is not installed.
+    """
+
+    try:  # pragma: no cover
+        import colour_datasets  # noqa: F401
+    except ImportError as exception:  # pragma: no cover
+        if raise_exception:
+            error = f'"colour-datasets" related API features are not available: "{exception}".'
+
+            raise ImportError(error) from exception
+
+        return False
+    else:
+        return True
+
+
 colour.utilities.requirements.REQUIREMENTS_TO_CALLABLE.update(
     {
         "rawpy": is_rawpy_installed,
         "lensfunpy": is_lensfunpy_installed,
         "OpenCV": is_opencv_installed,
+        "colour-datasets": is_colour_datasets_installed,
     }
 )
