@@ -264,8 +264,10 @@ class Image:
             self.data = data
 
             return cast(NDArrayFloat, data)
-        msg = 'The image "path" is undefined!'
-        raise ValueError(msg)
+
+        exception = 'The image "path" is undefined!'
+
+        raise ValueError(exception)
 
     def read_metadata(self) -> Metadata:
         """
@@ -283,8 +285,9 @@ class Image:
         """
 
         if self._path is None:
-            msg = 'The image "path" is undefined!'
-            raise ValueError(msg)
+            exception = 'The image "path" is undefined!'
+
+            raise ValueError(exception)
 
         LOGGER.info('Reading "%s" image metadata.', self._path)
 

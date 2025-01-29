@@ -415,11 +415,12 @@ def camera_neutral_to_xy(
         if np.abs(np.sum(xy_p - xy)) <= epsilon:
             return xy
 
-    msg = (
+    exception = (
         f'"Camera Neutral" coordinates "{xy}" did not converge to "xy" white '
         f"balance chromaticity coordinates!"
     )
-    raise RuntimeError(msg)
+
+    raise RuntimeError(exception)
 
 
 def matrix_XYZ_to_camera_space(
