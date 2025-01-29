@@ -5467,6 +5467,10 @@ LGraphNode.prototype.executeAction = function(action)
     this.onConnectingChange = null; //called before any link changes
     this.onBeforeChange = null; //called before modifying the graph
     this.onAfterChange = null; //called after modifying the graph
+    this.onBeforePaste = null;
+    this.onAfterPaste = null;
+    this.onBeforeDelete = null;
+    this.onAfterDelete = null;
 
     this.connections_width = 3;
     this.round_radius = 8;
@@ -7459,6 +7463,11 @@ LGraphNode.prototype.executeAction = function(action)
 
     this.graph.beforeChange();
 
+    if (this.graph.onBeforePaste != null)
+    {
+      this.graph.onBeforePaste();
+    }
+
     //create nodes
     var clipboard_info = JSON.parse(data);
     // calculate top-left node, could work without this processing but using diff with last node pos :: clipboard_info.nodes[clipboard_info.nodes.length-1].pos
@@ -7524,6 +7533,11 @@ LGraphNode.prototype.executeAction = function(action)
     this.selectNodes(nodes);
 
     this.graph.afterChange();
+
+    if (this.graph.onAfterPaste != null)
+    {
+      this.graph.onAfterPaste();
+    }
   };
 
   /**
@@ -7786,6 +7800,11 @@ LGraphNode.prototype.executeAction = function(action)
   LGraphCanvas.prototype.deleteSelectedNodes = function () {
     this.graph.beforeChange();
 
+    if (this.graph.onBeforeDelete != null)
+    {
+      this.graph.onBeforeDelete();
+    }
+
     for (var i in this.selected_nodes) {
       var node = this.selected_nodes[i];
 
@@ -7826,6 +7845,11 @@ LGraphNode.prototype.executeAction = function(action)
     this.highlighted_links = {};
     this.setDirty(true);
     this.graph.afterChange();
+
+    if (this.graph.onAfterDelete != null)
+    {
+      this.graph.onAfterDelete();
+    }
   };
 
   /**
