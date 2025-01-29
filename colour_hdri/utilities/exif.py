@@ -247,8 +247,10 @@ def parse_exif_data(data: str) -> List:
                 search.group("value"),
             )
         ]
-    msg = "The EXIF data output cannot be parsed!"
-    raise ValueError(msg)
+
+    exception = "The EXIF data output cannot be parsed!"
+
+    raise ValueError(exception)
 
 
 def read_exif_tags(image: str, numeric: bool = False) -> defaultdict:
