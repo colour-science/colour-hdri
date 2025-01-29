@@ -214,6 +214,7 @@ def matrix_interpolated(
         return M_1
     if CCT >= CCT_2:
         return M_2
+
     return linear_conversion(1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2), tstack([M_1, M_2]))
 
 
