@@ -1054,8 +1054,8 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
             "output",
             list(
                 zip(
-                    self.nodes["ParallelForMultiprocess"].get_output("results"),  # pyright: ignore
-                    self.nodes["GraphPostMergeHDRI"].get_output("output"),  # pyright: ignore
+                    self.nodes["ParallelForMultiprocess"].get_output("results"),
+                    self.nodes["GraphPostMergeHDRI"].get_output("output"),
                     strict=False,
                 )
             ),

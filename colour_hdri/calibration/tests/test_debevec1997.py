@@ -6,9 +6,12 @@ module.
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING
+import typing
 
 import numpy as np
+
+if typing.TYPE_CHECKING:
+    from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import (
@@ -18,9 +21,6 @@ from colour_hdri.calibration import (
 from colour_hdri.exposure import average_luminance
 from colour_hdri.sampling import samples_Grossberg2003
 from colour_hdri.utilities import ImageStack, filter_files
-
-if TYPE_CHECKING:
-    from colour.hints import List
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"

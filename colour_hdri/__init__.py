@@ -29,9 +29,14 @@ import contextlib
 import os
 import subprocess
 import sys
+import typing
 
 import colour
 import numpy as np
+
+if typing.TYPE_CHECKING:
+    from colour.hints import Any
+
 from colour.utilities import is_matplotlib_installed
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
@@ -159,10 +164,6 @@ from .network import (
     NodeWriteImage,
     NodeWritePreviewImage,
 )
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from colour.hints import Any
 
 # Exposing "colour.plotting" sub-package if "Matplotlib" is available.
 if is_matplotlib_installed():
