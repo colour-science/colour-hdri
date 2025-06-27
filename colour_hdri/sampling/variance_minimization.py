@@ -263,9 +263,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
         light_probe_c = light_probe[y_min:y_max, x_min:x_max]
         lights.append(
             Light_Specification(
-                (c / np.array(Y.shape))[::-1],
-                np.sum(np.sum(light_probe_c, 0), 0),
-                c,  # pyright: ignore
+                (c / np.array(Y.shape))[::-1], np.sum(np.sum(light_probe_c, 0), 0), c
             )
         )
 

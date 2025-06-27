@@ -1089,7 +1089,7 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
         import cv2
         import lensfunpy
 
-        database = lensfunpy.Database()
+        database = lensfunpy.Database()  # pyright: ignore
 
         camera_make = exif_group["Make"]
         camera_model = exif_group["Camera Model Name"]
@@ -1138,7 +1138,7 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
             aperture,
             distance,
             pixel_format=np.float32,
-            flags=lensfunpy.ModifyFlags.ALL,
+            flags=lensfunpy.ModifyFlags.ALL,  # pyright: ignore
         )
 
         output_image = input_image
@@ -1525,7 +1525,7 @@ class NodeNormaliseExposure(ExecutionNode):
                     self.log(f'"{image_path}" image does not exist!')
                     return
 
-                median.append(np.median(read_image_OpenImageIO(image_path)))
+                median.append(np.median(read_image_OpenImageIO(image_path)))  # pyright: ignore
 
             normalisation_factor = 1 / np.median(median)
 

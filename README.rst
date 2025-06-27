@@ -150,7 +150,7 @@ Software
 - `OpenCV <https://opencv.org>`__ by Bradski, G.
 - `Piccante <https://github.com/cnr-isti-vclab/piccante>`__ by Banterle, F. and Benedetti, L.,
 
-*Piccante* was used to verify the Grossberg (2003) Histogram Based Image Sampling.
+*Piccante* was used to verify the Grossberg (2003) Histogram Based Image Sampling method implementation.
 
 **Matlab**
 
