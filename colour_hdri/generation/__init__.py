@@ -34,7 +34,7 @@ class generation(ModuleAPI):
     """Define a class acting like the *generation* module."""
 
     def __getattr__(self, attribute: str) -> Any:
-        """Return the value from the attribute with given name."""
+        """Return the value from the attribute with specified name."""
 
         return super().__getattr__(attribute)
 

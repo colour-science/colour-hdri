@@ -314,7 +314,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
 
 def exposure_index_values(H_a: ArrayLike) -> NDArrayFloat:
     """
-    Compute the exposure index values :math:`I_{EI}` from given focal plane
+    Compute the exposure index values :math:`I_{EI}` from specified focal plane
     exposure :math:`H_a`.
 
     Parameters
@@ -342,7 +342,7 @@ def exposure_index_values(H_a: ArrayLike) -> NDArrayFloat:
 
 def exposure_value_100(N: ArrayLike, t: ArrayLike, S: ArrayLike) -> NDArrayFloat:
     """
-    Compute the exposure value :math:`EV100` from given relative aperture
+    Compute the exposure value :math:`EV100` from specified relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic
     speed :math:`S`.
 

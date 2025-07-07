@@ -1,3 +1,14 @@
+"""
+Lens Distortion Correction
+==========================
+
+Vignetting characterisation and correction algorithms.
+
+This subpackage provides methods for characterising and correcting lens
+vignetting effects using various mathematical models including 2D functions,
+bivariate splines, and radial basis functions.
+"""
+
 # isort: skip_file
 
 from .vignette import (

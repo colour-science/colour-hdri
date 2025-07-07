@@ -111,7 +111,7 @@ class EXIFTag:
 
 def parse_exif_string(exif_tag: EXIFTag) -> str:
     """
-    Parse given EXIF tag assuming it is a string and return its value.
+    Parse specified EXIF tag assuming it is a string and return its value.
 
     Parameters
     ----------
@@ -129,7 +129,7 @@ def parse_exif_string(exif_tag: EXIFTag) -> str:
 
 def parse_exif_number(exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None) -> Real:
     """
-    Parse given EXIF tag assuming it is a number type and return its value.
+    Parse specified EXIF tag assuming it is a number type and return its value.
 
     Parameters
     ----------
@@ -153,7 +153,7 @@ def parse_exif_fraction(
     exif_tag: EXIFTag, dtype: Type[DTypeFloat] | None = None
 ) -> float:
     """
-    Parse given EXIF tag assuming it is a fraction and return its value.
+    Parse specified EXIF tag assuming it is a fraction and return its value.
 
     Parameters
     ----------
@@ -183,7 +183,7 @@ def parse_exif_array(
     shape: SupportsIndex | Sequence[SupportsIndex] | None = None,
 ) -> NDArray:
     """
-    Parse given EXIF tag assuming it is an array and return its value.
+    Parse specified EXIF tag assuming it is an array and return its value.
 
     Parameters
     ----------
@@ -214,7 +214,7 @@ def parse_exif_array(
 
 def parse_exif_data(data: str) -> List:
     """
-    Parse given EXIF data output from *exiftool*.
+    Parse specified EXIF data output from *exiftool*.
 
     Parameters
     ----------
@@ -255,7 +255,7 @@ def parse_exif_data(data: str) -> List:
 
 def read_exif_tags(image: str, numeric: bool = False) -> defaultdict:
     """
-    Return given image EXIF image tags.
+    Return specified image EXIF image tags.
 
     Parameters
     ----------
@@ -303,7 +303,7 @@ def read_exif_tags(image: str, numeric: bool = False) -> defaultdict:
 
 def copy_exif_tags(source: str, target: str) -> bool:
     """
-    Copy given source image file EXIF tag to given image target.
+    Copy specified source image file EXIF tag to specified image target.
 
     Parameters
     ----------
@@ -333,7 +333,7 @@ def copy_exif_tags(source: str, target: str) -> bool:
 # TODO: Find a better name.
 def update_exif_tags(images: Sequence[Sequence[str]]) -> bool:
     """
-    Update given images pairs EXIF tags.
+    Update specified images pairs EXIF tags.
 
     Parameters
     ----------
@@ -355,7 +355,7 @@ def update_exif_tags(images: Sequence[Sequence[str]]) -> bool:
 
 def delete_exif_tags(image: str) -> bool:
     """
-    Delete all given image EXIF tags.
+    Delete all specified image EXIF tags.
 
     Parameters
     ----------
@@ -380,7 +380,7 @@ def delete_exif_tags(image: str) -> bool:
 
 def read_exif_tag(image: str, tag: str, numeric: bool = False) -> str:
     """
-    Return given image EXIF tag value.
+    Return specified image EXIF tag value.
 
     Parameters
     ----------
@@ -426,7 +426,7 @@ def read_exif_tag(image: str, tag: str, numeric: bool = False) -> str:
 
 def write_exif_tag(image: str, tag: str, value: str) -> bool:
     """
-    Set given image EXIF tag value.
+    Set specified image EXIF tag value.
 
     Parameters
     ----------

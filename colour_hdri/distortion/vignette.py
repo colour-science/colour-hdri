@@ -109,7 +109,7 @@ def apply_radial_gradient(
     noise: float = 0,
 ) -> NDArrayFloat:
     """
-    Apply a radial gradient on given image.
+    Apply a radial gradient on specified image.
 
     Parameters
     ----------

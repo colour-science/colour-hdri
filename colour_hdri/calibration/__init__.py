@@ -1,3 +1,14 @@
+"""
+Camera Calibration
+==================
+
+Camera response function estimation and absolute luminance calibration.
+
+This subpackage provides algorithms for determining camera response functions
+from image sequences with known exposure values, and methods for absolute
+luminance calibration using reference illumination measurements.
+"""
+
 # isort: skip_file
 
 from .absolute_luminance import (

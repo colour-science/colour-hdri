@@ -80,7 +80,7 @@ class Light_Specification(MixinDataclassIterable):
 
 def luminance_variance(a: ArrayLike) -> float:
     """
-    Compute the Luminance variance of given :math:`a` 2-D array.
+    Compute the Luminance variance of specified :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -113,7 +113,7 @@ def find_regions_variance_minimization_Viriyothai2009(
 ) -> List[Tuple[int, int, int, int]]:
     """
     Find the :math:`2^n` regions using *Viriyothai (2009)* variance
-    minimization light probe sampling algorithm on given :math:`a` 2-D array.
+    minimization light probe sampling algorithm on specified :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -182,7 +182,7 @@ def highlight_regions_variance_minimization(
     highlight_colour: ArrayLike = (0, 1, 0),
 ) -> NDArrayFloat:
     """
-    Highlight regions using with variance minimized on given :math:`a`
+    Highlight regions using with variance minimized on specified :math:`a`
     3-D array.
 
     Parameters
@@ -219,7 +219,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> List[Light_Specification]:
     """
-    Sample given light probe to find lights using *Viriyothai (2009)* variance
+    Sample specified light probe to find lights using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm.
 
     Parameters

@@ -1,3 +1,15 @@
+"""
+Exposure Calculations
+=====================
+
+Photometric exposure value computations and conversions.
+
+This subpackage provides algorithms for calculating exposure values from
+luminance and illuminance measurements, photometric exposure scaling,
+and camera exposure index computations based on digital still camera
+standards.
+"""
+
 # isort: skip_file
 
 from .common import (

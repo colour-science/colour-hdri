@@ -241,7 +241,9 @@ class NodeConvertRawFileToDNGFile(ExecutionNode):
 
 
 def _is_linear_file_format(path: str) -> bool:
-    """Return whether the file at given path is a linear file type."""
+    """
+    Return whether the file at specified path is a linear file type.
+    """
 
     return os.path.splitext(path)[-1].lower() in (".exr", ".hdr")
 

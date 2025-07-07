@@ -2,7 +2,13 @@
 Colour - HDRI
 =============
 
-HDRI processing algorithms for *Python*.
+High Dynamic Range Imaging (HDRI) processing algorithms for *Python*.
+
+This package provides computational tools for HDRI capture, processing, and
+display, including camera response function estimation, exposure merging,
+tone mapping operators, and colour space transformations. The algorithms
+support various workflows from raw image capture to final display-ready
+output with advanced highlight recovery and vignetting correction.
 
 Subpackages
 -----------
@@ -177,7 +183,7 @@ else:
         """
 
         def __getattr__(self, attribute: str) -> Any:
-            """Return the value from the attribute with given name."""
+            """Return the value from the attribute with specified name."""
 
             is_matplotlib_installed(raise_exception=True)
 
@@ -383,7 +389,7 @@ class colour_hdri(ModuleAPI):
     """Define a class acting like the *colour_hdri* module."""
 
     def __getattr__(self, attribute: str) -> Any:
-        """Return the value from the attribute with given name."""
+        """Return the value from the attribute with specified name."""
 
         return super().__getattr__(attribute)
 
