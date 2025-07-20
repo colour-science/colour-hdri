@@ -1,5 +1,3 @@
-# isort: skip_file
-
 from .highlights import highlights_recovery_blend, highlights_recovery_LCHab
 
 __all__ = [

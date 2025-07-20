@@ -27,8 +27,6 @@ Subpackages
 -   utilities: Various utilities and data structures.
 """
 
-# isort: skip_file
-
 from __future__ import annotations
 
 import contextlib
@@ -37,15 +35,43 @@ import subprocess
 import sys
 import typing
 
-import colour
-import numpy as np
-
 if typing.TYPE_CHECKING:
     from colour.hints import Any
 
+import colour
+import numpy as np
 from colour.utilities import is_matplotlib_installed
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
+
+
+from .utilities import (
+    EXIF_EXECUTABLE,
+    EXIFTag,
+    Image,
+    ImageStack,
+    Metadata,
+    copy_exif_tags,
+    delete_exif_tags,
+    filter_files,
+    is_lensfunpy_installed,
+    is_opencv_installed,
+    is_rawpy_installed,
+    parse_exif_array,
+    parse_exif_data,
+    parse_exif_fraction,
+    parse_exif_number,
+    parse_exif_string,
+    path_exists,
+    read_exif_tag,
+    read_exif_tags,
+    update_exif_tags,
+    vivification,
+    vivified_to_dict,
+    write_exif_tag,
+)
+
+# isort: split
 
 from .calibration import (
     absolute_luminance_calibration_Lagarde2016,
@@ -99,6 +125,7 @@ from .process import (
     convert_raw_files_to_dng_files,
     read_dng_files_exif_tags,
 )
+
 from .recovery import highlights_recovery_blend, highlights_recovery_LCHab
 from .sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
@@ -117,31 +144,10 @@ from .tonemapping import (
     tonemapping_operator_simple,
     tonemapping_operator_Tumblin1999,
 )
-from .utilities import (
-    EXIF_EXECUTABLE,
-    EXIFTag,
-    Image,
-    ImageStack,
-    Metadata,
-    copy_exif_tags,
-    delete_exif_tags,
-    filter_files,
-    is_lensfunpy_installed,
-    is_opencv_installed,
-    is_rawpy_installed,
-    parse_exif_array,
-    parse_exif_data,
-    parse_exif_fraction,
-    parse_exif_number,
-    parse_exif_string,
-    path_exists,
-    read_exif_tag,
-    read_exif_tags,
-    update_exif_tags,
-    vivification,
-    vivified_to_dict,
-    write_exif_tag,
-)
+
+
+# isort: split
+
 from .network import (
     GraphBatchMergeHDRI,
     GraphHDRI,
@@ -198,6 +204,31 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
+    "EXIF_EXECUTABLE",
+    "EXIFTag",
+    "Image",
+    "ImageStack",
+    "Metadata",
+    "copy_exif_tags",
+    "delete_exif_tags",
+    "filter_files",
+    "is_lensfunpy_installed",
+    "is_opencv_installed",
+    "is_rawpy_installed",
+    "parse_exif_array",
+    "parse_exif_data",
+    "parse_exif_fraction",
+    "parse_exif_number",
+    "parse_exif_string",
+    "path_exists",
+    "read_exif_tag",
+    "read_exif_tags",
+    "update_exif_tags",
+    "vivification",
+    "vivified_to_dict",
+    "write_exif_tag",
+]
+__all__ += [
     "absolute_luminance_calibration_Lagarde2016",
     "camera_response_functions_Debevec1997",
     "g_solve",
@@ -271,31 +302,6 @@ __all__ += [
     "tonemapping_operator_Tumblin1999",
 ]
 __all__ += [
-    "EXIF_EXECUTABLE",
-    "EXIFTag",
-    "Image",
-    "ImageStack",
-    "Metadata",
-    "copy_exif_tags",
-    "delete_exif_tags",
-    "filter_files",
-    "is_rawpy_installed",
-    "is_lensfunpy_installed",
-    "is_opencv_installed",
-    "parse_exif_array",
-    "parse_exif_data",
-    "parse_exif_fraction",
-    "parse_exif_number",
-    "parse_exif_string",
-    "path_exists",
-    "read_exif_tag",
-    "read_exif_tags",
-    "update_exif_tags",
-    "vivification",
-    "vivified_to_dict",
-    "write_exif_tag",
-]
-__all__ += [
     "GraphBatchMergeHDRI",
     "GraphHDRI",
     "GraphMergeHDRI",
@@ -314,8 +320,8 @@ __all__ += [
     "NodeDownsample",
     "NodeMergeImageStack",
     "NodeNormaliseExposure",
-    "NodeProcessRawFileRawpy",
     "NodeProcessingMetadata",
+    "NodeProcessRawFileRawpy",
     "NodeReadFileMetadataDNG",
     "NodeReadImage",
     "NodeRemoveFile",
