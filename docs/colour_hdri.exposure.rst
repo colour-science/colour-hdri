@@ -11,11 +11,11 @@ Common
 .. autosummary::
     :toctree: generated/
 
-    average_luminance
-    average_illuminance
-    luminance_to_exposure_value
-    illuminance_to_exposure_value
     adjust_exposure
+    average_illuminance
+    average_luminance
+    illuminance_to_exposure_value
+    luminance_to_exposure_value
 
 Digital Still Camera Exposure
 -----------------------------
@@ -27,9 +27,9 @@ Digital Still Camera Exposure
 .. autosummary::
     :toctree: generated/
 
-    focal_plane_exposure
     arithmetic_mean_focal_plane_exposure
-    saturation_based_speed_focal_plane_exposure
     exposure_index_values
     exposure_value_100
+    focal_plane_exposure
     photometric_exposure_scale_factor_Lagarde2014
+    saturation_based_speed_focal_plane_exposure
