@@ -574,7 +574,7 @@ class NodeWatermark(ExecutionNode):
         if self.get_input("include_exposure_information"):
             text += (
                 " - "
-                f"{exif_group['Exposure Time']:.6f}\" "
+                f'{exif_group["Exposure Time"]:.6f}" '
                 f"f{exif_group['F Number']} "
                 f"{exif_group['ISO']}"
             )
@@ -754,8 +754,7 @@ class NodeComputeInputTransformDNG(ExecutionNode):
         super().__init__(*args, **kwargs)
 
         self.description = (
-            "Compute the input transform from the input metadata using the "
-            '"DNG" method'
+            'Compute the input transform from the input metadata using the "DNG" method'
         )
 
         self.add_input_port("metadata")
@@ -1152,8 +1151,7 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
                 self.log("Lens vignette was successfully corrected!")
             else:
                 self.log(
-                    "Lens vignette was not corrected, "
-                    "the lens might be missing data."
+                    "Lens vignette was not corrected, the lens might be missing data."
                 )
 
         if self.get_input("correct_chromatic_aberration"):
@@ -1200,8 +1198,7 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
                 self.log("Lens distortion was successfully corrected!")
             else:
                 self.log(
-                    "Lens distortion was not corrected, "
-                    "the lens might be missing data."
+                    "Lens distortion was not corrected, the lens might be missing data."
                 )
 
         self.set_output("output_image", output_image)

@@ -44,7 +44,6 @@ from colour.utilities import is_matplotlib_installed
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
 
-
 from .utilities import (
     EXIF_EXECUTABLE,
     EXIFTag,
@@ -125,7 +124,6 @@ from .process import (
     convert_raw_files_to_dng_files,
     read_dng_files_exif_tags,
 )
-
 from .recovery import highlights_recovery_blend, highlights_recovery_LCHab
 from .sampling import (
     light_probe_sampling_variance_minimization_Viriyothai2009,
@@ -144,7 +142,6 @@ from .tonemapping import (
     tonemapping_operator_simple,
     tonemapping_operator_Tumblin1999,
 )
-
 
 # isort: split
 
@@ -347,7 +344,7 @@ __version__ = f"{__major_version__}.{__minor_version__}.{__change_version__}"
 
 try:
     _version: str = (
-        subprocess.check_output(  # noqa: S603
+        subprocess.check_output(
             ["git", "describe"],  # noqa: S607
             cwd=os.path.dirname(__file__),
             stderr=subprocess.STDOUT,

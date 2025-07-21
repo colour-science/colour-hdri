@@ -4,7 +4,6 @@ from colour.hints import Any
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
 
-
 from .weighting_functions import (
     double_sigmoid_anchored_function,
     hat_function,

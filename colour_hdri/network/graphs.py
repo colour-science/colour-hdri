@@ -76,8 +76,7 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
         super().__init__(*args, **kwargs)
 
         self.description = (
-            'Process given raw file, e.g., "CR2", "CR3", "NEF", using the'
-            '"DNG" method'
+            'Process given raw file, e.g., "CR2", "CR3", "NEF", using the"DNG" method'
         )
 
         self.add_input_port("index")

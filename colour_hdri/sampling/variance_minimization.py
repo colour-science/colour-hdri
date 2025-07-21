@@ -248,7 +248,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
     iterations = np.sqrt(lights_count).astype(np.int_)
     if iterations**2 != lights_count:
         warning(
-            f"{lights_count} lights requested, {iterations ** 2} will be "
+            f"{lights_count} lights requested, {iterations**2} will be "
             f"effectively computed!"
         )
 
