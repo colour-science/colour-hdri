@@ -158,6 +158,8 @@ class InputTransform:
     M: NDArrayFloat = field(default_factory=lambda: np.identity(3))
     RGB_w: NDArrayFloat = field(default_factory=lambda: ones(3))
 
+    __hash__ = None  # pyright: ignore
+
     def __eq__(self, other: object) -> bool:
         """
         Return whether the input transform is equal to given other object.
@@ -563,7 +565,7 @@ class NodeWatermark(ExecutionNode):
             )
             return
 
-        import cv2
+        import cv2  # noqa: PLC0415
 
         text = (
             f"{exif_group['Camera Model Name']} - "
@@ -1002,7 +1004,7 @@ class NodeProcessRawFileRawpy(ExecutionNode):
             self.log(f'"{raw_file_path}" file does not exist!', "error")
             return
 
-        import rawpy
+        import rawpy  # noqa: PLC0415
 
         input_transform = self.get_input("input_transform")
 
@@ -1087,8 +1089,8 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
             )
             return
 
-        import cv2
-        import lensfunpy
+        import cv2  # noqa: PLC0415
+        import lensfunpy  # noqa: PLC0415
 
         database = lensfunpy.Database()  # pyright: ignore
 
@@ -1524,7 +1526,7 @@ class NodeNormaliseExposure(ExecutionNode):
                     self.log(f'"{image_path}" image does not exist!')
                     return
 
-                median.append(np.median(read_image_OpenImageIO(image_path)))  # pyright: ignore
+                median.append(np.median(read_image_OpenImageIO(image_path)))
 
             normalisation_factor = 1 / np.median(median)
 
