@@ -64,6 +64,7 @@ optional = [
     "lensfunpy<2;python_version<'3.13'",
     "matplotlib>=3.9",
     "networkx>=3.3,<4",
+    "openimageio>=3,<4",
     "opencv-python>=4,<5",
     "pydot>=3,<4",
     "rawpy<1",
