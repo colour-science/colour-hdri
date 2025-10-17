@@ -10,6 +10,7 @@ import typing
 import zipfile
 
 import numpy as np
+import pytest
 from colour import read_image
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
@@ -62,16 +63,18 @@ convert_raw_files_to_dng_files` definition unit tests methods.
 
         shutil.rmtree(self._temporary_directory)
 
+    @pytest.mark.skipif(
+        platform.system() not in ("Windows", "Microsoft"),
+        reason=(
+            "Adobe DNG Converter is not available on Linux and is not "
+            "reproducible on macOS"
+        ),
+    )
     def test_convert_raw_files_to_dng_files(self) -> None:
         """
         Test :func:`colour_hdri.process.adobe_dng.\
 convert_raw_files_to_dng_files` definition.
         """
-
-        if platform.system() not in ("Windows", "Microsoft"):
-            # *Adobe DNG Converter* is not available on *Linux*, and is not
-            # reproducible on *macOS* thus we skip this unit test.
-            return
 
         reference_dng_files = sorted(filter_files(ROOT_PROCESS, ("dng",)))
         test_dng_files = sorted(
