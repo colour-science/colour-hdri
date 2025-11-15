@@ -86,7 +86,9 @@ Changelog = "https://github.com/colour-science/colour-hdri/releases"
 
 [tool.uv]
 package = true
-dev-dependencies = [
+
+[dependency-groups]
+dev = [
     "coverage",
     "coveralls",
     "hatch",
