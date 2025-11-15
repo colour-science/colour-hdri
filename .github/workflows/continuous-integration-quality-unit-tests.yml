@@ -47,10 +47,10 @@ jobs:
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          curl -L https://exiftool.org/exiftool-12.98_64.zip -o exiftool-12.98_64.zip
-          unzip -d exiftool exiftool-12.98_64.zip
-          cp exiftool/exiftool-12.98_64/exiftool\(-k\).exe exiftool/exiftool-12.98_64/exiftool.exe
-          echo "$PWD/exiftool/exiftool-12.98_64" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
+          curl -L https://exiftool.org/exiftool-13.32_32.zip -o exiftool-13.32_32.zip
+          unzip -d exiftool exiftool-13.32_32.zip
+          cp exiftool/exiftool-13.32_32/exiftool\(-k\).exe exiftool/exiftool-13.32_32/exiftool.exe
+          echo "$PWD/exiftool/exiftool-13.32_32" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
           curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
           unzip -d dcraw dcraw.zip
           echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
@@ -74,13 +74,6 @@ jobs:
         run: |
           uv sync --all-extras
           uv run python -c "import imageio;imageio.plugins.freeimage.download()"
-        shell: bash
-      - name: Install OpenImageIO (macOs)
-        if: matrix.os == 'macOS-latest' && matrix.python-version == '3.13'
-        run: |
-          brew install openimageio
-          ln -s /opt/homebrew/Cellar/openimageio/*/lib/python*/site-packages/OpenImageIO/OpenImageIO*.so ./.venv/lib/python${{ matrix.python-version }}/site-packages/OpenImageIO.so
-          uv run python -c "import OpenImageIO;print(OpenImageIO.__version__)"
         shell: bash
       - name: Pre-Commit (All Files)
         run: |

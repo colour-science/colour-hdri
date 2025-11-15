@@ -99,7 +99,7 @@ def hat_function(a: ArrayLike) -> NDArrayFloat:
 
     a = as_float_array(a)
 
-    return 1 - (2 * a - 1) ** 12  # pyright: ignore
+    return 1 - (2 * a - 1) ** 12
 
 
 def weighting_function_Debevec1997(

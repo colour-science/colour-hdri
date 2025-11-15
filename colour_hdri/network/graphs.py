@@ -76,8 +76,7 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
         super().__init__(*args, **kwargs)
 
         self.description = (
-            'Process given raw file, e.g., "CR2", "CR3", "NEF", using the'
-            '"DNG" method'
+            'Process given raw file, e.g., "CR2", "CR3", "NEF", using the"DNG" method'
         )
 
         self.add_input_port("index")
@@ -1054,8 +1053,8 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
             "output",
             list(
                 zip(
-                    self.nodes["ParallelForMultiprocess"].get_output("results"),
-                    self.nodes["GraphPostMergeHDRI"].get_output("output"),
+                    self.nodes["ParallelForMultiprocess"].get_output("results"),  # pyright: ignore
+                    self.nodes["GraphPostMergeHDRI"].get_output("output"),  # pyright: ignore
                     strict=False,
                 )
             ),

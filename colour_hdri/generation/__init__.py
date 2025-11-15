@@ -1,26 +1,25 @@
-# isort: skip_file
-
 import sys
 
+from colour.hints import Any
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
 
-from colour.hints import Any
-
 from .weighting_functions import (
-    normal_distribution_function,
-    hat_function,
-    weighting_function_Debevec1997,
     double_sigmoid_anchored_function,
+    hat_function,
+    normal_distribution_function,
+    weighting_function_Debevec1997,
 )
+
+# isort: split
+
 from .hdri import image_stack_to_HDRI
 
-__all__ = []
-__all__ += [
-    "normal_distribution_function",
-    "hat_function",
-    "weighting_function_Debevec1997",
+__all__ = [
     "double_sigmoid_anchored_function",
+    "hat_function",
+    "normal_distribution_function",
+    "weighting_function_Debevec1997",
 ]
 __all__ += [
     "image_stack_to_HDRI",
@@ -34,7 +33,7 @@ class generation(ModuleAPI):
     """Define a class acting like the *generation* module."""
 
     def __getattr__(self, attribute: str) -> Any:
-        """Return the value from the attribute with given name."""
+        """Return the value from the attribute with specified name."""
 
         return super().__getattr__(attribute)
 

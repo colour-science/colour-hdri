@@ -263,7 +263,7 @@ class Image:
 
             self.data = data
 
-            return cast(NDArrayFloat, data)
+            return cast("NDArrayFloat", data)
 
         exception = 'The image "path" is undefined!'
 
@@ -309,8 +309,7 @@ class Image:
 
         if not exif_data.get("EXIF"):
             warning(
-                f'"{self._path}" file has no "Exif" data, metadata will '
-                f"be undefined!"
+                f'"{self._path}" file has no "Exif" data, metadata will be undefined!'
             )
             self.metadata = Metadata(*[None] * 6)
             return self.metadata
@@ -369,7 +368,7 @@ class Image:
 def _luminance_average_key(image: Image) -> NDArrayFloat | None:
     """Comparison key function."""
 
-    metadata = cast(Metadata, image.metadata)
+    metadata = cast("Metadata", image.metadata)
 
     f_number = metadata.f_number
     exposure_time = metadata.exposure_time

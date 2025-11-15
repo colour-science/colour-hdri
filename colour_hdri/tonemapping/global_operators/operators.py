@@ -855,4 +855,4 @@ def tonemapping_operator_filmic(
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
 
-    return cast(NDArrayFloat, RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F)))
+    return cast("NDArrayFloat", RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F)))

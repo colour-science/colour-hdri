@@ -158,6 +158,8 @@ class InputTransform:
     M: NDArrayFloat = field(default_factory=lambda: np.identity(3))
     RGB_w: NDArrayFloat = field(default_factory=lambda: ones(3))
 
+    __hash__ = None  # pyright: ignore
+
     def __eq__(self, other: object) -> bool:
         """
         Return whether the input transform is equal to given other object.
@@ -241,7 +243,9 @@ class NodeConvertRawFileToDNGFile(ExecutionNode):
 
 
 def _is_linear_file_format(path: str) -> bool:
-    """Return whether the file at given path is a linear file type."""
+    """
+    Return whether the file at specified path is a linear file type.
+    """
 
     return os.path.splitext(path)[-1].lower() in (".exr", ".hdr")
 
@@ -561,7 +565,7 @@ class NodeWatermark(ExecutionNode):
             )
             return
 
-        import cv2
+        import cv2  # noqa: PLC0415
 
         text = (
             f"{exif_group['Camera Model Name']} - "
@@ -572,7 +576,7 @@ class NodeWatermark(ExecutionNode):
         if self.get_input("include_exposure_information"):
             text += (
                 " - "
-                f"{exif_group['Exposure Time']:.6f}\" "
+                f'{exif_group["Exposure Time"]:.6f}" '
                 f"f{exif_group['F Number']} "
                 f"{exif_group['ISO']}"
             )
@@ -752,8 +756,7 @@ class NodeComputeInputTransformDNG(ExecutionNode):
         super().__init__(*args, **kwargs)
 
         self.description = (
-            "Compute the input transform from the input metadata using the "
-            '"DNG" method'
+            'Compute the input transform from the input metadata using the "DNG" method'
         )
 
         self.add_input_port("metadata")
@@ -1001,7 +1004,7 @@ class NodeProcessRawFileRawpy(ExecutionNode):
             self.log(f'"{raw_file_path}" file does not exist!', "error")
             return
 
-        import rawpy
+        import rawpy  # noqa: PLC0415
 
         input_transform = self.get_input("input_transform")
 
@@ -1086,8 +1089,8 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
             )
             return
 
-        import cv2
-        import lensfunpy
+        import cv2  # noqa: PLC0415
+        import lensfunpy  # noqa: PLC0415
 
         database = lensfunpy.Database()  # pyright: ignore
 
@@ -1150,8 +1153,7 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
                 self.log("Lens vignette was successfully corrected!")
             else:
                 self.log(
-                    "Lens vignette was not corrected, "
-                    "the lens might be missing data."
+                    "Lens vignette was not corrected, the lens might be missing data."
                 )
 
         if self.get_input("correct_chromatic_aberration"):
@@ -1198,8 +1200,7 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
                 self.log("Lens distortion was successfully corrected!")
             else:
                 self.log(
-                    "Lens distortion was not corrected, "
-                    "the lens might be missing data."
+                    "Lens distortion was not corrected, the lens might be missing data."
                 )
 
         self.set_output("output_image", output_image)
@@ -1525,7 +1526,7 @@ class NodeNormaliseExposure(ExecutionNode):
                     self.log(f'"{image_path}" image does not exist!')
                     return
 
-                median.append(np.median(read_image_OpenImageIO(image_path)))  # pyright: ignore
+                median.append(np.median(read_image_OpenImageIO(image_path)))
 
             normalisation_factor = 1 / np.median(median)
 

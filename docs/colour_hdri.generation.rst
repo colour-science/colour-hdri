@@ -23,6 +23,6 @@ Weighting Functions
 .. autosummary::
     :toctree: generated/
 
-    normal_distribution_function
     hat_function
+    normal_distribution_function
     weighting_function_Debevec1997

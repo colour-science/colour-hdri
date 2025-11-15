@@ -11,27 +11,27 @@ Nodes
 .. autosummary::
     :toctree: generated/
 
-    NodeConvertRawFileToDNGFile
-    NodeReadImage
-    NodeWriteImage
-    NodeWritePreviewImage
-    NodeRemoveFile
-    NodeOrient
-    NodeWatermark
-    NodeProcessingMetadata
-    NodeReadFileExifData
-    NodeReadFileMetadataDNG
-    NodeComputeInputTransformDNG
-    NodeComputeInputTransformCameraSensitivities
-    NodeProcessRawFileRawpy
-    NodeCorrectLensAberrationLensFun
-    NodeDownsample
-    NodeApplyInputTransformDNG
     NodeApplyInputTransformCameraSensitivities
+    NodeApplyInputTransformDNG
+    NodeComputeInputTransformCameraSensitivities
+    NodeComputeInputTransformDNG
+    NodeConvertRawFileToDNGFile
+    NodeCorrectLensAberrationLensFun
     NodeCreateBatches
     NodeCreateImageStack
+    NodeDownsample
     NodeMergeImageStack
     NodeNormaliseExposure
+    NodeOrient
+    NodeProcessingMetadata
+    NodeProcessRawFileRawpy
+    NodeReadFileExifData
+    NodeReadFileMetadataDNG
+    NodeReadImage
+    NodeRemoveFile
+    NodeWatermark
+    NodeWriteImage
+    NodeWritePreviewImage
 
 Graphs
 ------
@@ -43,9 +43,9 @@ Graphs
 .. autosummary::
     :toctree: generated/
 
-    GraphRawProcessingDNG
-    GraphRawProcessingCameraSensitivities
-    GraphMergeHDRI
-    GraphPostMergeHDRI
     GraphBatchMergeHDRI
     GraphHDRI
+    GraphMergeHDRI
+    GraphPostMergeHDRI
+    GraphRawProcessingCameraSensitivities
+    GraphRawProcessingDNG

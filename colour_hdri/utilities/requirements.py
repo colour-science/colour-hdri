@@ -44,7 +44,7 @@ def is_rawpy_installed(raise_exception: bool = False) -> bool:
     """
 
     try:  # pragma: no cover
-        import rawpy  # noqa: F401
+        import rawpy  # noqa: F401, PLC0415
     except ImportError as exception:  # pragma: no cover
         if raise_exception:
             error = f'"rawpy" related API features are not available: "{exception}".'
@@ -77,7 +77,7 @@ def is_lensfunpy_installed(raise_exception: bool = False) -> bool:
     """
 
     try:  # pragma: no cover
-        import lensfunpy  # noqa: F401
+        import lensfunpy  # noqa: F401, PLC0415
     except ImportError as exception:  # pragma: no cover
         if raise_exception:
             error = (
@@ -112,7 +112,7 @@ def is_opencv_installed(raise_exception: bool = False) -> bool:
     """
 
     try:  # pragma: no cover
-        import cv2  # noqa: F401
+        import cv2  # noqa: F401, PLC0415
     except ImportError as exception:  # pragma: no cover
         if raise_exception:
             error = f'"OpenCV" related API features are not available: "{exception}".'

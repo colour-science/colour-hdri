@@ -120,11 +120,7 @@ class TestParseExifArray:
         exif_tag = EXIFTag(
             "EXIF",
             "Color Matrix 1",
-            (
-                "0.5309 -0.0229 -0.0336 "
-                "-0.6241 1.3265 0.3337 "
-                "-0.0817 0.1215 0.6664"
-            ),
+            ("0.5309 -0.0229 -0.0336 -0.6241 1.3265 0.3337 -0.0817 0.1215 0.6664"),
             "50721",
         )
         np.testing.assert_array_equal(

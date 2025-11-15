@@ -11,10 +11,10 @@ Adobe DNG SDK
 .. autosummary::
     :toctree: generated/
 
-    xy_to_camera_neutral
     camera_neutral_to_xy
-    matrix_XYZ_to_camera_space
     matrix_camera_space_to_XYZ
+    matrix_XYZ_to_camera_space
+    xy_to_camera_neutral
 
 RGB Models
 ----------

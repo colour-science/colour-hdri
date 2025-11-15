@@ -109,7 +109,7 @@ def apply_radial_gradient(
     noise: float = 0,
 ) -> NDArrayFloat:
     """
-    Apply a radial gradient on given image.
+    Apply a radial gradient on specified image.
 
     Parameters
     ----------
@@ -148,7 +148,7 @@ def apply_radial_gradient(
     scale_x, scale_y = tsplit(scale)
     offset_x, offset_y = tsplit(offset)
 
-    height, width = cast(Tuple, image.shape)[0:2]
+    height, width = cast("Tuple", image.shape)[0:2]
     ratio = height / width
 
     samples_x = np.linspace(-1, 1, height)
@@ -159,7 +159,7 @@ def apply_radial_gradient(
     samples_y += offset_y - 0.5
 
     distance = cast(
-        NDArrayFloat,
+        "NDArrayFloat",
         np.sqrt((samples_x**2)[..., None] + (samples_y**2)[None, ...]),
     )
 
@@ -797,7 +797,7 @@ def vignette_sampling_coordinates(
     radial_samples = radial_sampling_function(
         samples_rho,
         samples_phi,
-        cast(float, 1 + (np.max(principal_point - 0.5) * 2)),
+        cast("float", 1 + (np.max(principal_point - 0.5) * 2)),
         radial_bias,
     )
     # NOTE: Some randomisation is required to avoid a
