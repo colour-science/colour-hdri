@@ -43,10 +43,10 @@ jobs:
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          curl -L https://exiftool.org/exiftool-13.32_32.zip -o exiftool-13.32_32.zip
-          unzip -d exiftool exiftool-13.32_32.zip
-          cp exiftool/exiftool-13.32_32/exiftool\(-k\).exe exiftool/exiftool-13.32_32/exiftool.exe
-          echo "$PWD/exiftool/exiftool-13.32_32" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
+          curl -L https://sourceforge.net/projects/exiftool/files/exiftool-13.42_64.zip/download -o exiftool.zip
+          unzip -d exiftool exiftool.zip
+          cp exiftool/exiftool-13.42_64/exiftool\(-k\).exe exiftool/exiftool-13.42_64/exiftool.exe
+          echo "$PWD/exiftool/exiftool-13.42_64" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
           curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
           unzip -d dcraw dcraw.zip
           echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
