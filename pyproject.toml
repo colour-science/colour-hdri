@@ -46,20 +46,16 @@ classifiers = [
     "Topic :: Software Development"
 ]
 dependencies = [
-    "colour-science>=0.4.5",
+    "colour-science>=0.4.7",
     "imageio>=2,<3",
     "numpy>=2.0.0,<3",
     "scipy>=1.13.0,<2",
     "typing-extensions>=4,<5",
 ]
 
-[tool.uv.sources]
-colour-datasets = { git = "https://github.com/colour-science/colour-datasets", branch = "develop" }
-colour-science = { git = "https://github.com/colour-science/colour", branch = "develop" }
-
 [project.optional-dependencies]
 optional = [
-    "colour-datasets>=0.2.6",
+    "colour-datasets>=0.2.7",
     "colour-demosaicing>=0.2.4",
     "lensfunpy<2;python_version<'3.13'",
     "matplotlib>=3.9",
