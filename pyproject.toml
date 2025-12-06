@@ -1,6 +1,6 @@
 [project]
 name = "colour-hdri"
-version = "0.2.5"
+version = "0.2.6"
 description = "HDRI processing algorithms for Python"
 readme = "README.rst"
 requires-python = ">=3.11,<3.15"

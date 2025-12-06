@@ -339,7 +339,7 @@ __application_name__ = "Colour - HDRI"
 
 __major_version__ = "0"
 __minor_version__ = "2"
-__change_version__ = "5"
+__change_version__ = "6"
 __version__ = f"{__major_version__}.{__minor_version__}.{__change_version__}"
 
 try:
