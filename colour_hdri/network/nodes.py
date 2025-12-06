@@ -289,7 +289,7 @@ class NodeReadImage(ExecutionNode):
             self.log(f'"{path}" image does not exist!')
             return
 
-        image, metadata = read_image_OpenImageIO(path, attributes=True)
+        image, metadata = read_image_OpenImageIO(path, additional_data=True)
 
         input_colourspace = self.get_input("input_colourspace")
         if isinstance(input_colourspace, str):
@@ -1526,14 +1526,16 @@ class NodeNormaliseExposure(ExecutionNode):
                     self.log(f'"{image_path}" image does not exist!')
                     return
 
-                median.append(np.median(read_image_OpenImageIO(image_path)))
+                median.append(
+                    np.median(read_image_OpenImageIO(image_path, additional_data=False))
+                )
 
             normalisation_factor = 1 / np.median(median)
 
         self.log(f"Normalisation factor: {normalisation_factor}")
 
         for image_path in image_paths:
-            image, attributes = read_image_OpenImageIO(image_path, attributes=True)
+            image, attributes = read_image_OpenImageIO(image_path, additional_data=True)
 
             image *= normalisation_factor
             image *= self.get_input("scaling_factor")

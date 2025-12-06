@@ -298,7 +298,7 @@ class Image:
             # NOTE: When read from an EXR file, the EXIF data has been written
             # after having been parsed once usually from DNG data.
             is_exif_data_parsed = True
-            _data, attributes = read_image_OpenImageIO(self._path, attributes=True)
+            _data, attributes = read_image_OpenImageIO(self._path, additional_data=True)
 
             for attribute in attributes:
                 if attribute.name == "EXIF":
