@@ -9,9 +9,13 @@ Notes
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
-from colour.hints import NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import NDArrayFloat
 
 from colour_hdri.models import (
     camera_neutral_to_xy,
@@ -102,7 +106,7 @@ class TestMatrixInterpolated:
     unit tests methods.
     """
 
-    def test_matrix_interpolated(self):
+    def test_matrix_interpolated(self) -> None:
         """
         Test :func:`colour_hdri.models.adobe_dng.matrix_interpolated`
         definition.
@@ -152,7 +156,7 @@ class TestXy_to_camera_neutral:
 xy_to_camera_neutral` definition unit tests methods.
     """
 
-    def test_xy_to_camera_neutral(self):
+    def test_xy_to_camera_neutral(self) -> None:
         """
         Test :func:`colour_hdri.models.adobe_dng.\
 xy_to_camera_neutral` definition.
@@ -210,7 +214,7 @@ class TestCamera_neutral_to_xy:
 camera_neutral_to_xy` definition unit tests methods.
     """
 
-    def test_camera_neutral_to_xy(self):
+    def test_camera_neutral_to_xy(self) -> None:
         """
         Test :func:`colour_hdri.models.adobe_dng.\
 camera_neutral_to_xy` definition.
@@ -268,7 +272,7 @@ class TestMatrix_XYZ_to_camera_space:
 matrix_XYZ_to_camera_space` definition unit tests methods.
     """
 
-    def test_matrix_XYZ_to_camera_space(self):
+    def test_matrix_XYZ_to_camera_space(self) -> None:
         """
         Test :func:`colour_hdri.models.adobe_dng.\
 matrix_XYZ_to_camera_space` definition.
@@ -346,7 +350,7 @@ class TestMatrix_Camera_space_to_XYZ:
 matrix_camera_space_to_XYZ` definition unit tests methods.
     """
 
-    def test_matrix_camera_space_to_XYZ(self):
+    def test_matrix_camera_space_to_XYZ(self) -> None:
         """
         Test :func:`colour_hdri.models.adobe_dng.\
 matrix_camera_space_to_XYZ` definition.

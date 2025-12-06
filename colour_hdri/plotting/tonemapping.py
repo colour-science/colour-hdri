@@ -9,10 +9,20 @@ Define the tonemapping operators plotting objects:
 
 from __future__ import annotations
 
+import typing
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker
+
+if typing.TYPE_CHECKING:
+    from matplotlib.figure import Figure
+    from matplotlib.axes import Axes
+
 import numpy as np
-from colour.hints import Any, ArrayLike, Callable, Dict, Tuple
+
+if typing.TYPE_CHECKING:
+    from colour.hints import Any, ArrayLike, Callable, Dict, Tuple
+
 from colour.plotting import (
     CONSTANTS_COLOUR_STYLE,
     artist,
@@ -20,8 +30,6 @@ from colour.plotting import (
     render,
 )
 from colour.utilities import as_float_array
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"

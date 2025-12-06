@@ -1,6 +1,5 @@
 """Define the unit tests for the :mod:`colour_hdri.models.rgb` module."""
 
-
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
@@ -25,7 +24,7 @@ class TestCameraSpaceToRGB:
     unit tests methods.
     """
 
-    def test_camera_space_to_RGB(self):
+    def test_camera_space_to_RGB(self) -> None:
         """Test :func:`colour_hdri.models.rgb.camera_space_to_RGB` definition."""
 
         np.testing.assert_allclose(
@@ -57,7 +56,7 @@ class TestCameraSpaceTosRGB:
     unit tests methods.
     """
 
-    def test_camera_space_to_sRGB(self):
+    def test_camera_space_to_sRGB(self) -> None:
         """Test :func:`colour_hdri.models.rgb.camera_space_to_sRGB` definition."""
 
         np.testing.assert_allclose(

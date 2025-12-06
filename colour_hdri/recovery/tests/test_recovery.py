@@ -9,10 +9,13 @@ import shlex
 import shutil
 import subprocess
 import tempfile
+import typing
 
 import numpy as np
 from colour import read_image
-from colour.hints import List, NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import List, NDArrayFloat
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.models import camera_space_to_sRGB
@@ -68,17 +71,17 @@ class TestHighlightsRecoveryBlend:
     definition unit tests methods.
     """
 
-    def setup_method(self):
+    def setup_method(self) -> None:
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def teardown_method(self):
+    def teardown_method(self) -> None:
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
 
-    def test_highlights_recovery_blend(self):
+    def test_highlights_recovery_blend(self) -> None:
         """
         Test :func:`colour_hdri.recovery.highlights.highlights_recovery_blend`
         definition.
@@ -126,17 +129,17 @@ class TestHighlightsRecoveryLCHab:
     definition unit tests methods.
     """
 
-    def setup_method(self):
+    def setup_method(self) -> None:
         """Initialise the common tests attributes."""
 
         self._temporary_directory = tempfile.mkdtemp()
 
-    def teardown_method(self):
+    def teardown_method(self) -> None:
         """After tests actions."""
 
         shutil.rmtree(self._temporary_directory)
 
-    def test_highlights_recovery_LCHab(self):
+    def test_highlights_recovery_LCHab(self) -> None:
         """
         Test :func:`colour_hdri.recovery.highlights.highlights_recovery_LCHab`
         definition.

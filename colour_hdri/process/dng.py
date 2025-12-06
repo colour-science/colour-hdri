@@ -18,9 +18,13 @@ import platform
 import re
 import shlex
 import subprocess
+import typing
 
 import numpy as np
-from colour.hints import Callable, List, Mapping, Sequence, Tuple
+
+if typing.TYPE_CHECKING:
+    from colour.hints import Callable, List, Mapping, Sequence, Tuple
+
 from colour.utilities import CanonicalMapping, optional
 from colour.utilities.documentation import (
     DocstringText,
@@ -30,6 +34,7 @@ from colour.utilities.documentation import (
 from colour_hdri.utilities import (
     EXIFTag,
     parse_exif_array,
+    parse_exif_fraction,
     parse_exif_number,
     parse_exif_string,
     path_exists,
@@ -56,6 +61,9 @@ __all__ = [
 ]
 
 LOGGER = logging.getLogger(__name__)
+
+_IS_LINUX_PLATFORM: bool = platform.system() == "Linux"
+"""Whether the current platform is *Linux*."""
 
 _IS_MACOS_PLATFORM: bool = platform.system() == "Darwin"
 """Whether the current platform is *macOS*."""
@@ -105,8 +113,7 @@ if _IS_MACOS_PLATFORM:
 elif _IS_WINDOWS_PLATFORM:
     DNG_CONVERTER: str = "Adobe DNG Converter"
 else:
-    # https://rawpedia.rawtherapee.com/How_to_convert_raw_formats_to_DNG
-    DNG_CONVERTER: str = "Adobe-DNG-Converter"
+    DNG_CONVERTER: str = "dnglab"
 
 if is_documentation_building():  # pragma: no cover
     DNG_CONVERTER = DocstringText(DNG_CONVERTER)
@@ -117,6 +124,8 @@ Command line *DNG* conversion application, typically *Adobe DNG Converter*.
 DNG_CONVERTER_ARGUMENTS: str = '-cr7.1 -l -d "{output_directory}" "{raw_file}"'
 if _IS_WINDOWS_PLATFORM:
     DNG_CONVERTER_ARGUMENTS = DNG_CONVERTER_ARGUMENTS.replace('"', "")
+elif _IS_LINUX_PLATFORM:
+    DNG_CONVERTER_ARGUMENTS = 'convert "{raw_file}" "{output_directory}"'
 if is_documentation_building():  # pragma: no cover
     DNG_CONVERTER_ARGUMENTS = DocstringText(DNG_CONVERTER_ARGUMENTS)
     DNG_CONVERTER_ARGUMENTS.__doc__ = """
@@ -133,7 +142,7 @@ DNG_EXIF_TAGS_BINDING: CanonicalMapping = CanonicalMapping(
                 "Lens Model": (parse_exif_string, None),
                 "DNG Lens Info": (parse_exif_string, None),
                 "Focal Length": (parse_exif_number, None),
-                "Exposure Time": (parse_exif_number, None),
+                "Exposure Time": (parse_exif_fraction, None),
                 "F Number": (parse_exif_number, None),
                 "ISO": (parse_exif_number, None),
                 "CFA Pattern 2": (
@@ -386,7 +395,7 @@ def read_dng_files_exif_tags(
 
     dng_files_exif_tags = []
     for dng_file in dng_files:
-        exif_tags = read_exif_tags(dng_file)
+        exif_tags = read_exif_tags(dng_file, numeric=True)
         binding = CanonicalMapping()
         for group, tags in exif_tags_binding.items():
             binding[group] = CanonicalMapping()

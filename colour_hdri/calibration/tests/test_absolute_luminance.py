@@ -46,7 +46,7 @@ class TestUpperHemisphereIlluminanceLagarde2016:
 upper_hemisphere_illuminance_Lagarde2016` definition unit tests methods.
     """
 
-    def test_upper_hemisphere_illuminance_Lagarde2016(self):
+    def test_upper_hemisphere_illuminance_Lagarde2016(self) -> None:
         """
         Test :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_Lagarde2016` definition.
@@ -78,7 +78,7 @@ upper_hemisphere_illuminance_weights_Lagarde2016` definition unit tests
     methods.
     """
 
-    def test_upper_hemisphere_illuminance_weights_Lagarde2016(self):
+    def test_upper_hemisphere_illuminance_weights_Lagarde2016(self) -> None:
         """
         Test :func:`colour_hdri.calibration.absolute_luminance.\
 upper_hemisphere_illuminance_weights_Lagarde2016` definition.
@@ -134,7 +134,7 @@ class TestAbsoluteLuminanceCalibrationLagarde2016:
 absolute_luminance_calibration_Lagarde2016` definition unit tests methods.
     """
 
-    def test_absolute_luminance_calibration_Lagarde2016(self):
+    def test_absolute_luminance_calibration_Lagarde2016(self) -> None:
         """
         Test :func:`colour_hdri.calibration.absolute_luminance.\
 absolute_luminance_calibration_Lagarde2016` definition.

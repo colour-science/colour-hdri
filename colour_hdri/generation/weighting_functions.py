@@ -14,13 +14,20 @@ References
     dynamic range radiance maps from photographs. Proceedings of the 24th
     Annual Conference on Computer Graphics and Interactive Techniques -
     SIGGRAPH "97, August, 369-378. doi:10.1145/258734.258884
+-   :cite:`Mansencal2024` : Mansencal, T. (2024). Double Sigmoid (Anchored).
+    Retrieved July 1, 2024, from https://www.desmos.com/calculator/nowptzrt4a
 """
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
-from colour.hints import ArrayLike, NDArrayFloat
-from colour.utilities import as_float_array
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike, NDArrayFloat
+
+from colour.utilities import as_float_array, zeros
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -33,6 +40,7 @@ __all__ = [
     "normal_distribution_function",
     "hat_function",
     "weighting_function_Debevec1997",
+    "double_sigmoid_anchored_function",
 ]
 
 
@@ -91,7 +99,7 @@ def hat_function(a: ArrayLike) -> NDArrayFloat:
 
     a = as_float_array(a)
 
-    return 1 - (2 * a - 1) ** 12  # pyright: ignore
+    return 1 - (2 * a - 1) ** 12
 
 
 def weighting_function_Debevec1997(
@@ -134,8 +142,83 @@ def weighting_function_Debevec1997(
     mask = np.where(a <= (domain_l + domain_h) / 2, True, False)
     w[mask] = a[mask] - domain_l
     w[~mask] = domain_h - a[~mask]
+
+    del mask
+
     w /= np.max(w)
 
     w[w < 0] = 0
+
+    return w
+
+
+def double_sigmoid_anchored_function(
+    a: ArrayLike,
+    domain_l_in: float = 0.025,
+    domain_l_out: float = 0.2,
+    domain_h_in: float = 0.8,
+    domain_h_out: float = 0.975,
+    k: float = 2,
+) -> NDArrayFloat:
+    """
+    Return given array weighted by a double-sigmoid function.
+
+    Parameters
+    ----------
+    a
+        Array to apply the weighting function onto.
+    domain_l_in
+        Domain lowest possible value, values less than ``domain_l_in`` will be
+        set to zero.
+    domain_l_out
+        Values between ``domain_l_in`` and ``domain_l_out`` will be
+        gracefully set to zero by a sigmoid function.
+    domain_h_in
+        Values between ``domain_h_in`` and ``domain_h_out`` will be
+        gracefully set to zero by a sigmoid function.
+    domain_h_out
+        Domain highest possible value, values greater than ``domain_h_out`` will
+        be set to zero.
+    k
+        Sigmoid function exponentiation factor.
+
+    Returns
+    -------
+    :class:`numpy.ndarray`
+        Weighted array.
+
+    References
+    ----------
+    :cite:`Mansencal2024`
+
+    Examples
+    --------
+    >>> double_sigmoid_anchored_function(np.linspace(0, 1, 10))
+    array([ 0.        ,  0.48413098,  1.        ,  1.        ,  1.        ,
+            1.        ,  1.        ,  1.        ,  0.48413098,  0.        ])
+    """
+
+    a = as_float_array(a)
+
+    def anchored_sigmoid_function(
+        x: NDArrayFloat, c: float, d: float, k: float
+    ) -> NDArrayFloat:
+        return 1 / (1 + np.power(1 / ((x - c) / (d - c)) - 1, k))
+
+    w = zeros(a.shape)
+
+    w[a <= domain_l_in] = 0
+
+    mask = np.logical_and(a > domain_l_in, a <= domain_l_out)
+    w[mask] = anchored_sigmoid_function(a[mask], domain_l_in, domain_l_out, k)
+
+    w[np.logical_and(a > domain_l_out, a < domain_h_in)] = 1
+
+    mask = np.logical_and(a >= domain_h_in, a < domain_h_out)
+    w[mask] = 1 - anchored_sigmoid_function(a[mask], domain_h_in, domain_h_out, k)
+
+    del mask
+
+    w[a >= domain_h_out] = 0
 
     return w

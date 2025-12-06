@@ -49,6 +49,7 @@ The following features are available:
 - Digital Still Camera (DSC) Exposure Model
 - Raw Processing Helpers
 - Vignette Characterisation & Correction
+- Graph and Node Network-Based Processing
 
 Examples
 ^^^^^^^^
@@ -149,7 +150,7 @@ Software
 - `OpenCV <https://opencv.org>`__ by Bradski, G.
 - `Piccante <https://github.com/cnr-isti-vclab/piccante>`__ by Banterle, F. and Benedetti, L.,
 
-*Piccante* was used to verify the Grossberg (2003) Histogram Based Image Sampling.
+*Piccante* was used to verify the Grossberg (2003) Histogram Based Image Sampling method implementation.
 
 **Matlab**
 
@@ -170,7 +171,8 @@ The *Colour Developers* can be reached via different means:
 - `Facebook <https://www.facebook.com/python.colour.science>`__
 - `Github Discussions <https://github.com/colour-science/colour-hdri/discussions>`__
 - `Gitter <https://gitter.im/colour-science/colour>`__
-- `Twitter <https://twitter.com/colour_science>`__
+- `X <https://x.com/colour_science>`__
+- `Bluesky <https://bsky.app/profile/colour-science.bsky.social>`__
 
 About
 -----

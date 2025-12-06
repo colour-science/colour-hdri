@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-latest, windows-latest]
-        python-version: ["3.10", 3.11, 3.12, 3.13]
+        python-version: [3.11, 3.12, 3.13, 3.14]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -23,10 +23,6 @@ jobs:
           echo "COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}" >> $GITHUB_ENV
           echo "MPLBACKEND=AGG" >> $GITHUB_ENV
         shell: bash
-      - name: Set up Python 3.10 for Pre-Commit
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -47,10 +43,10 @@ jobs:
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          curl -L https://exiftool.org/exiftool-12.98_64.zip -o exiftool-12.98_64.zip
-          unzip -d exiftool exiftool-12.98_64.zip
-          cp exiftool/exiftool-12.98_64/exiftool\(-k\).exe exiftool/exiftool-12.98_64/exiftool.exe
-          echo "$PWD/exiftool/exiftool-12.98_64" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
+          curl -L https://sourceforge.net/projects/exiftool/files/exiftool-13.42_64.zip/download -o exiftool.zip
+          unzip -d exiftool exiftool.zip
+          cp exiftool/exiftool-13.42_64/exiftool\(-k\).exe exiftool/exiftool-13.42_64/exiftool.exe
+          echo "$PWD/exiftool/exiftool-13.42_64" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
           curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
           unzip -d dcraw dcraw.zip
           echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
@@ -72,12 +68,13 @@ jobs:
         shell: bash
       - name: Install Package Dependencies
         run: |
-          uv sync --all-extras --no-dev
+          uv sync --all-extras
           uv run python -c "import imageio;imageio.plugins.freeimage.download()"
         shell: bash
-      - name: Pre-Commit (All Files)
+      - name: Prek (All Files)
+        if: matrix.os == 'macOS-latest'
         run: |
-          uv run pre-commit run --all-files
+          uv run prek run --all-files
         shell: bash
       - name: Test Optimised Python Execution
         run: |

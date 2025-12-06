@@ -36,7 +36,7 @@ class TestVivification:
     tests methods.
     """
 
-    def test_vivification(self):
+    def test_vivification(self) -> None:
         """Test :func:`colour_hdri.utilities.common.vivification` definition."""
 
         vivified = vivification()
@@ -51,7 +51,7 @@ class TestVivifiedToDict:
     unit tests methods.
     """
 
-    def test_vivified_to_dict(self):
+    def test_vivified_to_dict(self) -> None:
         """Test :func:`colour_hdri.utilities.common.vivified_to_dict` definition."""
 
         vivified = vivification()
@@ -68,7 +68,7 @@ class TestPathExists:
     tests methods.
     """
 
-    def test_path_exists(self):
+    def test_path_exists(self) -> None:
         """Test :func:`colour_hdri.utilities.common.path_exists` definition."""
 
         assert path_exists(__file__)
@@ -81,7 +81,7 @@ class TestFilterFiles:
     tests methods.
     """
 
-    def test_filter_files(self):
+    def test_filter_files(self) -> None:
         """Test :func:`colour_hdri.utilities.common.filter_files` definition."""
 
         raw_files = filter_files(ROOT_RESOURCES_FROBISHER_001, ("CR2", "jpg"))

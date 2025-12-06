@@ -1,27 +1,27 @@
 import sys
 
+from colour.hints import Any
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
 
-from colour.hints import Any
+# isort: split
 
-from .datasets import *  # noqa: F403
 from . import datasets
+from .datasets import *  # noqa: F403
 from .dng import (
-    xy_to_camera_neutral,
     camera_neutral_to_xy,
-    matrix_XYZ_to_camera_space,
     matrix_camera_space_to_XYZ,
+    matrix_XYZ_to_camera_space,
+    xy_to_camera_neutral,
 )
 from .rgb import camera_space_to_RGB, camera_space_to_sRGB
 
-__all__ = []
-__all__ += datasets.__all__
+__all__ = datasets.__all__
 __all__ += [
-    "xy_to_camera_neutral",
     "camera_neutral_to_xy",
-    "matrix_XYZ_to_camera_space",
     "matrix_camera_space_to_XYZ",
+    "matrix_XYZ_to_camera_space",
+    "xy_to_camera_neutral",
 ]
 __all__ += [
     "camera_space_to_RGB",
@@ -35,8 +35,8 @@ __all__ += [
 class models(ModuleAPI):
     """Define a class acting like the *models* module."""
 
-    def __getattr__(self, attribute) -> Any:
-        """Return the value from the attribute with given name."""
+    def __getattr__(self, attribute: str) -> Any:
+        """Return the value from the attribute with specified name."""
 
         return super().__getattr__(attribute)
 

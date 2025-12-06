@@ -15,12 +15,25 @@ References
     Egsr, 1-1. doi:10.1145/1599301.1599393
 """
 
-from collections import namedtuple
+from __future__ import annotations
+
+import typing
+from dataclasses import dataclass
 
 import numpy as np
-from colour.hints import ArrayLike, List, NDArrayFloat, Tuple
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike, List, NDArrayFloat, NDArrayInt, Tuple
+
 from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
-from colour.utilities import as_float_array, as_float_scalar, centroid, warning
+from colour.utilities import (
+    MixinDataclassIterable,
+    as_float_array,
+    as_float_scalar,
+    as_int_array,
+    centroid,
+    warning,
+)
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -38,24 +51,36 @@ __all__ = [
 ]
 
 
-class Light_Specification(namedtuple("Light_Specification", ("uv", "colour", "index"))):
+@dataclass(frozen=True)
+class Light_Specification(MixinDataclassIterable):
     """
     Define a light probe sampling resulting light specification.
 
     Parameters
     ----------
-    uv : array_like
+    uv
         :math:`uv` coordinates of the sampled light.
-    colour : array_like
+    colour
         Sampled light colour.
-    index : array_like
+    index
         Sampled light location index in its original array.
     """
+
+    uv: NDArrayFloat
+    colour: NDArrayFloat
+    index: NDArrayInt
+
+    def __post_init__(self) -> None:
+        """Post-initialise the class."""
+
+        object.__setattr__(self, "uv", as_float_array(self.uv))
+        object.__setattr__(self, "colour", as_float_array(self.colour))
+        object.__setattr__(self, "index", as_int_array(self.index))
 
 
 def luminance_variance(a: ArrayLike) -> float:
     """
-    Compute the Luminance variance of given :math:`a` 2-D array.
+    Compute the Luminance variance of specified :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -88,7 +113,7 @@ def find_regions_variance_minimization_Viriyothai2009(
 ) -> List[Tuple[int, int, int, int]]:
     """
     Find the :math:`2^n` regions using *Viriyothai (2009)* variance
-    minimization light probe sampling algorithm on given :math:`a` 2-D array.
+    minimization light probe sampling algorithm on specified :math:`a` 2-D array.
 
     Parameters
     ----------
@@ -154,19 +179,19 @@ def find_regions_variance_minimization_Viriyothai2009(
 def highlight_regions_variance_minimization(
     a: ArrayLike,
     regions: List[Tuple[int, int, int, int]],
-    highlight_colour=np.array([0, 1, 0]),
+    highlight_colour: ArrayLike = (0, 1, 0),
 ) -> NDArrayFloat:
     """
-    Highlight regions using with variance minimized on given :math:`a`
+    Highlight regions using with variance minimized on specified :math:`a`
     3-D array.
 
     Parameters
     ----------
-    a : array_like
+    a
         :math:`a` 3-D array to highlight the regions.
-    regions : array_like
+    regions
         Regions with variance minimized.
-    highlight_colour : array_like
+    highlight_colour
         Highlight colour.
 
     Returns
@@ -194,7 +219,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
     colourspace: RGB_Colourspace = RGB_COLOURSPACES["sRGB"],
 ) -> List[Light_Specification]:
     """
-    Sample given light probe to find lights using *Viriyothai (2009)* variance
+    Sample specified light probe to find lights using *Viriyothai (2009)* variance
     minimization light probe sampling algorithm.
 
     Parameters
@@ -223,7 +248,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
     iterations = np.sqrt(lights_count).astype(np.int_)
     if iterations**2 != lights_count:
         warning(
-            f"{lights_count} lights requested, {iterations ** 2} will be "
+            f"{lights_count} lights requested, {iterations**2} will be "
             f"effectively computed!"
         )
 
@@ -238,9 +263,7 @@ def light_probe_sampling_variance_minimization_Viriyothai2009(
         light_probe_c = light_probe[y_min:y_max, x_min:x_max]
         lights.append(
             Light_Specification(
-                (c / np.array(Y.shape))[::-1],
-                np.sum(np.sum(light_probe_c, 0), 0),
-                c,
+                (c / np.array(Y.shape))[::-1], np.sum(np.sum(light_probe_c, 0), 0), c
             )
         )
 

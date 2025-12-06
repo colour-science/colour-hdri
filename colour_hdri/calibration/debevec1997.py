@@ -23,23 +23,30 @@ References
 
 from __future__ import annotations
 
+import typing
 from functools import partial
 
 import numpy as np
-from colour.hints import (
-    Any,
-    ArrayLike,
-    Callable,
-    Dict,
-    NDArrayFloat,
-    Tuple,
-)
+
+if typing.TYPE_CHECKING:
+    from colour.hints import (
+        Any,
+        ArrayLike,
+        Callable,
+        Dict,
+        NDArrayFloat,
+        Tuple,
+    )
+
 from colour.utilities import as_float_array, as_int_array, tstack
 
 from colour_hdri.exposure import average_luminance
 from colour_hdri.generation import weighting_function_Debevec1997
 from colour_hdri.sampling import samples_Grossberg2003
-from colour_hdri.utilities import ImageStack
+
+if typing.TYPE_CHECKING:
+    from colour_hdri.utilities import ImageStack
+
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -136,7 +143,7 @@ def extrapolating_function_polynomial(
 ) -> NDArrayFloat:
     """
     Polynomial extrapolating function used to handle zero-weighted data of
-    given camera response functions.
+    specified camera response functions.
 
     The extrapolation occurs where the weighting function masks fully the
     camera response functions, e.g., at both ends for *Debevec (1997)*.
@@ -187,7 +194,7 @@ def camera_response_functions_Debevec1997(
     normalise: bool = True,
 ) -> NDArrayFloat:
     """
-    Return the camera response functions for given image stack using
+    Return the camera response functions for specified image stack using
     *Debevec (1997)* method.
 
     Image channels are sampled with :math:`s` sampling function and the output

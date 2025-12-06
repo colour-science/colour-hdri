@@ -21,9 +21,14 @@ References
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
 from colour.algebra import vecmul
-from colour.hints import ArrayLike, NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike, NDArrayFloat
+
 from colour.models import Lab_to_LCHab  # pyright: ignore
 from colour.models import LCHab_to_Lab  # pyright: ignore
 from colour.models import (
@@ -96,9 +101,7 @@ def highlights_recovery_blend(
 
     Lab[:, :, 1:3] *= np.rollaxis(ratio[None], 0, 3)
 
-    RGB_o = vecmul(np.linalg.inv(M), Lab)
-
-    return RGB_o
+    return vecmul(np.linalg.inv(M), Lab)
 
 
 def highlights_recovery_LCHab(

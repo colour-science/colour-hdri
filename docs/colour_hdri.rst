@@ -8,6 +8,7 @@ Colour - HDRI
     colour_hdri.exposure
     colour_hdri.generation
     colour_hdri.models
+    colour_hdri.network
     colour_hdri.plotting
     colour_hdri.process
     colour_hdri.recovery

@@ -11,10 +11,10 @@ Common
 .. autosummary::
     :toctree: generated/
 
+    filter_files
+    path_exists
     vivification
     vivified_to_dict
-    path_exists
-    filter_files
 
 EXIF Data Manipulation
 ----------------------
@@ -26,18 +26,18 @@ EXIF Data Manipulation
 .. autosummary::
     :toctree: generated/
 
+    copy_exif_tags
+    delete_exif_tags
     EXIF_EXECUTABLE
     EXIFTag
-    parse_exif_string
-    parse_exif_number
-    parse_exif_fraction
     parse_exif_array
     parse_exif_data
-    read_exif_tags
-    copy_exif_tags
-    update_exif_tags
-    delete_exif_tags
+    parse_exif_fraction
+    parse_exif_number
+    parse_exif_string
     read_exif_tag
+    read_exif_tags
+    update_exif_tags
     write_exif_tag
 
 Image Data & Metadata Utilities
@@ -51,6 +51,20 @@ Image Data & Metadata Utilities
     :toctree: generated/
     :template: class.rst
 
-    Metadata
     Image
     ImageStack
+    Metadata
+
+Requirements
+------------
+
+``colour_hdri.utilities``
+
+.. currentmodule:: colour_hdri.utilities
+
+.. autosummary::
+    :toctree: generated/
+
+    is_lensfunpy_installed
+    is_opencv_installed
+    is_rawpy_installed

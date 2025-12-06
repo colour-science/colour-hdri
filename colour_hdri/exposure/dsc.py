@@ -22,8 +22,13 @@ References
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
-from colour.hints import ArrayLike, NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike, NDArrayFloat
+
 from colour.utilities import as_float, as_float_array
 
 from colour_hdri.exposure import (
@@ -210,9 +215,7 @@ def arithmetic_mean_focal_plane_exposure(
     0.1628937...
     """
 
-    H_a = focal_plane_exposure(L_a, A, t, 1, 1, 0, 9 / 10, 98 / 100, 10)
-
-    return H_a
+    return focal_plane_exposure(L_a, A, t, 1, 1, 0, 9 / 10, 98 / 100, 10)
 
 
 def saturation_based_speed_focal_plane_exposure(
@@ -311,7 +314,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition.
 
 def exposure_index_values(H_a: ArrayLike) -> NDArrayFloat:
     """
-    Compute the exposure index values :math:`I_{EI}` from given focal plane
+    Compute the exposure index values :math:`I_{EI}` from specified focal plane
     exposure :math:`H_a`.
 
     Parameters
@@ -339,7 +342,7 @@ def exposure_index_values(H_a: ArrayLike) -> NDArrayFloat:
 
 def exposure_value_100(N: ArrayLike, t: ArrayLike, S: ArrayLike) -> NDArrayFloat:
     """
-    Compute the exposure value :math:`EV100` from given relative aperture
+    Compute the exposure value :math:`EV100` from specified relative aperture
     *F-Number* :math:`N`, *Exposure Time* :math:`t` and *ISO* arithmetic
     speed :math:`S`.
 

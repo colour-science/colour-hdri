@@ -20,8 +20,13 @@ EV_as_a_measure_of_luminance_and_illuminance
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
-from colour.hints import ArrayLike, NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike, NDArrayFloat
+
 from colour.utilities import as_float, as_float_array
 
 __author__ = "Colour Developers"

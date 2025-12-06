@@ -24,5 +24,5 @@ Debevec (1997)
 .. autosummary::
     :toctree: generated/
 
-    g_solve
     camera_response_functions_Debevec1997
+    g_solve

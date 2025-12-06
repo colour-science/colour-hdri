@@ -110,6 +110,8 @@ References
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
 from colour.adaptation import matrix_chromatic_adaptation_VonKries
 from colour.algebra import (
@@ -118,7 +120,10 @@ from colour.algebra import (
     vecmul,
 )
 from colour.constants import EPSILON
-from colour.hints import ArrayLike, Literal, NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike, Literal, NDArrayFloat
+
 from colour.models import UCS_to_uv, XYZ_to_UCS, XYZ_to_xy, xy_to_XYZ
 from colour.temperature import uv_to_CCT_Robertson1968
 from colour.utilities import as_float_array, tstack
@@ -207,12 +212,10 @@ def matrix_interpolated(
 
     if CCT <= CCT_1:
         return M_1
-    elif CCT >= CCT_2:
+    if CCT >= CCT_2:
         return M_2
-    else:
-        return linear_conversion(
-            1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2), tstack([M_1, M_2])
-        )
+
+    return linear_conversion(1e6 / CCT, (1e6 / CCT_1, 1e6 / CCT_2), tstack([M_1, M_2]))
 
 
 def xy_to_camera_neutral(
@@ -413,10 +416,12 @@ def camera_neutral_to_xy(
         if np.abs(np.sum(xy_p - xy)) <= epsilon:
             return xy
 
-    raise RuntimeError(
+    exception = (
         f'"Camera Neutral" coordinates "{xy}" did not converge to "xy" white '
         f"balance chromaticity coordinates!"
     )
+
+    raise RuntimeError(exception)
 
 
 def matrix_XYZ_to_camera_space(
@@ -525,9 +530,7 @@ def matrix_XYZ_to_camera_space(
         M_camera_calibration_2,
     )
 
-    M_XYZ_to_camera_space = np.matmul(np.matmul(M_AB, M_CC), M_CM)
-
-    return M_XYZ_to_camera_space
+    return np.matmul(np.matmul(M_AB, M_CC), M_CM)
 
 
 def matrix_camera_space_to_XYZ(

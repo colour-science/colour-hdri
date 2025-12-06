@@ -2,7 +2,13 @@
 Colour - HDRI
 =============
 
-HDRI processing algorithms for *Python*.
+High Dynamic Range Imaging (HDRI) processing algorithms for *Python*.
+
+This package provides computational tools for HDRI capture, processing, and
+display, including camera response function estimation, exposure merging,
+tone mapping operators, and colour space transformations. The algorithms
+support various workflows from raw image capture to final display-ready
+output with advanced highlight recovery and vignetting correction.
 
 Subpackages
 -----------
@@ -27,13 +33,44 @@ import contextlib
 import os
 import subprocess
 import sys
+import typing
+
+if typing.TYPE_CHECKING:
+    from colour.hints import Any
 
 import colour
 import numpy as np
-from colour.hints import Any
 from colour.utilities import is_matplotlib_installed
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
+
+from .utilities import (
+    EXIF_EXECUTABLE,
+    EXIFTag,
+    Image,
+    ImageStack,
+    Metadata,
+    copy_exif_tags,
+    delete_exif_tags,
+    filter_files,
+    is_lensfunpy_installed,
+    is_opencv_installed,
+    is_rawpy_installed,
+    parse_exif_array,
+    parse_exif_data,
+    parse_exif_fraction,
+    parse_exif_number,
+    parse_exif_string,
+    path_exists,
+    read_exif_tag,
+    read_exif_tags,
+    update_exif_tags,
+    vivification,
+    vivified_to_dict,
+    write_exif_tag,
+)
+
+# isort: split
 
 from .calibration import (
     absolute_luminance_calibration_Lagarde2016,
@@ -62,6 +99,7 @@ from .exposure import (
     saturation_based_speed_focal_plane_exposure,
 )
 from .generation import (
+    double_sigmoid_anchored_function,
     hat_function,
     image_stack_to_HDRI,
     normal_distribution_function,
@@ -104,27 +142,36 @@ from .tonemapping import (
     tonemapping_operator_simple,
     tonemapping_operator_Tumblin1999,
 )
-from .utilities import (
-    EXIF_EXECUTABLE,
-    EXIFTag,
-    Image,
-    ImageStack,
-    Metadata,
-    copy_exif_tags,
-    delete_exif_tags,
-    filter_files,
-    parse_exif_array,
-    parse_exif_data,
-    parse_exif_fraction,
-    parse_exif_number,
-    parse_exif_string,
-    path_exists,
-    read_exif_tag,
-    read_exif_tags,
-    update_exif_tags,
-    vivification,
-    vivified_to_dict,
-    write_exif_tag,
+
+# isort: split
+
+from .network import (
+    GraphBatchMergeHDRI,
+    GraphHDRI,
+    GraphMergeHDRI,
+    GraphPostMergeHDRI,
+    GraphRawProcessingCameraSensitivities,
+    GraphRawProcessingDNG,
+    InputTransform,
+    NodeApplyInputTransformCameraSensitivities,
+    NodeApplyInputTransformDNG,
+    NodeComputeInputTransformCameraSensitivities,
+    NodeComputeInputTransformDNG,
+    NodeConvertRawFileToDNGFile,
+    NodeCorrectLensAberrationLensFun,
+    NodeCreateBatches,
+    NodeCreateImageStack,
+    NodeDownsample,
+    NodeMergeImageStack,
+    NodeNormaliseExposure,
+    NodeProcessingMetadata,
+    NodeProcessRawFileRawpy,
+    NodeReadFileMetadataDNG,
+    NodeReadImage,
+    NodeRemoveFile,
+    NodeWatermark,
+    NodeWriteImage,
+    NodeWritePreviewImage,
 )
 
 # Exposing "colour.plotting" sub-package if "Matplotlib" is available.
@@ -138,8 +185,8 @@ else:
         if the sub-package is accessed but *Matplotlib* is not installed.
         """
 
-        def __getattr__(self, attribute) -> Any:
-            """Return the value from the attribute with given name."""
+        def __getattr__(self, attribute: str) -> Any:
+            """Return the value from the attribute with specified name."""
 
             is_matplotlib_installed(raise_exception=True)
 
@@ -162,6 +209,9 @@ __all__ = [
     "copy_exif_tags",
     "delete_exif_tags",
     "filter_files",
+    "is_lensfunpy_installed",
+    "is_opencv_installed",
+    "is_rawpy_installed",
     "parse_exif_array",
     "parse_exif_data",
     "parse_exif_fraction",
@@ -176,15 +226,17 @@ __all__ = [
     "write_exif_tag",
 ]
 __all__ += [
-    "DataVignetteCharacterisation",
-    "VIGNETTE_CHARACTERISATION_METHODS",
-    "characterise_vignette",
-    "VIGNETTE_CORRECTION_METHODS",
-    "correct_vignette",
+    "absolute_luminance_calibration_Lagarde2016",
+    "camera_response_functions_Debevec1997",
+    "g_solve",
+    "upper_hemisphere_illuminance_weights_Lagarde2016",
 ]
 __all__ += [
-    "light_probe_sampling_variance_minimization_Viriyothai2009",
-    "samples_Grossberg2003",
+    "VIGNETTE_CHARACTERISATION_METHODS",
+    "VIGNETTE_CORRECTION_METHODS",
+    "DataVignetteCharacterisation",
+    "characterise_vignette",
+    "correct_vignette",
 ]
 __all__ += [
     "adjust_exposure",
@@ -193,23 +245,18 @@ __all__ += [
     "average_luminance",
     "exposure_index_values",
     "exposure_value_100",
-    "photometric_exposure_scale_factor_Lagarde2014",
     "focal_plane_exposure",
     "illuminance_to_exposure_value",
     "luminance_to_exposure_value",
+    "photometric_exposure_scale_factor_Lagarde2014",
     "saturation_based_speed_focal_plane_exposure",
 ]
 __all__ += [
-    "normal_distribution_function",
+    "double_sigmoid_anchored_function",
     "hat_function",
-    "weighting_function_Debevec1997",
     "image_stack_to_HDRI",
-]
-__all__ += [
-    "absolute_luminance_calibration_Lagarde2016",
-    "camera_response_functions_Debevec1997",
-    "g_solve",
-    "upper_hemisphere_illuminance_weights_Lagarde2016",
+    "normal_distribution_function",
+    "weighting_function_Debevec1997",
 ]
 __all__ += [
     "camera_neutral_to_xy",
@@ -235,6 +282,10 @@ __all__ += [
     "highlights_recovery_LCHab",
 ]
 __all__ += [
+    "light_probe_sampling_variance_minimization_Viriyothai2009",
+    "samples_Grossberg2003",
+]
+__all__ += [
     "tonemapping_operator_exponential",
     "tonemapping_operator_exponentiation_mapping",
     "tonemapping_operator_filmic",
@@ -247,6 +298,34 @@ __all__ += [
     "tonemapping_operator_simple",
     "tonemapping_operator_Tumblin1999",
 ]
+__all__ += [
+    "GraphBatchMergeHDRI",
+    "GraphHDRI",
+    "GraphMergeHDRI",
+    "GraphPostMergeHDRI",
+    "GraphRawProcessingCameraSensitivities",
+    "GraphRawProcessingDNG",
+    "InputTransform",
+    "NodeApplyInputTransformCameraSensitivities",
+    "NodeApplyInputTransformDNG",
+    "NodeComputeInputTransformCameraSensitivities",
+    "NodeComputeInputTransformDNG",
+    "NodeConvertRawFileToDNGFile",
+    "NodeCorrectLensAberrationLensFun",
+    "NodeCreateBatches",
+    "NodeCreateImageStack",
+    "NodeDownsample",
+    "NodeMergeImageStack",
+    "NodeNormaliseExposure",
+    "NodeProcessingMetadata",
+    "NodeProcessRawFileRawpy",
+    "NodeReadFileMetadataDNG",
+    "NodeReadImage",
+    "NodeRemoveFile",
+    "NodeWatermark",
+    "NodeWriteImage",
+    "NodeWritePreviewImage",
+]
 
 ROOT_RESOURCES: str = os.path.join(os.path.dirname(__file__), "resources")
 ROOT_RESOURCES_EXAMPLES: str = os.path.join(
@@ -254,27 +333,50 @@ ROOT_RESOURCES_EXAMPLES: str = os.path.join(
 )
 ROOT_RESOURCES_TESTS: str = os.path.join(ROOT_RESOURCES, "colour-hdri-tests-datasets")
 
+__all__ += ["ROOT_RESOURCES", "ROOT_RESOURCES_EXAMPLES", "ROOT_RESOURCES_TESTS"]
+
 __application_name__ = "Colour - HDRI"
 
 __major_version__ = "0"
 __minor_version__ = "2"
-__change_version__ = "5"
-__version__ = ".".join((__major_version__, __minor_version__, __change_version__))
+__change_version__ = "6"
+__version__ = f"{__major_version__}.{__minor_version__}.{__change_version__}"
 
 try:
     _version: str = (
         subprocess.check_output(
-            ["git", "describe"],  # noqa: S603, S607
+            ["git", "describe"],  # noqa: S607
             cwd=os.path.dirname(__file__),
             stderr=subprocess.STDOUT,
         )
         .strip()
         .decode("utf-8")
     )
-except Exception:
+except Exception:  # noqa: BLE001
     _version: str = __version__
 
 colour.utilities.ANCILLARY_COLOUR_SCIENCE_PACKAGES["colour-hdri"] = _version  # pyright: ignore
+
+if is_rawpy_installed():
+    import rawpy
+
+    colour.utilities.ANCILLARY_RUNTIME_PACKAGES["rawpy"] = rawpy.__version__  # pyright: ignore
+
+    del rawpy
+
+if is_lensfunpy_installed():
+    import lensfunpy
+
+    colour.utilities.ANCILLARY_RUNTIME_PACKAGES["lensfunpy"] = lensfunpy.__version__  # pyright: ignore
+
+    del lensfunpy
+
+if is_opencv_installed():
+    import cv2
+
+    colour.utilities.ANCILLARY_RUNTIME_PACKAGES["OpenCV"] = cv2.__version__  # pyright: ignore
+
+    del cv2
 
 del _version
 
@@ -289,8 +391,8 @@ with contextlib.suppress(TypeError):
 class colour_hdri(ModuleAPI):
     """Define a class acting like the *colour_hdri* module."""
 
-    def __getattr__(self, attribute) -> Any:
-        """Return the value from the attribute with given name."""
+    def __getattr__(self, attribute: str) -> Any:
+        """Return the value from the attribute with specified name."""
 
         return super().__getattr__(attribute)
 

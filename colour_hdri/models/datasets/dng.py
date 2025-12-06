@@ -25,8 +25,13 @@ References
 
 from __future__ import annotations
 
+import typing
+
 from colour.colorimetry import CCS_ILLUMINANTS
-from colour.hints import Dict, NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import Dict, NDArrayFloat
+
 from colour.utilities import CanonicalMapping
 
 __author__ = "Colour Developers"

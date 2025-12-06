@@ -10,9 +10,14 @@ Define the following *RGB* colourspace transformations:
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
 from colour.algebra import vecmul
-from colour.hints import ArrayLike, NDArrayFloat
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike, NDArrayFloat
+
 from colour.models import RGB_COLOURSPACES
 
 __author__ = "Colour Developers"
@@ -78,9 +83,7 @@ def camera_space_to_RGB(
 
     M_RGB_camera /= np.transpose(np.sum(M_RGB_camera, axis=1)[None])
 
-    RGB_f = vecmul(np.linalg.inv(M_RGB_camera), RGB)
-
-    return RGB_f
+    return vecmul(np.linalg.inv(M_RGB_camera), RGB)
 
 
 def camera_space_to_sRGB(

@@ -9,14 +9,21 @@ Define the HDRI plotting objects:
 
 from __future__ import annotations
 
+import typing
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-from colour.hints import Any, ArrayLike, Callable, Tuple
+
+if typing.TYPE_CHECKING:
+    from matplotlib.axes import Axes
+    from matplotlib.figure import Figure
+
+if typing.TYPE_CHECKING:
+    from colour.hints import Any, ArrayLike, Callable, Tuple
+
 from colour.plotting import CONSTANTS_COLOUR_STYLE, override_style, render
 from colour.utilities import as_float_array
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 from colour_hdri.exposure import adjust_exposure
 

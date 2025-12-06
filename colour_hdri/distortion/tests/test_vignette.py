@@ -59,7 +59,7 @@ class TestApplyRadialGradient:
     definition unit tests methods.
     """
 
-    def test_apply_radial_gradient(self):
+    def test_apply_radial_gradient(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.apply_radial_gradient`
         definition.
@@ -126,7 +126,7 @@ class TestParabolic2DFunction:
     definition unit tests methods.
     """
 
-    def test_parabolic_2D_function(self):
+    def test_parabolic_2D_function(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.parabolic_2D_function`
         definition.
@@ -198,7 +198,7 @@ class TestHyperbolicCosine2DFunction:
     definition unit tests methods.
     """
 
-    def test_hyperbolic_cosine_2D_function(self):
+    def test_hyperbolic_cosine_2D_function(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.hyperbolic_cosine_2D_function`
         definition.
@@ -270,7 +270,7 @@ class TestVignettePrincipalPoint:
     definition unit tests methods.
     """
 
-    def test_vignette_principal_point(self):
+    def test_vignette_principal_point(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.vignette_principal_point`
         definition.
@@ -289,7 +289,7 @@ class TestCharacteriseVignette2DFunction:
 characterise_vignette_2D_function` definition unit tests methods.
     """
 
-    def test_characterise_vignette_2D_function(self):
+    def test_characterise_vignette_2D_function(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.\
 characterise_vignette_2D_function` definition.
@@ -382,7 +382,7 @@ class TestCorrectVignette2DFunction:
     definition unit tests methods.
     """
 
-    def test_correct_vignette_2D_function(self):
+    def test_correct_vignette_2D_function(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.correct_vignette_2D_function`
         definition.
@@ -512,7 +512,7 @@ class TestCharacteriseVignetteBivariateSpline:
 characterise_vignette_bivariate_spline` definition unit tests methods.
     """
 
-    def test_characterise_vignette_bivariate_spline(self):
+    def test_characterise_vignette_bivariate_spline(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.\
 characterise_vignette_bivariate_spline` definition.
@@ -545,7 +545,7 @@ class TestCorrectVignetteBivariateSpline:
 correct_vignette_bivariate_spline` definition unit tests methods.
     """
 
-    def test_correct_vignette_bivariate_spline(self):
+    def test_correct_vignette_bivariate_spline(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.\
 correct_vignette_bivariate_spline` definition.
@@ -615,7 +615,7 @@ class TestRadialSamplingFunction:
     definition unit tests methods.
     """
 
-    def test_radial_sampling_function(self):
+    def test_radial_sampling_function(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.radial_sampling_function`
         definition.
@@ -826,7 +826,7 @@ class TestVignetteSamplingCoordinates:
     definition unit tests methods.
     """
 
-    def test_vignette_sampling_coordinates(self):
+    def test_vignette_sampling_coordinates(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.\
 vignette_sampling_coordinates` definition.
@@ -1013,7 +1013,7 @@ class TestCharacteriseVignetteRBF:
     definition unit tests methods.
     """
 
-    def test_characterise_vignette_RBF(self):
+    def test_characterise_vignette_RBF(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.characterise_vignette_RBF`
         definition.
@@ -1215,7 +1215,7 @@ class TestCorrectVignetteRBF:
     definition unit tests methods.
     """
 
-    def test_correct_vignette_RBF(self):
+    def test_correct_vignette_RBF(self) -> None:
         """
         Test :func:`colour_hdri.distortion.vignette.correct_vignette_RBF`
         definition.

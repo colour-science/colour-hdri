@@ -9,9 +9,11 @@ from __future__ import annotations
 
 import os
 import re
+import typing
 from collections import defaultdict
 
-from colour.hints import Dict, List, Sequence
+if typing.TYPE_CHECKING:
+    from colour.hints import Dict, List, Sequence
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -100,8 +102,7 @@ def path_exists(path: str | None) -> bool:
 
     if path is None:
         return False
-    else:
-        return os.path.exists(path)
+    return os.path.exists(path)
 
 
 def filter_files(directory: str, extensions: Sequence[str]) -> List[str]:

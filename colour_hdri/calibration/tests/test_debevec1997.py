@@ -6,9 +6,12 @@ module.
 from __future__ import annotations
 
 import os
+import typing
 
 import numpy as np
-from colour.hints import List
+
+if typing.TYPE_CHECKING:
+    from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import (
@@ -49,7 +52,7 @@ class TestGSolve:
     unit tests methods.
     """
 
-    def test_g_solve(self):
+    def test_g_solve(self) -> None:
         """Test :func:`colour_hdri.calibration.debevec1997.g_solve` definition."""
 
         image_stack = ImageStack.from_files(IMAGES_JPG)
@@ -91,7 +94,7 @@ class TestCameraResponseFunctionsDebevec1997:
 camera_response_functions_Debevec1997` definition unit tests methods.
     """
 
-    def test_camera_response_function_Debevec1997(self):
+    def test_camera_response_function_Debevec1997(self) -> None:
         """
         Test :func:`colour_hdri.calibration.debevec1997.\
 camera_response_functions_Debevec1997` definition.

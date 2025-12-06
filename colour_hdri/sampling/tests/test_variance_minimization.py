@@ -46,7 +46,7 @@ class TestLuminanceVariance:
 luminance_variance` definition unit tests methods.
     """
 
-    def test_luminance_variance(self):
+    def test_luminance_variance(self) -> None:
         """
         Test :func:`colour_hdri.sampling.variance_minimization.\
 luminance_variance` definition.
@@ -66,7 +66,7 @@ find_regions_variance_minimization_Viriyothai2009` definition unit tests
     methods.
     """
 
-    def test_find_regions_variance_minimization_Viriyothai2009(self):
+    def test_find_regions_variance_minimization_Viriyothai2009(self) -> None:
         """
         Test :func:`colour_hdri.sampling.variance_minimization.\
 find_regions_variance_minimization_Viriyothai2009` definition.
@@ -124,7 +124,7 @@ class TestHighlightRegionsVarianceMinimization:
 highlight_regions_variance_minimization` definition unit tests methods.
     """
 
-    def test_highlight_regions_variance_minimization(self):
+    def test_highlight_regions_variance_minimization(self) -> None:
         """
         Test :func:`colour_hdri.sampling.variance_minimization.\
 highlight_regions_variance_minimization` definition.
@@ -165,7 +165,7 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition unit
     tests methods.
     """
 
-    def test_light_probe_sampling_variance_minimization_Viriyothai2009(self):
+    def test_light_probe_sampling_variance_minimization_Viriyothai2009(self) -> None:
         """
         Test :func:`colour_hdri.sampling.variance_minimization.\
 light_probe_sampling_variance_minimization_Viriyothai2009` definition.
@@ -182,9 +182,9 @@ light_probe_sampling_variance_minimization_Viriyothai2009` definition.
         )
 
         lights = light_probe_sampling_variance_minimization_Viriyothai2009(image)
-        uvs = np.array([light[0] for light in lights])
-        colours = np.array([light[1] for light in lights])
-        indexes = np.array([light[2] for light in lights])
+        uvs = np.array([light.values[0] for light in lights])
+        colours = np.array([light.values[1] for light in lights])
+        indexes = np.array([light.values[2] for light in lights])
 
         np.testing.assert_allclose(
             uvs,

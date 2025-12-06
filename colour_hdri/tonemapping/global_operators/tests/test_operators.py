@@ -3,6 +3,7 @@ Define the unit tests for the
 :mod:`colour_hdri.tonemapping.global_operators.operators` module.
 """
 
+from __future__ import annotations
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
@@ -51,7 +52,7 @@ class TestLogAverage:
     tests methods.
     """
 
-    def test_log_average(self):
+    def test_log_average(self) -> None:
         """Test :func:`colour_hdri.utilities.common.log_average` definition."""
 
         np.testing.assert_allclose(
@@ -67,7 +68,7 @@ class TestTonemappingOperatorSimple:
 tonemapping_operator_simple` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_simple(self):
+    def test_tonemapping_operator_simple(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_simple` definition.
@@ -110,7 +111,7 @@ class TestTonemappingOperatorNormalisation:
 tonemapping_operator_normalisation` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_normalisation(self):
+    def test_tonemapping_operator_normalisation(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_normalisation` definition.
@@ -153,7 +154,7 @@ class TestTonemappingOperatorGamma:
 tonemapping_operator_gamma` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_gamma(self):
+    def test_tonemapping_operator_gamma(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_gamma` definition.
@@ -198,7 +199,7 @@ class TestTonemappingOperatorLogarithmic:
 tonemapping_operator_logarithmic` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_logarithmic(self):
+    def test_tonemapping_operator_logarithmic(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_logarithmic` definition.
@@ -243,7 +244,7 @@ class TestTonemappingOperatorExponential:
 tonemapping_operator_exponential` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_exponential(self):
+    def test_tonemapping_operator_exponential(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_exponential` definition.
@@ -288,7 +289,7 @@ class TestTonemappingOperatorLogarithmicMapping:
 tonemapping_operator_logarithmic_mapping` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_logarithmic_mapping(self):
+    def test_tonemapping_operator_logarithmic_mapping(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_logarithmic_mapping` definition.
@@ -333,7 +334,7 @@ class TestTonemappingOperatorExponentiationMapping:
 tonemapping_operator_exponentiation_mapping` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_exponentiation_mapping(self):
+    def test_tonemapping_operator_exponentiation_mapping(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_exponentiation_mapping` definition.
@@ -378,7 +379,7 @@ class TestTonemappingOperatorSchlick1994:
 tonemapping_operator_Schlick1994` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_Schlick1994(self):
+    def test_tonemapping_operator_Schlick1994(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_Schlick1994` definition.
@@ -422,7 +423,7 @@ class TestTonemappingOperatorTumblin1999:
 tonemapping_operator_Tumblin1999` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_Tumblin1999(self):
+    def test_tonemapping_operator_Tumblin1999(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_Tumblin1999` definition.
@@ -468,7 +469,7 @@ class TestTonemappingOperatorReinhard2004:
 tonemapping_operator_Reinhard2004` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_Reinhard2004(self):
+    def test_tonemapping_operator_Reinhard2004(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_Reinhard2004` definition.
@@ -515,7 +516,7 @@ class TestTonemappingOperatorFilmic:
 tonemapping_operator_filmic` definition unit tests methods.
     """
 
-    def test_tonemapping_operator_filmic(self):
+    def test_tonemapping_operator_filmic(self) -> None:
         """
         Test :func:`colour_hdri.tonemapping.global_operators.operators.\
 tonemapping_operator_filmic` definition.

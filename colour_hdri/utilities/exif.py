@@ -19,22 +19,29 @@ import logging
 import platform
 import re
 import subprocess
-from collections import defaultdict
+import typing
+
+if typing.TYPE_CHECKING:
+    from collections import defaultdict
+
 from dataclasses import dataclass, field
 from fractions import Fraction
 
 import numpy as np
 from colour.constants import DTYPE_FLOAT_DEFAULT
-from colour.hints import (
-    DTypeFloat,
-    DTypeReal,
-    List,
-    NDArray,
-    Real,
-    Sequence,
-    SupportsIndex,
-    Type,
-)
+
+if typing.TYPE_CHECKING:
+    from colour.hints import (
+        DTypeFloat,
+        DTypeReal,
+        List,
+        NDArray,
+        Real,
+        Sequence,
+        SupportsIndex,
+        Type,
+    )
+
 from colour.utilities import as_array, as_float_scalar, optional
 from colour.utilities.documentation import (
     DocstringText,
@@ -104,7 +111,7 @@ class EXIFTag:
 
 def parse_exif_string(exif_tag: EXIFTag) -> str:
     """
-    Parse given EXIF tag assuming it is a string and return its value.
+    Parse specified EXIF tag assuming it is a string and return its value.
 
     Parameters
     ----------
@@ -122,7 +129,7 @@ def parse_exif_string(exif_tag: EXIFTag) -> str:
 
 def parse_exif_number(exif_tag: EXIFTag, dtype: Type[DTypeReal] | None = None) -> Real:
     """
-    Parse given EXIF tag assuming it is a number type and return its value.
+    Parse specified EXIF tag assuming it is a number type and return its value.
 
     Parameters
     ----------
@@ -146,7 +153,7 @@ def parse_exif_fraction(
     exif_tag: EXIFTag, dtype: Type[DTypeFloat] | None = None
 ) -> float:
     """
-    Parse given EXIF tag assuming it is a fraction and return its value.
+    Parse specified EXIF tag assuming it is a fraction and return its value.
 
     Parameters
     ----------
@@ -176,7 +183,7 @@ def parse_exif_array(
     shape: SupportsIndex | Sequence[SupportsIndex] | None = None,
 ) -> NDArray:
     """
-    Parse given EXIF tag assuming it is an array and return its value.
+    Parse specified EXIF tag assuming it is an array and return its value.
 
     Parameters
     ----------
@@ -207,7 +214,7 @@ def parse_exif_array(
 
 def parse_exif_data(data: str) -> List:
     """
-    Parse given EXIF data output from *exiftool*.
+    Parse specified EXIF data output from *exiftool*.
 
     Parameters
     ----------
@@ -240,18 +247,22 @@ def parse_exif_data(data: str) -> List:
                 search.group("value"),
             )
         ]
-    else:
-        raise ValueError("The EXIF data output cannot be parsed!")
+
+    exception = "The EXIF data output cannot be parsed!"
+
+    raise ValueError(exception)
 
 
-def read_exif_tags(image: str) -> defaultdict:
+def read_exif_tags(image: str, numeric: bool = False) -> defaultdict:
     """
-    Return given image EXIF image tags.
+    Return specified image EXIF image tags.
 
     Parameters
     ----------
     image
         Image file.
+    numeric
+        Whether to return the EXIF tags as numeric values.
 
     Returns
     -------
@@ -261,11 +272,16 @@ def read_exif_tags(image: str) -> defaultdict:
 
     LOGGER.info('Reading "%s" image EXIF data.', image)
 
+    args = ["-D", "-G", "-a", "-u"]
+
+    if numeric:
+        args.append("-n")
+
     exif_tags = vivification()
     lines = str(
-        subprocess.check_output(
-            [EXIF_EXECUTABLE, "-D", "-G", "-a", "-u", "-n", image],
-            shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
+        subprocess.check_output(  # noqa: S603
+            [EXIF_EXECUTABLE, *args, image],
+            shell=_IS_WINDOWS_PLATFORM,
         ),
         "utf-8",
         "ignore",
@@ -287,7 +303,7 @@ def read_exif_tags(image: str) -> defaultdict:
 
 def copy_exif_tags(source: str, target: str) -> bool:
     """
-    Copy given source image file EXIF tag to given image target.
+    Copy specified source image file EXIF tag to specified image target.
 
     Parameters
     ----------
@@ -306,9 +322,9 @@ def copy_exif_tags(source: str, target: str) -> bool:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original", "-TagsFromFile"]
     arguments += [source, target]
-    subprocess.check_output(
+    subprocess.check_output(  # noqa: S603
         arguments,
-        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
+        shell=_IS_WINDOWS_PLATFORM,
     )
 
     return True
@@ -317,7 +333,7 @@ def copy_exif_tags(source: str, target: str) -> bool:
 # TODO: Find a better name.
 def update_exif_tags(images: Sequence[Sequence[str]]) -> bool:
     """
-    Update given images pairs EXIF tags.
+    Update specified images pairs EXIF tags.
 
     Parameters
     ----------
@@ -339,7 +355,7 @@ def update_exif_tags(images: Sequence[Sequence[str]]) -> bool:
 
 def delete_exif_tags(image: str) -> bool:
     """
-    Delete all given image EXIF tags.
+    Delete all specified image EXIF tags.
 
     Parameters
     ----------
@@ -354,23 +370,23 @@ def delete_exif_tags(image: str) -> bool:
 
     LOGGER.info('Deleting "%s" image EXIF tags.', image)
 
-    subprocess.check_output(
+    subprocess.check_output(  # noqa: S603
         [EXIF_EXECUTABLE, "-overwrite_original", "-all=", image],
-        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
+        shell=_IS_WINDOWS_PLATFORM,
     )
 
     return True
 
 
-def read_exif_tag(image: str, tag: str) -> str:
+def read_exif_tag(image: str, tag: str, numeric: bool = False) -> str:
     """
-    Return given image EXIF tag value.
+    Return specified image EXIF tag value.
 
     Parameters
     ----------
-    image : str
+    image
         Image file to read the EXIF tag value of.
-    tag : str
+    tag
         Tag to read the value of.
 
     Returns
@@ -379,11 +395,16 @@ def read_exif_tag(image: str, tag: str) -> str:
         Tag value.
     """
 
+    args = [f"-{tag}"]
+
+    if numeric:
+        args.append("-n")
+
     value = (
         str(
-            subprocess.check_output(
-                [EXIF_EXECUTABLE, f"-{tag}", image],
-                shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
+            subprocess.check_output(  # noqa: S603
+                [EXIF_EXECUTABLE, *args, image],
+                shell=_IS_WINDOWS_PLATFORM,
             ),
             "utf-8",
             "ignore",
@@ -405,15 +426,15 @@ def read_exif_tag(image: str, tag: str) -> str:
 
 def write_exif_tag(image: str, tag: str, value: str) -> bool:
     """
-    Set given image EXIF tag value.
+    Set specified image EXIF tag value.
 
     Parameters
     ----------
-    image : str
+    image
         Image file to set the EXIF tag value of.
-    tag : str
+    tag
         Tag to set the value of.
-    value : str
+    value
         Value to set.
 
     Returns
@@ -431,9 +452,9 @@ def write_exif_tag(image: str, tag: str, value: str) -> bool:
 
     arguments = [EXIF_EXECUTABLE, "-overwrite_original"]
     arguments += [f"-{tag}={value}", image]
-    subprocess.check_output(
+    subprocess.check_output(  # noqa: S603
         arguments,
-        shell=_IS_WINDOWS_PLATFORM,  # noqa: S603
+        shell=_IS_WINDOWS_PLATFORM,
     )
 
     return True

@@ -1,6 +1,5 @@
 """Define the unit tests for the :mod:`colour_hdri.exposure.dsc` module."""
 
-
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
 
@@ -38,7 +37,7 @@ class TestQFactor:
     unit tests methods.
     """
 
-    def test_q_factor(self):
+    def test_q_factor(self) -> None:
         """Test :func:`colour_hdri.exposure.dsc.q_factor` definition."""
 
         np.testing.assert_allclose(
@@ -58,7 +57,7 @@ class TestFocalPlaneExposure:
     unit tests methods.
     """
 
-    def test_focal_plane_exposure(self):
+    def test_focal_plane_exposure(self) -> None:
         """Test :func:`colour_hdri.exposure.dsc.focal_plane_exposure` definition."""
 
         np.testing.assert_allclose(
@@ -84,7 +83,7 @@ class TestArithmeticMeanFocalPlaneExposure:
 arithmetic_mean_focal_plane_exposure` definition unit tests methods.
     """
 
-    def test_arithmetic_mean_focal_plane_exposure(self):
+    def test_arithmetic_mean_focal_plane_exposure(self) -> None:
         """
         Test :func:`colour_hdri.exposure.dsc.\
 arithmetic_mean_focal_plane_exposure` definition.
@@ -107,7 +106,7 @@ class TestSaturationBasedSpeedFocalPlaneExposure:
 saturation_based_speed_focal_plane_exposure` definition unit tests methods.
     """
 
-    def test_saturation_based_speed_focal_plane_exposure(self):
+    def test_saturation_based_speed_focal_plane_exposure(self) -> None:
         """
         Test :func:`colour_hdri.exposure.dsc.\
 saturation_based_speed_focal_plane_exposure` definition.
@@ -137,7 +136,7 @@ class TestExposureIndexValues:
     unit tests methods.
     """
 
-    def test_exposure_index_values(self):
+    def test_exposure_index_values(self) -> None:
         """
         Test :func:`colour_hdri.exposure.dsc.exposure_index_values`
         definition.
@@ -156,7 +155,7 @@ class TestExposureValue100:
     unit tests methods.
     """
 
-    def test_exposure_value_100(self):
+    def test_exposure_value_100(self) -> None:
         """
         Test :func:`colour_hdri.exposure.dsc.exposure_value_100`
         definition.
@@ -180,7 +179,7 @@ photometric_exposure_scale_factor_Lagarde2014` definition unit tests
     methods.
     """
 
-    def test_photometric_exposure_scale_factor_Lagarde2014(self):
+    def test_photometric_exposure_scale_factor_Lagarde2014(self) -> None:
         """
         Test :func:`colour_hdri.exposure.dsc.\
 photometric_exposure_scale_factor_Lagarde2014` definition.

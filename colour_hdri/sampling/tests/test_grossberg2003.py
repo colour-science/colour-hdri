@@ -6,10 +6,13 @@ module.
 from __future__ import annotations
 
 import os
+import typing
 
 import numpy as np
 from colour.constants import TOLERANCE_ABSOLUTE_TESTS
-from colour.hints import List
+
+if typing.TYPE_CHECKING:
+    from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.sampling import samples_Grossberg2003
@@ -44,7 +47,7 @@ class TestSamplesGrossberg2003:
 samples_Grossberg2003` definition unit tests methods.
     """
 
-    def test_samples_Grossberg2003(self):
+    def test_samples_Grossberg2003(self) -> None:
         """
         Test :func:`colour_hdri.sampling.grossberg2003.\
 samples_Grossberg2003` definition.

@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import os
+import typing
 
 import numpy as np
 from colour import RGB_COLOURSPACES
-from colour.hints import List
+
+if typing.TYPE_CHECKING:
+    from colour.hints import List
 
 from colour_hdri import ROOT_RESOURCES_TESTS
 from colour_hdri.calibration import camera_response_functions_Debevec1997
@@ -42,7 +45,7 @@ class TestImageStackToHDRI:
     definition unit tests methods.
     """
 
-    def test_image_stack_to_HDRI(self):
+    def test_image_stack_to_HDRI(self) -> None:
         """
         Test :func:`colour_hdri.generation.radiance.image_stack_to_HDRI`
         definition.
@@ -51,7 +54,6 @@ class TestImageStackToHDRI:
         image_stack = ImageStack.from_files(IMAGES_JPG)
         image_stack.data = RGB_COLOURSPACES["sRGB"].cctf_decoding(image_stack.data)
 
-        # Lower precision for unit tests under *travis-ci*.
         np.testing.assert_allclose(
             image_stack_to_HDRI(image_stack),
             np.load(
@@ -63,8 +65,24 @@ class TestImageStackToHDRI:
             atol=0.0001,
         )
 
-        # Lower precision for unit tests under *travis-ci*.
         image_stack = ImageStack.from_files(IMAGES_JPG)
+        np.testing.assert_allclose(
+            image_stack_to_HDRI(
+                image_stack,
+                camera_response_functions=(
+                    camera_response_functions_Debevec1997(image_stack)
+                ),
+            ),
+            np.load(
+                os.path.join(
+                    ROOT_RESOURCES_GENERATION,
+                    "test_image_stack_to_hdri_crfs.npy",
+                )
+            ),
+            atol=0.0001,
+        )
+
+        image_stack = ImageStack.from_files(IMAGES_JPG, read_data=False)
         np.testing.assert_allclose(
             image_stack_to_HDRI(
                 image_stack,

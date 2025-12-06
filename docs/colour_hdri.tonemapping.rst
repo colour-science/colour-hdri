@@ -50,14 +50,14 @@ Logarithmic
 .. autosummary::
     :toctree: generated/
 
-    tonemapping_operator_logarithmic
     tonemapping_operator_exponential
-    tonemapping_operator_logarithmic_mapping
     tonemapping_operator_exponentiation_mapping
+    tonemapping_operator_filmic
+    tonemapping_operator_logarithmic
+    tonemapping_operator_logarithmic_mapping
+    tonemapping_operator_Reinhard2004
     tonemapping_operator_Schlick1994
     tonemapping_operator_Tumblin1999
-    tonemapping_operator_Reinhard2004
-    tonemapping_operator_filmic
 
 Logarithmic Mapping
 ~~~~~~~~~~~~~~~~~~~
@@ -94,10 +94,10 @@ Exponentiation Mapping
     :toctree: generated/
 
     tonemapping_operator_exponentiation_mapping
+    tonemapping_operator_filmic
+    tonemapping_operator_Reinhard2004
     tonemapping_operator_Schlick1994
     tonemapping_operator_Tumblin1999
-    tonemapping_operator_Reinhard2004
-    tonemapping_operator_filmic
 
 Schlick (1994)
 ~~~~~~~~~~~~~~

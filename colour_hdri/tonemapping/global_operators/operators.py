@@ -50,9 +50,15 @@ References
 
 from __future__ import annotations
 
+import typing
+
 import numpy as np
 from colour.constants import EPSILON
-from colour.hints import ArrayLike, NDArrayFloat, cast
+
+if typing.TYPE_CHECKING:
+    from colour.hints import ArrayLike
+
+from colour.hints import NDArrayFloat, cast
 from colour.models import RGB_COLOURSPACES, RGB_Colourspace, RGB_luminance
 from colour.utilities import as_float_array
 
@@ -103,9 +109,7 @@ def log_average(a: ArrayLike, epsilon: float = EPSILON) -> NDArrayFloat:
 
     a = as_float_array(a)
 
-    average = np.exp(np.average(np.log(a + epsilon)))
-
-    return average
+    return np.exp(np.average(np.log(a + epsilon)))
 
 
 def tonemapping_operator_simple(RGB: ArrayLike) -> NDArrayFloat:
@@ -261,9 +265,7 @@ def tonemapping_operator_gamma(
     RGB = as_float_array(RGB)
 
     exposure = 2**EV
-    RGB = (exposure * RGB) ** (1 / gamma)
-
-    return RGB
+    return (exposure * RGB) ** (1 / gamma)
 
 
 def tonemapping_operator_logarithmic(
@@ -322,8 +324,8 @@ def tonemapping_operator_logarithmic(
 
     RGB = as_float_array(RGB)
 
-    q = 1 if q < 1 else q
-    k = 1 if k < 1 else k
+    q = max(q, 1)
+    k = max(k, 1)
 
     L = as_float_array(
         RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
@@ -390,8 +392,8 @@ def tonemapping_operator_exponential(
 
     RGB = as_float_array(RGB)
 
-    q = 1 if q < 1 else q
-    k = 1 if k < 1 else k
+    q = max(q, 1)
+    k = max(k, 1)
 
     L = as_float_array(
         RGB_luminance(RGB, colourspace.primaries, colourspace.whitepoint)
@@ -853,4 +855,4 @@ def tonemapping_operator_filmic(
 
     RGB = f(RGB * exposure_bias, A, B, C, D, E, F)
 
-    return cast(NDArrayFloat, RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F)))
+    return cast("NDArrayFloat", RGB * (1 / f(linear_whitepoint, A, B, C, D, E, F)))
