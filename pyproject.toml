@@ -1,9 +1,9 @@
 [project]
 name = "colour-hdri"
-version = "0.2.5"
+version = "0.2.6"
 description = "HDRI processing algorithms for Python"
 readme = "README.rst"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.11,<3.15"
 authors = [
     { name = "Colour Developers", email = "colour-developers@colour-science.org" },
 ]
@@ -46,20 +46,16 @@ classifiers = [
     "Topic :: Software Development"
 ]
 dependencies = [
-    "colour-science>=0.4.5",
+    "colour-science>=0.4.7",
     "imageio>=2,<3",
     "numpy>=2.0.0,<3",
     "scipy>=1.13.0,<2",
     "typing-extensions>=4,<5",
 ]
 
-[tool.uv.sources]
-colour-datasets = { git = "https://github.com/colour-science/colour-datasets", branch = "develop" }
-colour-science = { git = "https://github.com/colour-science/colour", branch = "develop" }
-
 [project.optional-dependencies]
 optional = [
-    "colour-datasets>=0.2.6",
+    "colour-datasets>=0.2.7",
     "colour-demosaicing>=0.2.4",
     "lensfunpy<2;python_version<'3.13'",
     "matplotlib>=3.9",
@@ -67,7 +63,7 @@ optional = [
     "openimageio>=3,<4",
     "opencv-python>=4,<5",
     "pydot>=3,<4",
-    "rawpy<1",
+    "rawpy<1;python_version<'3.14'",
 ]
 docs = [
     "biblib-simple",
@@ -153,7 +149,7 @@ reportUnusedExpression = false
 addopts = "--durations=5"
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 88
 select = ["ALL"]
 ignore = [
