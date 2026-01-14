@@ -29,7 +29,6 @@ Subpackages
 
 from __future__ import annotations
 
-import contextlib
 import os
 import subprocess
 import sys
@@ -39,7 +38,6 @@ if typing.TYPE_CHECKING:
     from colour.hints import Any
 
 import colour
-import numpy as np
 from colour.utilities import is_matplotlib_installed
 from colour.utilities.deprecation import ModuleAPI, build_API_changes
 from colour.utilities.documentation import is_documentation_building
@@ -379,10 +377,6 @@ if is_opencv_installed():
     del cv2
 
 del _version
-
-# TODO: Remove legacy printing support when deemed appropriate.
-with contextlib.suppress(TypeError):
-    np.set_printoptions(legacy="1.13")
 
 
 # ----------------------------------------------------------------------------#
