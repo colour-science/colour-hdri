@@ -44,6 +44,7 @@ from colour_hdri.network import (
     NodeWriteImage,
     NodeWritePreviewImage,
 )
+from colour_hdri.utilities import notify_process_state
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -244,6 +245,11 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             )
 
         self.connect(
+            "execution_input",
+            self.nodes["ConvertRawFileToDNGFile"],
+            "execution_input",
+        )
+        self.connect(
             "raw_file_path",
             self.nodes["ConvertRawFileToDNGFile"],
             "raw_file_path",
@@ -329,6 +335,7 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             "path",
         )
 
+    @notify_process_state
     def process(self, **kwargs: Any) -> None:
         """
         Process the node-graph.
@@ -536,6 +543,11 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             )
 
         self.connect(
+            "execution_input",
+            self.nodes["ConvertRawFileToDNGFile"],
+            "execution_input",
+        )
+        self.connect(
             "raw_file_path",
             self.nodes["ConvertRawFileToDNGFile"],
             "raw_file_path",
@@ -626,6 +638,7 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             "path",
         )
 
+    @notify_process_state
     def process(self, **kwargs: Any) -> None:
         """
         Process the node-graph.
@@ -736,6 +749,11 @@ class GraphMergeHDRI(ExecutionNode, PortGraph):
             )
 
         self.connect(
+            "execution_input",
+            self.nodes["CreateImageStack"],
+            "execution_input",
+        )
+        self.connect(
             "exr_file_paths",
             self.nodes["CreateImageStack"],
             "paths",
@@ -781,6 +799,7 @@ class GraphMergeHDRI(ExecutionNode, PortGraph):
             "path",
         )
 
+    @notify_process_state
     def process(self, **kwargs: Any) -> None:
         """
         Process the node-graph.
@@ -866,6 +885,10 @@ class GraphPostMergeHDRI(ExecutionNode, PortGraph):
 
         for connection in [
             (
+                ("NormaliseExposure", "execution_output"),
+                ("ParallelForMultiprocess", "execution_input"),
+            ),
+            (
                 ("ParallelForMultiprocess", "loop_output"),
                 ("WritePreviewImage", "execution_input"),
             ),
@@ -881,6 +904,11 @@ class GraphPostMergeHDRI(ExecutionNode, PortGraph):
                 output_port,
             )
 
+        self.connect(
+            "execution_input",
+            self.nodes["NormaliseExposure"],
+            "execution_input",
+        )
         self.connect(
             "array",
             self.nodes["NormaliseExposure"],
@@ -915,6 +943,7 @@ class GraphPostMergeHDRI(ExecutionNode, PortGraph):
             "task", _task_multiprocess_post_merge_hdr
         )
 
+    @notify_process_state
     def process(self, **kwargs: Any) -> None:
         """
         Process the node-graph.
@@ -991,6 +1020,11 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
             )
 
         self.connect(
+            "execution_input",
+            self.nodes["CreateBatches"],
+            "execution_input",
+        )
+        self.connect(
             "array",
             self.nodes["CreateBatches"],
             "array",
@@ -1042,6 +1076,7 @@ class GraphBatchMergeHDRI(ExecutionNode, PortGraph):
             "results", self.nodes["GraphPostMergeHDRI"], "array"
         )
 
+    @notify_process_state
     def process(self, **kwargs: Any) -> None:
         """
         Process the node-graph.
@@ -1162,6 +1197,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             )
 
         self.connect(
+            "execution_input",
+            self.nodes["ParallelForMultiprocess"],
+            "execution_input",
+        )
+        self.connect(
             "array",
             self.nodes["ParallelForMultiprocess"],
             "array",
@@ -1273,6 +1313,7 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "Watermark"
         ].set_input("include_exposure_information", False)
 
+    @notify_process_state
     def process(self, **kwargs: Any) -> None:
         """
         Process the node-graph.

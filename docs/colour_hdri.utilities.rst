@@ -65,6 +65,7 @@ Requirements
 .. autosummary::
     :toctree: generated/
 
+    is_colour_datasets_installed
     is_lensfunpy_installed
     is_opencv_installed
     is_rawpy_installed

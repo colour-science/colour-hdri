@@ -7,13 +7,14 @@ Define the common utilities objects that don't fall in any specific category.
 
 from __future__ import annotations
 
+import functools
 import os
 import re
 import typing
 from collections import defaultdict
 
 if typing.TYPE_CHECKING:
-    from colour.hints import Dict, List, Sequence
+    from colour.hints import Any, Callable, Dict, List, Sequence
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -23,11 +24,38 @@ __email__ = "colour-developers@colour-science.org"
 __status__ = "Production"
 
 __all__ = [
+    "notify_process_state",
     "vivification",
     "vivified_to_dict",
     "path_exists",
     "filter_files",
 ]
+
+
+def notify_process_state(function: Callable) -> Callable:
+    """
+    Decorate a process method to notify about its execution state.
+
+    Parameters
+    ----------
+    function
+        Process method to decorate.
+
+    Returns
+    -------
+    Callable
+        Decorated process method.
+    """
+
+    @functools.wraps(function)
+    def wrapper(self: Any, *args: Any, **kwargs: Any) -> Any:
+        """Wrap the process method."""
+
+        self.log(f'Processing "{self.name}"...', "debug")
+
+        return function(self, *args, **kwargs)
+
+    return wrapper
 
 
 def vivification() -> defaultdict:
