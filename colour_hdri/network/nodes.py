@@ -335,6 +335,7 @@ class NodeWriteImage(ExecutionNode):
         self.add_input_port("path")
         self.add_input_port("exif_tags")
         self.add_input_port("output_colourspace")
+        self.add_input_port("bit_depth", "float32")
         self.add_input_port("bypass", False)
 
     @required("OpenImageIO")
@@ -374,7 +375,9 @@ class NodeWriteImage(ExecutionNode):
         if not _is_linear_file_format(path):
             image = output_colourspace.cctf_encoding(image)
 
-        write_image_OpenImageIO(image, path, attributes=attributes)
+        bit_depth = self.get_input("bit_depth")
+
+        write_image_OpenImageIO(image, path, bit_depth=bit_depth, attributes=attributes)
 
         self.dirty = False
 

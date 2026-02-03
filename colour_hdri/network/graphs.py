@@ -94,6 +94,7 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
         self.add_input_port("orientation")
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
+        self.add_input_port("bit_depth", "float32")
         self.add_input_port("bypass_watermark", False)
         self.add_input_port("bypass_orient", False)
 
@@ -334,6 +335,11 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             self.nodes["WriteImage"],
             "path",
         )
+        self.connect(
+            "bit_depth",
+            self.nodes["WriteImage"],
+            "bit_depth",
+        )
 
     @notify_process_state
     def process(self, **kwargs: Any) -> None:
@@ -386,6 +392,7 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
         self.add_input_port("correct_distortion", True)
         self.add_input_port("downsample", 1)
         self.add_input_port("orientation")
+        self.add_input_port("bit_depth", "float32")
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
         self.add_input_port("bypass_watermark", False)
@@ -636,6 +643,11 @@ class GraphRawProcessingCameraSensitivities(ExecutionNode, PortGraph):
             "output_file_path",
             self.nodes["WriteImage"],
             "path",
+        )
+        self.connect(
+            "bit_depth",
+            self.nodes["WriteImage"],
+            "bit_depth",
         )
 
     @notify_process_state
@@ -1146,6 +1158,7 @@ class GraphHDRI(ExecutionNode, PortGraph):
         self.add_input_port("correct_chromatic_aberration", True)
         self.add_input_port("correct_distortion", True)
         self.add_input_port("orientation", None)
+        self.add_input_port("bit_depth", "float32")
         self.add_input_port("bypass_input_transform", False)
         self.add_input_port("bypass_correct_lens_aberration", False)
         self.add_input_port("bypass_watermark", False)
@@ -1250,6 +1263,11 @@ class GraphHDRI(ExecutionNode, PortGraph):
             "orientation",
             self.nodes["GraphRawProcessingCameraSensitivities"],
             "orientation",
+        )
+        self.connect(
+            "bit_depth",
+            self.nodes["GraphRawProcessingCameraSensitivities"],
+            "bit_depth",
         )
         self.connect(
             "bypass_input_transform",
