@@ -383,9 +383,10 @@ def tag(ctx: Context) -> None:
     message_box("Tagging...")
     result = ctx.run("git rev-parse --abbrev-ref HEAD", hide="both")
 
-    if result.stdout.strip() != "develop":  # pyright: ignore
-        msg = "Are you still on a feature or master branch?"
-        raise RuntimeError(msg)
+    if result is None or result.stdout.strip() != "develop":
+        error = "Are you still on a feature or master branch?"
+
+        raise RuntimeError(error)
 
     with open(os.path.join(PYTHON_PACKAGE_NAME, "__init__.py")) as file_handle:
         file_content = file_handle.read()
@@ -408,17 +409,22 @@ def tag(ctx: Context) -> None:
         version = f"{major_version}.{minor_version}.{change_version}"
 
         result = ctx.run("git ls-remote --tags upstream", hide="both")
-        remote_tags = result.stdout.strip().split("\n")  # pyright: ignore
+        if result is None:
+            error = "Failed to list remote tags."
+
+            raise RuntimeError(error)
+
+        remote_tags = result.stdout.strip().split("\n")
         tags = set()
         for remote_tag in remote_tags:
             tags.add(remote_tag.split("refs/tags/")[1].replace("refs/tags/", "^{}"))
         version_tags = sorted(tags)
         if f"v{version}" in version_tags:
-            msg = (
+            error = (
                 f'A "{PYTHON_PACKAGE_NAME}" "v{version}" tag already exists in '
                 f"remote repository!"
             )
-            raise RuntimeError(msg)
+            raise RuntimeError(error)
 
         ctx.run(f"git flow release start v{version}")
         ctx.run(f"git flow release finish v{version}")
