@@ -12,4 +12,4 @@ while preserving visual appearance and detail.
 from . import global_operators
 from .global_operators import *  # noqa: F403
 
-__all__ = global_operators.__all__
+__all__ = list(global_operators.__all__)
