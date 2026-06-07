@@ -16,7 +16,7 @@ from .dng import (
 )
 from .rgb import camera_space_to_RGB, camera_space_to_sRGB
 
-__all__ = datasets.__all__
+__all__ = list(datasets.__all__)
 __all__ += [
     "camera_neutral_to_xy",
     "matrix_camera_space_to_XYZ",
