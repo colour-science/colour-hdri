@@ -1246,7 +1246,7 @@ class NodeCorrectLensAberrationLensFun(ExecutionNode):
         )
 
         self.add_input_port("input_image")
-        self.add_input_port("metadata", 1)
+        self.add_input_port("metadata")
         self.add_input_port("correct_vignette", True)
         self.add_input_port("correct_chromatic_aberration", True)
         self.add_input_port("correct_distortion", True)

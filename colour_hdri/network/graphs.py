@@ -147,10 +147,6 @@ class GraphRawProcessingDNG(ExecutionNode, PortGraph):
             ),
             (
                 ("ReadFileMetadataDNG", "metadata"),
-                ("ComputeInputTransformDNG", "metadata"),
-            ),
-            (
-                ("ReadFileMetadataDNG", "metadata"),
                 ("CorrectLensAberrationLensFun", "metadata"),
             ),
             (
