@@ -195,13 +195,13 @@
 
       function onBeforeAction() {
         lgCanvas.onAfterChange = null;
-      };
+      }
 
-      function onAfterAction () {
+      function onAfterAction() {
         lgCanvas.onAfterChange = onAfterChange;
 
         onAfterChange();
-      };
+      }
 
       lgGraph.onBeforePaste = onBeforeAction;
       lgGraph.onAfterPaste = onAfterAction;
