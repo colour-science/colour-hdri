@@ -7463,8 +7463,7 @@ LGraphNode.prototype.executeAction = function(action)
 
     this.graph.beforeChange();
 
-    if (this.graph.onBeforePaste != null)
-    {
+    if (this.graph.onBeforePaste != null) {
       this.graph.onBeforePaste();
     }
 
@@ -7534,8 +7533,7 @@ LGraphNode.prototype.executeAction = function(action)
 
     this.graph.afterChange();
 
-    if (this.graph.onAfterPaste != null)
-    {
+    if (this.graph.onAfterPaste != null) {
       this.graph.onAfterPaste();
     }
   };
@@ -7800,8 +7798,7 @@ LGraphNode.prototype.executeAction = function(action)
   LGraphCanvas.prototype.deleteSelectedNodes = function () {
     this.graph.beforeChange();
 
-    if (this.graph.onBeforeDelete != null)
-    {
+    if (this.graph.onBeforeDelete != null) {
       this.graph.onBeforeDelete();
     }
 
@@ -7846,8 +7843,7 @@ LGraphNode.prototype.executeAction = function(action)
     this.setDirty(true);
     this.graph.afterChange();
 
-    if (this.graph.onAfterDelete != null)
-    {
+    if (this.graph.onAfterDelete != null) {
       this.graph.onAfterDelete();
     }
   };
@@ -29035,7 +29031,7 @@ float iqnoise( in vec2 x, float u, float v ){\n\
     0.59375, 1.0001, 0.5, 0.875, 0.375, 0.96875, 0.46875, 0.84375, 0.34375,
   ];
 
-  (LGraphShaderDither.dither_func =
+  ((LGraphShaderDither.dither_func =
     "\n\
 		float dither8x8(float brightness) {\n\
 		  vec2 position = vec2(0.0);\n\
@@ -29058,7 +29054,7 @@ float iqnoise( in vec2 x, float u, float v ){\n\
 		  }\n\
 		  return brightness < limit ? 0.0 : 1.0;\n\
 		}\n"),
-    registerShaderNode("math/dither", LGraphShaderDither);
+    registerShaderNode("math/dither", LGraphShaderDither));
 
   function LGraphShaderRemap() {
     this.addInput("", LGShaders.ALL_TYPES);

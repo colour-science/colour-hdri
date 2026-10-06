@@ -682,8 +682,9 @@ class LiteGraphWidget(QWidget):
             if node is not None:
                 lg_node_to_node[lg_node["id"]] = node
                 node.on_process_started.add_listener(
-                    lambda x,
-                    y=[*path, lg_node["id"]]: self._listener_on_process_started(x, y)
+                    lambda x, y=[*path, lg_node["id"]]: (
+                        self._listener_on_process_started(x, y)
+                    )
                 )
                 node.on_process_ended.add_listener(
                     lambda x, y=[*path, lg_node["id"]]: self._listener_on_process_ended(
@@ -691,8 +692,9 @@ class LiteGraphWidget(QWidget):
                     )
                 )
                 node.on_process_exception.add_listener(
-                    lambda x,
-                    y=[*path, lg_node["id"]]: self._listener_on_process_exception(x, y)
+                    lambda x, y=[*path, lg_node["id"]]: (
+                        self._listener_on_process_exception(x, y)
+                    )
                 )
 
                 graph.add_node(node)
