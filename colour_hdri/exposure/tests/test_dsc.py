@@ -22,7 +22,6 @@ __status__ = "Production"
 
 __all__ = [
     "TestQFactor",
-    "TestQFactor",
     "TestFocalPlaneExposure",
     "TestArithmeticMeanFocalPlaneExposure",
     "TestSaturationBasedSpeedFocalPlaneExposure",
