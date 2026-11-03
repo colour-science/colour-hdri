@@ -29,10 +29,10 @@ from colour.algebra import vecmul
 if typing.TYPE_CHECKING:
     from colour.hints import ArrayLike, NDArrayFloat
 
-from colour.models import Lab_to_LCHab  # pyright: ignore
-from colour.models import LCHab_to_Lab  # pyright: ignore
-from colour.models import (
+from colour.models import (  # pyright: ignore
+    Lab_to_LCHab,
     Lab_to_XYZ,
+    LCHab_to_Lab,
     RGB_Colourspace,
     RGB_COLOURSPACE_sRGB,
     RGB_to_XYZ,
