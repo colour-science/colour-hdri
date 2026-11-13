@@ -3,7 +3,7 @@ name = "colour-hdri"
 version = "0.2.6"
 description = "HDRI processing algorithms for Python"
 readme = "README.rst"
-requires-python = ">=3.11,<3.15"
+requires-python = ">=3.13,<3.16"
 authors = [
     { name = "Colour Developers", email = "colour-developers@colour-science.org" },
 ]
@@ -48,8 +48,8 @@ classifiers = [
 dependencies = [
     "colour-science>=0.4.7",
     "imageio>=2,<3",
-    "numpy>=2.0.0,<3",
-    "scipy>=1.13.0,<2",
+    "numpy>=2.2,<3",
+    "scipy>=1.15,<2",
     "typing-extensions>=4,<5",
 ]
 
@@ -57,14 +57,14 @@ dependencies = [
 optional = [
     "colour-datasets>=0.2.7",
     "colour-demosaicing>=0.2.4",
-    "lensfunpy<2;python_version<'3.13'",
-    "matplotlib>=3.9",
-    "networkx>=3.3,<4",
-    "openimageio>=3,<4",
+    "lensfunpy>=1.18,<2;python_version<'3.15'",
+    "matplotlib>=3.10",
+    "networkx>=3.5,<4",
+    "openimageio>=3.1.19,<4",
     "opencv-python>=4,<5",
     "pyside6>=6,<7",
     "pydot>=3,<4",
-    "rawpy<1;python_version<'3.14'",
+    "rawpy>=0.28,<1",
 ]
 docs = [
     "biblib-simple",
@@ -85,7 +85,7 @@ Changelog = "https://github.com/colour-science/colour-hdri/releases"
 package = true
 
 [tool.uv.sources]
-colour-science = { git = "https://github.com/colour-science/colour.git", branch = "feature/delegate" }
+colour-science = { git = "https://github.com/colour-science/colour.git", branch = "feature/array-api-review" }
 
 [dependency-groups]
 dev = [
@@ -153,7 +153,7 @@ reportUnusedExpression = false
 addopts = "--durations=5"
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py313"
 line-length = 88
 select = ["ALL"]
 ignore = [

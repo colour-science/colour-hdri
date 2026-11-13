@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-latest, windows-latest]
-        python-version: [3.11, 3.12, 3.13, 3.14]
+        python-version: [3.13, 3.14, 3.15]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -30,7 +30,7 @@ jobs:
       - name: Install Dependencies (macOS)
         if: matrix.os == 'macOS-latest'
         run: |
-          brew install dcraw exiftool
+          brew install dcraw exiftool libegl1
           brew install --cask adobe-dng-converter
           brew install freeimage
           # TODO: Drop when https://github.com/imageio/imageio/issues/628 is addressed
@@ -39,7 +39,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get --yes install dcraw exiftool
+          sudo apt-get --yes install dcraw exiftool libegl1
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
@@ -85,7 +85,7 @@ jobs:
           uv run python -W ignore -m pytest --doctest-modules --ignore=$CI_PACKAGE/examples --cov=$CI_PACKAGE $CI_PACKAGE
         shell: bash
       - name: Upload Coverage to coveralls.io
-        if: matrix.os == 'macOS-latest' && matrix.python-version == '3.12'
+        if: matrix.os == 'macOS-latest' && matrix.python-version == '3.13'
         run: |
           if [ -z "$COVERALLS_REPO_TOKEN" ]; then echo \"COVERALLS_REPO_TOKEN\" secret is undefined!; else uv run coveralls; fi
         shell: bash

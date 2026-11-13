@@ -1206,10 +1206,10 @@ class NodeProcessRawFileRawpy(ExecutionNode):
             image = raw_file.postprocess(
                 gamma=(1, 1),
                 no_auto_bright=True,
-                demosaic_algorithm=rawpy.DemosaicAlgorithm(12),  # pyright: ignore
-                fbdd_noise_reduction=rawpy.FBDDNoiseReductionMode(2),  # pyright: ignore
-                highlight_mode=rawpy.HighlightMode(5),  # pyright: ignore
-                output_color=rawpy.ColorSpace(0),  # pyright: ignore
+                demosaic_algorithm=rawpy.DemosaicAlgorithm(12),
+                fbdd_noise_reduction=rawpy.FBDDNoiseReductionMode(2),
+                highlight_mode=rawpy.HighlightMode(5),
+                output_color=rawpy.ColorSpace(0),
                 output_bps=16,
                 user_wb=np.hstack(
                     [
