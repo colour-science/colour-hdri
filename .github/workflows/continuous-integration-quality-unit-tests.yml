@@ -30,7 +30,7 @@ jobs:
       - name: Install Dependencies (macOS)
         if: matrix.os == 'macOS-latest'
         run: |
-          brew install dcraw exiftool libegl1
+          brew install dcraw exiftool
           brew install --cask adobe-dng-converter
           brew install freeimage
           # TODO: Drop when https://github.com/imageio/imageio/issues/628 is addressed
