@@ -39,7 +39,7 @@ from colour.models import (
     XYZ_to_Lab,
     XYZ_to_RGB,
 )
-from colour.utilities import tsplit, tstack
+from colour.utilities import as_float_array, tsplit, tstack
 
 __author__ = "Colour Developers"
 __copyright__ = "Copyright 2015 Colour Developers"
@@ -87,7 +87,7 @@ def highlights_recovery_blend(
         ]
     )
 
-    clipping_level = np.min(multipliers) * threshold
+    clipping_level = np.min(as_float_array(multipliers)) * threshold
 
     Lab = vecmul(M, RGB)
 
