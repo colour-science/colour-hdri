@@ -7,9 +7,7 @@ HDRI processing algorithms.
 It is open source and freely available under the
 `BSD-3-Clause <https://opensource.org/licenses/BSD-3-Clause>`__ terms.
 
-..  image:: https://raw.githubusercontent.com/colour-science/colour-hdri/master/docs/_static/Radiance_001.png
-
-.. sectnum::
+..  image:: _static/Radiance_001.png
 
 Features
 --------
