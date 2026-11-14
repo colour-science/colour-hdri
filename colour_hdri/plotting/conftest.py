@@ -24,7 +24,7 @@ __all__ = [
 
 
 @pytest.fixture(autouse=True, scope="session")
-def mpl_headless_backend() -> Generator[None, None, None]:
+def mpl_headless_backend() -> Generator[None]:
     """
     Configure *Matplotlib* for headless testing.
 

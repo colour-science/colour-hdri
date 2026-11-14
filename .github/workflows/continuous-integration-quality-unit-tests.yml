@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-latest, windows-latest]
-        python-version: [3.11, 3.12, 3.13, 3.14]
+        python-version: [3.13, 3.14, 3.15]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -39,14 +39,13 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get --yes install dcraw exiftool
+          sudo apt-get --yes install dcraw exiftool libegl1
+      - name: Install ExifTool (Windows)
+        if: matrix.os == 'windows-latest'
+        run: choco install exiftool --yes --no-progress
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          curl -L https://sourceforge.net/projects/exiftool/files/exiftool-13.42_64.zip/download -o exiftool.zip
-          unzip -d exiftool exiftool.zip
-          cp exiftool/exiftool-13.42_64/exiftool\(-k\).exe exiftool/exiftool-13.42_64/exiftool.exe
-          echo "$PWD/exiftool/exiftool-13.42_64" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
           curl -L https://cdn.fastpictureviewer.com/bin/dcraw.zip?v=201605100 -o dcraw.zip
           unzip -d dcraw dcraw.zip
           echo "$PWD/dcraw" | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/' >> $GITHUB_PATH
@@ -85,7 +84,7 @@ jobs:
           uv run python -W ignore -m pytest --doctest-modules --ignore=$CI_PACKAGE/examples --cov=$CI_PACKAGE $CI_PACKAGE
         shell: bash
       - name: Upload Coverage to coveralls.io
-        if: matrix.os == 'macOS-latest' && matrix.python-version == '3.12'
+        if: matrix.os == 'macOS-latest' && matrix.python-version == '3.13'
         run: |
           if [ -z "$COVERALLS_REPO_TOKEN" ]; then echo \"COVERALLS_REPO_TOKEN\" secret is undefined!; else uv run coveralls; fi
         shell: bash

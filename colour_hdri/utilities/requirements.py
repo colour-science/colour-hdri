@@ -146,10 +146,13 @@ def is_colour_datasets_installed(raise_exception: bool = False) -> bool:
     """
 
     try:  # pragma: no cover
-        import colour_datasets  # noqa: F401
+        import colour_datasets  # noqa: F401, PLC0415
     except ImportError as exception:  # pragma: no cover
         if raise_exception:
-            error = f'"colour-datasets" related API features are not available: "{exception}".'
+            error = (
+                '"colour-datasets" related API features are not available: '
+                f'"{exception}".'
+            )
 
             raise ImportError(error) from exception
 
