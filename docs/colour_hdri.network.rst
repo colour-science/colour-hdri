@@ -20,13 +20,13 @@ Nodes
     NodeCreateBatches
     NodeCreateImageStack
     NodeDownsample
-    NodeFetchCameraSensitivities
+    network.NodeFetchCameraSensitivities
     NodeMergeImageStack
     NodeNormaliseExposure
-    NodeOrient
+    network.NodeOrient
     NodeProcessingMetadata
     NodeProcessRawFileRawpy
-    NodeReadFileExifData
+    network.NodeReadFileExifData
     NodeReadFileMetadataDNG
     NodeReadImage
     NodeRemoveFile

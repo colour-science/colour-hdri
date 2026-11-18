@@ -10,7 +10,7 @@ References
 ----------
 -   :cite:`Banterle2014a` : Banterle, F., & Benedetti, L. (2014). PICCANTE: An
     Open and Portable Library for HDR Imaging.
--   :cite:`Grossberg2003g` : Grossberg, M. D., & Nayar, S. K. (2003).
+-   :cite:`Grossberg2003` : Grossberg, M. D., & Nayar, S. K. (2003).
     Determining the camera response from images: What is knowable? IEEE
     Transactions on Pattern Analysis and Machine Intelligence, 25(11),
     1455-1467. doi:10.1109/TPAMI.2003.1240119
@@ -62,7 +62,7 @@ def samples_Grossberg2003(
 
     References
     ----------
-    :cite:`Banterle2014a`, :cite:`Grossberg2003g`
+    :cite:`Banterle2014a`, :cite:`Grossberg2003`
     """
 
     image_stack = as_float_array(image_stack)
