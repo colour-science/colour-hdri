@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker
 
 if typing.TYPE_CHECKING:
-    from matplotlib.figure import Figure
     from matplotlib.axes import Axes
+    from matplotlib.figure import Figure
 
 import numpy as np
 
